@@ -5,7 +5,8 @@ import type { AppProps } from 'next/app';
 import { useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
-import suwikiTheme from '@/public/theme/theme';
+import Layout from '@/components/Layout/layout';
+import polzzakTheme from '@/public/theme/theme';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -22,8 +23,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ChakraProvider theme={suwikiTheme}>
-          <Component {...pageProps} />
+        <ChakraProvider theme={polzzakTheme}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ChakraProvider>
       </Hydrate>
     </QueryClientProvider>
