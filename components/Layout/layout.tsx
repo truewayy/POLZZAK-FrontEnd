@@ -10,6 +10,7 @@ function Layout({ children }: Props) {
       align="stretch"
       justify="stretch"
       maxW="560px"
+      p="0 5%"
       m="auto"
       minH="100vh"
       spacing={0}
