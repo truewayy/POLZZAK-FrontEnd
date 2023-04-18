@@ -1,6 +1,10 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const polzzakTheme = extendTheme({
+  fonts: {
+    heading: 'Pretendard Variable',
+    body: 'Pretendard Variable',
+  },
   colors: {
     polzzak: {
       default: '#59B9FF',

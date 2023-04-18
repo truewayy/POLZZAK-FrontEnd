@@ -1,5 +1,3 @@
-import '@/styles/style.css';
-
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
