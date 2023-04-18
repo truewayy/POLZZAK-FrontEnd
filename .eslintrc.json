@@ -10,7 +10,8 @@
     "airbnb-typescript",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "prettier"
+    "prettier",
+    "plugin:storybook/recommended"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
@@ -24,6 +25,15 @@
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false,
+        "packageDir": "./"
+      }
+    ],
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-use-before-define": "off",
     "react/jsx-props-no-spreading": "off",

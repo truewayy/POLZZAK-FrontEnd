@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react';
 
-interface LoginButtonProps {
+export interface LoginButtonProps {
   type: 'kakao' | 'naver' | 'apple' | 'google';
 }
 
