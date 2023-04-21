@@ -1,11 +1,11 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react';
 
 import LoginButton from '@/components/Login/Button';
-import MainCharactors from '@/public/icon';
+import { MainCharactors } from '@/public/icon';
 
 export default function Home() {
   return (
-    <VStack m="auto 0" gap={30}>
+    <VStack m="auto 0" p="0 5%" gap={30}>
       <HStack w="90%" justify="space-between" align="flex-start" pos="relative">
         <VStack
           justify="center"
