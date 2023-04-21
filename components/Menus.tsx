@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { AlertIcon, CouponIcon, MainIcon, ProfileIcon } from '@/public/icon';
 
-const menus = [
+export const menus = [
   {
     name: '메인',
     path: '/main',
