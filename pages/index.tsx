@@ -1,11 +1,13 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react';
 
+import SEO from '@/components/Common/SEO';
 import LoginButton from '@/components/Login/Button';
 import { MainCharactors } from '@/public/icon';
 
 export default function Home() {
   return (
     <VStack m="auto 0" p="0 5%" gap={30}>
+      <SEO title="Polzzak" />
       <HStack w="90%" justify="space-between" align="flex-start" pos="relative">
         <VStack
           justify="center"
