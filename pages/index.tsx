@@ -29,7 +29,7 @@ export default function Home() {
             워요
           </Text>
         </VStack>
-        <MainCharactors w={100} h={220} />
+        <MainCharactors w={125} h={300} />
         <Box
           pos="absolute"
           w={200}
@@ -53,8 +53,6 @@ export default function Home() {
 
       <VStack w="100%">
         <LoginButton type="kakao" />
-        <LoginButton type="naver" />
-        <LoginButton type="apple" />
         <LoginButton type="google" />
       </VStack>
     </VStack>

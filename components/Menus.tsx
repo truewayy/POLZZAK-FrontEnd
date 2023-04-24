@@ -32,13 +32,14 @@ const Menus = () => {
   return (
     <Grid
       templateColumns="repeat(4, 1fr)"
+      maxW="560px"
       w="100%"
       p="8px 0"
       position="fixed"
       bottom="0"
     >
       {menus.map(({ name, path, icon }) => (
-        <VStack key={name} onClick={() => push(path)}>
+        <VStack key={name} onClick={() => push(path)} cursor="pointer">
           <Box fill={currentPath(path) ? '#59B9FF' : '#E6E4E2'}>{icon}</Box>
           <Box fontSize={12} color={currentPath(path) ? '#928E8B' : '#E6E4E2'}>
             {name}
