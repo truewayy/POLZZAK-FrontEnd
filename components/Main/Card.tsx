@@ -4,7 +4,21 @@ import { ArrowIcon, HandIcon } from '@/public/icon';
 
 import ProgressCircle from './ProgressCircle';
 
-const Card = () => (
+interface CardProps {
+  title: string;
+  currentStamp: number;
+  totalStamp: number;
+  requestCount: number;
+  reward: string;
+}
+
+const Card = ({
+  title,
+  currentStamp,
+  totalStamp,
+  requestCount,
+  reward,
+}: CardProps) => (
   <VStack
     w="100%"
     minH="390px"
@@ -19,17 +33,17 @@ const Card = () => (
     <VStack w="100%" spacing="0px">
       <Flex w="100%" justifyContent="space-between" align="center">
         <Text layerStyle="head18B" color="#3F3D3B">
-          혜인이의 도장판
+          {title}
         </Text>
         <ArrowIcon w={4} h={4} />
       </Flex>
       <Text w="100%" layerStyle="body13M" color="#312F2E" textAlign="left">
-        90% 완성됐어요!
+        {(currentStamp / totalStamp) * 100}% 완성됐어요!
       </Text>
     </VStack>
     <Box w="100%" pos="absolute" top="20%">
       <Box w="100%" pos="relative">
-        <ProgressCircle percentage={(18 / 20) * 100} />
+        <ProgressCircle percentage={(currentStamp / totalStamp) * 100} />
         <VStack
           pos="absolute"
           top="35%"
@@ -38,15 +52,15 @@ const Card = () => (
         >
           <Box>
             <Text as="span" layerStyle="highlight24SB" color="polzzak.default">
-              18
+              {currentStamp}
             </Text>
             <Text as="span" layerStyle="body14L" color="#312F2E">
-              /20
+              /{totalStamp}
             </Text>
           </Box>
           <HandIcon w={10} h={10} />
           <Text layerStyle="highlight16SB" color="#47B2FF">
-            요청 3개
+            요청 {requestCount}개
           </Text>
         </VStack>
       </Box>
@@ -61,7 +75,7 @@ const Card = () => (
       >
         보상
       </Box>
-      <Text layerStyle="caption12SB">아이유 2023 콘서트 티켓</Text>
+      <Text layerStyle="caption12SB">{reward}</Text>
     </Flex>
   </VStack>
 );
