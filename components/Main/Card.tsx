@@ -38,7 +38,7 @@ const Card = ({
         <ArrowIcon w={4} h={4} />
       </Flex>
       <Text w="100%" layerStyle="body13M" color="#312F2E" textAlign="left">
-        {(currentStamp / totalStamp) * 100}% 완성됐어요!
+        {((currentStamp / totalStamp) * 100).toFixed(0)}% 완성됐어요!
       </Text>
     </VStack>
     <Box w="100%" pos="absolute" top="20%">
