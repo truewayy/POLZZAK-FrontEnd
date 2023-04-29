@@ -18,8 +18,6 @@ function Layout({ children }: Props) {
       m="auto"
       minH="100vh"
       spacing={0}
-      overflow="hidden"
-      overscrollBehavior="contain"
     >
       {children}
       {isMenu && <Menus />}
