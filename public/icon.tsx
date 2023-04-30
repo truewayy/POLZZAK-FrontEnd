@@ -406,3 +406,43 @@ export const GoogleIcon = createIcon({
     </svg>
   ),
 });
+
+export const PullingIcon = createIcon({
+  displayName: 'PullingIcon',
+  viewBox: '0 0 146 226',
+  path: (
+    <svg
+      width="146"
+      height="226"
+      viewBox="0 0 146 226"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M130.651 156.637L73.054 210.547L15.458 156.637"
+        stroke="#0D7AD3"
+        strokeWidth="30"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <g opacity="0.8">
+        <path
+          d="M130.651 85.6538L73.054 139.564L15.458 85.6538"
+          stroke="#259BEF"
+          strokeWidth="30"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <g opacity="0.5">
+        <path
+          d="M130.651 15.4717L73.054 69.3837L15.458 15.4717"
+          stroke="#84CCFF"
+          strokeWidth="30"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+    </svg>
+  ),
+});
