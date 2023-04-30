@@ -23,16 +23,6 @@ Kakao.args = {
   type: 'kakao',
 };
 
-export const Naver = Template.bind({});
-Naver.args = {
-  type: 'naver',
-};
-
-export const Apple = Template.bind({});
-Apple.args = {
-  type: 'apple',
-};
-
 export const Google = Template.bind({});
 Google.args = {
   type: 'google',
