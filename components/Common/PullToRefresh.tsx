@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Spinner } from '@chakra-ui/react';
 import { useDrag } from '@use-gesture/react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -9,14 +9,14 @@ type PullStatus = 'pulling' | 'canRelease' | 'refreshing' | 'complete';
 
 type PullToRefreshProps = {
   onRefresh: () => Promise<any>;
-  pullingText: React.ReactNode;
-  canReleaseText: React.ReactNode;
-  refreshingText: React.ReactNode;
-  completeText: React.ReactNode;
-  completeDelay: number;
-  headHeight: number;
-  threshold: number;
-  disabled: boolean;
+  pullingText?: React.ReactNode;
+  canReleaseText?: React.ReactNode;
+  refreshingText?: React.ReactNode;
+  completeText?: React.ReactNode;
+  completeDelay?: number;
+  headHeight?: number;
+  threshold?: number;
+  disabled?: boolean;
   children: React.ReactNode;
 };
 
@@ -196,3 +196,14 @@ const PullToRefresh = ({
 };
 
 export default PullToRefresh;
+
+PullToRefresh.defaultProps = {
+  pullingText: '당겨서 새로고침',
+  canReleaseText: '놓아서 새로고침',
+  refreshingText: <Spinner />,
+  completeText: '새로고침 완료',
+  headHeight: 40,
+  threshold: 60,
+  disabled: false,
+  completeDelay: 500,
+};
