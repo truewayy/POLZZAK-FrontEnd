@@ -209,7 +209,7 @@ const PullToRefreshView = ({
   children,
   ...restProps
 }: PullToRefreshVAProps) => {
-  const renderStatusText = {
+  const renderStatusComponent = {
     pulling: restProps.pullingComponent,
     canRelease: restProps.canReleaseComponent,
     refreshing: restProps.refreshingComponent,
@@ -227,7 +227,7 @@ const PullToRefreshView = ({
           align="flex-end"
           justify="center"
         >
-          {renderStatusText[status]}
+          {renderStatusComponent[status]}
         </Flex>
       </Box>
       <Box>{children}</Box>
