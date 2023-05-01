@@ -12,6 +12,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 import PullToRefresh from '@/components/Common/PullToRefresh';
+import SEO from '@/components/Common/SEO';
 import Card from '@/components/Main/Card';
 import { KidsIcon } from '@/public/icon';
 
@@ -52,12 +53,12 @@ const stampData = [
 ];
 
 const Main = () => {
-  const [data, setData] = useState<StampData[]>(stampData);
+  const [cards, setCard] = useState<StampData[]>(stampData);
 
   const handleRefresh = async () => {
     try {
       const response: StampData[] = await axios.get('/api/stamp');
-      setData(response);
+      setCard(response);
     } catch (error) {
       console.log(error);
     }
@@ -65,6 +66,7 @@ const Main = () => {
 
   return (
     <VStack>
+      <SEO title="Polzzak | 메인" />
       <Flex w="100%" p="10px 5% 0px 5%" justify="flex-start" bg="white">
         <KidsIcon w={19} h={19} cursor="pointer" />
       </Flex>
@@ -94,7 +96,7 @@ const Main = () => {
                 쿼카
               </Text>
               <VStack w="100%" spacing="20px">
-                {data.map(
+                {cards.map(
                   ({
                     id,
                     title,

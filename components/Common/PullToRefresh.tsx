@@ -2,6 +2,7 @@ import { Box, Flex, Spinner } from '@chakra-ui/react';
 import { useDrag } from '@use-gesture/react';
 import { useEffect, useRef, useState } from 'react';
 
+import { PullingIcon } from '@/public/icon';
 import getScrollParent from '@/utils/getScrollParent';
 import sleep from '@/utils/sleep';
 
@@ -25,7 +26,7 @@ const PullToRefresh = ({
   threshold = 60,
   onRefresh,
   disabled = false,
-  completeDelay = 500,
+  completeDelay = 0,
   children,
   ...restProps
 }: PullToRefreshProps) => {
@@ -46,7 +47,7 @@ const PullToRefresh = ({
     requestAnimationFrame(function animate() {
       const currentHeight = headRef.current!.clientHeight;
       if (currentHeight > height) {
-        const decreasing = currentHeight - height > 20 ? 5 : 1;
+        const decreasing = currentHeight - height > 20 ? 10 : 1;
         headRef.current!.style.height = `${currentHeight - decreasing}px`;
         requestRef.current = requestAnimationFrame(animate);
       }
@@ -80,7 +81,7 @@ const PullToRefresh = ({
     setStatus('refreshing');
     try {
       await onRefresh?.();
-      await sleep(completeDelay);
+      await sleep(500);
       setStatus('complete');
     } catch (e) {
       slideDown(0, () => {
@@ -96,7 +97,6 @@ const PullToRefresh = ({
     slideDown(0, () => {
       setStatus('pulling');
     });
-    setStatus('pulling');
   };
 
   useDrag(
@@ -198,12 +198,16 @@ const PullToRefresh = ({
 export default PullToRefresh;
 
 PullToRefresh.defaultProps = {
-  pullingText: '당겨서 새로고침',
-  canReleaseText: '놓아서 새로고침',
-  refreshingText: <Spinner />,
-  completeText: '새로고침 완료',
+  pullingText: <PullingIcon w={33} h={33} />,
+  canReleaseText: <PullingIcon w={33} h={33} />,
+  refreshingText: (
+    <Spinner color="polzzak.default" emptyColor="white" thickness="3px" />
+  ),
+  completeText: (
+    <Spinner color="polzzak.default" emptyColor="white" thickness="3px" />
+  ),
   headHeight: 40,
   threshold: 60,
   disabled: false,
-  completeDelay: 500,
+  completeDelay: 0,
 };
