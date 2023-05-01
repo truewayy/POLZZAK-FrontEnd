@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { Box, Flex, Spinner } from '@chakra-ui/react';
 import { useDrag } from '@use-gesture/react';
 import { useEffect, useRef, useState } from 'react';
@@ -8,27 +9,34 @@ import sleep from '@/utils/sleep';
 
 type PullStatus = 'pulling' | 'canRelease' | 'refreshing' | 'complete';
 
-type PullToRefreshProps = {
+interface PullToRefreshProps {
   onRefresh: () => Promise<any>;
-  pullingText?: React.ReactNode;
-  canReleaseText?: React.ReactNode;
-  refreshingText?: React.ReactNode;
-  completeText?: React.ReactNode;
+  pullingComponent?: React.ReactNode;
+  canReleaseComponent?: React.ReactNode;
+  refreshingComponent?: React.ReactNode;
+  completeComponent?: React.ReactNode;
   completeDelay?: number;
   headHeight?: number;
   threshold?: number;
   disabled?: boolean;
   children: React.ReactNode;
-};
+}
 
 const PullToRefresh = ({
+  onRefresh,
+  pullingComponent = <PullingIcon w={33} h={33} />,
+  canReleaseComponent = <PullingIcon w={33} h={33} />,
+  refreshingComponent = (
+    <Spinner color="polzzak.default" emptyColor="white" thickness="3px" />
+  ),
+  completeComponent = (
+    <Spinner color="polzzak.default" emptyColor="white" thickness="3px" />
+  ),
   headHeight = 40,
   threshold = 60,
-  onRefresh,
   disabled = false,
   completeDelay = 0,
   children,
-  ...restProps
 }: PullToRefreshProps) => {
   const [status, setStatus] = useState<PullStatus>('pulling');
   const requestRef = useRef<number>(0);
@@ -166,15 +174,47 @@ const PullToRefresh = ({
     }
   );
 
-  const renderStatusText = () => {
-    if (status === 'pulling') return restProps.pullingText ?? 'pulling';
-    if (status === 'canRelease')
-      return restProps.canReleaseText ?? 'canRelease';
-    if (status === 'refreshing')
-      return restProps.refreshingText ?? 'refreshing';
-    if (status === 'complete') return restProps.completeText ?? 'complete';
+  const PullToRefreshVAProps: PullToRefreshVAProps = {
+    status,
+    pullingComponent,
+    canReleaseComponent,
+    refreshingComponent,
+    completeComponent,
+    elementRef,
+    headRef,
+    headHeight,
+    children,
   };
 
+  return <PullToRefreshView {...PullToRefreshVAProps} />;
+};
+
+interface PullToRefreshVAProps {
+  status: PullStatus;
+  pullingComponent: React.ReactNode;
+  canReleaseComponent: React.ReactNode;
+  refreshingComponent: React.ReactNode;
+  completeComponent: React.ReactNode;
+  elementRef: React.RefObject<HTMLDivElement>;
+  headRef: React.RefObject<HTMLDivElement>;
+  headHeight: number;
+  children: React.ReactNode;
+}
+
+const PullToRefreshView = ({
+  status,
+  elementRef,
+  headRef,
+  headHeight,
+  children,
+  ...restProps
+}: PullToRefreshVAProps) => {
+  const renderStatusText = {
+    pulling: restProps.pullingComponent,
+    canRelease: restProps.canReleaseComponent,
+    refreshing: restProps.refreshingComponent,
+    complete: restProps.completeComponent,
+  };
   return (
     <Box ref={elementRef}>
       <Box ref={headRef} overflow="hidden" pos="relative">
@@ -187,7 +227,7 @@ const PullToRefresh = ({
           align="flex-end"
           justify="center"
         >
-          {renderStatusText()}
+          {renderStatusText[status]}
         </Flex>
       </Box>
       <Box>{children}</Box>
@@ -196,18 +236,3 @@ const PullToRefresh = ({
 };
 
 export default PullToRefresh;
-
-PullToRefresh.defaultProps = {
-  pullingText: <PullingIcon w={33} h={33} />,
-  canReleaseText: <PullingIcon w={33} h={33} />,
-  refreshingText: (
-    <Spinner color="polzzak.default" emptyColor="white" thickness="3px" />
-  ),
-  completeText: (
-    <Spinner color="polzzak.default" emptyColor="white" thickness="3px" />
-  ),
-  headHeight: 40,
-  threshold: 60,
-  disabled: false,
-  completeDelay: 0,
-};
