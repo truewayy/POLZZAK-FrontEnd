@@ -3,9 +3,10 @@ import 'react-spring-bottom-sheet/dist/style.css';
 import { Skeleton, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { filterAtom } from '@/store/filter';
+import userInfoAtom from '@/store/userInfo';
 
 import PullToRefresh from '../Common/PullToRefresh';
 import Card from './Card';
@@ -49,6 +50,7 @@ const stampData = [
 const ProgressingStamps = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [cards, setCard] = useState<StampData[]>(stampData);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const filter = useRecoilValue(filterAtom);
 
   const handleRefresh = async () => {
@@ -66,6 +68,17 @@ const ProgressingStamps = () => {
       setIsLoading(false);
     }, 500);
   }, [filter]);
+
+  useEffect(() => {
+    if (!userInfo.chain.length) {
+      setUserInfo({
+        type: '',
+        nickname: '',
+        profileImage: '',
+        chain: ['전체', '쿼카', '멜론수박', '아이유', '가나다라'],
+      });
+    }
+  }, [userInfo, setUserInfo]);
 
   const ProgressingStampsVAProps = {
     handleRefresh,
