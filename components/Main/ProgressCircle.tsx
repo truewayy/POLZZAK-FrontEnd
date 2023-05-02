@@ -5,7 +5,7 @@ interface ProgressCircleProps {
 }
 
 const calculateDegreesFromPercentage = (percentage: number) =>
-  (240 / 100) * percentage;
+  (280 / 100) * percentage;
 
 const calculateDash = (degrees: number) =>
   ((degrees * Math.PI) / 180) * 0.5 * 40;
@@ -13,13 +13,13 @@ const calculateDash = (degrees: number) =>
 const ProgressCircle = ({ percentage }: ProgressCircleProps) => {
   const percentageDegrees = calculateDegreesFromPercentage(percentage);
 
-  const barDash = calculateDash(240);
-  const barGap = calculateDash(360 - 240) * 2;
+  const barDash = calculateDash(280);
+  const barGap = calculateDash(360 - 280) * 2;
 
   const progressDash = calculateDash(percentageDegrees);
   const progressGap = calculateDash(360 - percentageDegrees) * 2;
 
-  const rotation = 0 - (240 - percentageDegrees) / 2;
+  const rotation = 0 - (280 - percentageDegrees) / 2;
 
   return (
     <Svg viewBox="0 0 100 100">

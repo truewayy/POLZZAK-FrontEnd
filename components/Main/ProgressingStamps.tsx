@@ -1,6 +1,12 @@
-import { Text, VStack } from '@chakra-ui/react';
+import 'react-spring-bottom-sheet/dist/style.css';
+
+import { Skeleton, VStack } from '@chakra-ui/react';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
+import { filterAtom } from '@/store/filter';
+import userInfoAtom from '@/store/userInfo';
 
 import PullToRefresh from '../Common/PullToRefresh';
 import Card from './Card';
@@ -42,7 +48,10 @@ const stampData = [
 ];
 
 const ProgressingStamps = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [cards, setCard] = useState<StampData[]>(stampData);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+  const filter = useRecoilValue(filterAtom);
 
   const handleRefresh = async () => {
     try {
@@ -53,12 +62,34 @@ const ProgressingStamps = () => {
     }
   };
 
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }, [filter]);
+
+  useEffect(() => {
+    if (!userInfo.chain.length) {
+      setUserInfo({
+        type: '',
+        nickname: '',
+        profileImage: '',
+        chain: ['전체', '쿼카', '멜론수박', '아이유', '가나다라'],
+      });
+    }
+  }, [userInfo, setUserInfo]);
+
   const ProgressingStampsVAProps = {
     handleRefresh,
     cards,
   };
 
-  return <ProgressingStampsView {...ProgressingStampsVAProps} />;
+  return isLoading ? (
+    <ProgressingStampsSkeleton />
+  ) : (
+    <ProgressingStampsView {...ProgressingStampsVAProps} />
+  );
 };
 
 interface ProgressingStampsVAProps {
@@ -71,9 +102,6 @@ const ProgressingStampsView = ({
   cards,
 }: ProgressingStampsVAProps) => (
   <PullToRefresh onRefresh={handleRefresh}>
-    <Text layerStyle="head20B" p="20px 0">
-      쿼카
-    </Text>
     <VStack w="100%" spacing="20px">
       {cards.map(
         ({ id, title, currentStamp, totalStamp, requestCount, reward }) => (
@@ -89,6 +117,13 @@ const ProgressingStampsView = ({
       )}
     </VStack>
   </PullToRefresh>
+);
+
+const ProgressingStampsSkeleton = () => (
+  <VStack w="100%" spacing="20px">
+    <Skeleton w="100%" borderRadius="8px" height="400px" />
+    <Skeleton w="100%" borderRadius="8px" height="400px" />
+  </VStack>
 );
 
 export default ProgressingStamps;

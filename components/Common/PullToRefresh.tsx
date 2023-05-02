@@ -27,12 +27,12 @@ const PullToRefresh = ({
   pullingComponent = <PullingIcon w={33} h={33} />,
   canReleaseComponent = <PullingIcon w={33} h={33} />,
   refreshingComponent = (
-    <Spinner color="polzzak.default" emptyColor="white" thickness="3px" />
+    <Spinner color="blue.400" emptyColor="polzzak.disabled" thickness="3px" />
   ),
   completeComponent = (
-    <Spinner color="polzzak.default" emptyColor="white" thickness="3px" />
+    <Spinner color="blue.400" emptyColor="polzzak.disabled" thickness="3px" />
   ),
-  headHeight = 40,
+  headHeight = 50,
   threshold = 60,
   disabled = false,
   completeDelay = 0,
@@ -223,6 +223,7 @@ const PullToRefreshView = ({
           bottom={0}
           left={0}
           w="100%"
+          mb="20px"
           h={headHeight}
           align="flex-end"
           justify="center"
