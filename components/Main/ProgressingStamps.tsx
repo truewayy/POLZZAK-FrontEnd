@@ -1,6 +1,11 @@
-import { Text, VStack } from '@chakra-ui/react';
+import 'react-spring-bottom-sheet/dist/style.css';
+
+import { Skeleton, VStack } from '@chakra-ui/react';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+
+import { filterAtom } from '@/store/filter';
 
 import PullToRefresh from '../Common/PullToRefresh';
 import Card from './Card';
@@ -42,7 +47,9 @@ const stampData = [
 ];
 
 const ProgressingStamps = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [cards, setCard] = useState<StampData[]>(stampData);
+  const filter = useRecoilValue(filterAtom);
 
   const handleRefresh = async () => {
     try {
@@ -53,12 +60,23 @@ const ProgressingStamps = () => {
     }
   };
 
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }, [filter]);
+
   const ProgressingStampsVAProps = {
     handleRefresh,
     cards,
   };
 
-  return <ProgressingStampsView {...ProgressingStampsVAProps} />;
+  return isLoading ? (
+    <ProgressingStampsSkeleton />
+  ) : (
+    <ProgressingStampsView {...ProgressingStampsVAProps} />
+  );
 };
 
 interface ProgressingStampsVAProps {
@@ -71,9 +89,6 @@ const ProgressingStampsView = ({
   cards,
 }: ProgressingStampsVAProps) => (
   <PullToRefresh onRefresh={handleRefresh}>
-    <Text layerStyle="head20B" p="20px 0">
-      쿼카
-    </Text>
     <VStack w="100%" spacing="20px">
       {cards.map(
         ({ id, title, currentStamp, totalStamp, requestCount, reward }) => (
@@ -89,6 +104,13 @@ const ProgressingStampsView = ({
       )}
     </VStack>
   </PullToRefresh>
+);
+
+const ProgressingStampsSkeleton = () => (
+  <VStack w="100%" spacing="20px">
+    <Skeleton w="100%" borderRadius="8px" height="400px" />
+    <Skeleton w="100%" borderRadius="8px" height="400px" />
+  </VStack>
 );
 
 export default ProgressingStamps;
