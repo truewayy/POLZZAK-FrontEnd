@@ -21,8 +21,8 @@ const Card = ({
 }: CardProps) => (
   <VStack
     w="100%"
-    minH="390px"
-    p="16px"
+    minH="400px"
+    p="20px"
     bg="white"
     boxShadow="0px 2px 8px rgba(99, 99, 99, 0.2)"
     border="1px solid #E6E4E2"
@@ -32,21 +32,18 @@ const Card = ({
   >
     <VStack w="100%" spacing="0px">
       <Flex w="100%" justifyContent="space-between" align="center">
-        <Text layerStyle="head18B" color="#3F3D3B">
+        <Text layerStyle="head20B" color="#3F3D3B">
           {title}
         </Text>
         <ArrowIcon w={4} h={4} />
       </Flex>
-      <Text w="100%" layerStyle="body13M" color="#312F2E" textAlign="left">
-        {((currentStamp / totalStamp) * 100).toFixed(0)}% 완성됐어요!
-      </Text>
     </VStack>
-    <Box w="100%" pos="absolute" top="20%">
+    <Box w="100%" pos="absolute" top="12%">
       <Box w="100%" pos="relative">
         <ProgressCircle percentage={(currentStamp / totalStamp) * 100} />
         <VStack
           pos="absolute"
-          top="35%"
+          top="25%"
           left="50%"
           transform="translate(-50%, 0%)"
         >
@@ -54,14 +51,20 @@ const Card = ({
             <Text as="span" layerStyle="highlight24SB" color="polzzak.default">
               {currentStamp}
             </Text>
-            <Text as="span" layerStyle="body14L" color="#312F2E">
+            <Text as="span" layerStyle="body16M" color="gray.400">
               /{totalStamp}
             </Text>
           </Box>
-          <HandIcon w={10} h={10} />
-          <Text layerStyle="highlight16SB" color="#47B2FF">
-            요청 {requestCount}개
-          </Text>
+          <HandIcon w={76} h={67} />
+          <Box
+            layerStyle="highlight14SB"
+            color="#47B2FF"
+            bg="blue.100"
+            p="2px 12px"
+            borderRadius="10px"
+          >
+            도장 요청 {requestCount}개
+          </Box>
         </VStack>
       </Box>
     </Box>
@@ -69,13 +72,13 @@ const Card = ({
       <Box
         layerStyle="caption10SB"
         color="white"
-        p="5px 6px"
+        p="4px 6px"
         bg="blue.400"
         borderRadius="4px"
       >
         보상
       </Box>
-      <Text layerStyle="caption12SB">{reward}</Text>
+      <Text layerStyle="highlight14SB">{reward}</Text>
     </Flex>
   </VStack>
 );
