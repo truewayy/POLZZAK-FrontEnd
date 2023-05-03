@@ -33,9 +33,11 @@ const LinkedFilterView = ({
   >
     <Text layerStyle="head20B">
       {currentValue}
-      <Text as="span" layerStyle="body18R">
-        님과 함께해요
-      </Text>
+      {currentValue !== '전체' && (
+        <Text as="span" layerStyle="body18R">
+          님과 함께해요
+        </Text>
+      )}
     </Text>
     <FilterArrowIcon w={5} h={5} />
   </Flex>
