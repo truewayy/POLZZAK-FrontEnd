@@ -70,12 +70,12 @@ const ProgressingStamps = () => {
   }, [filter]);
 
   useEffect(() => {
-    if (!userInfo.chain.length) {
+    if (!userInfo.chains.length) {
       setUserInfo({
         type: '',
         nickname: '',
         profileImage: '',
-        chain: ['전체', '쿼카', '멜론수박', '아이유', '가나다라'],
+        chains: ['전체', '쿼카', '멜론수박', '아이유', '가나다라'],
       });
     }
   }, [userInfo, setUserInfo]);

@@ -3,13 +3,20 @@ import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
 
-const userInfoAtom = atom({
+interface UserInfo {
+  type: string;
+  nickname: string;
+  profileImage: string;
+  chains: string[];
+}
+
+const userInfoAtom = atom<UserInfo>({
   key: 'userInfoAtom',
   default: {
     type: '',
     nickname: '',
     profileImage: '',
-    chain: [],
+    chains: [],
   },
   effects_UNSTABLE: [persistAtom],
 });
