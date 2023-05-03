@@ -1,6 +1,6 @@
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 
-import { ArrowIcon, HandIcon } from '@/public/icon';
+import { ArrowIcon, CompleteIcon, HandIcon } from '@/public/icon';
 
 import ProgressCircle from './ProgressCircle';
 
@@ -55,16 +55,46 @@ const Card = ({
               /{totalStamp}
             </Text>
           </Box>
-          <HandIcon w={76} h={67} />
-          <Box
-            layerStyle="highlight14SB"
-            color="#47B2FF"
-            bg="blue.100"
-            p="2px 12px"
-            borderRadius="10px"
-          >
-            도장 요청 {requestCount}개
-          </Box>
+          {currentStamp === totalStamp && (
+            <Box
+              bg="#FE6E6E"
+              borderRadius="10px"
+              p="4px 12px"
+              color="white"
+              layerStyle="highlight14SB"
+              pos="relative"
+            >
+              쿠폰을 발급해주세요!
+              <Box
+                w={0}
+                h={0}
+                pos="absolute"
+                bottom="-15px"
+                left="50%"
+                transform="translate(-50%, 0%)"
+                borderLeft="10px solid transparent"
+                borderRight="10px solid transparent"
+                borderTop="10px solid #FE6E6E"
+                borderBottom="10px solid transparent"
+              />
+            </Box>
+          )}
+          {currentStamp !== totalStamp ? (
+            <HandIcon w={76} h={67} />
+          ) : (
+            <CompleteIcon w={76} h={67} />
+          )}
+          {currentStamp !== totalStamp && (
+            <Box
+              layerStyle="highlight14SB"
+              color="#47B2FF"
+              bg="blue.100"
+              p="2px 12px"
+              borderRadius="10px"
+            >
+              도장 요청 {requestCount}개
+            </Box>
+          )}
         </VStack>
       </Box>
     </Box>
