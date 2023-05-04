@@ -1,26 +1,7 @@
 import { Box, Text, VStack } from '@chakra-ui/react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
-import { useRecoilValue } from 'recoil';
 
-import useControlFilter from '@/hooks/useControlFilter';
 import { CheckIcon } from '@/public/icon';
-import userInfoAtom from '@/store/userInfo';
-
-const BottomSheetModal = () => {
-  const { handleClickFilter, handleChangeFilter, filterOn, currentValue } =
-    useControlFilter();
-  const { chains } = useRecoilValue(userInfoAtom);
-
-  const BottomSheetModalVAProps: BottomSheetModalVAProps = {
-    handleClickFilter,
-    handleChangeFilter,
-    filterOn,
-    currentValue,
-    chains,
-  };
-
-  return <BottomSheetModalView {...BottomSheetModalVAProps} />;
-};
 
 interface BottomSheetModalVAProps {
   handleClickFilter: () => void;
@@ -84,4 +65,4 @@ const BottomSheetModalView = ({
   </BottomSheet>
 );
 
-export default BottomSheetModal;
+export default BottomSheetModalView;

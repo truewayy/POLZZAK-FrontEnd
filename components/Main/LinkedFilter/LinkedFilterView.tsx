@@ -1,18 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 
-import useControlFilter from '@/hooks/useControlFilter';
 import { FilterArrowIcon } from '@/public/icon';
-
-const LinkedFilter = () => {
-  const { handleClickFilter, currentValue } = useControlFilter();
-
-  const LinkedFilterVAProps = {
-    handleClickFilter,
-    currentValue,
-  };
-
-  return <LinkedFilterView {...LinkedFilterVAProps} />;
-};
 
 interface LinkedFilterVAProps {
   handleClickFilter: () => void;
@@ -43,4 +31,4 @@ const LinkedFilterView = ({
   </Flex>
 );
 
-export default LinkedFilter;
+export default LinkedFilterView;

@@ -1,7 +1,7 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react';
 
 import SEO from '@/components/Common/SEO';
-import LoginButton from '@/components/Login/Button';
+import LoginButton from '@/components/Login/Button/Button';
 import { MainCharactors } from '@/public/icon';
 
 export default function Home() {
