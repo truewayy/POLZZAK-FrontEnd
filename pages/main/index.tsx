@@ -9,9 +9,9 @@ import {
 } from '@chakra-ui/react';
 
 import SEO from '@/components/Common/SEO';
-import BottomSheetModal from '@/components/Main/BottomSheetModal';
-import LinkedFilter from '@/components/Main/LinkedFilter';
-import ProgressingStamps from '@/components/Main/ProgressingStamps';
+import BottomSheetModal from '@/components/Main/BottomSheetModal/BottomSheetModal';
+import LinkedFilter from '@/components/Main/LinkedFilter/LinkedFilter';
+import ProgressingStamps from '@/components/Main/ProgressingStamps/ProgressingStamps';
 import { LinkIcon } from '@/public/icon';
 
 const Main = () => (

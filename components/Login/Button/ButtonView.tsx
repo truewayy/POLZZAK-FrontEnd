@@ -1,35 +1,8 @@
 import { Button } from '@chakra-ui/react';
 
-import ROUTES from '@/constants/routes';
 import { GoogleIcon, KakaoIcon } from '@/public/icon';
 
 type LoginType = 'kakao' | 'google';
-
-export interface LoginButtonProps {
-  type: LoginType;
-}
-
-const LoginButton = ({ type }: LoginButtonProps) => {
-  const handleClick = () => {
-    switch (type) {
-      case 'kakao':
-        window.location.href = ROUTES.KAKAO_LOGIN;
-        break;
-      case 'google':
-        window.location.href = ROUTES.GOOGLE_LOGIN;
-        break;
-      default:
-        break;
-    }
-  };
-
-  const LoginButtonVAProps: LoginButtonVAProps = {
-    type,
-    handleClick,
-  };
-
-  return <LoginButtonView {...LoginButtonVAProps} />;
-};
 
 interface LoginButtonVAProps {
   type: LoginType;
@@ -72,4 +45,4 @@ const LoginButtonView = ({ type, handleClick }: LoginButtonVAProps) => {
   );
 };
 
-export default LoginButton;
+export default LoginButtonView;

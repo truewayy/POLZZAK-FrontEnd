@@ -3,7 +3,9 @@ import { Meta, StoryFn } from '@storybook/react';
 
 import polzzakTheme from '@/public/theme/theme';
 
-import LoginButton, { LoginButtonProps } from '../components/Login/Button';
+import LoginButton, {
+  LoginButtonProps,
+} from '../components/Login/Button/Button';
 
 export default {
   title: 'Components/LoginButton',
