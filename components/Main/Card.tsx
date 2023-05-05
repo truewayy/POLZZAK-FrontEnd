@@ -2,7 +2,7 @@ import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 
 import { ArrowIcon, CompleteIcon, HandIcon } from '@/public/icon';
 
-import ProgressCircle from './ProgressCircle';
+import ProgressCircle from './ProgressingStamps/ProgressCircle/ProgressCircle';
 
 interface CardProps {
   title: string;
@@ -86,13 +86,17 @@ const Card = ({
           )}
           {currentStamp !== totalStamp && (
             <Box
-              layerStyle="highlight14SB"
+              layerStyle="body14R"
               color="#47B2FF"
               bg="blue.100"
               p="2px 12px"
               borderRadius="10px"
             >
-              도장 요청 {requestCount}개
+              도장 요청{' '}
+              <Text as="span" layerStyle="highlight14SB">
+                {requestCount}
+              </Text>
+              개
             </Box>
           )}
         </VStack>
