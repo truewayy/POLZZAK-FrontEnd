@@ -41,6 +41,11 @@ const polzzakTheme = extendTheme({
       fontWeight: '700',
       lineHeight: '140%',
     },
+    head22B: {
+      fontSize: '22px',
+      fontWeight: '700',
+      lineHeight: '140%',
+    },
     head20B: {
       fontSize: '20px',
       fontWeight: '700',
