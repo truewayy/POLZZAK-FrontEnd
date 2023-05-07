@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import Swiper from 'swiper';
 
+import ROUTES from '@/constants/routes';
 import { signUpInfoAtom } from '@/store/userInfo';
 
 import ParentTypeView from './ParentTypeView';
@@ -38,7 +39,7 @@ const ParentType = () => {
   };
 
   const handleClickButton = () => {
-    push('/oauth/signup/nickname');
+    push(ROUTES.SIGNUP.NICKNAME);
   };
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const ParentType = () => {
 
   useEffect(() => {
     if (signUpInfo.memberType !== 'parent') {
-      push('/oauth/signup/nickname');
+      push(ROUTES.SIGNUP.NICKNAME);
     }
   }, [signUpInfo.memberType, push]);
 

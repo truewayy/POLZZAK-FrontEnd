@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
+import ROUTES from '@/constants/routes';
 import { signUpInfoAtom } from '@/store/userInfo';
 
 import MemberTypeView from './MemberTypeView';
@@ -19,9 +20,9 @@ const MemberType = () => {
 
   const handleClickButton = () => {
     if (memberType === 'child') {
-      return push('/oauth/signup/nickname');
+      return push(ROUTES.SIGNUP.NICKNAME);
     }
-    return push('/oauth/signup/parent');
+    return push(ROUTES.SIGNUP.PARENT);
   };
 
   useEffect(() => {

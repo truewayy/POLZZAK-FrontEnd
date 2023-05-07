@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { login } from '@/apis/auth';
-import { redirectUri } from '@/constants/routes';
+import ROUTES, { redirectUri } from '@/constants/routes';
 import { signUpInfoAtom } from '@/store/userInfo';
 
 const Redirect = () => {
@@ -29,7 +29,7 @@ const Redirect = () => {
           ...prev,
           ...res.data,
         }));
-        push('/oauth/signup/type');
+        push(ROUTES.SIGNUP.TYPE);
       }
     };
     fetchCode();
