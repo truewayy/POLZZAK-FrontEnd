@@ -1,6 +1,11 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
+import {
+  signUpInfoDefaultValue,
+  userInfoDefaultValue,
+} from '@/constants/defaultValue';
+
 const sessionStorage =
   typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
@@ -21,27 +26,18 @@ interface SignUpInfo {
   socialType: string;
   username: string;
   memberType: string;
+  parentType: string;
   nickname: string;
 }
 
 export const userInfoAtom = atom<UserInfo>({
   key: 'userInfoAtom',
-  default: {
-    type: '',
-    nickname: '',
-    profileImage: '',
-    chains: [],
-  },
+  default: userInfoDefaultValue,
   effects_UNSTABLE: [persistAtom],
 });
 
 export const signUpInfoAtom = atom<SignUpInfo>({
   key: 'signUpInfoAtom',
-  default: {
-    socialType: '',
-    username: '',
-    memberType: '',
-    nickname: '',
-  },
+  default: signUpInfoDefaultValue,
   effects_UNSTABLE: [sessionAtom],
 });
