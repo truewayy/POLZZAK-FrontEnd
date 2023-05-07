@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { filterAtom } from '@/store/filter';
-import userInfoAtom from '@/store/userInfo';
+import { userInfoAtom } from '@/store/userInfo';
 
 import ProgressingStampsSkeleton from './ProgressingStampsSkeleton';
 import ProgressingStampsView from './ProgressingStampsView';

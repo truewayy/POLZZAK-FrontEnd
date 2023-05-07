@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
 import useControlFilter from '@/hooks/useControlFilter';
-import userInfoAtom from '@/store/userInfo';
+import { userInfoAtom } from '@/store/userInfo';
 
 import BottomSheetModalView from './BottomSheetModalView';
 

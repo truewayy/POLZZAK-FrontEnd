@@ -1,7 +1,9 @@
 // API URL 목록
 const API_URLS = {
-  KAKAO_LOGIN: '/api/v1/users/login/kakao',
-  GOOGLE_LOGIN: '/api/v1/users/login/google',
+  REGISTER: '/api/v1/auth/register',
+  LOGIN: (type: string) => `/api/v1/auth/login/${type}`,
+  DUPLICATE_CHECK: (nickname: string) =>
+    `/api/v1/auth/validate/nickname?value=${nickname}`,
 };
 
 export default API_URLS;
