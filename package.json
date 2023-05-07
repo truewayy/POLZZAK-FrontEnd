@@ -22,6 +22,7 @@
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-query": "^3.39.3",
     "react-spring-bottom-sheet": "^3.5.0-alpha.0",
     "recoil": "^0.7.7",
