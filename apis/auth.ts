@@ -3,10 +3,12 @@ import API_URLS from '@/constants/apiUrls';
 import http from './http';
 
 interface LoginResponse {
-  code: number;
-  messages: string;
   data: {
-    accessToken: string;
+    code: number;
+    messages: string;
+    data: {
+      accessToken: string;
+    };
   };
 }
 
@@ -29,7 +31,7 @@ export const login = async (
   redirectUri: string
 ) => {
   try {
-    const data: LoginResponse = await http.post(API_URLS.LOGIN(type), {
+    const { data }: LoginResponse = await http.post(API_URLS.LOGIN(type), {
       authenticationCode,
       redirectUri,
     });
@@ -41,3 +43,12 @@ export const login = async (
 };
 
 export const signup = {};
+
+export const duplicateCheck = async (nickname: string) => {
+  try {
+    const { status } = await http.get(API_URLS.DUPLICATE_CHECK(nickname));
+    return status;
+  } catch (error) {
+    return error;
+  }
+};
