@@ -21,20 +21,20 @@ const MemberTypeView = ({
   <VStack w="100%">
     <Grid w="100%" gap={13} templateColumns="repeat(2, 1fr)">
       <VStack
-        id="child"
+        id="KID"
         p="24px 20px"
         spacing={42}
         border="1px solid"
-        borderColor={memberType === 'child' ? 'polzzak.default' : 'white'}
+        borderColor={memberType === 'KID' ? 'polzzak.default' : 'white'}
         borderRadius={10}
-        bg={memberType === 'child' ? 'blue.100' : 'white'}
+        bg={memberType === 'KID' ? 'blue.100' : 'white'}
         cursor="pointer"
         onClick={handleChangeMemberType}
       >
         <Text
           layerStyle="head16B"
-          color={memberType === 'child' ? 'polzzak.default' : 'black'}
-          fontWeight={memberType === 'child' ? 'bold' : 'normal'}
+          color={memberType === 'KID' ? 'polzzak.default' : 'black'}
+          fontWeight={memberType === 'KID' ? 'bold' : 'normal'}
           alignSelf="flex-start"
         >
           아이 회원
@@ -42,20 +42,20 @@ const MemberTypeView = ({
         <YellowCharacter alignSelf="flex-end" w="63%" h="71%" />
       </VStack>
       <VStack
-        id="parent"
+        id="PARENT"
         p="24px 20px"
         spacing={42}
         border="1px solid"
-        borderColor={memberType === 'parent' ? 'polzzak.default' : 'white'}
+        borderColor={memberType === 'PARENT' ? 'polzzak.default' : 'white'}
         borderRadius={10}
-        bg={memberType === 'parent' ? 'blue.100' : 'white'}
+        bg={memberType === 'PARENT' ? 'blue.100' : 'white'}
         cursor="pointer"
         onClick={handleChangeMemberType}
       >
         <Text
           layerStyle="head16B"
-          color={memberType === 'parent' ? 'polzzak.default' : 'black'}
-          fontWeight={memberType === 'parent' ? 'bold' : 'normal'}
+          color={memberType === 'PARENT' ? 'polzzak.default' : 'black'}
+          fontWeight={memberType === 'PARENT' ? 'bold' : 'normal'}
           alignSelf="flex-start"
         >
           보호자 회원

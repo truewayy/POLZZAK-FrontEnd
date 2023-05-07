@@ -10,7 +10,10 @@ interface ParentTypeVAProps {
   handleChangeSwiper: (swiper: Swiper) => void;
   handleClickButton: () => void;
   currentParentType: string;
-  parentTypes: string[];
+  parentTypes: {
+    name: string;
+    value: string;
+  }[];
   buttonDisabled: boolean;
 }
 
@@ -43,8 +46,8 @@ const ParentTypeView = ({
       }}
       onSlideChange={handleChangeSwiper}
     >
-      {parentTypes.map((type) => (
-        <SwiperSlide id={type} key={type}>
+      {parentTypes.map(({ name, value }) => (
+        <SwiperSlide id={value} key={value}>
           <Box
             p="20px"
             bg="white"
@@ -54,13 +57,13 @@ const ParentTypeView = ({
             borderRadius="8px"
             textAlign="center"
             color="#DADADA"
-            {...(currentParentType === type && {
+            {...(currentParentType === value && {
               borderColor: 'polzzak.default',
               color: 'polzzak.default',
               bg: 'blue.100',
             })}
           >
-            {type}
+            {name}
           </Box>
         </SwiperSlide>
       ))}

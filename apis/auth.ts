@@ -25,6 +25,16 @@ interface LoginError {
   };
 }
 
+interface RegisterError {
+  response: {
+    data: {
+      code: number;
+      messages: string;
+      data: null;
+    };
+  };
+}
+
 export const login = async (
   type: string,
   authenticationCode: string,
@@ -42,7 +52,17 @@ export const login = async (
   }
 };
 
-export const signup = {};
+export const register = async (submitData: FormData) => {
+  try {
+    const { data }: LoginResponse = await http.post(API_URLS.REGISTER, {
+      registerRequest: submitData,
+    });
+    return data;
+  } catch (error) {
+    const err = error as RegisterError;
+    return err.response.data;
+  }
+};
 
 export const duplicateCheck = async (nickname: string) => {
   try {

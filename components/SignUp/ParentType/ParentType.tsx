@@ -9,18 +9,54 @@ import { signUpInfoAtom } from '@/store/userInfo';
 import ParentTypeView from './ParentTypeView';
 
 const parentTypes = [
-  '엄마',
-  '아빠',
-  '언니',
-  '오빠',
-  '누나',
-  '형',
-  '할머니',
-  '할아버지',
-  '이모',
-  '고모',
-  '삼촌',
-  '보호자',
+  {
+    name: '엄마',
+    value: 'MOTHER',
+  },
+  {
+    name: '아빠',
+    value: 'FATHER',
+  },
+  {
+    name: '언니',
+    value: 'FEMALE_SISTER',
+  },
+  {
+    name: '오빠',
+    value: 'FEMALE_BROTHER',
+  },
+  {
+    name: '누나',
+    value: 'MALE_SISTER',
+  },
+  {
+    name: '형',
+    value: 'MALE_BROTHER',
+  },
+  {
+    name: '할머니',
+    value: 'GRANDMOTHER',
+  },
+  {
+    name: '할아버지',
+    value: 'GRANDFATHER',
+  },
+  {
+    name: '이모',
+    value: 'MATERNAL_AUNT',
+  },
+  {
+    name: '고모',
+    value: 'PATERNAL_AUNT',
+  },
+  {
+    name: '삼촌',
+    value: 'UNCLE',
+  },
+  {
+    name: '보호자',
+    value: 'ETC',
+  },
 ];
 
 const ParentType = () => {
@@ -34,7 +70,7 @@ const ParentType = () => {
   const handleChangeSwiper: (swiper: Swiper) => void = (swiper) => {
     setSignupInfo((prev) => ({
       ...prev,
-      parentType: parentTypes[swiper.realIndex],
+      parentType: parentTypes[swiper.realIndex].value,
     }));
   };
 
@@ -47,7 +83,7 @@ const ParentType = () => {
   }, [signUpInfo.parentType]);
 
   useEffect(() => {
-    if (signUpInfo.memberType !== 'parent') {
+    if (signUpInfo.memberType !== 'PARENT') {
       push(ROUTES.SIGNUP.NICKNAME);
     }
   }, [signUpInfo.memberType, push]);

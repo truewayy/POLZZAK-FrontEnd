@@ -19,7 +19,7 @@ const MemberType = () => {
   };
 
   const handleClickButton = () => {
-    if (memberType === 'child') {
+    if (memberType === 'KID') {
       return push(ROUTES.SIGNUP.NICKNAME);
     }
     return push(ROUTES.SIGNUP.PARENT);
