@@ -29,7 +29,7 @@ const Redirect = () => {
           ...prev,
           ...res.data,
         }));
-        push('/oauth/signup');
+        push('/oauth/signup/type');
       }
     };
     fetchCode();

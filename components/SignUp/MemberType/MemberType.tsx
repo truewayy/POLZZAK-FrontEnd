@@ -11,6 +11,8 @@ const MemberType = () => {
   const [signUpInfo, setSignupInfo] = useRecoilState(signUpInfoAtom);
   const [memberType, setMemberType] = useState('');
 
+  const buttonDisabled = memberType === '';
+
   const handleChangeMemberType: MouseEventHandler<HTMLDivElement> = (e) => {
     setSignupInfo((prev) => ({ ...prev, memberType: e.currentTarget.id }));
   };
@@ -28,6 +30,7 @@ const MemberType = () => {
 
   const MemberTypeVAProps = {
     memberType,
+    buttonDisabled,
     handleChangeMemberType,
     handleClickButton,
   };

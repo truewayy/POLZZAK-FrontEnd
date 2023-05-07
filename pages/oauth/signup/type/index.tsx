@@ -1,13 +1,10 @@
-import { VStack } from '@chakra-ui/react';
-
-import Header from '@/components/SignUp/Header/Header';
+import SignUpLayout from '@/components/Layout/signUpLayout';
 import MemberType from '@/components/SignUp/MemberType/MemberType';
 
 const Type = () => (
-  <VStack pos="relative" minH="100vh" p="0 5%" bg="gray.100">
-    <Header />
+  <SignUpLayout title="회원 종류를 선택해주세요">
     <MemberType />
-  </VStack>
+  </SignUpLayout>
 );
 
 export default Type;

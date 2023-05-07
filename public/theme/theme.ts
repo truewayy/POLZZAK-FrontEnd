@@ -136,6 +136,11 @@ const polzzakTheme = extendTheme({
       fontWeight: '300',
       lineHeight: '140%',
     },
+    caption13L: {
+      fontSize: '13px',
+      fontWeight: '300',
+      lineHeight: '140%',
+    },
     caption12R: {
       fontSize: '12px',
       fontWeight: '400',

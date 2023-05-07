@@ -7,19 +7,18 @@ import NextStepButton from '../Button';
 
 interface MemberTypeVAProps {
   memberType: string;
+  buttonDisabled: boolean;
   handleChangeMemberType: MouseEventHandler<HTMLDivElement>;
   handleClickButton: () => void;
 }
 
 const MemberTypeView = ({
   memberType,
+  buttonDisabled,
   handleChangeMemberType,
   handleClickButton,
 }: MemberTypeVAProps) => (
-  <VStack w="100%" spacing={65}>
-    <Text layerStyle="head22B" color="#413E39" alignSelf="flex-start">
-      회원 종류를 선택해주세요
-    </Text>
+  <VStack w="100%">
     <Grid w="100%" gap={13} templateColumns="repeat(2, 1fr)">
       <VStack
         id="child"
@@ -64,7 +63,9 @@ const MemberTypeView = ({
         <RedCharacter alignSelf="flex-end" w="75%" h="71%" />
       </VStack>
     </Grid>
-    <NextStepButton onClick={handleClickButton}>다음</NextStepButton>
+    <NextStepButton onClick={handleClickButton} disabled={buttonDisabled}>
+      다음
+    </NextStepButton>
   </VStack>
 );
 
