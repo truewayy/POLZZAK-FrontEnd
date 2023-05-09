@@ -2,9 +2,9 @@ import API_URLS from '@/constants/apiUrls';
 
 import http from './http';
 
-interface LoginResponse {
+export interface LoginResponse {
   data: {
-    code: number;
+    code: 200;
     messages: string;
     data: {
       accessToken: string;
@@ -12,7 +12,7 @@ interface LoginResponse {
   };
 }
 
-interface LoginError {
+export interface LoginError {
   response: {
     data: {
       code: number;
@@ -30,8 +30,14 @@ interface RegisterError {
     data: {
       code: number;
       messages: string;
-      data: null;
+      data: {};
     };
+  };
+}
+
+interface DuplicateCheckError {
+  response: {
+    status: number;
   };
 }
 
@@ -54,9 +60,15 @@ export const login = async (
 
 export const register = async (submitData: FormData) => {
   try {
-    const { data }: LoginResponse = await http.post(API_URLS.REGISTER, {
-      registerRequest: submitData,
-    });
+    const { data }: LoginResponse = await http.post(
+      API_URLS.REGISTER,
+      submitData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
     return data;
   } catch (error) {
     const err = error as RegisterError;
@@ -69,6 +81,7 @@ export const duplicateCheck = async (nickname: string) => {
     const { status } = await http.get(API_URLS.DUPLICATE_CHECK(nickname));
     return status;
   } catch (error) {
-    return error;
+    const err = error as DuplicateCheckError;
+    return err.response.status;
   }
 };
