@@ -65,7 +65,7 @@ const ParentType = () => {
   const [currentParentType, setCurrentParentType] = useState('');
 
   const buttonDisabled =
-    currentParentType === '' || signUpInfo.memberType === 'child';
+    currentParentType === '' || signUpInfo.memberType === 'KID';
 
   const handleChangeSwiper: (swiper: Swiper) => void = (swiper) => {
     setSignupInfo((prev) => ({

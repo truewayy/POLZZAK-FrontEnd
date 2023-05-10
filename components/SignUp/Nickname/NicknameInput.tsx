@@ -11,12 +11,13 @@ import NicknameInputView from './NicknameInputView';
 
 const NicknameInput = () => {
   const { push } = useRouter();
-  const setSignUpInfo = useSetRecoilState(signUpInfoAtom);
   const [isNicknameValidate, setIsNicknameValidate] = useState(false);
+  const setSignUpInfo = useSetRecoilState(signUpInfoAtom);
   const {
     register,
-    formState: { isValid, errors },
     watch,
+    setError,
+    formState: { isValid, errors },
   } = useForm({ mode: 'onChange' });
 
   const nickname = watch('nickname');
@@ -25,17 +26,6 @@ const NicknameInput = () => {
   const inputLength = nickname?.length || 0;
   const isNicknameError = !!errors.nickname;
   const errorMsg = errors.nickname?.message;
-
-  const handleClickDuplicateButton = async () => {
-    const status = await duplicateCheck(nickname);
-    setIsNicknameValidate(status === 204);
-  };
-
-  const handleClickButton = () => {
-    setSignUpInfo((prev) => ({ ...prev, nickname }));
-    push(ROUTES.SIGNUP.PROFILE);
-  };
-
   const validateNickname = {
     required: '닉네임을 입력해주세요.',
     minLength: {
@@ -50,6 +40,23 @@ const NicknameInput = () => {
       value: /^[a-zA-Z0-9가-힣]*$/,
       message: '특수문자 제외 후 입력해주세요',
     },
+  };
+
+  const handleClickDuplicateButton = async () => {
+    const status = await duplicateCheck(nickname);
+    if (status === 400) {
+      setError('nickname', {
+        type: 'manual',
+        message: '이미 사용 중인 닉네임이에요',
+      });
+    } else if (status === 204) {
+      setIsNicknameValidate(true);
+    }
+  };
+
+  const handleClickButton = () => {
+    setSignUpInfo((prev) => ({ ...prev, nickname }));
+    push(ROUTES.SIGNUP.PROFILE);
   };
 
   useEffect(() => {

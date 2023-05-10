@@ -1,10 +1,13 @@
+import { Spinner, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { login } from '@/apis/auth';
+import { TOKEN_KEY } from '@/constants/auth';
 import ROUTES, { redirectUri } from '@/constants/routes';
 import { signUpInfoAtom } from '@/store/userInfo';
+import { setLocalStorage } from '@/utils/storage';
 
 const Redirect = () => {
   const { query, isReady, push } = useRouter();
@@ -17,17 +20,18 @@ const Redirect = () => {
     if (!isReady) return;
     if (!authenticationCode) return;
     const fetchCode = async () => {
-      const res = await login(
+      const { code, data } = await login(
         loginType,
         authenticationCode,
         redirectUri[loginType] as string
       );
-      if (res.code === 200) {
-        push('/');
-      } else if (res.code === 412) {
+      if (code === 200 && 'accessToken' in data) {
+        setLocalStorage(TOKEN_KEY, data.accessToken);
+        push(ROUTES.MAIN);
+      } else if (code === 412) {
         setSignUpInfo((prev) => ({
           ...prev,
-          ...res.data,
+          ...data,
         }));
         push(ROUTES.SIGNUP.TYPE);
       }
@@ -35,6 +39,15 @@ const Redirect = () => {
     fetchCode();
   }, [isReady, authenticationCode, loginType, push, setSignUpInfo]);
 
-  return <div>redirect</div>;
+  return (
+    <VStack minH="100vh" justify="center">
+      <Spinner
+        size="xl"
+        color="blue.400"
+        emptyColor="polzzak.disabled"
+        thickness="3px"
+      />
+    </VStack>
+  );
 };
 export default Redirect;
