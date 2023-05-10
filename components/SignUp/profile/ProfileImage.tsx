@@ -51,7 +51,9 @@ const ProfileImage = () => {
     const { code, data } = await register(submitData);
     if (code === 200 && 'accessToken' in data) {
       setLocalStorage(TOKEN_KEY, data.accessToken);
-      push(ROUTES.MAIN);
+      if (memberType === 'KID' || memberType === 'PARENT') {
+        push(ROUTES.ON_BOARDING[memberType]);
+      }
     } else {
       alert('회원가입에 실패하였습니다.');
     }

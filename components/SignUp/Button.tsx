@@ -21,6 +21,7 @@ const NextStepButton = ({
     color="white"
     pos="absolute"
     bottom="30px"
+    left="5%"
     _hover={{ bg: 'polzzak.default' }}
     onClick={onClick}
     isDisabled={disabled}
