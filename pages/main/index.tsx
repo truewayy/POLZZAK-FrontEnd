@@ -17,7 +17,7 @@ import { LinkIcon } from '@/public/icon';
 const Main = () => (
   <VStack>
     <SEO title="Polzzak | 메인" />
-    <Flex w="100%" p="10px 5% 0px 5%" justify="flex-start" bg="white">
+    <Flex w="100%" p="10px 5% 0px 5%" justify="flex-end" bg="white">
       <LinkIcon w={19} h={19} cursor="pointer" />
     </Flex>
     <Tabs w="100%">
