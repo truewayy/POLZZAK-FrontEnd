@@ -1,13 +1,12 @@
 import 'swiper/css/pagination';
 
 import { Box, Text, VStack } from '@chakra-ui/react';
-import styled from '@emotion/styled';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
 
-import Card from '../Card';
+import Card from './Card';
 
 interface ProgressingStampsVAProps {
   handleRefresh: () => Promise<any>;
@@ -18,13 +17,15 @@ interface ProgressingStampsVAProps {
 interface StampData {
   nickname: string;
   stamps: {
-    id: number;
-    title: string;
-    currentStamp: number;
-    totalStamp: number;
-    requestCount: number;
-    reward: string;
-  }[];
+    progressing: {
+      id: number;
+      title: string;
+      currentStamp: number;
+      totalStamp: number;
+      requestCount: number;
+      reward: string;
+    }[];
+  };
 }
 
 const ProgressingStampsView = ({
@@ -37,7 +38,7 @@ const ProgressingStampsView = ({
       <VStack w="100%" p="0 5%" spacing="20px">
         {cards
           .find(({ nickname }) => nickname === filter)
-          ?.stamps.map(
+          ?.stamps.progressing.map(
             ({ id, title, currentStamp, totalStamp, requestCount, reward }) => (
               <Card
                 key={id}
@@ -59,7 +60,7 @@ const ProgressingStampsView = ({
               님과 함께해요
             </Text>
           </Text>
-          <CustomSwiper
+          <Swiper
             grabCursor
             modules={[Pagination]}
             pagination={{
@@ -77,7 +78,7 @@ const ProgressingStampsView = ({
             }}
             style={{ marginBottom: '38px' }}
           >
-            {stamps.map(
+            {stamps.progressing.map(
               ({
                 id,
                 title,
@@ -97,7 +98,7 @@ const ProgressingStampsView = ({
                 </SwiperSlide>
               )
             )}
-          </CustomSwiper>
+          </Swiper>
         </Box>
       ))
     )}
@@ -105,5 +106,3 @@ const ProgressingStampsView = ({
 );
 
 export default ProgressingStampsView;
-
-const CustomSwiper = styled(Swiper)``;

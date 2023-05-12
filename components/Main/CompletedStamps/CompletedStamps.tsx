@@ -1,6 +1,3 @@
-import 'react-spring-bottom-sheet/dist/style.css';
-import 'swiper/css';
-
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -9,24 +6,21 @@ import { totalStampData } from '@/constants/defaultValue';
 import { filterAtom } from '@/store/filter';
 import { userInfoAtom } from '@/store/userInfo';
 
-import ProgressingStampsSkeleton from './ProgressingStampsSkeleton';
-import ProgressingStampsView from './ProgressingStampsView';
+import CompletedStampsSkeleton from './CompletedStampsSkeleton';
+import CompletedStampsView from './CompletedStampsView';
 
 interface StampData {
   nickname: string;
   stamps: {
-    progressing: {
+    completed: {
       id: number;
       title: string;
-      currentStamp: number;
-      totalStamp: number;
-      requestCount: number;
       reward: string;
     }[];
   };
 }
 
-const ProgressingStamps = () => {
+const CompletedStamps = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [cards, setCard] = useState<StampData[]>(totalStampData);
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
@@ -59,17 +53,17 @@ const ProgressingStamps = () => {
     }
   }, [userInfo, setUserInfo]);
 
-  const ProgressingStampsVAProps = {
+  const CompletedStampsVAProps = {
     handleRefresh,
     cards,
     filter,
   };
 
   return isLoading ? (
-    <ProgressingStampsSkeleton filter={filter} />
+    <CompletedStampsSkeleton filter={filter} />
   ) : (
-    <ProgressingStampsView {...ProgressingStampsVAProps} />
+    <CompletedStampsView {...CompletedStampsVAProps} />
   );
 };
 
-export default ProgressingStamps;
+export default CompletedStamps;

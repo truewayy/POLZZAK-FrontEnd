@@ -2,7 +2,7 @@ import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 
 import { ArrowIcon, CompleteIcon, HandIcon } from '@/public/icon';
 
-import ProgressCircle from './ProgressingStamps/ProgressCircle/ProgressCircle';
+import ProgressCircle from './ProgressCircle/ProgressCircle';
 
 interface CardProps {
   title: string;
