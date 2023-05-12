@@ -8,7 +8,7 @@ const ProgressingStampsSkeleton = ({
   filter,
 }: ProgressingStampsSkeletonProps) =>
   filter === '전체' ? (
-    <VStack w="100%" spacing="32px">
+    <VStack w="100%" spacing="32px" p="0 5%">
       <VStack w="100%" spacing="13px">
         <Skeleton
           w="50%"
@@ -29,7 +29,7 @@ const ProgressingStampsSkeleton = ({
       </VStack>
     </VStack>
   ) : (
-    <VStack w="100%" spacing="20px">
+    <VStack w="100%" spacing="20px" p="0 5%">
       <Skeleton w="100%" borderRadius="8px" height="400px" />
       <Skeleton w="100%" borderRadius="8px" height="400px" />
     </VStack>

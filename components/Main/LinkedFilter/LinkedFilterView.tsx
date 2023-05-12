@@ -13,6 +13,7 @@ const LinkedFilterView = ({
 }: LinkedFilterVAProps) => (
   <Flex
     w="100%"
+    p="0 5%"
     mb="20px"
     justifyContent="space-between"
     alignItems="center"

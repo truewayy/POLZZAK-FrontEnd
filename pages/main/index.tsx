@@ -10,6 +10,7 @@ import {
 
 import SEO from '@/components/Common/SEO';
 import BottomSheetModal from '@/components/Main/BottomSheetModal/BottomSheetModal';
+import CompletedStamps from '@/components/Main/CompletedStamps/CompletedStamps';
 import LinkedFilter from '@/components/Main/LinkedFilter/LinkedFilter';
 import ProgressingStamps from '@/components/Main/ProgressingStamps/ProgressingStamps';
 import { LinkIcon } from '@/public/icon';
@@ -17,7 +18,7 @@ import { LinkIcon } from '@/public/icon';
 const Main = () => (
   <VStack>
     <SEO title="Polzzak | 메인" />
-    <Flex w="100%" p="10px 5% 0px 5%" justify="flex-start" bg="white">
+    <Flex w="100%" p="10px 5% 0px 5%" justify="flex-end" bg="white">
       <LinkIcon w={19} h={19} cursor="pointer" />
     </Flex>
     <Tabs w="100%">
@@ -40,12 +41,13 @@ const Main = () => (
         </Tab>
       </TabList>
       <TabPanels>
-        <TabPanel minH="100vh" p="5%" pb="100px" bg="#F8F8FC">
+        <TabPanel minH="100vh" p="5% 0" pb="100px" bg="#F8F8FC">
           <LinkedFilter />
           <ProgressingStamps />
         </TabPanel>
-        <TabPanel h="100vh" p="5%" bg="#F8F8FC">
-          two!
+        <TabPanel minH="100vh" p="5% 0" pb="100px" bg="#F8F8FC">
+          <LinkedFilter />
+          <CompletedStamps />
         </TabPanel>
       </TabPanels>
     </Tabs>

@@ -33,7 +33,6 @@ const SwiperContentView = ({
   <Box w="100%" minH="100vh" pos="relative">
     <CustomSwiper
       slidesPerView={1}
-      autoplay
       centeredSlides
       pagination={{
         clickable: true,
