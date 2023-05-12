@@ -10,6 +10,7 @@ import {
 
 import SEO from '@/components/Common/SEO';
 import BottomSheetModal from '@/components/Main/BottomSheetModal/BottomSheetModal';
+import CompletedStamps from '@/components/Main/CompletedStamps/CompletedStamps';
 import LinkedFilter from '@/components/Main/LinkedFilter/LinkedFilter';
 import ProgressingStamps from '@/components/Main/ProgressingStamps/ProgressingStamps';
 import { LinkIcon } from '@/public/icon';
@@ -44,8 +45,9 @@ const Main = () => (
           <LinkedFilter />
           <ProgressingStamps />
         </TabPanel>
-        <TabPanel h="100vh" p="5%" bg="#F8F8FC">
-          two!
+        <TabPanel minH="100vh" p="5% 0" pb="100px" bg="#F8F8FC">
+          <LinkedFilter />
+          <CompletedStamps />
         </TabPanel>
       </TabPanels>
     </Tabs>
