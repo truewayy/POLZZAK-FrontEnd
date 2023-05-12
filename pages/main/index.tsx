@@ -40,7 +40,7 @@ const Main = () => (
         </Tab>
       </TabList>
       <TabPanels>
-        <TabPanel minH="100vh" p="5%" pb="100px" bg="#F8F8FC">
+        <TabPanel minH="100vh" p="5% 0" pb="100px" bg="#F8F8FC">
           <LinkedFilter />
           <ProgressingStamps />
         </TabPanel>

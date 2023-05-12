@@ -1,5 +1,8 @@
+import 'swiper/css/pagination';
+
 import { Box, Text, VStack } from '@chakra-ui/react';
-import { EffectCoverflow } from 'swiper';
+import styled from '@emotion/styled';
+import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
@@ -31,7 +34,7 @@ const ProgressingStampsView = ({
 }: ProgressingStampsVAProps) => (
   <PullToRefresh onRefresh={handleRefresh}>
     {filter !== '전체' ? (
-      <VStack w="100%" spacing="20px">
+      <VStack w="100%" p="0 5%" spacing="20px">
         {cards
           .find(({ nickname }) => nickname === filter)
           ?.stamps.map(
@@ -50,19 +53,21 @@ const ProgressingStampsView = ({
     ) : (
       cards.map(({ nickname, stamps }) => (
         <Box key={nickname}>
-          <Text layerStyle="head20B" mb="13px">
+          <Text layerStyle="head20B" mb="13px" p="0 5%">
             {nickname}
             <Text as="span" layerStyle="body18R">
               님과 함께해요
             </Text>
           </Text>
-          <Swiper
-            effect="coverflow"
+          <CustomSwiper
             grabCursor
-            modules={[EffectCoverflow]}
-            slidesPerView={1.05}
+            modules={[Pagination]}
+            pagination={{
+              type: 'fraction',
+            }}
+            slidesPerView={1.15}
             centeredSlides
-            spaceBetween={0}
+            spaceBetween={10}
             coverflowEffect={{
               rotate: 10, // 회전각도
               stretch: 0,
@@ -92,7 +97,7 @@ const ProgressingStampsView = ({
                 </SwiperSlide>
               )
             )}
-          </Swiper>
+          </CustomSwiper>
         </Box>
       ))
     )}
@@ -100,3 +105,5 @@ const ProgressingStampsView = ({
 );
 
 export default ProgressingStampsView;
+
+const CustomSwiper = styled(Swiper)``;
