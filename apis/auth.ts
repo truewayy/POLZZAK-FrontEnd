@@ -41,6 +41,7 @@ interface DuplicateCheckError {
   };
 }
 
+// 로그인 API
 export const login = async (
   type: string,
   authenticationCode: string,
@@ -58,6 +59,7 @@ export const login = async (
   }
 };
 
+// 회원가입 API
 export const register = async (submitData: FormData) => {
   try {
     const { data }: LoginResponse = await http.post(
@@ -76,6 +78,7 @@ export const register = async (submitData: FormData) => {
   }
 };
 
+// 닉네임 중복체크 API
 export const duplicateCheck = async (nickname: string) => {
   try {
     const { status } = await http.get(API_URLS.DUPLICATE_CHECK(nickname));
