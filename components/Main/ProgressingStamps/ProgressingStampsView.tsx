@@ -4,7 +4,7 @@ import { VStack } from '@chakra-ui/react';
 
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
 
-import Card from './Card';
+import Card from './Card/Card';
 import StampSwiper from './StampSwiper/StampSwiper';
 
 interface ProgressingStampsVAProps {

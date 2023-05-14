@@ -9,14 +9,10 @@ interface StampSwiperVAProps {
   nickname: string;
   currentBoard: number;
   totalBoard: number;
-  progressingBoard: {
+  completedBoard: {
     id: number;
     title: string;
-    currentStamp: number;
-    totalStamp: number;
-    requestCount: number;
     reward: string;
-    isCouponIssued: boolean;
   }[];
 }
 
@@ -25,17 +21,17 @@ const StampSwiperView = ({
   nickname,
   currentBoard,
   totalBoard,
-  progressingBoard,
+  completedBoard,
 }: StampSwiperVAProps) => (
   <Box key={nickname}>
     <Flex justify="space-between" align="center" p="0 5%">
-      <Text layerStyle="head20B" mb="13px">
+      <Text layerStyle="head20B" mb="20px">
         {nickname}
         <Text as="span" layerStyle="body18R">
           님과 함께해요
         </Text>
       </Text>
-      <Text layerStyle="body14M" mb="13px" letterSpacing="tight">
+      <Text layerStyle="body14M" mb="20px" letterSpacing="tight">
         {currentBoard}{' '}
         <Text as="span" color="gray.500">
           / {totalBoard}
@@ -45,7 +41,6 @@ const StampSwiperView = ({
     <SwiperComponent
       grabCursor
       slidesPerView={1.15}
-      height={200}
       centeredSlides
       spaceBetween={10}
       coverflowEffect={{
@@ -58,28 +53,11 @@ const StampSwiperView = ({
       style={{ marginBottom: '38px' }}
       onSlideChange={handleChangeSwiper}
     >
-      {progressingBoard.map(
-        ({
-          id,
-          title,
-          currentStamp,
-          totalStamp,
-          requestCount,
-          reward,
-          isCouponIssued,
-        }) => (
-          <SwiperSlide key={id}>
-            <Card
-              title={title}
-              currentStamp={currentStamp}
-              totalStamp={totalStamp}
-              requestCount={requestCount}
-              reward={reward}
-              isCouponIssued={isCouponIssued}
-            />
-          </SwiperSlide>
-        )
-      )}
+      {completedBoard.map(({ id, title, reward }) => (
+        <SwiperSlide key={id}>
+          <Card title={title} reward={reward} />
+        </SwiperSlide>
+      ))}
     </SwiperComponent>
   </Box>
 );
