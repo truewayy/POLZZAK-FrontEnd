@@ -90,6 +90,7 @@ export const totalStampData = [
           totalStamp: 20,
           requestCount: 0,
           reward: '아이스크림',
+          isCouponIssued: false,
         },
         {
           id: 2,
@@ -98,6 +99,7 @@ export const totalStampData = [
           totalStamp: 25,
           requestCount: 8,
           reward: '아이유 사인 CD',
+          isCouponIssued: false,
         },
         {
           id: 3,
@@ -106,6 +108,7 @@ export const totalStampData = [
           totalStamp: 30,
           requestCount: 3,
           reward: '맥북 프로 16인치',
+          isCouponIssued: false,
         },
       ],
       completed: [
@@ -138,6 +141,7 @@ export const totalStampData = [
           totalStamp: 20,
           requestCount: 3,
           reward: '에어팟 프로',
+          isCouponIssued: true,
         },
         {
           id: 5,
@@ -146,6 +150,7 @@ export const totalStampData = [
           totalStamp: 10,
           requestCount: 2,
           reward: '허니콤보',
+          isCouponIssued: false,
         },
         {
           id: 6,
@@ -154,6 +159,7 @@ export const totalStampData = [
           totalStamp: 30,
           requestCount: 1,
           reward: '맥북 M1 13인치',
+          isCouponIssued: false,
         },
       ],
       completed: [
@@ -186,6 +192,7 @@ export const totalStampData = [
           totalStamp: 20,
           requestCount: 5,
           reward: '오마카세',
+          isCouponIssued: false,
         },
         {
           id: 8,
@@ -194,6 +201,7 @@ export const totalStampData = [
           totalStamp: 25,
           requestCount: 2,
           reward: '애슐리 퀸즈 상품권',
+          isCouponIssued: false,
         },
         {
           id: 9,
@@ -202,6 +210,7 @@ export const totalStampData = [
           totalStamp: 30,
           requestCount: 3,
           reward: '폴라로이드 카메라',
+          isCouponIssued: false,
         },
       ],
       completed: [
@@ -234,6 +243,7 @@ export const totalStampData = [
           totalStamp: 20,
           requestCount: 1,
           reward: '아이폰 14 프로 맥스',
+          isCouponIssued: false,
         },
         {
           id: 11,
@@ -242,6 +252,7 @@ export const totalStampData = [
           totalStamp: 25,
           requestCount: 0,
           reward: '아이패드 프로 12.9인치',
+          isCouponIssued: false,
         },
         {
           id: 12,
@@ -250,6 +261,7 @@ export const totalStampData = [
           totalStamp: 30,
           requestCount: 2,
           reward: '4k 고해상도 모니터',
+          isCouponIssued: false,
         },
       ],
       completed: [
