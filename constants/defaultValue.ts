@@ -78,209 +78,216 @@ export const onBoardingContents = {
   ],
 };
 
-export const totalStampData = [
+export const totalProgressingStampData = [
   {
     nickname: '쿼카',
-    stamps: {
-      progressing: [
-        {
-          id: 1,
-          title: '가나다의 도장판',
-          currentStamp: 9,
-          totalStamp: 20,
-          requestCount: 0,
-          reward: '아이스크림',
-          isCouponIssued: false,
-        },
-        {
-          id: 2,
-          title: '가나다의 도장판',
-          currentStamp: 23,
-          totalStamp: 25,
-          requestCount: 8,
-          reward: '아이유 사인 CD',
-          isCouponIssued: false,
-        },
-        {
-          id: 3,
-          title: '가나다의 도장판',
-          currentStamp: 17,
-          totalStamp: 30,
-          requestCount: 3,
-          reward: '맥북 프로 16인치',
-          isCouponIssued: false,
-        },
-      ],
-      completed: [
-        {
-          id: 1,
-          title: '가나다의 도장판',
-          reward: '아이스크림',
-        },
-        {
-          id: 2,
-          title: '가나다의 도장판',
-          reward: '아이유 사인 CD',
-        },
-        {
-          id: 3,
-          title: '가나다의 도장판',
-          reward: '맥북 프로 16인치',
-        },
-      ],
-    },
+    stamps: [
+      {
+        stampBoardId: 1,
+        name: '가나다의 도장판',
+        currentStampCount: 9,
+        goalStampCount: 20,
+        requestCount: 0,
+        reward: '아이스크림',
+        isCouponIssued: false,
+      },
+      {
+        stampBoardId: 2,
+        name: '가나다의 도장판',
+        currentStampCount: 23,
+        goalStampCount: 25,
+        requestCount: 8,
+        reward: '아이유 사인 CD',
+        isCouponIssued: false,
+      },
+      {
+        stampBoardId: 3,
+        name: '가나다의 도장판',
+        currentStampCount: 17,
+        goalStampCount: 30,
+        requestCount: 3,
+        reward: '맥북 프로 16인치',
+        isCouponIssued: false,
+      },
+    ],
   },
   {
     nickname: '멜론수박',
-    stamps: {
-      progressing: [
-        {
-          id: 4,
-          title: '라마바의 도장판',
-          currentStamp: 20,
-          totalStamp: 20,
-          requestCount: 3,
-          reward: '에어팟 프로',
-          isCouponIssued: true,
-        },
-        {
-          id: 5,
-          title: '라마바의 도장판',
-          currentStamp: 2,
-          totalStamp: 10,
-          requestCount: 2,
-          reward: '허니콤보',
-          isCouponIssued: false,
-        },
-        {
-          id: 6,
-          title: '라마바의 도장판',
-          currentStamp: 15,
-          totalStamp: 30,
-          requestCount: 1,
-          reward: '맥북 M1 13인치',
-          isCouponIssued: false,
-        },
-      ],
-      completed: [
-        {
-          id: 4,
-          title: '라마바의 도장판',
-          reward: '에어팟 프로',
-        },
-        {
-          id: 5,
-          title: '라마바의 도장판',
-          reward: '허니콤보',
-        },
-        {
-          id: 6,
-          title: '라마바의 도장판',
-          reward: '맥북 M1 13인치',
-        },
-      ],
-    },
+    stamps: [
+      {
+        stampBoardId: 4,
+        name: '라마바의 도장판',
+        currentStampCount: 20,
+        goalStampCount: 20,
+        requestCount: 3,
+        reward: '에어팟 프로',
+        isCouponIssued: true,
+      },
+      {
+        stampBoardId: 5,
+        name: '라마바의 도장판',
+        currentStampCount: 2,
+        goalStampCount: 10,
+        requestCount: 2,
+        reward: '허니콤보',
+        isCouponIssued: false,
+      },
+      {
+        stampBoardId: 6,
+        name: '라마바의 도장판',
+        currentStampCount: 15,
+        goalStampCount: 30,
+        requestCount: 1,
+        reward: '맥북 M1 13인치',
+        isCouponIssued: false,
+      },
+    ],
   },
   {
     nickname: '아이유',
-    stamps: {
-      progressing: [
-        {
-          id: 7,
-          title: '사아자의 도장판',
-          currentStamp: 18,
-          totalStamp: 20,
-          requestCount: 5,
-          reward: '오마카세',
-          isCouponIssued: false,
-        },
-        {
-          id: 8,
-          title: '사아자의 도장판',
-          currentStamp: 25,
-          totalStamp: 25,
-          requestCount: 2,
-          reward: '애슐리 퀸즈 상품권',
-          isCouponIssued: false,
-        },
-        {
-          id: 9,
-          title: '사아자의 도장판',
-          currentStamp: 15,
-          totalStamp: 30,
-          requestCount: 3,
-          reward: '폴라로이드 카메라',
-          isCouponIssued: false,
-        },
-      ],
-      completed: [
-        {
-          id: 7,
-          title: '사아자의 도장판',
-          reward: '오마카세',
-        },
-        {
-          id: 8,
-          title: '사아자의 도장판',
-          reward: '애슐리 퀸즈 상품권',
-        },
-        {
-          id: 9,
-          title: '사아자의 도장판',
-          reward: '폴라로이드 카메라',
-        },
-      ],
-    },
+    stamps: [
+      {
+        stampBoardId: 7,
+        name: '사아자의 도장판',
+        currentStampCount: 18,
+        goalStampCount: 20,
+        requestCount: 5,
+        reward: '오마카세',
+        isCouponIssued: false,
+      },
+      {
+        stampBoardId: 8,
+        name: '사아자의 도장판',
+        currentStampCount: 25,
+        goalStampCount: 25,
+        requestCount: 2,
+        reward: '애슐리 퀸즈 상품권',
+        isCouponIssued: false,
+      },
+      {
+        stampBoardId: 9,
+        name: '사아자의 도장판',
+        currentStampCount: 15,
+        goalStampCount: 30,
+        requestCount: 3,
+        reward: '폴라로이드 카메라',
+        isCouponIssued: false,
+      },
+    ],
   },
   {
     nickname: '가나다라',
-    stamps: {
-      progressing: [
-        {
-          id: 10,
-          title: '카타파의 도장판',
-          currentStamp: 18,
-          totalStamp: 20,
-          requestCount: 1,
-          reward: '아이폰 14 프로 맥스',
-          isCouponIssued: false,
-        },
-        {
-          id: 11,
-          title: '카타파의 도장판',
-          currentStamp: 7,
-          totalStamp: 25,
-          requestCount: 0,
-          reward: '아이패드 프로 12.9인치',
-          isCouponIssued: false,
-        },
-        {
-          id: 12,
-          title: '카타파의 도장판',
-          currentStamp: 15,
-          totalStamp: 30,
-          requestCount: 2,
-          reward: '4k 고해상도 모니터',
-          isCouponIssued: false,
-        },
-      ],
-      completed: [
-        {
-          id: 10,
-          title: '카타파의 도장판',
-          reward: '아이폰 14 프로 맥스',
-        },
-        {
-          id: 11,
-          title: '카타파의 도장판',
-          reward: '아이패드 프로 12.9인치',
-        },
-        {
-          id: 12,
-          title: '카타파의 도장판',
-          reward: '4k 고해상도 모니터',
-        },
-      ],
-    },
+    stamps: [
+      {
+        stampBoardId: 10,
+        name: '카타파의 도장판',
+        currentStampCount: 18,
+        goalStampCount: 20,
+        requestCount: 1,
+        reward: '아이폰 14 프로 맥스',
+        isCouponIssued: false,
+      },
+      {
+        stampBoardId: 11,
+        name: '카타파의 도장판',
+        currentStampCount: 7,
+        goalStampCount: 25,
+        requestCount: 0,
+        reward: '아이패드 프로 12.9인치',
+        isCouponIssued: false,
+      },
+      {
+        stampBoardId: 12,
+        name: '카타파의 도장판',
+        currentStampCount: 15,
+        goalStampCount: 30,
+        requestCount: 2,
+        reward: '4k 고해상도 모니터',
+        isCouponIssued: false,
+      },
+    ],
+  },
+];
+
+export const totalCompletedStampData = [
+  {
+    nickname: '쿼카',
+    stamps: [
+      {
+        stampBoardId: 1,
+        name: '가나다의 도장판',
+        reward: '아이스크림',
+      },
+      {
+        stampBoardId: 2,
+        name: '가나다의 도장판',
+        reward: '아이유 사인 CD',
+      },
+      {
+        stampBoardId: 3,
+        name: '가나다의 도장판',
+        reward: '맥북 프로 16인치',
+      },
+    ],
+  },
+  {
+    nickname: '멜론수박',
+    stamps: [
+      {
+        stampBoardId: 4,
+        name: '라마바의 도장판',
+        reward: '에어팟 프로',
+      },
+      {
+        stampBoardId: 5,
+        name: '라마바의 도장판',
+        reward: '허니콤보',
+      },
+      {
+        stampBoardId: 6,
+        name: '라마바의 도장판',
+        reward: '맥북 M1 13인치',
+      },
+    ],
+  },
+  {
+    nickname: '아이유',
+    stamps: [
+      {
+        stampBoardId: 7,
+        name: '사아자의 도장판',
+        reward: '오마카세',
+      },
+      {
+        stampBoardId: 8,
+        name: '사아자의 도장판',
+        reward: '애슐리 퀸즈 상품권',
+      },
+      {
+        stampBoardId: 9,
+        name: '사아자의 도장판',
+        reward: '폴라로이드 카메라',
+      },
+    ],
+  },
+  {
+    nickname: '가나다라',
+    stamps: [
+      {
+        stampBoardId: 10,
+        name: '카타파의 도장판',
+        reward: '아이폰 14 프로 맥스',
+      },
+      {
+        stampBoardId: 11,
+        name: '카타파의 도장판',
+        reward: '아이패드 프로 12.9인치',
+      },
+      {
+        stampBoardId: 12,
+        name: '카타파의 도장판',
+        reward: '4k 고해상도 모니터',
+      },
+    ],
   },
 ];

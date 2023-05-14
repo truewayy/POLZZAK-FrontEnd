@@ -3,11 +3,11 @@ import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import { CouponCompleteIcon } from '@/public/icon';
 
 interface CardProps {
-  title: string;
+  name: string;
   reward: string;
 }
 
-const Card = ({ title, reward }: CardProps) => (
+const Card = ({ name, reward }: CardProps) => (
   <VStack
     w="100%"
     minH="180px"
@@ -35,7 +35,7 @@ const Card = ({ title, reward }: CardProps) => (
       right="10px"
     />
     <Text layerStyle="head20B" color="#3F3D3B80">
-      {title}
+      {name}
     </Text>
     <Flex w="100%" align="center" gap="8px">
       <Box

@@ -6,9 +6,9 @@ import { ArrowIcon } from '@/public/icon';
 import ProgressCircle from './ProgressCircle/ProgressCircle';
 
 interface CardVAProps {
-  title: string;
-  currentStamp: number;
-  totalStamp: number;
+  name: string;
+  currentStampCount: number;
+  goalStampCount: number;
   percentage: number;
   isStampBoardComplete: boolean;
   completeMessage: string;
@@ -20,9 +20,9 @@ interface CardVAProps {
 }
 
 const CardView = ({
-  title,
-  currentStamp,
-  totalStamp,
+  name,
+  currentStampCount,
+  goalStampCount,
   percentage,
   isStampBoardComplete,
   completeMessage,
@@ -46,7 +46,7 @@ const CardView = ({
     <VStack w="100%" spacing="0px">
       <Flex w="100%" justifyContent="space-between" align="center">
         <Text layerStyle="head20B" color="#3F3D3B">
-          {title}
+          {name}
         </Text>
         <ArrowIcon w={4} h={4} />
       </Flex>
@@ -62,10 +62,10 @@ const CardView = ({
         >
           <Box mb="10px">
             <Text as="span" layerStyle="highlight24SB" color="polzzak.default">
-              {currentStamp}
+              {currentStampCount}
             </Text>
             <Text as="span" layerStyle="body16M" color="gray.400">
-              /{totalStamp}
+              /{goalStampCount}
             </Text>
           </Box>
           {isStampBoardComplete && (

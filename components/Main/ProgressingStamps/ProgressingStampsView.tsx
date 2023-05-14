@@ -3,6 +3,7 @@ import 'swiper/css/pagination';
 import { VStack } from '@chakra-ui/react';
 
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
+import { ProcessingStampBoardPreview } from '@/interfaces/stampBoard';
 
 import Card from './Card/Card';
 import StampSwiper from './StampSwiper/StampSwiper';
@@ -15,17 +16,7 @@ interface ProgressingStampsVAProps {
 
 interface StampData {
   nickname: string;
-  stamps: {
-    progressing: {
-      id: number;
-      title: string;
-      currentStamp: number;
-      totalStamp: number;
-      requestCount: number;
-      reward: string;
-      isCouponIssued: boolean;
-    }[];
-  };
+  stamps: ProcessingStampBoardPreview[];
 }
 
 const ProgressingStampsView = ({
@@ -38,21 +29,21 @@ const ProgressingStampsView = ({
       <VStack w="100%" p="0 5%" spacing="20px">
         {cards
           .find(({ nickname }) => nickname === filter)
-          ?.stamps.progressing.map(
+          ?.stamps.map(
             ({
-              id,
-              title,
-              currentStamp,
-              totalStamp,
+              stampBoardId,
+              name,
+              currentStampCount,
+              goalStampCount,
               requestCount,
               reward,
               isCouponIssued,
             }) => (
               <Card
-                key={id}
-                title={title}
-                currentStamp={currentStamp}
-                totalStamp={totalStamp}
+                key={stampBoardId}
+                name={name}
+                currentStampCount={currentStampCount}
+                goalStampCount={goalStampCount}
                 requestCount={requestCount}
                 reward={reward}
                 isCouponIssued={isCouponIssued}
