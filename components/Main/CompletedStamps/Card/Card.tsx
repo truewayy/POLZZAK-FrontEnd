@@ -28,11 +28,11 @@ const Card = ({ title, reward }: CardProps) => (
       borderRadius="8px"
     />
     <CouponCompleteIcon
-      w={150}
-      h={95}
+      w={160}
+      h={100}
       pos="absolute"
       bottom="20px"
-      right="18px"
+      right="10px"
     />
     <Text layerStyle="head20B" color="#3F3D3B80">
       {title}

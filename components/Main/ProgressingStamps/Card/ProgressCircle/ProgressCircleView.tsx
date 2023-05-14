@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 interface ProgressCircleVAProps {
-  percentage: number;
   barDash: number;
   barGap: number;
   progressDash: number;
@@ -10,7 +9,6 @@ interface ProgressCircleVAProps {
 }
 
 const ProgressCircleView = ({
-  percentage,
   barDash,
   barGap,
   progressDash,
@@ -43,7 +41,7 @@ const ProgressCircleView = ({
 	    a 40,40 0 1,0 -80,0
 		"
       style={{
-        stroke: percentage === 100 ? 'url(#rainbowGradient)' : '#59B9FF',
+        stroke: '#59B9FF',
         strokeDasharray: `${progressDash} ${progressGap}`,
         transformOrigin: 'center center',
         transform: `rotate(${rotation}deg)`,
@@ -67,7 +65,7 @@ const Stop = styled.stop`
 `;
 
 const Svg = styled.svg`
-  width: 300px !important;
+  width: 280px !important;
   margin: 0 auto;
   padding: 0;
   display: block;

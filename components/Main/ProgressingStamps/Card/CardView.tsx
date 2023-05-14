@@ -1,31 +1,44 @@
+/* eslint-disable no-nested-ternary */
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 
-import { ArrowIcon, CompleteIcon, HandIcon } from '@/public/icon';
+import { ArrowIcon } from '@/public/icon';
 
 import ProgressCircle from './ProgressCircle/ProgressCircle';
 
-interface CardProps {
+interface CardVAProps {
   title: string;
   currentStamp: number;
   totalStamp: number;
+  percentage: number;
+  isStampBoardComplete: boolean;
+  completeMessage: string;
+  messageColor: string;
+  statusIcon: React.ReactNode;
+  isRequest: boolean;
   requestCount: number;
   reward: string;
 }
 
-const Card = ({
+const CardView = ({
   title,
   currentStamp,
   totalStamp,
+  percentage,
+  isStampBoardComplete,
+  completeMessage,
+  messageColor,
+  statusIcon,
+  isRequest,
   requestCount,
   reward,
-}: CardProps) => (
+}: CardVAProps) => (
   <VStack
     w="100%"
-    minH="400px"
+    minH="377px"
     p="20px"
     bg="white"
-    boxShadow="0px 2px 8px rgba(99, 99, 99, 0.2)"
-    border="1px solid #E6E4E2"
+    border="1px solid"
+    borderColor="gray.300"
     borderRadius="8px"
     pos="relative"
     justify="space-between"
@@ -38,16 +51,16 @@ const Card = ({
         <ArrowIcon w={4} h={4} />
       </Flex>
     </VStack>
-    <Box w="100%" pos="absolute" top="12%">
+    <Box w="100%" pos="absolute" top="14%">
       <Box w="100%" pos="relative">
-        <ProgressCircle percentage={(currentStamp / totalStamp) * 100} />
+        <ProgressCircle percentage={percentage} />
         <VStack
           pos="absolute"
-          top="25%"
+          top="27%"
           left="50%"
           transform="translate(-50%, 0%)"
         >
-          <Box>
+          <Box mb="10px">
             <Text as="span" layerStyle="highlight24SB" color="polzzak.default">
               {currentStamp}
             </Text>
@@ -55,16 +68,16 @@ const Card = ({
               /{totalStamp}
             </Text>
           </Box>
-          {currentStamp === totalStamp && (
+          {isStampBoardComplete && (
             <Box
-              bg="#FE6E6E"
+              bg={messageColor}
               borderRadius="10px"
               p="4px 12px"
               color="white"
               layerStyle="highlight14SB"
               pos="relative"
             >
-              쿠폰을 발급해주세요!
+              {completeMessage}
               <Box
                 w={0}
                 h={0}
@@ -74,26 +87,23 @@ const Card = ({
                 transform="translate(-50%, 0%)"
                 borderLeft="10px solid transparent"
                 borderRight="10px solid transparent"
-                borderTop="10px solid #FE6E6E"
+                borderTop={`10px solid ${messageColor}`}
                 borderBottom="10px solid transparent"
               />
             </Box>
           )}
-          {currentStamp !== totalStamp ? (
-            <HandIcon w={76} h={67} />
-          ) : (
-            <CompleteIcon w={76} h={67} />
-          )}
-          {currentStamp !== totalStamp && (
+          {statusIcon}
+          {!isStampBoardComplete && (
             <Box
-              layerStyle="body14R"
-              color="#47B2FF"
+              layerStyle="caption12SB"
+              color={isRequest ? '#47B2FF' : 'polzzak.default'}
               bg="blue.100"
-              p="2px 12px"
+              p="3px 12px"
               borderRadius="10px"
+              opacity={isRequest ? 1 : 0.5}
             >
               도장 요청{' '}
-              <Text as="span" layerStyle="highlight14SB">
+              <Text as="span" layerStyle="caption12B">
                 {requestCount}
               </Text>
               개
@@ -117,4 +127,4 @@ const Card = ({
   </VStack>
 );
 
-export default Card;
+export default CardView;

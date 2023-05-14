@@ -22,6 +22,7 @@ interface StampData {
       totalStamp: number;
       requestCount: number;
       reward: string;
+      isCouponIssued: boolean;
     }[];
   };
 }

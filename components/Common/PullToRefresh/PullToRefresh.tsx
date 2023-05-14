@@ -53,6 +53,7 @@ const PullToRefresh = ({
     []
   );
 
+  // 밑으로 당겼을 때 함수
   const slideDown = (height: number, cb?: () => void) => {
     requestAnimationFrame(function animate() {
       const currentHeight = headRef.current!.clientHeight;
@@ -70,6 +71,7 @@ const PullToRefresh = ({
     });
   };
 
+  // 위로 올렸을 때 함수
   const slideUp = (height: number, cb?: () => void) => {
     requestAnimationFrame(function animate() {
       const currentHeight = headRef.current!.clientHeight;
@@ -86,6 +88,7 @@ const PullToRefresh = ({
     });
   };
 
+  // 새로고침 함수
   const doRefresh = async () => {
     slideDown(headHeight);
     setStatus('refreshing');
@@ -109,6 +112,7 @@ const PullToRefresh = ({
     });
   };
 
+  // 드래그 이벤트
   useDrag(
     (state) => {
       if (status === 'refreshing' || status === 'complete') return;

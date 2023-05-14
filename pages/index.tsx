@@ -7,7 +7,7 @@ import { MainCharactors } from '@/public/icon';
 export default function Home() {
   return (
     <VStack m="auto 0" p="0 5%" gap={30}>
-      <SEO title="Polzzak" />
+      <SEO title="폴짝!" />
       <HStack w="90%" justify="space-between" align="flex-start" pos="relative">
         <VStack
           justify="center"
