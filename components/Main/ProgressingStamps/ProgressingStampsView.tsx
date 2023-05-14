@@ -1,12 +1,11 @@
 import 'swiper/css/pagination';
 
-import { Box, Text, VStack } from '@chakra-ui/react';
-import { Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { VStack } from '@chakra-ui/react';
 
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
 
 import Card from './Card';
+import StampSwiper from './StampSwiper/StampSwiper';
 
 interface ProgressingStampsVAProps {
   handleRefresh: () => Promise<any>;
@@ -24,6 +23,7 @@ interface StampData {
       totalStamp: number;
       requestCount: number;
       reward: string;
+      isCouponIssued: boolean;
     }[];
   };
 }
@@ -39,7 +39,15 @@ const ProgressingStampsView = ({
         {cards
           .find(({ nickname }) => nickname === filter)
           ?.stamps.progressing.map(
-            ({ id, title, currentStamp, totalStamp, requestCount, reward }) => (
+            ({
+              id,
+              title,
+              currentStamp,
+              totalStamp,
+              requestCount,
+              reward,
+              isCouponIssued,
+            }) => (
               <Card
                 key={id}
                 title={title}
@@ -47,59 +55,14 @@ const ProgressingStampsView = ({
                 totalStamp={totalStamp}
                 requestCount={requestCount}
                 reward={reward}
+                isCouponIssued={isCouponIssued}
               />
             )
           )}
       </VStack>
     ) : (
       cards.map(({ nickname, stamps }) => (
-        <Box key={nickname}>
-          <Text layerStyle="head20B" mb="13px" p="0 5%">
-            {nickname}
-            <Text as="span" layerStyle="body18R">
-              님과 함께해요
-            </Text>
-          </Text>
-          <Swiper
-            grabCursor
-            modules={[Pagination]}
-            pagination={{
-              type: 'fraction',
-            }}
-            slidesPerView={1.15}
-            centeredSlides
-            spaceBetween={10}
-            coverflowEffect={{
-              rotate: 10, // 회전각도
-              stretch: 0,
-              depth: 100, // 깊이감도
-              modifier: 2, //
-              slideShadows: false,
-            }}
-            style={{ marginBottom: '38px' }}
-          >
-            {stamps.progressing.map(
-              ({
-                id,
-                title,
-                currentStamp,
-                totalStamp,
-                requestCount,
-                reward,
-              }) => (
-                <SwiperSlide key={id}>
-                  <Card
-                    title={title}
-                    currentStamp={currentStamp}
-                    totalStamp={totalStamp}
-                    requestCount={requestCount}
-                    reward={reward}
-                  />
-                </SwiperSlide>
-              )
-            )}
-          </Swiper>
-        </Box>
+        <StampSwiper key={nickname} nickname={nickname} stamps={stamps} />
       ))
     )}
   </PullToRefresh>
