@@ -37,7 +37,6 @@ const ProgressCircle = ({ percentage }: ProgressCircleProps) => {
   }, [percentage, progress]);
 
   const ProgressCircleVAProps = {
-    percentage,
     barDash,
     barGap,
     progressDash,
