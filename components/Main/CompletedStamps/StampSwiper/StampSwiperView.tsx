@@ -2,6 +2,8 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import Swiper from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
+import { CompletedStampBoardPreview } from '@/interfaces/stampBoard';
+
 import Card from '../Card/Card';
 
 interface StampSwiperVAProps {
@@ -9,11 +11,7 @@ interface StampSwiperVAProps {
   nickname: string;
   currentBoard: number;
   totalBoard: number;
-  completedBoard: {
-    id: number;
-    title: string;
-    reward: string;
-  }[];
+  completedBoard: CompletedStampBoardPreview[];
 }
 
 const StampSwiperView = ({
@@ -53,9 +51,9 @@ const StampSwiperView = ({
       style={{ marginBottom: '38px' }}
       onSlideChange={handleChangeSwiper}
     >
-      {completedBoard.map(({ id, title, reward }) => (
-        <SwiperSlide key={id}>
-          <Card title={title} reward={reward} />
+      {completedBoard.map(({ stampBoardId, name, reward }) => (
+        <SwiperSlide key={stampBoardId}>
+          <Card name={name} reward={reward} />
         </SwiperSlide>
       ))}
     </SwiperComponent>

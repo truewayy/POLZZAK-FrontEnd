@@ -7,25 +7,25 @@ import { userInfoAtom } from '@/store/userInfo';
 import CardView from './CardView';
 
 interface CardProps {
-  title: string;
-  currentStamp: number;
-  totalStamp: number;
+  name: string;
+  currentStampCount: number;
+  goalStampCount: number;
   requestCount: number;
   reward: string;
   isCouponIssued: boolean;
 }
 
 const Card = ({
-  title,
-  currentStamp,
-  totalStamp,
+  name,
+  currentStampCount,
+  goalStampCount,
   requestCount,
   reward,
   isCouponIssued,
 }: CardProps) => {
   const { type } = useRecoilValue(userInfoAtom);
-  const percentage = (currentStamp / totalStamp) * 100;
-  const isStampBoardComplete = currentStamp === totalStamp;
+  const percentage = (currentStampCount / goalStampCount) * 100;
+  const isStampBoardComplete = currentStampCount === goalStampCount;
   const isRequest = requestCount !== 0;
 
   const completeType = () => {
@@ -64,9 +64,9 @@ const Card = ({
   );
 
   const CardVAProps = {
-    title,
-    currentStamp,
-    totalStamp,
+    name,
+    currentStampCount,
+    goalStampCount,
     percentage,
     isStampBoardComplete,
     completeMessage: completeMessage[completeType()],

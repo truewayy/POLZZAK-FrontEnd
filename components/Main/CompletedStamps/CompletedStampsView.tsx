@@ -1,19 +1,14 @@
 import { VStack } from '@chakra-ui/react';
 
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
+import { CompletedStampBoardPreview } from '@/interfaces/stampBoard';
 
 import Card from './Card/Card';
 import StampSwiper from './StampSwiper/StampSwiper';
 
 interface StampData {
   nickname: string;
-  stamps: {
-    completed: {
-      id: number;
-      title: string;
-      reward: string;
-    }[];
-  };
+  stamps: CompletedStampBoardPreview[];
 }
 
 interface CompletedStampsVAProps {
@@ -32,8 +27,8 @@ const CompletedStampsView = ({
       <VStack w="100%" p="0 5%" spacing="20px">
         {cards
           .find(({ nickname }) => nickname === filter)
-          ?.stamps.completed.map(({ id, title, reward }) => (
-            <Card key={id} title={title} reward={reward} />
+          ?.stamps.map(({ stampBoardId, name, reward }) => (
+            <Card key={stampBoardId} name={name} reward={reward} />
           ))}
       </VStack>
     ) : (

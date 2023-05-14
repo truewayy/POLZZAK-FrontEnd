@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { totalStampData } from '@/constants/defaultValue';
+import { totalProgressingStampData } from '@/constants/defaultValue';
+import { ProcessingStampBoardPreview } from '@/interfaces/stampBoard';
 import { filterAtom } from '@/store/filter';
 import { userInfoAtom } from '@/store/userInfo';
 
@@ -14,22 +15,12 @@ import ProgressingStampsView from './ProgressingStampsView';
 
 interface StampData {
   nickname: string;
-  stamps: {
-    progressing: {
-      id: number;
-      title: string;
-      currentStamp: number;
-      totalStamp: number;
-      requestCount: number;
-      reward: string;
-      isCouponIssued: boolean;
-    }[];
-  };
+  stamps: ProcessingStampBoardPreview[];
 }
 
 const ProgressingStamps = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [cards, setCard] = useState<StampData[]>(totalStampData);
+  const [cards, setCard] = useState<StampData[]>(totalProgressingStampData);
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const filter = useRecoilValue(filterAtom);
 
