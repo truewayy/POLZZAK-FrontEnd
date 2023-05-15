@@ -20,6 +20,7 @@ const ROUTES = {
     PARENT: '/onboarding/parent',
     KID: '/onboarding/kid',
   },
+  CREATE_STAMPBOARD: '/create/stampboard',
   KAKAO_LOGIN: `https://kauth.kakao.com/oauth/authorize?client_id=${clientId.kakao}&redirect_uri=${redirectUri.kakao}&response_type=code`,
   GOOGLE_LOGIN: `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId.google}&redirect_uri=${redirectUri.google}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile`,
 };

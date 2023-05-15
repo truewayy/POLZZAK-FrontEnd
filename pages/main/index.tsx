@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 
 import SEO from '@/components/Common/SEO';
+import AddButton from '@/components/Main/AddButton/AddButton';
 import BottomSheetModal from '@/components/Main/BottomSheetModal/BottomSheetModal';
 import CompletedStamps from '@/components/Main/CompletedStamps/CompletedStamps';
 import LinkedFilter from '@/components/Main/LinkedFilter/LinkedFilter';
@@ -18,7 +19,14 @@ import { LinkIcon } from '@/public/icon';
 const Main = () => (
   <VStack>
     <SEO title="폴짝! | 메인" />
-    <Flex w="100%" p="10px 5% 0px 5%" justify="flex-end" bg="white">
+    <Flex
+      w="100%"
+      h="44px"
+      p="0 5%"
+      align="center"
+      justify="flex-end"
+      bg="white"
+    >
       <LinkIcon w={19} h={19} cursor="pointer" />
     </Flex>
     <Tabs w="100%">
@@ -51,6 +59,7 @@ const Main = () => (
         </TabPanel>
       </TabPanels>
     </Tabs>
+    <AddButton />
     <BottomSheetModal />
   </VStack>
 );
