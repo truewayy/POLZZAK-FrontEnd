@@ -6,7 +6,7 @@ import { userInfoAtom } from '@/store/userInfo';
 
 import CardView from './CardView';
 
-interface CardProps {
+export interface CardProps {
   name: string;
   currentStampCount: number;
   goalStampCount: number;
