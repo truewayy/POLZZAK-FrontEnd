@@ -45,7 +45,7 @@ const CardView = ({
   >
     <VStack w="100%" spacing="0px">
       <Flex w="100%" justifyContent="space-between" align="center">
-        <Text layerStyle="head20B" color="#3F3D3B">
+        <Text layerStyle="title3" color="#3F3D3B">
           {name}
         </Text>
         <ArrowIcon w={4} h={4} />
@@ -61,7 +61,7 @@ const CardView = ({
           transform="translate(-50%, 0%)"
         >
           <Box mb="10px">
-            <Text as="span" layerStyle="highlight24SB" color="polzzak.default">
+            <Text as="span" layerStyle="title1" color="polzzak.default">
               {currentStampCount}
             </Text>
             <Text as="span" layerStyle="body16M" color="gray.400">
@@ -74,7 +74,7 @@ const CardView = ({
               borderRadius="10px"
               p="4px 12px"
               color="white"
-              layerStyle="highlight14SB"
+              layerStyle="body2"
               pos="relative"
             >
               {completeMessage}
@@ -95,7 +95,7 @@ const CardView = ({
           {statusIcon}
           {!isStampBoardComplete && (
             <Box
-              layerStyle="caption12SB"
+              layerStyle="caption1"
               color={isRequest ? '#47B2FF' : 'polzzak.default'}
               bg="blue.100"
               p="3px 12px"
@@ -103,7 +103,7 @@ const CardView = ({
               opacity={isRequest ? 1 : 0.5}
             >
               도장 요청{' '}
-              <Text as="span" layerStyle="caption12B">
+              <Text as="span" fontWeight="700">
                 {requestCount}
               </Text>
               개
@@ -114,7 +114,7 @@ const CardView = ({
     </Box>
     <Flex w="100%" align="center" gap="8px">
       <Box
-        layerStyle="caption10SB"
+        layerStyle="caption1"
         color="white"
         p="4px 6px"
         bg="blue.400"
@@ -122,7 +122,7 @@ const CardView = ({
       >
         보상
       </Box>
-      <Text layerStyle="highlight14SB">{reward}</Text>
+      <Text layerStyle="body2">{reward}</Text>
     </Flex>
   </VStack>
 );

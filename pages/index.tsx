@@ -46,7 +46,7 @@ export default function Home() {
         <Text layerStyle="head24B" color="gray.800" w="100%" textAlign="left">
           참 잘했어요 도장 쾅!
         </Text>
-        <Text layerStyle="body15M" color="gray.800" w="100%" textAlign="left">
+        <Text layerStyle="body1" color="gray.800" w="100%" textAlign="left">
           손가락 거는 걸로는 부족한 우리에게 필요했던
         </Text>
       </VStack>

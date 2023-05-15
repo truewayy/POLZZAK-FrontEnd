@@ -32,7 +32,7 @@ const MemberTypeView = ({
         onClick={handleChangeMemberType}
       >
         <Text
-          layerStyle="head16B"
+          layerStyle="subtitle2"
           color={memberType === 'KID' ? 'polzzak.default' : 'black'}
           fontWeight={memberType === 'KID' ? 'bold' : 'normal'}
           alignSelf="flex-start"
@@ -53,7 +53,7 @@ const MemberTypeView = ({
         onClick={handleChangeMemberType}
       >
         <Text
-          layerStyle="head16B"
+          layerStyle="subtitle2"
           color={memberType === 'PARENT' ? 'polzzak.default' : 'black'}
           fontWeight={memberType === 'PARENT' ? 'bold' : 'normal'}
           alignSelf="flex-start"
