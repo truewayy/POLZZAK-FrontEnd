@@ -16,7 +16,9 @@ const HeaderView = ({
 }: HeaderVAProps) => (
   <Box w="100%" pos="fixed" top={0} left={0} p="0 5%" bg="white" zIndex={99}>
     <Flex
+      maxW="560px"
       w="100%"
+      margin="0 auto"
       h="44px"
       justify="space-between"
       alignItems="center"
