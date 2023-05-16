@@ -17,6 +17,7 @@ interface InputFieldVAProps {
   handleClickAddButton: () => void;
   handleClickDeleteButton: (id: number) => void;
   missionValue: (id: number) => string;
+
   control: Control<FieldValues, any>;
   missions: { id: number; content: string }[];
   isMissionLimit: boolean;
