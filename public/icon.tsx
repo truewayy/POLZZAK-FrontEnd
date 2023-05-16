@@ -1316,3 +1316,46 @@ export const BackIcon = createIcon({
     </svg>
   ),
 });
+
+export const DeleteIcon = createIcon({
+  displayName: 'DeleteIcon',
+  viewBox: '0 0 20 21',
+  path: (
+    <svg
+      width="20"
+      height="21"
+      viewBox="0 0 20 21"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M16.6667 7.99935L15.0042 17.4543C14.9363 17.8405 14.7346 18.1904 14.4343 18.4424C14.1341 18.6945 13.7545 18.8327 13.3625 18.8327H6.6375C6.24545 18.8327 5.86594 18.6945 5.56569 18.4424C5.26543 18.1904 5.06366 17.8405 4.99583 17.4543L3.33333 7.99935M17.5 5.49935H12.8125M12.8125 5.49935V3.83268C12.8125 3.39065 12.6369 2.96673 12.3243 2.65417C12.0118 2.34161 11.5879 2.16602 11.1458 2.16602H8.85417C8.41214 2.16602 7.98822 2.34161 7.67566 2.65417C7.36309 2.96673 7.1875 3.39065 7.1875 3.83268V5.49935M12.8125 5.49935H7.1875M2.5 5.49935H7.1875"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+});
+
+export const ListIcon = createIcon({
+  displayName: 'ListIcon',
+  viewBox: '0 0 16 12',
+  path: (
+    <svg
+      width="16"
+      height="12"
+      viewBox="0 0 16 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.50033 1.00083H14.667M2.16699 1.00917L2.17533 1M2.16699 6.00917L2.17533 6M1.16699 10.8342L1.83366 11.5008L3.50033 9.83417M5.50033 6.00083H14.667M5.50033 11.0008H14.667"
+        stroke="white"
+        strokeWidth="0.833333"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+});

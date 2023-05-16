@@ -96,7 +96,7 @@ const CardView = ({
           {!isStampBoardComplete && (
             <Box
               layerStyle="caption1"
-              color={isRequest ? '#47B2FF' : 'polzzak.default'}
+              color={isRequest ? 'polzzak.highlighted' : 'polzzak.default'}
               bg="blue.100"
               p="3px 12px"
               borderRadius="10px"
