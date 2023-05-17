@@ -1378,3 +1378,51 @@ export const InputDeleteIcon = createIcon({
     </svg>
   ),
 });
+
+export const ChangeProfileIcon = createIcon({
+  displayName: 'ChangeProfileIcon',
+  viewBox: '0 0 20 20',
+  path: (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 17 17"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_1739_27632)">
+        <path
+          d="M14.8508 6.24023C14.3316 5.05121 13.4768 4.03946 12.3912 3.32897C11.3056 2.61849 10.0362 2.24012 8.7388 2.24023C5.28214 2.24023 2.4388 4.87157 2.10547 8.24023"
+          stroke="#59B9FF"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12.0728 6.23958H15.0062C15.0587 6.23958 15.1107 6.22924 15.1592 6.20913C15.2078 6.18903 15.2519 6.15957 15.289 6.12243C15.3261 6.08528 15.3556 6.04119 15.3757 5.99266C15.3958 5.94413 15.4062 5.89211 15.4062 5.83958V2.90625M2.66016 11.5729C3.68949 13.9276 6.03882 15.5729 8.77216 15.5729C12.2295 15.5729 15.0722 12.9416 15.4062 9.57292"
+          stroke="#59B9FF"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M5.4388 11.5723H2.50547C2.39938 11.5723 2.29764 11.6144 2.22263 11.6894C2.14761 11.7644 2.10547 11.8662 2.10547 11.9723V14.9056"
+          stroke="#59B9FF"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_1739_27632">
+          <rect
+            width="16"
+            height="16"
+            fill="white"
+            transform="translate(0.739258 0.90625)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  ),
+});
