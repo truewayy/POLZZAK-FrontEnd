@@ -1,4 +1,4 @@
-import { Circle } from '@chakra-ui/react';
+import { Circle, Flex } from '@chakra-ui/react';
 
 import { PlusIcon } from '@/public/icon';
 
@@ -7,17 +7,19 @@ interface AddButtonVAProps {
 }
 
 const AddButtonView = ({ handleClickButton }: AddButtonVAProps) => (
-  <Circle
-    pos="fixed"
-    right="16px"
-    bottom="80px"
-    bg="polzzak.default"
-    size={50}
-    zIndex={100}
-    onClick={handleClickButton}
-  >
-    <PlusIcon w={5} h={5} />
-  </Circle>
+  <Flex w="100%" maxW="560px" pos="fixed" bottom="90px" zIndex={100}>
+    <Circle
+      bg="polzzak.default"
+      size={50}
+      zIndex={100}
+      onClick={handleClickButton}
+      cursor="pointer"
+      marginLeft="auto"
+      marginRight="5%"
+    >
+      <PlusIcon w={5} h={5} />
+    </Circle>
+  </Flex>
 );
 
 export default AddButtonView;
