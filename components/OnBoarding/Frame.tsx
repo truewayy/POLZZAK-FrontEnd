@@ -24,11 +24,11 @@ const Frame = ({ title, title2, description, description2 }: FrameProps) => (
       )}
     </Box>
     <Box w="100%" color="gray.600">
-      <Text layerStyle="body15M" alignSelf="flex-start">
+      <Text layerStyle="body1" alignSelf="flex-start">
         {description}
       </Text>
       {description2 && (
-        <Text layerStyle="body15M" alignSelf="flex-start">
+        <Text layerStyle="body1" alignSelf="flex-start">
           {description2}
         </Text>
       )}

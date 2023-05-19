@@ -53,7 +53,7 @@ const NicknameInputView = ({
   buttonDisabled,
 }: NicknameInputVAProps) => (
   <VStack w="100%" spacing="32px">
-    <Text layerStyle="body13M" alignSelf="flex-start" color="gray.600">
+    <Text layerStyle="body4" alignSelf="flex-start" color="gray.600">
       한글, 영문, 숫자 사용가능 / 특수 문자 불가
     </Text>
     <Flex pos="relative" w="100%" h="50px" gap="7px">
@@ -99,7 +99,7 @@ const NicknameInputView = ({
           pos="absolute"
           bottom="-25px"
           left="5px"
-          layerStyle="body13M"
+          layerStyle="body4"
           color="#FF6161"
         >
           {errorMsg as React.ReactNode}

@@ -27,7 +27,7 @@ const BottomSheetModalView = ({
     snapPoints={({ maxHeight }) => [maxHeight * 0.7, maxHeight * 0.5]}
   >
     <VStack w="100%" h={500} bg="white" p="20px" spacing="20px">
-      <Text layerStyle="highlight16SB">누구의 도장판을 볼까요?</Text>
+      <Text layerStyle="subtitle3">누구의 도장판을 볼까요?</Text>
       <VStack w="100%" spacing="10px">
         {chains.map((chain: string) => (
           <Box
@@ -36,7 +36,7 @@ const BottomSheetModalView = ({
             w="100%"
             p="12px 16px"
             pos="relative"
-            layerStyle="highlight14SB"
+            layerStyle="body2"
             border="1px solid"
             borderColor="gray.200"
             borderRadius="8px"

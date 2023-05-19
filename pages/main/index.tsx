@@ -35,7 +35,7 @@ const Main = () => (
           w="50%"
           color="#E6E4E2"
           _selected={{ color: 'polzzak.default', borderBottom: '2px solid' }}
-          layerStyle="head16B"
+          layerStyle="subtitle2"
         >
           진행 중
         </Tab>
@@ -43,7 +43,7 @@ const Main = () => (
           w="50%"
           color="#E6E4E2"
           _selected={{ color: 'polzzak.default', borderBottom: '2px solid' }}
-          layerStyle="head16B"
+          layerStyle="subtitle2"
         >
           완료
         </Tab>

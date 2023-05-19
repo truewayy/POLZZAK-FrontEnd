@@ -22,14 +22,14 @@ const StampSwiperView = ({
   progressingBoard,
 }: StampSwiperVAProps) => (
   <Box key={nickname}>
-    <Flex justify="space-between" align="center" p="0 5%">
-      <Text layerStyle="head20B" mb="13px">
+    <Flex justify="space-between" align="center" p="0 5%" mb="16px">
+      <Text layerStyle="title3">
         {nickname}
         <Text as="span" layerStyle="body18R">
           님과 함께해요
         </Text>
       </Text>
-      <Text layerStyle="body14M" mb="13px" letterSpacing="tight">
+      <Text layerStyle="body3" letterSpacing="tight">
         {currentBoard}{' '}
         <Text as="span" color="gray.500">
           / {totalBoard}

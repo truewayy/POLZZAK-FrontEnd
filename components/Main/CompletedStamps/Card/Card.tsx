@@ -34,12 +34,12 @@ const Card = ({ name, reward }: CardProps) => (
       bottom="20px"
       right="10px"
     />
-    <Text layerStyle="head20B" color="#3F3D3B80">
+    <Text layerStyle="title3" color="#3F3D3B80">
       {name}
     </Text>
     <Flex w="100%" align="center" gap="8px">
       <Box
-        layerStyle="caption10SB"
+        layerStyle="caption1"
         color="#259BEF80"
         p="4px 6px"
         bg="#C7E5FF99"
@@ -47,7 +47,7 @@ const Card = ({ name, reward }: CardProps) => (
       >
         보상
       </Box>
-      <Text layerStyle="highlight14SB" color="#3F3D3B80">
+      <Text layerStyle="body2" color="#3F3D3B80">
         {reward}
       </Text>
     </Flex>
