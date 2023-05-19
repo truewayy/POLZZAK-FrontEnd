@@ -2,9 +2,9 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import { login } from '@/apis/auth';
+import { getAuthToken, login } from '@/apis/auth';
 import { TOKEN_KEY } from '@/constants/auth';
-import ROUTES, { redirectUri } from '@/constants/routes';
+import ROUTES from '@/constants/routes';
 import { signUpInfoAtom } from '@/store/userInfo';
 import { setLocalStorage } from '@/utils/storage';
 
@@ -21,11 +21,11 @@ const Loading = () => {
     if (!isReady) return;
     if (!authenticationCode) return;
     const fetchCode = async () => {
-      const { code, data } = await login(
+      const oAuthAccessToken = await getAuthToken(
         loginType,
-        authenticationCode,
-        redirectUri[loginType] as string
+        authenticationCode
       );
+      const { code, data } = await login(loginType, oAuthAccessToken);
       if (code === 200 && 'accessToken' in data) {
         setLocalStorage(TOKEN_KEY, data.accessToken);
         push(ROUTES.MAIN);

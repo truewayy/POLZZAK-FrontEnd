@@ -41,16 +41,26 @@ interface DuplicateCheckError {
   };
 }
 
-// 로그인 API
-export const login = async (
-  type: string,
-  authenticationCode: string,
-  redirectUri: string
+export const getAuthToken = async (
+  type: 'kakao' | 'google',
+  authenticationCode: string
 ) => {
   try {
+    const { data } = await http.post(
+      API_URLS.AUTH_TOKEN[type](authenticationCode)
+    );
+    return data.access_token;
+  } catch (error) {
+    const err = error as LoginError;
+    return err.response.data;
+  }
+};
+
+// 로그인 API
+export const login = async (type: string, oAuthAccessToken: string) => {
+  try {
     const { data }: LoginResponse = await http.post(API_URLS.LOGIN(type), {
-      authenticationCode,
-      redirectUri,
+      oAuthAccessToken,
     });
     return data;
   } catch (error) {
