@@ -14,7 +14,7 @@ const HeaderView = ({
   handleSubmit,
   handleClickRegister,
 }: HeaderVAProps) => (
-  <Box w="100%" pos="fixed" top={0} left={0} p="0 5%" bg="white" zIndex={99}>
+  <Box w="100%" pos="fixed" top={0} left={0} p="0 5%" bg="white" zIndex={3}>
     <Flex
       maxW="560px"
       w="100%"
