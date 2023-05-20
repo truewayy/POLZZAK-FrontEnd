@@ -5,6 +5,11 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // axios 인스턴스에 인터셉터를 추가하는 함수
 const setInterceptor = (instance: AxiosInstance) => {
+  instance.interceptors.request.use(
+    (config) => config,
+    (error) => Promise.reject(error)
+  );
+
   instance.interceptors.response.use(
     (response) => response,
     (error) => Promise.reject(error)
