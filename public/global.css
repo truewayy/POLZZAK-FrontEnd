@@ -2,9 +2,3 @@ html,
 body {
   overscroll-behavior: none;
 }
-
-:root {
-  --rsbs-max-w: 560px !important;
-  --rsbs-ml: auto !important;
-  --rsbs-mr: auto !important;
-}

@@ -1,6 +1,7 @@
 import { VStack } from '@chakra-ui/react';
 import { FieldValues, FormProvider, UseFormReturn } from 'react-hook-form';
 
+import BottomSheetModal from '../BottomSheetModal/BottomSheetModal';
 import ChangeProfile from '../ChangeProfile/ChangeProfile';
 import Header from '../Header/Header';
 import InputField from '../InputField/InputField';
@@ -16,6 +17,7 @@ const CreateFormView = ({ methods }: CreateFormVAProps) => (
       <ChangeProfile />
       <InputField />
     </VStack>
+    <BottomSheetModal />
   </FormProvider>
 );
 

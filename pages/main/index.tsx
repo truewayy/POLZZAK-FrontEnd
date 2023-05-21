@@ -1,4 +1,5 @@
 import {
+  Box,
   Flex,
   Tab,
   TabList,
@@ -19,48 +20,43 @@ import { LinkIcon } from '@/public/icon';
 const Main = () => (
   <VStack>
     <SEO title="폴짝! | 메인" />
-    <Flex
-      w="100%"
-      h="44px"
-      p="0 5%"
-      align="center"
-      justify="flex-end"
-      bg="white"
-    >
-      <LinkIcon w={19} h={19} cursor="pointer" />
-    </Flex>
     <Tabs w="100%">
-      <TabList>
-        <Tab
-          w="50%"
-          color="#E6E4E2"
-          _selected={{ color: 'polzzak.default', borderBottom: '2px solid' }}
-          layerStyle="subtitle2"
-        >
-          진행 중
-        </Tab>
-        <Tab
-          w="50%"
-          color="#E6E4E2"
-          _selected={{ color: 'polzzak.default', borderBottom: '2px solid' }}
-          layerStyle="subtitle2"
-        >
-          완료
-        </Tab>
-      </TabList>
+      <Box w="100%" maxW="560px" pos="fixed" top={0} bg="white" zIndex="3">
+        <Flex w="100%" h="44px" p="0 5%" align="center" justify="flex-end">
+          <LinkIcon w={19} h={19} cursor="pointer" />
+        </Flex>
+        <TabList>
+          <Tab
+            w="50%"
+            color="#E6E4E2"
+            _selected={{ color: 'polzzak.default', borderBottom: '2px solid' }}
+            layerStyle="subtitle2"
+          >
+            진행 중
+          </Tab>
+          <Tab
+            w="50%"
+            color="#E6E4E2"
+            _selected={{ color: 'polzzak.default', borderBottom: '2px solid' }}
+            layerStyle="subtitle2"
+          >
+            완료
+          </Tab>
+        </TabList>
+      </Box>
       <TabPanels>
-        <TabPanel minH="100vh" p="5% 0" pb="100px" bg="#F8F8FC">
+        <TabPanel minH="100vh" p="110px 0" pb="100px" bg="#F8F8FC">
           <LinkedFilter />
           <ProgressingStamps />
         </TabPanel>
-        <TabPanel minH="100vh" p="5% 0" pb="100px" bg="#F8F8FC">
+        <TabPanel minH="100vh" p="110px 0" pb="100px" bg="#F8F8FC">
           <LinkedFilter />
           <CompletedStamps />
         </TabPanel>
       </TabPanels>
     </Tabs>
-    <AddButton />
     <BottomSheetModal />
+    <AddButton />
   </VStack>
 );
 

@@ -22,10 +22,10 @@ const StampSwiperView = ({
   progressingBoard,
 }: StampSwiperVAProps) => (
   <Box key={nickname}>
-    <Flex justify="space-between" align="center" p="0 5%" mb="16px">
-      <Text layerStyle="title3">
+    <Flex justify="space-between" align="center" p="0 7.5%" mb="16px">
+      <Text layerStyle="subtitle1">
         {nickname}
-        <Text as="span" layerStyle="body18R">
+        <Text as="span" layerStyle="subtitle6" color="gray.600">
           님과 함께해요
         </Text>
       </Text>

@@ -1,4 +1,3 @@
-import 'react-spring-bottom-sheet/dist/style.css';
 import 'swiper/css';
 
 import axios from 'axios';

@@ -1,48 +1,25 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
 
+import SearchInputView from '@/components/Link/SearchInput/SearchInputView';
 import {
   BackIcon,
   BasicProfileIcon,
   ClipIcon,
   MailIcon,
-  SearchIcon,
   XIcon,
 } from '@/public/icon';
 
 const Link = () => (
   <VStack w="100%" minH="100vh" bg="white">
     <VStack w="100%" align="flex-start" bg="white" p="0 5% 26px 5%">
-      <Flex w="100%" p="10px 0">
+      <Flex w="100%" p="10px 0" pos="fixed" bg="white">
         <BackIcon w="24px" h="24px" />
       </Flex>
-      <Flex w="100%" p="10px 0">
+      <Flex w="100%" p="45px 0 10px 0">
         <Text layerStyle="title1">연동 관리</Text>
       </Flex>
       <Flex w="100%" p="14px 0 24px 0">
-        <InputGroup w="100%">
-          <Input
-            variant="unstyled"
-            placeholder="아이 추가"
-            borderRadius="8px"
-            border="1px solid"
-            borderColor="gray.300"
-            layerStyle="body3"
-            p="12px 16px"
-            _placeholder={{ color: 'gray.500' }}
-          />
-          <InputRightElement>
-            <SearchIcon w="20px" h="20px" />
-          </InputRightElement>
-        </InputGroup>
+        <SearchInputView />
       </Flex>
       <Flex w="100%" p="14px 0 16px 0" gap="6px" align="center">
         <MailIcon w="14px" h="14px" />

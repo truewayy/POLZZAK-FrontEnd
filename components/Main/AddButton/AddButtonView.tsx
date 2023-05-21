@@ -7,11 +7,11 @@ interface AddButtonVAProps {
 }
 
 const AddButtonView = ({ handleClickButton }: AddButtonVAProps) => (
-  <Flex w="100%" maxW="560px" pos="fixed" bottom="90px" zIndex={100}>
+  <Flex w="100%" maxW="560px" pos="fixed" bottom="90px" zIndex={3}>
     <Circle
       bg="polzzak.default"
       size={50}
-      zIndex={100}
+      zIndex={3}
       onClick={handleClickButton}
       cursor="pointer"
       marginLeft="auto"

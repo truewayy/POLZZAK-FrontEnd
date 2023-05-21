@@ -2,22 +2,14 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 
 import { BasicProfileIcon, ChangeProfileIcon } from '@/public/icon';
 
-import BottomSheetModalView from '../BottomSheetModal/BottomSheetModalView';
-
 interface ChangeProfileVAProps {
   handleClickFilter: () => void;
-  handleChangeFilter: (nickname: string) => void;
-  chains: string[];
-  filterOn: boolean;
   currentValue: string;
   balloonMessage: string;
 }
 
 const ChangeProfileView = ({
   handleClickFilter,
-  handleChangeFilter,
-  chains,
-  filterOn,
   currentValue,
   balloonMessage,
 }: ChangeProfileVAProps) => (
@@ -47,14 +39,6 @@ const ChangeProfileView = ({
         {balloonMessage}
       </Box>
     </Box>
-
-    <BottomSheetModalView
-      handleChangeFilter={handleChangeFilter}
-      handleClickFilter={handleClickFilter}
-      chains={chains}
-      filterOn={filterOn}
-      currentValue={currentValue}
-    />
   </Box>
 );
 

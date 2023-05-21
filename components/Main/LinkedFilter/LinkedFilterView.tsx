@@ -15,10 +15,10 @@ const LinkedFilterView = ({
     w="100%"
     p="0 5%"
     mb="20px"
-    justifyContent="space-between"
     alignItems="center"
     cursor="pointer"
     onClick={handleClickFilter}
+    gap="4px"
   >
     <Text layerStyle="title3">
       {currentValue}

@@ -10,6 +10,14 @@ const useControlFilter = () => {
     setFilterOn(!filterOn);
   };
 
+  const handleClickOpen = () => {
+    setFilterOn(true);
+  };
+
+  const handleClickClose = () => {
+    setFilterOn(false);
+  };
+
   const handleChangeFilter = (nickname: string) => {
     setCurrentValue(nickname);
     setFilterOn(!filterOn);
@@ -19,6 +27,8 @@ const useControlFilter = () => {
     filterOn,
     currentValue,
     handleClickFilter,
+    handleClickOpen,
+    handleClickClose,
     handleChangeFilter,
   };
 };

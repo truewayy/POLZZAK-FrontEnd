@@ -73,6 +73,24 @@ const polzzakTheme = extendTheme({
       lineHeight: '140%',
       color: 'gray.800',
     },
+    subtitle4: {
+      fontSize: '20px',
+      fontWeight: '600',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    subtitle5: {
+      fontSize: '20px',
+      fontWeight: '400',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    subtitle6: {
+      fontSize: '18px',
+      fontWeight: '400',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
     body1: {
       fontSize: '15px',
       fontWeight: '500',
@@ -93,6 +111,30 @@ const polzzakTheme = extendTheme({
     },
     body4: {
       fontSize: '13px',
+      fontWeight: '500',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body5: {
+      fontSize: '14px',
+      fontWeight: '700',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body6: {
+      fontSize: '18px',
+      fontWeight: '700',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body7: {
+      fontSize: '18px',
+      fontWeight: '500',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body8: {
+      fontSize: '16px',
       fontWeight: '500',
       lineHeight: '140%',
       color: 'gray.800',
