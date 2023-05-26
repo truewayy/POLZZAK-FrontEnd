@@ -1,6 +1,5 @@
 import {
   Box,
-  Flex,
   Tab,
   TabList,
   TabPanel,
@@ -13,18 +12,16 @@ import SEO from '@/components/Common/SEO';
 import AddButton from '@/components/Main/AddButton/AddButton';
 import BottomSheetModal from '@/components/Main/BottomSheetModal/BottomSheetModal';
 import CompletedStamps from '@/components/Main/CompletedStamps/CompletedStamps';
+import Header from '@/components/Main/Header/Header';
 import LinkedFilter from '@/components/Main/LinkedFilter/LinkedFilter';
 import ProgressingStamps from '@/components/Main/ProgressingStamps/ProgressingStamps';
-import { LinkIcon } from '@/public/icon';
 
 const Main = () => (
   <VStack>
     <SEO title="폴짝! | 메인" />
     <Tabs w="100%">
       <Box w="100%" maxW="560px" pos="fixed" top={0} bg="white" zIndex="3">
-        <Flex w="100%" h="44px" p="0 5%" align="center" justify="flex-end">
-          <LinkIcon w={19} h={19} cursor="pointer" />
-        </Flex>
+        <Header />
         <TabList>
           <Tab
             w="50%"
