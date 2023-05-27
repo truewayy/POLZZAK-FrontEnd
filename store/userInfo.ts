@@ -9,17 +9,29 @@ import {
 const sessionStorage =
   typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
-const { persistAtom } = recoilPersist();
+const localStorage =
+  typeof window !== 'undefined' ? window.localStorage : undefined;
+
+const { persistAtom: localAtom } = recoilPersist({
+  key: 'polzzak-local',
+  storage: localStorage,
+});
+
 const { persistAtom: sessionAtom } = recoilPersist({
-  key: 'sessionStorage',
+  key: 'polzzak-session',
   storage: sessionStorage,
 });
 
 interface UserInfo {
-  type: string;
+  memberType: string;
   nickname: string;
-  profileImage: string;
-  chains: string[];
+  profileUrl: string;
+  families: {
+    memberId: number;
+    nickname: string;
+    memberType: string;
+    profileUrl: string;
+  }[];
 }
 
 interface SignUpInfo {
@@ -33,7 +45,7 @@ interface SignUpInfo {
 export const userInfoAtom = atom<UserInfo>({
   key: 'userInfoAtom',
   default: userInfoDefaultValue,
-  effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [localAtom],
 });
 
 export const signUpInfoAtom = atom<SignUpInfo>({
