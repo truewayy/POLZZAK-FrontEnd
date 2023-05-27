@@ -7,10 +7,10 @@ import { userInfoAtom } from '@/store/userInfo';
 import AddButtonView from './AddButtonView';
 
 const AddButton = () => {
-  const { type } = useRecoilValue(userInfoAtom);
+  const { memberType } = useRecoilValue(userInfoAtom);
   const { push } = useRouter();
 
-  const isTypeParent = type !== 'KID';
+  const isTypeParent = memberType !== 'KID';
 
   const handleClickButton = () => {
     push(ROUTES.CREATE_STAMPBOARD);

@@ -1,8 +1,8 @@
 export const userInfoDefaultValue = {
-  type: '',
+  memberType: '',
   nickname: '',
-  profileImage: '',
-  chains: [],
+  profileUrl: '',
+  families: [],
 };
 
 export const signUpInfoDefaultValue = {

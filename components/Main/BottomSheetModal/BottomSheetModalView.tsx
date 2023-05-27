@@ -8,7 +8,12 @@ interface BottomSheetModalVAProps {
   handleChangeFilter: (nickname: string) => void;
   filterOn: boolean;
   currentValue: string;
-  chains: string[];
+  families: {
+    memberId: number;
+    nickname: string;
+    memberType: string;
+    profileUrl: string;
+  }[];
 }
 
 const BottomSheetModalView = ({
@@ -16,7 +21,7 @@ const BottomSheetModalView = ({
   handleChangeFilter,
   filterOn,
   currentValue,
-  chains,
+  families,
 }: BottomSheetModalVAProps) => (
   <Sheet
     isOpen={filterOn}
@@ -35,10 +40,10 @@ const BottomSheetModalView = ({
         <VStack w="100%" h={500} bg="white" p="20px" spacing="20px">
           <Text layerStyle="subtitle3">누구의 도장판을 볼까요?</Text>
           <VStack w="100%" spacing="10px">
-            {chains.map((chain: string) => (
+            {families?.map(({ memberId, nickname }) => (
               <Box
                 as="button"
-                key={chain}
+                key={memberId}
                 w="100%"
                 p="12px 16px"
                 pos="relative"
@@ -48,15 +53,15 @@ const BottomSheetModalView = ({
                 borderRadius="8px"
                 textAlign="left"
                 bgColor="gray.100"
-                onClick={() => handleChangeFilter(chain)}
-                {...(currentValue === chain && {
+                onClick={() => handleChangeFilter(nickname)}
+                {...(currentValue === nickname && {
                   bgColor: 'blue.100',
                   borderColor: 'polzzak.default',
                   color: 'polzzak.default',
                 })}
               >
-                {chain}
-                {currentValue === chain && (
+                {nickname}
+                {currentValue === nickname && (
                   <CheckIcon
                     pos="absolute"
                     right="16px"

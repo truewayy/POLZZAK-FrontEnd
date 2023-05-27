@@ -10,6 +10,8 @@ const API_URLS = {
   LOGIN: (type: string) => `/api/v1/auth/login/${type}`,
   DUPLICATE_CHECK: (nickname: string) =>
     `/api/v1/auth/validate/nickname?value=${nickname}`,
+  USER_INFO: '/api/v1/users/me',
+  FAMILIES: '/api/v1/families',
 };
 
 export default API_URLS;

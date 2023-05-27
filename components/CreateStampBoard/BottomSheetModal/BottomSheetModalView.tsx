@@ -8,7 +8,12 @@ interface BottomSheetModalVAProps {
   handleChangeFilter: (nickname: string) => void;
   filterOn: boolean;
   currentValue: string;
-  chains: string[];
+  families: {
+    memberId: number;
+    nickname: string;
+    memberType: string;
+    profileUrl: string;
+  }[];
 }
 
 const BottomSheetModalView = ({
@@ -16,7 +21,7 @@ const BottomSheetModalView = ({
   handleChangeFilter,
   filterOn,
   currentValue,
-  chains,
+  families,
 }: BottomSheetModalVAProps) => (
   <Sheet
     isOpen={filterOn}
@@ -37,12 +42,12 @@ const BottomSheetModalView = ({
             도장판을 생성해줄 아이를 선택해주세요{' '}
           </Text>
           <VStack w="100%" spacing="10px">
-            {chains
-              .filter((chain) => chain !== '전체')
-              .map((chain: string) => (
+            {families
+              .filter(({ nickname }) => nickname !== '전체')
+              .map((chain) => (
                 <Box
                   as="button"
-                  key={chain}
+                  key={chain.memberId}
                   w="100%"
                   p="12px 16px"
                   pos="relative"
@@ -52,15 +57,15 @@ const BottomSheetModalView = ({
                   borderRadius="8px"
                   textAlign="left"
                   bgColor="gray.100"
-                  onClick={() => handleChangeFilter(chain)}
-                  {...(currentValue === chain && {
+                  onClick={() => handleChangeFilter(chain.nickname)}
+                  {...(currentValue === chain.nickname && {
                     bgColor: 'blue.100',
                     borderColor: 'polzzak.default',
                     color: 'polzzak.default',
                   })}
                 >
-                  {chain}
-                  {currentValue === chain && (
+                  {chain.nickname}
+                  {currentValue === chain.nickname && (
                     <CheckIcon
                       pos="absolute"
                       right="16px"

@@ -14,7 +14,7 @@ const BottomSheetModal = () => {
     filterOn,
     currentValue,
   } = useControlFilter();
-  const { chains } = useRecoilValue(userInfoAtom);
+  const { families } = useRecoilValue(userInfoAtom);
 
   useEffect(() => {
     if (currentValue === '전체') handleClickOpen();
@@ -25,7 +25,7 @@ const BottomSheetModal = () => {
     handleChangeFilter,
     filterOn,
     currentValue,
-    chains,
+    families,
   };
 
   return <BottomSheetModalView {...BottomSheetModalVAProps} />;
