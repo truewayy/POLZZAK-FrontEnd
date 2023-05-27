@@ -23,13 +23,13 @@ const Card = ({
   reward,
   isCouponIssued,
 }: CardProps) => {
-  const { type } = useRecoilValue(userInfoAtom);
+  const { memberType } = useRecoilValue(userInfoAtom);
   const percentage = (currentStampCount / goalStampCount) * 100;
   const isStampBoardComplete = currentStampCount === goalStampCount;
   const isRequest = requestCount !== 0;
 
   const completeType = () => {
-    if (type === 'KID') {
+    if (memberType === 'KID') {
       if (isCouponIssued) {
         return 'kidCoupon';
       }
