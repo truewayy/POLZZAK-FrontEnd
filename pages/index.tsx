@@ -1,5 +1,6 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react';
 
+import userInfo from '@/apis/user';
 import SEO from '@/components/Common/SEO';
 import LoginButton from '@/components/Login/Button/Button';
 import { MainCharactors } from '@/public/icon';
@@ -8,6 +9,7 @@ export default function Home() {
   return (
     <VStack m="auto 0" p="0 5%" gap={30}>
       <SEO title="폴짝!" />
+      <Button onClick={() => userInfo()}>받아오기</Button>
       <HStack w="90%" justify="space-between" align="flex-start" pos="relative">
         <VStack
           justify="center"
