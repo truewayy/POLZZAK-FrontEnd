@@ -9,12 +9,8 @@ import {
 const sessionStorage =
   typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
-const localStorage =
-  typeof window !== 'undefined' ? window.localStorage : undefined;
-
-const { persistAtom: localAtom } = recoilPersist({
+const { persistAtom } = recoilPersist({
   key: 'polzzak-local',
-  storage: localStorage,
 });
 
 const { persistAtom: sessionAtom } = recoilPersist({
@@ -45,7 +41,7 @@ interface SignUpInfo {
 export const userInfoAtom = atom<UserInfo>({
   key: 'userInfoAtom',
   default: userInfoDefaultValue,
-  effects_UNSTABLE: [localAtom],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const signUpInfoAtom = atom<SignUpInfo>({

@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
 
-import SearchInputView from '@/components/Link/SearchInput/SearchInputView';
+import SearchInput from '@/components/Link/SearchInput/SearchInput';
 import {
   BackIcon,
   BasicProfileIcon,
@@ -19,7 +19,7 @@ const Link = () => (
         <Text layerStyle="title1">연동 관리</Text>
       </Flex>
       <Flex w="100%" p="14px 0 24px 0">
-        <SearchInputView />
+        <SearchInput />
       </Flex>
       <Flex w="100%" p="14px 0 16px 0" gap="6px" align="center">
         <MailIcon w="14px" h="14px" />

@@ -1,10 +1,14 @@
 import { Box, Grid, Text } from '@chakra-ui/react';
 
 interface BoardProps {
-  count: 12 | 16 | 20 | 25 | 36 | 40 | 48 | 60;
+  count: 10 | 12 | 16 | 20 | 25 | 36 | 40 | 48 | 60;
 }
 
 const board = {
+  10: {
+    row: 3,
+    column: 4,
+  },
   12: {
     row: 3,
     column: 4,

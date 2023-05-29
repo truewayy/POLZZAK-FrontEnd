@@ -1524,3 +1524,43 @@ export const SearchIcon = createIcon({
     </svg>
   ),
 });
+
+export const BigSearchIcon = createIcon({
+  displayName: 'BigSearchIcon',
+  viewBox: '0 0 74 74',
+  path: (
+    <svg
+      width="74"
+      height="74"
+      viewBox="0 0 74 74"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_1564_26563)">
+        <rect
+          x="45.6006"
+          y="50.1445"
+          width="6.42725"
+          height="14.3224"
+          transform="rotate(-45 45.6006 50.1445)"
+          fill="#DEDEDE"
+        />
+        <rect
+          x="50.9629"
+          y="58.7969"
+          width="11.0831"
+          height="21.562"
+          rx="5.54154"
+          transform="rotate(-45 50.9629 58.7969)"
+          fill="#9FA0A8"
+        />
+        <circle cx="29" cy="29" r="25.5" stroke="#E3E3E3" strokeWidth="7" />
+      </g>
+      <defs>
+        <clipPath id="clip0_1564_26563">
+          <rect width="74" height="74" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  ),
+});
