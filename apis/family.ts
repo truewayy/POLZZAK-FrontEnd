@@ -17,6 +17,20 @@ export interface FamiliesResponse {
   };
 }
 
+export interface FamilyResponse {
+  data: {
+    code: 200;
+    messages: null;
+    data: {
+      memberId: number;
+      nickname: string;
+      memberType: string;
+      profileUrl: string;
+      familyStatus: 'NONE' | 'RECEIVED' | 'APPROVE' | 'SENT';
+    };
+  };
+}
+
 export interface FamiliesError {
   response: {
     data: {
@@ -27,7 +41,7 @@ export interface FamiliesError {
   };
 }
 
-const familiesInfo = async () => {
+export const familiesInfo = async () => {
   try {
     const { data }: FamiliesResponse = await http.get(API_URLS.FAMILIES);
     return data;
@@ -37,4 +51,12 @@ const familiesInfo = async () => {
   }
 };
 
-export default familiesInfo;
+export const searchFamilies = async (nickname: string) => {
+  try {
+    const { data }: FamilyResponse = await http.get(API_URLS.FAMILY(nickname));
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};
