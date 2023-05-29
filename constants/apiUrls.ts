@@ -12,6 +12,7 @@ const API_URLS = {
     `/api/v1/auth/validate/nickname?value=${nickname}`,
   USER_INFO: '/api/v1/users/me',
   FAMILIES: '/api/v1/families',
+  FAMILY: (nickname: string) => `/api/v1/families/users?nickname=${nickname}`,
 };
 
 export default API_URLS;
