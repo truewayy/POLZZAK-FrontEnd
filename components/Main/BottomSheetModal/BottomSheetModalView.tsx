@@ -40,6 +40,34 @@ const BottomSheetModalView = ({
         <VStack w="100%" h={500} bg="white" p="20px" spacing="20px">
           <Text layerStyle="subtitle3">누구의 도장판을 볼까요?</Text>
           <VStack w="100%" spacing="10px">
+            <Box
+              as="button"
+              w="100%"
+              p="12px 16px"
+              pos="relative"
+              layerStyle="body2"
+              border="1px solid"
+              borderColor="gray.200"
+              borderRadius="8px"
+              textAlign="left"
+              bgColor="gray.100"
+              onClick={() => handleChangeFilter('전체')}
+              {...(currentValue === '전체' && {
+                bgColor: 'blue.100',
+                borderColor: 'polzzak.default',
+                color: 'polzzak.default',
+              })}
+            >
+              전체
+              {currentValue === '전체' && (
+                <CheckIcon
+                  pos="absolute"
+                  right="16px"
+                  top="50%"
+                  transform="translateY(-50%)"
+                />
+              )}
+            </Box>
             {families?.map(({ memberId, nickname }) => (
               <Box
                 as="button"
