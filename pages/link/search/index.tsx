@@ -28,7 +28,7 @@ const FamilySearch = () => {
     setSearch('');
     setTimeout(() => {
       document.getElementById('search-input')?.focus();
-    }, 0);
+    }, 100);
   };
 
   const handleSearchEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -48,7 +48,7 @@ const FamilySearch = () => {
   const handleInputBlur = () => {
     setTimeout(() => {
       setIsInputFocused(false);
-    }, 0);
+    }, 50);
   };
 
   return (
