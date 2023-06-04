@@ -10,7 +10,7 @@ const AddButton = () => {
   const { memberType } = useRecoilValue(userInfoAtom);
   const { push } = useRouter();
 
-  const isTypeParent = memberType !== 'KID';
+  const isTypeParent = memberType.name !== 'KID';
 
   const handleClickButton = () => {
     push(ROUTES.CREATE_STAMPBOARD);
