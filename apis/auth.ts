@@ -59,9 +59,15 @@ export const getAuthToken = async (
 // 로그인 API
 export const login = async (type: string, oAuthAccessToken: string) => {
   try {
-    const { data }: LoginResponse = await http.post(API_URLS.LOGIN(type), {
-      oAuthAccessToken,
-    });
+    const { data }: LoginResponse = await http.post(
+      API_URLS.LOGIN(type),
+      {
+        oAuthAccessToken,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     return data;
   } catch (error) {
     const err = error as LoginError;

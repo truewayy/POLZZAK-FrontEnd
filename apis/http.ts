@@ -12,7 +12,6 @@ const setInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
       // 헤더에 토큰 추가
-      config.withCredentials = true;
       const accessToken = getLocalStorage(TOKEN_KEY);
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
