@@ -19,7 +19,10 @@ const { persistAtom: sessionAtom } = recoilPersist({
 });
 
 interface UserInfo {
-  memberType: string;
+  memberType: {
+    name: string;
+    detail: string;
+  };
   nickname: string;
   profileUrl: string;
   families: {

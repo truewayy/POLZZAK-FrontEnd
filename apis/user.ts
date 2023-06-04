@@ -8,7 +8,10 @@ export interface UserInfoResponse {
     messages: null;
     data: {
       nickname: string;
-      memberType: string;
+      memberType: {
+        name: string;
+        detail: string;
+      };
       profileUrl: string;
     };
   };

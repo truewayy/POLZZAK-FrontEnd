@@ -1,41 +1,33 @@
 /* eslint-disable no-nested-ternary */
 import { useRecoilValue } from 'recoil';
 
+import { StampBoard } from '@/apis/stamp';
 import { CompleteIcon, HandIcon, NoRequestIcon } from '@/public/icon';
 import { userInfoAtom } from '@/store/userInfo';
 
 import CardView from './CardView';
 
-export interface CardProps {
-  name: string;
-  currentStampCount: number;
-  goalStampCount: number;
-  requestCount: number;
-  reward: string;
-  isCouponIssued: boolean;
-}
-
 const Card = ({
   name,
   currentStampCount,
   goalStampCount,
-  requestCount,
+  missionRequestCount,
   reward,
-  isCouponIssued,
-}: CardProps) => {
+  status,
+}: StampBoard) => {
   const { memberType } = useRecoilValue(userInfoAtom);
   const percentage = (currentStampCount / goalStampCount) * 100;
   const isStampBoardComplete = currentStampCount === goalStampCount;
-  const isRequest = requestCount !== 0;
+  const isRequest = missionRequestCount !== 0;
 
   const completeType = () => {
-    if (memberType === 'KID') {
-      if (isCouponIssued) {
+    if (memberType.name === 'KID') {
+      if (status === 'progress') {
         return 'kidCoupon';
       }
       return 'kidComplete';
     }
-    if (isCouponIssued) {
+    if (status === 'progress') {
       return 'parentCoupon';
     }
     return 'parentComplete';
@@ -73,7 +65,7 @@ const Card = ({
     messageColor: messageColor[completeType()],
     statusIcon,
     isRequest,
-    requestCount,
+    missionRequestCount,
     reward,
   };
 

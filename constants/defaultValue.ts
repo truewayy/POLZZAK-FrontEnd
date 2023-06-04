@@ -1,5 +1,8 @@
 export const userInfoDefaultValue = {
-  memberType: '',
+  memberType: {
+    name: '',
+    detail: '',
+  },
   nickname: '',
   profileUrl: '',
   families: [],

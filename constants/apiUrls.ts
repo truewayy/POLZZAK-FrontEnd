@@ -14,6 +14,7 @@ const API_URLS = {
   USER_INFO: '/api/v1/users/me',
   FAMILIES: '/api/v1/families',
   FAMILY: (nickname: string) => `/api/v1/families/users?nickname=${nickname}`,
+  STAMPBOARD_LIST: '/api/v1/stamps/stamp-boards',
 };
 
 export default API_URLS;

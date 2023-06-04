@@ -1,41 +1,34 @@
+/* eslint-disable no-nested-ternary */
 import 'swiper/css';
 
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { totalProgressingStampData } from '@/constants/defaultValue';
-import { ProcessingStampBoardPreview } from '@/interfaces/stampBoard';
+import { stampboardList } from '@/apis/stamp';
 import { filterAtom } from '@/store/filter';
+import { userInfoAtom } from '@/store/userInfo';
 
+import ProgressingStampsNoFamiles from './ProgressingStampsNoFamiles';
 import ProgressingStampsSkeleton from './ProgressingStampsSkeleton';
 import ProgressingStampsView from './ProgressingStampsView';
 
-interface StampData {
-  nickname: string;
-  stamps: ProcessingStampBoardPreview[];
-}
-
 const ProgressingStamps = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [cards, setCard] = useState<StampData[]>(totalProgressingStampData);
+  const { families } = useRecoilValue(userInfoAtom);
   const filter = useRecoilValue(filterAtom);
+  const noFamiles = families.length === 0;
+  const { data, isLoading, refetch } = useQuery(
+    ['stampboardList', 'in_progress', filter],
+    () => stampboardList({ stampBoardGroup: 'in_progress' }),
+    {
+      enabled: !noFamiles,
+    }
+  );
+
+  const cards = data?.data;
 
   const handleRefresh = async () => {
-    try {
-      const response: StampData[] = await axios.get('/api/stamp');
-      setCard(response);
-    } catch (error) {
-      console.log(error);
-    }
+    await refetch();
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  }, [filter]);
 
   const ProgressingStampsVAProps = {
     handleRefresh,
@@ -43,7 +36,9 @@ const ProgressingStamps = () => {
     filter,
   };
 
-  return isLoading ? (
+  return noFamiles ? (
+    <ProgressingStampsNoFamiles />
+  ) : isLoading ? (
     <ProgressingStampsSkeleton filter={filter} />
   ) : (
     <ProgressingStampsView {...ProgressingStampsVAProps} />

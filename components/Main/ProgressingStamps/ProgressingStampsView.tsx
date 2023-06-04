@@ -2,21 +2,16 @@ import 'swiper/css/pagination';
 
 import { VStack } from '@chakra-ui/react';
 
+import { StampboardListData } from '@/apis/stamp';
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
-import { ProcessingStampBoardPreview } from '@/interfaces/stampBoard';
 
 import Card from './Card/Card';
 import StampSwiper from './StampSwiper/StampSwiper';
 
 interface ProgressingStampsVAProps {
   handleRefresh: () => Promise<any>;
-  cards: StampData[];
+  cards: StampboardListData[] | undefined | null;
   filter: string;
-}
-
-interface StampData {
-  nickname: string;
-  stamps: ProcessingStampBoardPreview[];
 }
 
 const ProgressingStampsView = ({
@@ -28,32 +23,37 @@ const ProgressingStampsView = ({
     {filter !== '전체' ? (
       <VStack w="100%" p="0 5%" spacing="20px">
         {cards
-          .find(({ nickname }) => nickname === filter)
-          ?.stamps.map(
+          ?.find(({ partner: { nickname } }) => nickname === filter)
+          ?.stampBoardSummaries.map(
             ({
               stampBoardId,
               name,
               currentStampCount,
               goalStampCount,
-              requestCount,
+              missionRequestCount,
               reward,
-              isCouponIssued,
+              status,
             }) => (
               <Card
                 key={stampBoardId}
+                stampBoardId={stampBoardId}
                 name={name}
                 currentStampCount={currentStampCount}
                 goalStampCount={goalStampCount}
-                requestCount={requestCount}
+                missionRequestCount={missionRequestCount}
                 reward={reward}
-                isCouponIssued={isCouponIssued}
+                status={status}
               />
             )
           )}
       </VStack>
     ) : (
-      cards.map(({ nickname, stamps }) => (
-        <StampSwiper key={nickname} nickname={nickname} stamps={stamps} />
+      cards?.map(({ partner, stampBoardSummaries }) => (
+        <StampSwiper
+          key={partner.nickname}
+          partner={partner}
+          stampBoardSummaries={stampBoardSummaries}
+        />
       ))
     )}
   </PullToRefresh>

@@ -15,7 +15,7 @@ interface CardVAProps {
   messageColor: string;
   statusIcon: React.ReactNode;
   isRequest: boolean;
-  requestCount: number;
+  missionRequestCount: number;
   reward: string;
 }
 
@@ -29,7 +29,7 @@ const CardView = ({
   messageColor,
   statusIcon,
   isRequest,
-  requestCount,
+  missionRequestCount,
   reward,
 }: CardVAProps) => (
   <VStack
@@ -104,7 +104,7 @@ const CardView = ({
             >
               도장 요청{' '}
               <Text as="span" fontWeight="700">
-                {requestCount}
+                {missionRequestCount}
               </Text>
               개
             </Box>
