@@ -19,7 +19,7 @@ const SearchResult = () => {
     }
   );
 
-  const isKid = memberType === 'KID';
+  const isKid = memberType.name === 'KID';
   const infoText = isKid ? '연동된 보호자에게' : '연동된 아이에게';
   const infoText2 = isKid
     ? '칭찬 도장판을 받을 수 있어요'
