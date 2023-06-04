@@ -9,7 +9,7 @@ export const signUpInfoDefaultValue = {
   socialType: '',
   username: '',
   memberType: '',
-  parentType: '',
+  memberTypeDetailId: 0,
   nickname: '',
 };
 

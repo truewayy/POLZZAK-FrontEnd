@@ -25,6 +25,19 @@ export interface LoginError {
   };
 }
 
+interface MemberTypeResponse {
+  data: {
+    code: 200;
+    messages: null;
+    data: {
+      memberTypeDetailList: {
+        memberTypeDetailId: number;
+        detail: string;
+      }[];
+    };
+  };
+}
+
 interface RegisterError {
   response: {
     data: {
@@ -102,5 +115,15 @@ export const duplicateCheck = async (nickname: string) => {
   } catch (error) {
     const err = error as DuplicateCheckError;
     return err.response.status;
+  }
+};
+
+export const memberType = async () => {
+  try {
+    const { data }: MemberTypeResponse = await http.get(API_URLS.MEMBER_TYPE);
+    return data;
+  } catch (error) {
+    const err = error as RegisterError;
+    return err.response.data;
   }
 };

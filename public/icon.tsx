@@ -1564,3 +1564,86 @@ export const BigSearchIcon = createIcon({
     </svg>
   ),
 });
+
+export const LoadingSpinner = createIcon({
+  displayName: 'LoadingSpinner',
+  viewBox: '0 0 38 38',
+  path: (
+    <svg
+      width="36"
+      height="36"
+      viewBox="0 0 36 36"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="15.5" y="2" width="4" height="10" rx="2" fill="#84CCFF" />
+      <rect
+        opacity="0.5"
+        x="15.5"
+        y="23"
+        width="4"
+        height="10"
+        rx="2"
+        fill="#84CCFF"
+      />
+      <rect
+        x="33"
+        y="15.5"
+        width="4"
+        height="10"
+        rx="2"
+        transform="rotate(90 33 15.5)"
+        fill="#84CCFF"
+      />
+      <rect
+        opacity="0.3"
+        x="12"
+        y="15.5"
+        width="4"
+        height="10"
+        rx="2"
+        transform="rotate(90 12 15.5)"
+        fill="#84CCFF"
+      />
+      <rect
+        opacity="0.6"
+        x="29.8743"
+        y="27.0469"
+        width="4"
+        height="10"
+        rx="2"
+        transform="rotate(135 29.8743 27.0469)"
+        fill="#84CCFF"
+      />
+      <rect
+        opacity="0.2"
+        x="15.0251"
+        y="12.1953"
+        width="4"
+        height="10"
+        rx="2"
+        transform="rotate(135 15.0251 12.1953)"
+        fill="#84CCFF"
+      />
+      <rect
+        x="27.0469"
+        y="5.125"
+        width="4"
+        height="10"
+        rx="2"
+        transform="rotate(45 27.0469 5.125)"
+        fill="#84CCFF"
+      />
+      <rect
+        opacity="0.4"
+        x="12.1953"
+        y="19.9766"
+        width="4"
+        height="10"
+        rx="2"
+        transform="rotate(45 12.1953 19.9766)"
+        fill="#84CCFF"
+      />
+    </svg>
+  ),
+});

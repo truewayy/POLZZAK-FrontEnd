@@ -15,6 +15,9 @@ const MemberType = () => {
   const buttonDisabled = memberType === '';
 
   const handleChangeMemberType: MouseEventHandler<HTMLDivElement> = (e) => {
+    if (e.currentTarget.id === 'KID') {
+      setSignupInfo((prev) => ({ ...prev, memberTypeDetailId: 1 }));
+    }
     setSignupInfo((prev) => ({ ...prev, memberType: e.currentTarget.id }));
   };
 

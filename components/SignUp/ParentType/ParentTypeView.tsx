@@ -9,10 +9,10 @@ import NextStepButton from '../Button';
 interface ParentTypeVAProps {
   handleChangeSwiper: (swiper: Swiper) => void;
   handleClickButton: () => void;
-  currentParentType: string;
+  currentParentType: number;
   parentTypes: {
-    name: string;
-    value: string;
+    memberTypeDetailId: number;
+    detail: string;
   }[];
   buttonDisabled: boolean;
 }
@@ -46,8 +46,8 @@ const ParentTypeView = ({
       }}
       onSlideChange={handleChangeSwiper}
     >
-      {parentTypes.map(({ name, value }) => (
-        <SwiperSlide id={value} key={value}>
+      {parentTypes.map(({ memberTypeDetailId, detail }) => (
+        <SwiperSlide key={memberTypeDetailId}>
           <Box
             p="20px"
             bg="white"
@@ -57,13 +57,13 @@ const ParentTypeView = ({
             borderRadius="8px"
             textAlign="center"
             color="#DADADA"
-            {...(currentParentType === value && {
+            {...(currentParentType === memberTypeDetailId && {
               borderColor: 'polzzak.default',
               color: 'polzzak.default',
               bg: 'blue.100',
             })}
           >
-            {name}
+            {detail}
           </Box>
         </SwiperSlide>
       ))}

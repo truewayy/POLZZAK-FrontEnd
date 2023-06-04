@@ -7,6 +7,7 @@ const API_URLS = {
     google: (code: string) =>
       `https://oauth2.googleapis.com/token?code=${code}&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&client_secret=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&grant_type=authorization_code`,
   },
+  MEMBER_TYPE: '/api/v1/member-types',
   LOGIN: (type: string) => `/api/v1/auth/login/${type}`,
   DUPLICATE_CHECK: (nickname: string) =>
     `/api/v1/auth/validate/nickname?value=${nickname}`,

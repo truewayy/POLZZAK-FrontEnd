@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { register } from '@/apis/auth';
+import { familiesInfo } from '@/apis/family';
+import userInfo from '@/apis/user';
 import { TOKEN_KEY } from '@/constants/auth';
 import ROUTES from '@/constants/routes';
-import { signUpInfoAtom } from '@/store/userInfo';
+import { signUpInfoAtom, userInfoAtom } from '@/store/userInfo';
 import imgToBase64 from '@/utils/imgToBase64';
 import { setLocalStorage } from '@/utils/storage';
 
@@ -13,7 +15,8 @@ import ProfileImageView from './ProfileImageView';
 
 const ProfileImage = () => {
   const { push } = useRouter();
-  const { username, socialType, nickname, memberType, parentType } =
+  const setUserInfo = useSetRecoilState(userInfoAtom);
+  const { username, socialType, nickname, memberType, memberTypeDetailId } =
     useRecoilValue(signUpInfoAtom);
   const profileRef = useRef<HTMLInputElement>(null);
   const [profileFile, setProfileFile] = useState<FileList | null>();
@@ -32,13 +35,32 @@ const ProfileImage = () => {
     setProfileFile(e.target.files);
   };
 
+  const getUserInfo = async () => {
+    const { data: userData } = await userInfo();
+    const { data: familyData } = await familiesInfo();
+    if (userData && familyData) {
+      return {
+        ...userData,
+        ...familyData,
+      };
+    }
+    return null;
+  };
+
+  const setUserInfoAndPush = async () => {
+    const userDetail = await getUserInfo();
+    if (userDetail) {
+      setUserInfo(userDetail);
+    }
+  };
+
   const handleClickButton = async () => {
     const submitData = new FormData();
     const memberInfo = {
       username,
       socialType,
       nickname,
-      memberType: memberType === 'KID' ? memberType : parentType,
+      memberTypeDetailId,
     };
     const registerRequestBlob = new Blob([JSON.stringify(memberInfo)], {
       type: 'application/json',
@@ -51,6 +73,7 @@ const ProfileImage = () => {
     const { code, data } = await register(submitData);
     if (code === 200 && 'accessToken' in data) {
       setLocalStorage(TOKEN_KEY, data.accessToken);
+      await setUserInfoAndPush();
       if (memberType === 'KID' || memberType === 'PARENT') {
         push(ROUTES.ON_BOARDING[memberType]);
       }

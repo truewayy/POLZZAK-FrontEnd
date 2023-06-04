@@ -3,74 +3,76 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import Swiper from 'swiper';
 
+import { memberType } from '@/apis/auth';
 import ROUTES from '@/constants/routes';
 import { signUpInfoAtom } from '@/store/userInfo';
 
 import ParentTypeView from './ParentTypeView';
 
-const parentTypes = [
+export const defaultParentTypes = [
   {
-    name: '엄마',
-    value: 'MOTHER',
+    detail: '엄마',
+    memberTypeDetailId: 2,
   },
   {
-    name: '아빠',
-    value: 'FATHER',
+    detail: '아빠',
+    memberTypeDetailId: 3,
   },
   {
-    name: '언니',
-    value: 'FEMALE_SISTER',
+    detail: '언니',
+    memberTypeDetailId: 4,
   },
   {
-    name: '오빠',
-    value: 'FEMALE_BROTHER',
+    detail: '오빠',
+    memberTypeDetailId: 5,
   },
   {
-    name: '누나',
-    value: 'MALE_SISTER',
+    detail: '누나',
+    memberTypeDetailId: 6,
   },
   {
-    name: '형',
-    value: 'MALE_BROTHER',
+    detail: '형',
+    memberTypeDetailId: 7,
   },
   {
-    name: '할머니',
-    value: 'GRANDMOTHER',
+    detail: '할머니',
+    memberTypeDetailId: 8,
   },
   {
-    name: '할아버지',
-    value: 'GRANDFATHER',
+    detail: '할아버지',
+    memberTypeDetailId: 9,
   },
   {
-    name: '이모',
-    value: 'MATERNAL_AUNT',
+    detail: '이모',
+    memberTypeDetailId: 10,
   },
   {
-    name: '고모',
-    value: 'PATERNAL_AUNT',
+    detail: '고모',
+    memberTypeDetailId: 11,
   },
   {
-    name: '삼촌',
-    value: 'UNCLE',
+    detail: '삼촌',
+    memberTypeDetailId: 12,
   },
   {
-    name: '보호자',
-    value: 'ETC',
+    detail: '보호자',
+    memberTypeDetailId: 13,
   },
 ];
 
 const ParentType = () => {
   const { push } = useRouter();
+  const [parentTypes, setParentTypes] = useState(defaultParentTypes);
   const [signUpInfo, setSignupInfo] = useRecoilState(signUpInfoAtom);
-  const [currentParentType, setCurrentParentType] = useState('');
+  const [currentParentType, setCurrentParentType] = useState(0);
 
   const buttonDisabled =
-    currentParentType === '' || signUpInfo.memberType === 'KID';
+    currentParentType === 0 || signUpInfo.memberType === 'KID';
 
   const handleChangeSwiper: (swiper: Swiper) => void = (swiper) => {
     setSignupInfo((prev) => ({
       ...prev,
-      parentType: parentTypes[swiper.realIndex].value,
+      memberTypeDetailId: parentTypes[swiper.realIndex].memberTypeDetailId,
     }));
   };
 
@@ -79,8 +81,21 @@ const ParentType = () => {
   };
 
   useEffect(() => {
-    setCurrentParentType(signUpInfo.parentType);
-  }, [signUpInfo.parentType]);
+    const getMemberTypes = async () => {
+      const { data } = await memberType();
+      if ('memberTypeDetailList' in data) {
+        const parentTypeList = data.memberTypeDetailList.filter(
+          ({ memberTypeDetailId }) => memberTypeDetailId !== 1
+        );
+        setParentTypes(parentTypeList);
+      }
+    };
+    getMemberTypes();
+  }, []);
+
+  useEffect(() => {
+    setCurrentParentType(signUpInfo.memberTypeDetailId);
+  }, [signUpInfo.memberTypeDetailId]);
 
   useEffect(() => {
     if (signUpInfo.memberType !== 'PARENT') {

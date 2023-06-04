@@ -34,7 +34,7 @@ interface SignUpInfo {
   socialType: string;
   username: string;
   memberType: string;
-  parentType: string;
+  memberTypeDetailId: number;
   nickname: string;
 }
 
