@@ -14,6 +14,8 @@ const API_URLS = {
   USER_INFO: '/api/v1/users/me',
   FAMILIES: '/api/v1/families',
   FAMILY: (nickname: string) => `/api/v1/families/users?nickname=${nickname}`,
+  SENT_REQUEST: '/api/v1/families/requests/sent',
+  RECEIVED_REQUEST: '/api/v1/families/requests/received',
   STAMPBOARD_LIST: '/api/v1/stamps/stamp-boards',
 };
 
