@@ -1,39 +1,30 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { totalCompletedStampData } from '@/constants/defaultValue';
-import { CompletedStampBoardPreview } from '@/interfaces/stampBoard';
+import { stampboardList } from '@/apis/stamp';
 import { filterAtom } from '@/store/filter';
+import { userInfoAtom } from '@/store/userInfo';
 
 import CompletedStampsSkeleton from './CompletedStampsSkeleton';
 import CompletedStampsView from './CompletedStampsView';
 
-interface StampData {
-  nickname: string;
-  stamps: CompletedStampBoardPreview[];
-}
-
 const CompletedStamps = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [cards, setCard] = useState<StampData[]>(totalCompletedStampData);
+  const { families } = useRecoilValue(userInfoAtom);
   const filter = useRecoilValue(filterAtom);
+  const noFamiles = families.length === 0;
+  const { data, isLoading, refetch } = useQuery(
+    ['stampboardList', 'ended', filter],
+    () => stampboardList({ stampBoardGroup: 'ended' }),
+    {
+      enabled: !noFamiles,
+    }
+  );
+
+  const cards = data?.data;
 
   const handleRefresh = async () => {
-    try {
-      const response: StampData[] = await axios.get('/api/stamp');
-      setCard(response);
-    } catch (error) {
-      console.log(error);
-    }
+    await refetch();
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  }, [filter]);
 
   const CompletedStampsVAProps = {
     handleRefresh,
