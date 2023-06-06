@@ -10,7 +10,10 @@ export interface FamiliesResponse {
       families: {
         memberId: number;
         nickname: string;
-        memberType: string;
+        memberType: {
+          name: string;
+          detail: string;
+        };
         profileUrl: string;
       }[];
     };
@@ -27,24 +30,6 @@ export interface FamilyResponse {
       memberType: string;
       profileUrl: string;
       familyStatus: 'NONE' | 'RECEIVED' | 'APPROVE' | 'SENT';
-    };
-  };
-}
-
-export interface RequestResponse {
-  data: {
-    code: 200;
-    messages: null;
-    data: {
-      families: {
-        memberId: number;
-        nickname: string;
-        memberType: {
-          name: string;
-          detail: string;
-        };
-        profileUrl: string;
-      }[];
     };
   };
 }
