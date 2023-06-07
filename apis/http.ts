@@ -14,7 +14,7 @@ const setInterceptor = (instance: AxiosInstance) => {
       // 헤더에 토큰 추가
       const accessToken = getLocalStorage(TOKEN_KEY);
       if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
+        config.headers.Authorization = `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHT09HTEVfMTExNDk2OTMxOTY0MDgyMjEwNDY4Iiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTY4NjExNjcwMywiZXhwIjoxNjg2MTE2NzA0fQ.pqvsNrdxESxhKD_veOPWDAOI-b3-qXsBzV-ftayDBaQa5wcYOvxXQ-vmrqhyQWnN`;
       }
       return config;
     },
