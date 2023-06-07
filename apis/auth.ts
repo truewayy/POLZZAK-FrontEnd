@@ -60,7 +60,8 @@ export const getAuthToken = async (
 ) => {
   try {
     const { data } = await http.post(
-      API_URLS.AUTH_TOKEN[type](authenticationCode)
+      API_URLS.AUTH_TOKEN[type](authenticationCode),
+      null
     );
     return data.access_token;
   } catch (error) {

@@ -27,7 +27,10 @@ export interface FamilyResponse {
     data: {
       memberId: number;
       nickname: string;
-      memberType: string;
+      memberType: {
+        name: string;
+        detail: string;
+      };
       profileUrl: string;
       familyStatus: 'NONE' | 'RECEIVED' | 'APPROVE' | 'SENT';
     };
