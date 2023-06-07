@@ -29,9 +29,7 @@ export interface UserInfoError {
 
 const userInfo = async () => {
   try {
-    const { data }: UserInfoResponse = await http.get(API_URLS.USER_INFO, {
-      withCredentials: true,
-    });
+    const { data }: UserInfoResponse = await http.get(API_URLS.USER_INFO);
     return data;
   } catch (error) {
     const err = error as UserInfoError;
