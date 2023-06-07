@@ -2,7 +2,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 import { TOKEN_KEY } from '@/constants/auth';
-import { getLocalStorage } from '@/utils/storage';
+import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
 // API 주소
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -31,7 +31,16 @@ const setInterceptor = (instance: AxiosInstance) => {
 
   instance.interceptors.response.use(
     (response) => response,
-    (error) => Promise.reject(error)
+    (error) => {
+      const tokenExpiredErr = error.response.data.code === 434;
+      if (tokenExpiredErr) {
+        const newToken = error.response.data.data;
+        setLocalStorage(TOKEN_KEY, newToken);
+        instance.defaults.headers.Authorization = `Bearer ${newToken}`;
+        return instance(error.response.config);
+      }
+      return Promise.reject(error);
+    }
   );
 
   return instance;
