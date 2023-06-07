@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { familiesInfo, receivedRequest } from '@/apis/family';
+import { familiesInfo, receivedRequest, sentRequest } from '@/apis/family';
 import SearchInput from '@/components/Link/SearchInput/SearchInput';
 import ROUTES from '@/constants/routes';
 import { BackIcon, ClipIcon, MailIcon, XIcon } from '@/public/icon';
@@ -17,7 +17,7 @@ const Link = () => {
     memberType: { name },
   } = useRecoilValue(userInfoAtom);
   const { data: received } = useQuery(['request', 'received'], receivedRequest);
-  const { data: sent } = useQuery(['request', 'sent'], receivedRequest);
+  const { data: sent } = useQuery(['request', 'sent'], sentRequest);
   const { data: family } = useQuery(['familes', 'list'], familiesInfo);
   const handleClickBackButton = () => {
     push(ROUTES.MAIN);
@@ -59,34 +59,76 @@ const Link = () => {
           </Text>
         ) : (
           <VStack w="100%" spacing="30px">
-            <VStack w="100%" spacing="10px" align="center">
-              <Text layerStyle="body2" color="gray.500" alignSelf="flex-start">
-                나에게 온 연동 요청
-              </Text>
-              {receivedRequests?.map(({ memberId, profileUrl, nickname }) => (
-                <Flex w="100%" justify="space-between" key={memberId}>
-                  <Flex gap="10px" align="center">
-                    <Circle
-                      size="32px"
-                      bgImage={profileUrl}
-                      bgSize="cover"
-                      bgPosition="center"
-                      bgRepeat="no-repeat"
-                    />
-                    <Text layerStyle="body2">{nickname}</Text>
+            {!isNoReceivedRequests && (
+              <VStack w="100%" spacing="10px" align="center">
+                <Text
+                  layerStyle="body2"
+                  color="gray.500"
+                  alignSelf="flex-start"
+                >
+                  나에게 온 연동 요청
+                </Text>
+                {receivedRequests?.map(({ memberId, profileUrl, nickname }) => (
+                  <Flex w="100%" justify="space-between" key={memberId}>
+                    <Flex gap="10px" align="center">
+                      <Circle
+                        size="32px"
+                        bgImage={profileUrl}
+                        bgSize="cover"
+                        bgPosition="center"
+                        bgRepeat="no-repeat"
+                      />
+                      <Text layerStyle="body2">{nickname}</Text>
+                    </Flex>
+                    <Flex gap="10px">
+                      <Button
+                        variant="unstyled"
+                        fontSize="14px"
+                        fontWeight="600"
+                        color="white"
+                        bg="blue.500"
+                        h="28px"
+                        p="0 16px"
+                      >
+                        수락
+                      </Button>
+                      <Button
+                        variant="unstyled"
+                        fontSize="14px"
+                        fontWeight="600"
+                        color="white"
+                        bg="error.500"
+                        h="28px"
+                        p="0 16px"
+                      >
+                        거절
+                      </Button>
+                    </Flex>
                   </Flex>
-                  <Flex gap="10px">
-                    <Button
-                      variant="unstyled"
-                      fontSize="14px"
-                      fontWeight="600"
-                      color="white"
-                      bg="blue.500"
-                      h="28px"
-                      p="0 16px"
-                    >
-                      수락
-                    </Button>
+                ))}
+              </VStack>
+            )}
+            {!isNoSentRequests && (
+              <VStack w="100%" spacing="10px" align="center">
+                <Text
+                  layerStyle="body2"
+                  color="gray.500"
+                  alignSelf="flex-start"
+                >
+                  내가 보낸 연동 요청
+                </Text>
+                {sentRequests?.map(({ memberId, profileUrl, nickname }) => (
+                  <Flex w="100%" justify="space-between" key={memberId}>
+                    <Flex gap="10px" align="center">
+                      <Circle
+                        size="32px"
+                        bgImage={profileUrl}
+                        bgSize="cover"
+                        bgPosition="center"
+                        bgRepeat="no-repeat"
+                      />
+                      <Text layerStyle="body2">{nickname}</Text>
+                    </Flex>
                     <Button
                       variant="unstyled"
                       fontSize="14px"
@@ -96,42 +138,12 @@ const Link = () => {
                       h="28px"
                       p="0 16px"
                     >
-                      거절
+                      요청 취소
                     </Button>
                   </Flex>
-                </Flex>
-              ))}
-            </VStack>
-            <VStack w="100%" spacing="10px" align="center">
-              <Text layerStyle="body2" color="gray.500" alignSelf="flex-start">
-                내가 보낸 연동 요청
-              </Text>
-              {sentRequests?.map(({ memberId, profileUrl, nickname }) => (
-                <Flex w="100%" justify="space-between" key={memberId}>
-                  <Flex gap="10px" align="center">
-                    <Circle
-                      size="32px"
-                      bgImage={profileUrl}
-                      bgSize="cover"
-                      bgPosition="center"
-                      bgRepeat="no-repeat"
-                    />
-                    <Text layerStyle="body2">{nickname}</Text>
-                  </Flex>
-                  <Button
-                    variant="unstyled"
-                    fontSize="14px"
-                    fontWeight="600"
-                    color="white"
-                    bg="error.500"
-                    h="28px"
-                    p="0 16px"
-                  >
-                    요청 취소
-                  </Button>
-                </Flex>
-              ))}
-            </VStack>
+                ))}
+              </VStack>
+            )}
           </VStack>
         )}
       </VStack>

@@ -11,7 +11,10 @@ interface BottomSheetModalVAProps {
   families: {
     memberId: number;
     nickname: string;
-    memberType: string;
+    memberType: {
+      name: string;
+      detail: string;
+    };
     profileUrl: string;
   }[];
 }
