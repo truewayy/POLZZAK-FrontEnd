@@ -1,95 +1,184 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const polzzakTheme = extendTheme({
+  fonts: {
+    heading: 'Pretendard Variable',
+    body: 'Pretendard Variable',
+  },
   colors: {
     polzzak: {
       default: '#59B9FF',
       highlighted: '#259BEF',
       disabled: '#C7E5FF',
-      blue100: '#F0F7FF',
-      blue400: '#84CCFF',
-      blue700: '#0D7AD3',
-      gray100: '#F8F8FC',
-      gray200: '#EEEEF4',
-      gray300: '#DADAE7',
-      gray400: '#C5C6D0',
-      gray500: '#9C9CA8',
-      gray600: '#6B6C76',
-      gray700: '#45464F',
-      gray800: '#2E3038',
-      yellow: '#FFEA7C',
-      red: '#FF6F50',
+    },
+    blue: {
+      100: '#F0F7FF',
+      150: '#E3F2FF',
+      200: '#C7E5FF',
+      400: '#84CCFF',
+      500: '#59B9FF',
+      600: '#259BEF',
+      700: '#0D7AD3',
+    },
+    gray: {
+      100: '#F8F8FC',
+      200: '#EEEEF4',
+      300: '#DADAE7',
+      400: '#C5C6D0',
+      500: '#9C9CA8',
+      600: '#6B6C76',
+      700: '#45464F',
+      800: '#2E3038',
+    },
+    error: {
+      100: '#FFEEEA',
+      200: '#FFDAD1',
+      500: '#FF6F50',
     },
   },
   layerStyles: {
-    head28B: {
-      fontSize: '28px',
-      fontWeight: '700',
-      lineHeight: '140%',
-    },
-    head16B: {
-      fontSize: '16px',
-      fontWeight: '700',
-      lineHeight: '140%',
-    },
-    highlight24SB: {
+    title1: {
       fontSize: '24px',
       fontWeight: '600',
       lineHeight: '140%',
+      color: 'gray.800',
     },
-    highlight16SB: {
-      fontSize: '16px',
+    title2: {
+      fontSize: '22px',
       fontWeight: '600',
       lineHeight: '140%',
+      color: 'gray.800',
     },
-    highlight16B: {
+    title3: {
+      fontSize: '20px',
+      fontWeight: '700',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    subtitle1: {
+      fontSize: '18px',
+      fontWeight: '600',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    subtitle2: {
       fontSize: '16px',
       fontWeight: '700',
       lineHeight: '140%',
+      color: 'gray.800',
     },
-    highlight15SB: {
-      fontSize: '15px',
+    subtitle3: {
+      fontSize: '16px',
       fontWeight: '600',
       lineHeight: '140%',
+      color: 'gray.800',
     },
-    body13M: {
+    subtitle4: {
+      fontSize: '20px',
+      fontWeight: '600',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    subtitle5: {
+      fontSize: '20px',
+      fontWeight: '400',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    subtitle6: {
+      fontSize: '18px',
+      fontWeight: '400',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body1: {
+      fontSize: '15px',
+      fontWeight: '500',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body2: {
+      fontSize: '14px',
+      fontWeight: '600',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body3: {
+      fontSize: '14px',
+      fontWeight: '500',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body4: {
       fontSize: '13px',
       fontWeight: '500',
       lineHeight: '140%',
+      color: 'gray.800',
     },
-    body13SB: {
-      fontSize: '13px',
+    body5: {
+      fontSize: '14px',
+      fontWeight: '700',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body6: {
+      fontSize: '18px',
+      fontWeight: '700',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body7: {
+      fontSize: '18px',
+      fontWeight: '500',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    body8: {
+      fontSize: '16px',
+      fontWeight: '500',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    caption1: {
+      fontSize: '12px',
       fontWeight: '600',
       lineHeight: '140%',
+      color: 'gray.800',
     },
-    body13B: {
-      fontSize: '13px',
+    caption2: {
+      fontSize: '12px',
+      fontWeight: '500',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    head24B: {
+      fontSize: '24px',
       fontWeight: '700',
       lineHeight: '140%',
     },
-    body16R: {
+    head22B: {
+      fontSize: '22px',
+      fontWeight: '700',
+      lineHeight: '140%',
+    },
+    body18R: {
+      fontSize: '18px',
+      fontWeight: '400',
+      lineHeight: '140%',
+    },
+    body16M: {
       fontSize: '16px',
-      fontWeight: '400',
+      fontWeight: '500',
       lineHeight: '140%',
     },
-    caption12R: {
+    caption13L: {
+      fontSize: '13px',
+      fontWeight: '300',
+      lineHeight: '140%',
+    },
+    caption12B: {
       fontSize: '12px',
-      fontWeight: '400',
-      lineHeight: '140%',
-    },
-    caption12SB: {
-      fontSize: '12px',
-      fontWeight: '600',
-      lineHeight: '140%',
-    },
-    caption10R: {
-      fontSize: '10px',
-      fontWeight: '400',
-      lineHeight: '140%',
-    },
-    caption10SB: {
-      fontSize: '10px',
-      fontWeight: '600',
+      fontWeight: '700',
       lineHeight: '140%',
     },
   },
