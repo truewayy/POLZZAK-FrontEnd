@@ -36,7 +36,6 @@ const setInterceptor = (instance: AxiosInstance) => {
       if (tokenExpiredErr) {
         const newToken = error.response.data.data;
         setLocalStorage(TOKEN_KEY, newToken);
-        instance.defaults.headers.Authorization = `Bearer ${newToken}`;
         return instance(error.response.config);
       }
       return Promise.reject(error);
