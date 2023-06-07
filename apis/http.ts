@@ -22,7 +22,7 @@ const setInterceptor = (instance: AxiosInstance) => {
         ) {
           config.withCredentials = true;
         }
-        config.headers.Authorization = `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHT09HTEVfMTExNDk2OTMxOTY0MDgyMjEwNDY4Iiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTY4NjExNjcwMywiZXhwIjoxNjg2MTE2NzA0fQ.pqvsNrdxESxhKD_veOPWDAOI-b3-qXsBzV-ftayDBaQa5wcYOvxXQ-vmrqhyQWnN`;
+        config.headers.Authorization = `Bearer ${accessToken}`;
       }
       return config;
     },
