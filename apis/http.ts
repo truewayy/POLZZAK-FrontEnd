@@ -2,6 +2,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 import { TOKEN_KEY } from '@/constants/auth';
+import ROUTES from '@/constants/routes';
 import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
 // API 주소
@@ -32,7 +33,11 @@ const setInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.response.use(
     (response) => response,
     (error) => {
+      const tokenInvalidErr = error.response.data.code === 431;
       const tokenExpiredErr = error.response.data.code === 434;
+      if (tokenInvalidErr) {
+        window.location.href = ROUTES.LOGIN;
+      }
       if (tokenExpiredErr) {
         const newToken = error.response.data.data;
         setLocalStorage(TOKEN_KEY, newToken);

@@ -6,30 +6,44 @@ import { useRecoilValue } from 'recoil';
 
 import { familiesInfo, receivedRequest, sentRequest } from '@/apis/family';
 import SearchInput from '@/components/Link/SearchInput/SearchInput';
+import { TOKEN_KEY } from '@/constants/auth';
 import ROUTES from '@/constants/routes';
 import { BackIcon, ClipIcon, MailIcon, XIcon } from '@/public/icon';
 import { userInfoAtom } from '@/store/userInfo';
+import { getLocalStorage } from '@/utils/storage';
 
 const Link = () => {
+  const token = getLocalStorage(TOKEN_KEY);
   const [userType, setUserType] = useState('');
   const { push } = useRouter();
   const {
     memberType: { name },
   } = useRecoilValue(userInfoAtom);
-  const { data: received } = useQuery(['request', 'received'], receivedRequest);
-  const { data: sent } = useQuery(['request', 'sent'], sentRequest);
-  const { data: family } = useQuery(['familes', 'list'], familiesInfo);
+  const { data: received } = useQuery(
+    ['request', 'received'],
+    receivedRequest,
+    {
+      enabled: !!token,
+    }
+  );
+  const { data: sent } = useQuery(['request', 'sent'], sentRequest, {
+    enabled: !!token,
+  });
+  const { data: family } = useQuery(['familes', 'list'], familiesInfo, {
+    enabled: !!token,
+  });
   const handleClickBackButton = () => {
     push(ROUTES.MAIN);
   };
-
   const receivedRequests = received?.data?.families;
   const sentRequests = sent?.data?.families;
   const families = family?.data?.families;
-  const isNoReceivedRequests = receivedRequests?.length === 0;
-  const isNoSentRequests = sentRequests?.length === 0;
+
+  const isNoReceivedRequests =
+    !receivedRequests || receivedRequests.length === 0;
+  const isNoSentRequests = !sentRequests || sentRequests.length === 0;
   const isAllNoRequests = isNoReceivedRequests && isNoSentRequests;
-  const isNoFamilies = families?.length === 0;
+  const isNoFamilies = !families || families.length === 0;
 
   useEffect(() => {
     setUserType(name === 'KID' ? '보호자' : '아이');

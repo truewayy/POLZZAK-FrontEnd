@@ -9,7 +9,10 @@ const clientId = {
 };
 
 const ROUTES = {
+  LOGIN: '/',
+  REDIRECT: '/oauth/redirect',
   SIGNUP: {
+    ROOT: '/oauth/signup',
     TYPE: '/oauth/signup/type',
     NICKNAME: '/oauth/signup/nickname',
     PARENT: '/oauth/signup/parent',
