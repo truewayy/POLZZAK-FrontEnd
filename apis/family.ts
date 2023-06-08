@@ -88,3 +88,15 @@ export const sentRequest = async () => {
     return err.response.data;
   }
 };
+
+export const sendRequest = async (targetId: number) => {
+  try {
+    const { data }: FamilyResponse = await http.post(API_URLS.FAMILIES, {
+      targetId,
+    });
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};
