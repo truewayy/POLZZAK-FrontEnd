@@ -14,6 +14,8 @@ const API_URLS = {
   USER_INFO: '/api/v1/users/me',
   FAMILIES: '/api/v1/families',
   FAMILY_CANCEL: (memberId: number) => `/api/v1/families/cancel/${memberId}`,
+  FAMILY_APPROVE: (memberId: number) => `/api/v1/families/approve/${memberId}`,
+  FAMILY_REJECT: (memberId: number) => `/api/v1/families/reject/${memberId}`,
   FAMILY: (nickname: string) => `/api/v1/families/users?nickname=${nickname}`,
   SENT_REQUEST: '/api/v1/families/requests/sent',
   RECEIVED_REQUEST: '/api/v1/families/requests/received',

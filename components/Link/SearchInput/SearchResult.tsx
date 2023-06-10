@@ -1,4 +1,11 @@
-import { Button, Circle, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import {
+  Button,
+  Circle,
+  Text,
+  useDisclosure,
+  useToast,
+  VStack,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
@@ -11,6 +18,7 @@ import { userInfoAtom } from '@/store/userInfo';
 import ConfirmModal from '../ConfirmModal';
 
 const SearchResult = () => {
+  const toast = useToast();
   const [infoText, setInfoText] = useState('');
   const [infoText2, setInfoText2] = useState('');
   const [buttonMsg, setButtonMsg] = useState('연동 요청');
@@ -43,6 +51,16 @@ const SearchResult = () => {
   const cancel = useMutation((targetId: number) => cancelRequest(targetId), {
     onSuccess: () => {
       refetch();
+      toast({
+        title: '연동 요청이 취소되었습니다.',
+        position: 'bottom',
+        status: 'warning',
+        duration: 3000,
+        isClosable: false,
+        containerStyle: {
+          width: '90%',
+        },
+      });
     },
   });
 

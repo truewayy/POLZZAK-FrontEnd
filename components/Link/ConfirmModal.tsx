@@ -16,6 +16,8 @@ interface ConfirmModalProps {
   children: React.ReactNode;
   handleClickCancelButton: () => void;
   handleClickConfirmButton: () => void;
+  confirmMessage?: string;
+  cancelMessage?: string;
   isLoading?: boolean;
 }
 
@@ -24,6 +26,8 @@ const ConfirmModal = ({
   onClose,
   handleClickCancelButton,
   handleClickConfirmButton,
+  confirmMessage = '네, 좋아요!',
+  cancelMessage = '아니요',
   isLoading = false,
   children,
 }: ConfirmModalProps) => (
@@ -50,7 +54,7 @@ const ConfirmModal = ({
                 onClick={handleClickCancelButton}
               >
                 <Text layerStyle="subtitle3" color="white" textAlign="center">
-                  아니요
+                  {cancelMessage}
                 </Text>
               </Button>
               <Button
@@ -62,7 +66,7 @@ const ConfirmModal = ({
                 onClick={handleClickConfirmButton}
               >
                 <Text layerStyle="subtitle3" color="white" textAlign="center">
-                  네, 좋아요!
+                  {confirmMessage}
                 </Text>
               </Button>
             </>

@@ -1,10 +1,27 @@
-import { Box, Button, Circle, Flex, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Circle,
+  Flex,
+  Text,
+  useDisclosure,
+  useToast,
+  VStack,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { familiesInfo, receivedRequest, sentRequest } from '@/apis/family';
+import {
+  approveRequest,
+  cancelRequest,
+  familiesInfo,
+  receivedRequest,
+  rejectRequest,
+  sentRequest,
+} from '@/apis/family';
+import ConfirmModal from '@/components/Link/ConfirmModal';
 import SearchInput from '@/components/Link/SearchInput/SearchInput';
 import { TOKEN_KEY } from '@/constants/auth';
 import ROUTES from '@/constants/routes';
@@ -13,25 +30,110 @@ import { userInfoAtom } from '@/store/userInfo';
 import { getLocalStorage } from '@/utils/storage';
 
 const Link = () => {
+  const approveModal = useDisclosure();
+  const rejectModal = useDisclosure();
+  const clearModal = useDisclosure();
+  const [selected, setSelected] = useState({
+    memberId: 0,
+    nickname: '',
+  });
+  const toast = useToast();
   const token = getLocalStorage(TOKEN_KEY);
   const [userType, setUserType] = useState('');
   const { push } = useRouter();
   const {
     memberType: { name },
   } = useRecoilValue(userInfoAtom);
-  const { data: received } = useQuery(
+  const { data: received, refetch: receivedRefetch } = useQuery(
     ['request', 'received'],
     receivedRequest,
     {
       enabled: !!token,
     }
   );
-  const { data: sent } = useQuery(['request', 'sent'], sentRequest, {
-    enabled: !!token,
+  const { data: sent, refetch: sentRefetch } = useQuery(
+    ['request', 'sent'],
+    sentRequest,
+    {
+      enabled: !!token,
+    }
+  );
+  const { data: family, refetch: familyRefetch } = useQuery(
+    ['familes', 'list'],
+    familiesInfo,
+    {
+      enabled: !!token,
+    }
+  );
+
+  const approve = useMutation((targetId: number) => approveRequest(targetId), {
+    onSuccess: () => {
+      receivedRefetch();
+      familyRefetch();
+      approveModal.onClose();
+    },
   });
-  const { data: family } = useQuery(['familes', 'list'], familiesInfo, {
-    enabled: !!token,
+
+  const reject = useMutation((targetId: number) => rejectRequest(targetId), {
+    onSuccess: () => {
+      receivedRefetch();
+      familyRefetch();
+      rejectModal.onClose();
+    },
   });
+
+  const cancel = useMutation((targetId: number) => cancelRequest(targetId), {
+    onSuccess: () => {
+      sentRefetch();
+      toast({
+        title: '연동 요청이 취소되었습니다.',
+        position: 'bottom',
+        status: 'warning',
+        duration: 3000,
+        isClosable: false,
+        containerStyle: {
+          width: '90%',
+        },
+      });
+    },
+  });
+
+  const clear = useMutation((targetId: number) => cancelRequest(targetId), {
+    onSuccess: () => {
+      familyRefetch();
+      clearModal.onClose();
+    },
+  });
+  const handleClickConfirmApproveButton = () => {
+    if (!received?.data) return;
+    approve.mutate(selected.memberId);
+  };
+
+  const handleClickApproveButton = (memberId: number, nickname: string) => {
+    setSelected({ memberId, nickname });
+    approveModal.onOpen();
+  };
+
+  const handleClickConfirmRejectButton = () => {
+    if (!received?.data) return;
+    reject.mutate(selected.memberId);
+  };
+
+  const handleClickRejectButton = (memberId: number, nickname: string) => {
+    setSelected({ memberId, nickname });
+    rejectModal.onOpen();
+  };
+
+  const handleClickConfirmClearButton = () => {
+    if (!family?.data) return;
+    clear.mutate(selected.memberId);
+  };
+
+  const handleClickClearButton = (memberId: number, nickname: string) => {
+    setSelected({ memberId, nickname });
+    clearModal.onOpen();
+  };
+
   const handleClickBackButton = () => {
     push(ROUTES.MAIN);
   };
@@ -103,6 +205,9 @@ const Link = () => {
                         bg="blue.500"
                         h="28px"
                         p="0 16px"
+                        onClick={() =>
+                          handleClickApproveButton(memberId, nickname)
+                        }
                       >
                         수락
                       </Button>
@@ -114,6 +219,9 @@ const Link = () => {
                         bg="error.500"
                         h="28px"
                         p="0 16px"
+                        onClick={() =>
+                          handleClickRejectButton(memberId, nickname)
+                        }
                       >
                         거절
                       </Button>
@@ -151,6 +259,7 @@ const Link = () => {
                       bg="error.500"
                       h="28px"
                       p="0 16px"
+                      onClick={() => cancel.mutate(memberId)}
                     >
                       요청 취소
                     </Button>
@@ -193,12 +302,66 @@ const Link = () => {
                   />
                   <Text layerStyle="body2">{nickname}</Text>
                 </Flex>
-                <XIcon w="24px" h="24px" />
+                <XIcon
+                  w="24px"
+                  h="24px"
+                  onClick={() => handleClickClearButton(memberId, nickname)}
+                />
               </Flex>
             ))}
           </VStack>
         )}
       </VStack>
+      <ConfirmModal
+        isOpen={approveModal.isOpen}
+        onClose={approveModal.onClose}
+        handleClickCancelButton={approveModal.onClose}
+        handleClickConfirmButton={handleClickConfirmApproveButton}
+        isLoading={approve.isLoading}
+      >
+        <Text layerStyle="body7" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body6">
+            {selected.nickname}
+          </Text>
+          님의
+          <br />
+          연동 요청을 수락하시겠어요?
+        </Text>
+      </ConfirmModal>
+      <ConfirmModal
+        isOpen={rejectModal.isOpen}
+        onClose={rejectModal.onClose}
+        handleClickCancelButton={rejectModal.onClose}
+        handleClickConfirmButton={handleClickConfirmRejectButton}
+        isLoading={reject.isLoading}
+        confirmMessage="네, 거절할래요"
+      >
+        <Text layerStyle="body7" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body6">
+            {selected.nickname}
+          </Text>
+          님의
+          <br />
+          연동 요청을 거절하시겠어요?
+        </Text>
+      </ConfirmModal>
+      <ConfirmModal
+        isOpen={clearModal.isOpen}
+        onClose={clearModal.onClose}
+        handleClickCancelButton={clearModal.onClose}
+        handleClickConfirmButton={handleClickConfirmClearButton}
+        isLoading={clear.isLoading}
+        confirmMessage="네, 해제할래요"
+      >
+        <Text layerStyle="body7" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body6">
+            {selected.nickname}
+          </Text>
+          님과
+          <br />
+          연동을 해제하시겠어요?
+        </Text>
+      </ConfirmModal>
     </VStack>
   );
 };
