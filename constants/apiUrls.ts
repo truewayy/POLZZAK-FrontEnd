@@ -13,6 +13,7 @@ const API_URLS = {
     `/api/v1/auth/validate/nickname?value=${nickname}`,
   USER_INFO: '/api/v1/users/me',
   FAMILIES: '/api/v1/families',
+  FAMILY_CANCEL: (memberId: number) => `/api/v1/families/cancel/${memberId}`,
   FAMILY: (nickname: string) => `/api/v1/families/users?nickname=${nickname}`,
   SENT_REQUEST: '/api/v1/families/requests/sent',
   RECEIVED_REQUEST: '/api/v1/families/requests/received',

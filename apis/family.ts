@@ -100,3 +100,15 @@ export const sendRequest = async (targetId: number) => {
     return err.response.data;
   }
 };
+
+export const cancelRequest = async (targetId: number) => {
+  try {
+    const { data }: FamilyResponse = await http.delete(
+      API_URLS.FAMILY_CANCEL(targetId)
+    );
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};

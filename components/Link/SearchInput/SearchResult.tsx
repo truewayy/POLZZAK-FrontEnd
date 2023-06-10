@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { searchFamilies, sendRequest } from '@/apis/family';
+import { cancelRequest, searchFamilies, sendRequest } from '@/apis/family';
 import { BigSearchIcon } from '@/public/icon';
 import { userInfoAtom } from '@/store/userInfo';
 
@@ -14,6 +14,11 @@ const SearchResult = () => {
   const [infoText, setInfoText] = useState('');
   const [infoText2, setInfoText2] = useState('');
   const [buttonMsg, setButtonMsg] = useState('연동 요청');
+  const [buttonColor, setButtonColor] = useState({
+    borderColor: 'polzzak.default',
+    bgColor: 'polzzak.default',
+    color: 'white',
+  });
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { memberType } = useRecoilValue(userInfoAtom);
   const { query } = useRouter();
@@ -26,12 +31,25 @@ const SearchResult = () => {
     }
   );
 
+  const isRequestSent = data?.data?.familyStatus === 'SENT';
+
   const send = useMutation((targetId: number) => sendRequest(targetId), {
     onSuccess: () => {
       refetch();
       onClose();
     },
   });
+
+  const cancel = useMutation((targetId: number) => cancelRequest(targetId), {
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const handleClickButton = () => {
+    if (data?.data?.familyStatus !== 'NONE') return;
+    onOpen();
+  };
 
   const handleClickConfirmButton = () => {
     if (!data?.data) return;
@@ -57,7 +75,31 @@ const SearchResult = () => {
       APPROVE: '이미 연동됐어요',
     };
 
+    const buttonStatusColor = {
+      NONE: {
+        borderColor: 'polzzak.default',
+        bgColor: 'polzzak.default',
+        color: 'white',
+      },
+      RECEIVED: {
+        borderColor: 'polzzak.default',
+        bgColor: 'polzzak.default',
+        color: 'white',
+      },
+      SENT: {
+        borderColor: 'polzzak.default',
+        bgColor: 'white',
+        color: 'polzzak.default',
+      },
+      APPROVE: {
+        borderColor: '#C5C6D0',
+        bgColor: 'white',
+        color: '#C5C6D0',
+      },
+    };
+
     setButtonMsg(buttonStatusMsg[data?.data?.familyStatus || 'NONE']);
+    setButtonColor(buttonStatusColor[data?.data?.familyStatus || 'NONE']);
   }, [data?.data?.familyStatus]);
 
   if (isLoading) {
@@ -104,17 +146,31 @@ const SearchResult = () => {
           {data.data.nickname}
         </Text>
       </VStack>
-      <Button
-        variant="unstyled"
-        bgColor="polzzak.default"
-        h="32px"
-        w="91px"
-        onClick={onOpen}
-      >
-        <Text layerStyle="caption12B" color="white" textAlign="center">
-          {buttonMsg}
-        </Text>
-      </Button>
+      <VStack spacing="16px">
+        <Button
+          variant="unstyled"
+          p="0 24px"
+          h="32px"
+          border="1px solid"
+          {...buttonColor}
+          onClick={handleClickButton}
+        >
+          <Text layerStyle="caption12B" textAlign="center">
+            {buttonMsg}
+          </Text>
+        </Button>
+        {isRequestSent && (
+          <Text
+            layerStyle="body4"
+            textDecor="underline"
+            color="gray.500"
+            cursor="pointer"
+            onClick={() => cancel.mutate(data.data.memberId)}
+          >
+            앗 실수, 요청 취소 할래요
+          </Text>
+        )}
+      </VStack>
       <ConfirmModal
         isOpen={isOpen}
         onClose={onClose}
