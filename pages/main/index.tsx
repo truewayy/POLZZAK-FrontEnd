@@ -79,11 +79,11 @@ const Main = () => {
         </Box>
         <TabPanels>
           <TabPanel minH="100vh" p="110px 0" pb="100px" bg="#F8F8FC">
-            <LinkedFilter />
+            {!isNoFamily && <LinkedFilter />}
             <ProgressingStamps />
           </TabPanel>
           <TabPanel minH="100vh" p="110px 0" pb="100px" bg="#F8F8FC">
-            <LinkedFilter />
+            {!isNoFamily && <LinkedFilter />}
             <CompletedStamps />
           </TabPanel>
         </TabPanels>
