@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
@@ -10,13 +11,14 @@ import CompletedStampsView from './CompletedStampsView';
 
 const CompletedStamps = () => {
   const { families } = useRecoilValue(userInfoAtom);
+  const [isNoFamily, setIsNoFamily] = useState(true);
+
   const filter = useRecoilValue(filterAtom);
-  const noFamiles = families.length === 0;
   const { data, isLoading, refetch } = useQuery(
     ['stampboardList', 'ended', filter],
     () => stampboardList({ stampBoardGroup: 'ended' }),
     {
-      enabled: !noFamiles,
+      enabled: !isNoFamily,
     }
   );
 
@@ -25,6 +27,12 @@ const CompletedStamps = () => {
   const handleRefresh = async () => {
     await refetch();
   };
+
+  useEffect(() => {
+    const noFamily = families.length === 0;
+
+    setIsNoFamily(noFamily);
+  }, [families]);
 
   const CompletedStampsVAProps = {
     handleRefresh,

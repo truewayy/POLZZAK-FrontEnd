@@ -5,13 +5,11 @@ import { FilterArrowIcon } from '@/public/icon';
 interface LinkedFilterVAProps {
   handleClickFilter: () => void;
   currentValue: string;
-  noFamily: boolean;
 }
 
 const LinkedFilterView = ({
   handleClickFilter,
   currentValue,
-  noFamily,
 }: LinkedFilterVAProps) => (
   <Flex
     w="100%"
@@ -21,7 +19,6 @@ const LinkedFilterView = ({
     cursor="pointer"
     onClick={handleClickFilter}
     gap="4px"
-    display={noFamily ? 'none' : 'flex'}
   >
     <Text layerStyle="title3">
       {currentValue}

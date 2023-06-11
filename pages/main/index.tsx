@@ -7,6 +7,7 @@ import {
   Tabs,
   VStack,
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import SEO from '@/components/Common/SEO';
@@ -19,8 +20,20 @@ import ProgressingStamps from '@/components/Main/ProgressingStamps/ProgressingSt
 import { userInfoAtom } from '@/store/userInfo';
 
 const Main = () => {
-  const { families } = useRecoilValue(userInfoAtom);
-  const noFamiles = families.length === 0;
+  const { families, memberType } = useRecoilValue(userInfoAtom);
+  const [isNoFamily, setIsNoFamily] = useState(true);
+  const [isTypeParent, setIsTypeParent] = useState(true);
+
+  const isShowAddButton = isTypeParent && !isNoFamily;
+
+  useEffect(() => {
+    const noKid = memberType.name !== 'KID';
+    const noFamily = families.length === 0;
+
+    setIsNoFamily(noFamily);
+    setIsTypeParent(noKid);
+  }, [families, memberType]);
+
   return (
     <VStack>
       <SEO title="폴짝! | 메인" />
@@ -29,7 +42,7 @@ const Main = () => {
           <Header />
           <TabList>
             <Tab
-              isDisabled={noFamiles}
+              isDisabled={isNoFamily}
               w="50%"
               color="#E6E4E2"
               _selected={{
@@ -46,7 +59,7 @@ const Main = () => {
               진행 중
             </Tab>
             <Tab
-              isDisabled={noFamiles}
+              isDisabled={isNoFamily}
               w="50%"
               color="#E6E4E2"
               _selected={{
@@ -76,7 +89,7 @@ const Main = () => {
         </TabPanels>
       </Tabs>
       <BottomSheetModal />
-      <AddButton />
+      {isShowAddButton && <AddButton />}
     </VStack>
   );
 };
