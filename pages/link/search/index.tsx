@@ -35,7 +35,7 @@ const FamilySearch = () => {
   };
 
   const handleClickBackButton = () => {
-    push('/link');
+    push('/link?tab=linked');
   };
 
   const handleInputFocus = () => {
@@ -69,8 +69,8 @@ const FamilySearch = () => {
               borderColor="gray.300"
               p="12px 16px"
               h="45px"
-              fontSize="14px"
-              _placeholder={{ color: 'gray.500' }}
+              fontSize="16px"
+              _placeholder={{ color: 'gray.500', fontSize: '14px' }}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={handleSearchEnter}

@@ -7,7 +7,7 @@ const Header = () => {
   const { push } = useRouter();
 
   const handleClickLink = () => {
-    push('/link');
+    push('/link?tab=linked');
   };
 
   return (

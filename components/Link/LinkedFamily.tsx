@@ -1,11 +1,12 @@
 import { Circle, Flex, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 import { cancelRequest, familiesInfo } from '@/apis/family';
 import { TOKEN_KEY } from '@/constants/auth';
-import { ClipIcon, XIcon } from '@/public/icon';
+import { XIcon } from '@/public/icon';
 import { userInfoAtom } from '@/store/userInfo';
 import { getLocalStorage } from '@/utils/storage';
 
@@ -21,14 +22,18 @@ const LinkedFamily = () => {
   const {
     memberType: { name },
   } = useRecoilValue(userInfoAtom);
+  const { query } = useRouter();
 
+  const tab = query.tab as string;
   const token = getLocalStorage(TOKEN_KEY);
+
+  const enableFetch = tab === 'linked' && !!token;
 
   const { data: family, refetch: familyRefetch } = useQuery(
     ['familes', 'list'],
     familiesInfo,
     {
-      enabled: !!token,
+      enabled: enableFetch,
     }
   );
 
@@ -57,47 +62,35 @@ const LinkedFamily = () => {
     setUserType(name === 'KID' ? '보호자' : '아이');
   }, [name]);
 
-  return (
-    <VStack
-      w="100%"
-      p="26px 5% 30px 5%"
-      bg="white"
-      align="flex-start"
-      spacing="16px"
-    >
-      <Flex w="100%" gap="6px" align="center">
-        <ClipIcon w="14px" h="14px" />
-        <Text layerStyle="subtitle2" color="gray.500">
-          나와 연동된 {userType} {families?.length}
-        </Text>
-      </Flex>
-      {isNoFamilies ? (
-        <Text layerStyle="body1" color="gray.500">
-          연동된 {userType}가 없어요
-        </Text>
-      ) : (
-        <VStack w="100%" spacing="20px">
-          {families?.map(({ memberId, profileUrl, nickname }) => (
-            <Flex w="100%" justify="space-between" key={memberId}>
-              <Flex gap="10px" align="center">
-                <Circle
-                  size="32px"
-                  bgImage={profileUrl}
-                  bgSize="cover"
-                  bgPosition="center"
-                  bgRepeat="no-repeat"
-                />
-                <Text layerStyle="body2">{nickname}</Text>
-              </Flex>
-              <XIcon
-                w="24px"
-                h="24px"
-                onClick={() => handleClickClearButton(memberId, nickname)}
+  return isNoFamilies ? (
+    <VStack w="100%" h="300px" justify="center">
+      <Text layerStyle="body1" color="gray.500">
+        연동된 {userType}가 없어요
+      </Text>
+    </VStack>
+  ) : (
+    <>
+      <VStack w="100%" spacing="20px">
+        {families?.map(({ memberId, profileUrl, nickname }) => (
+          <Flex w="100%" justify="space-between" key={memberId}>
+            <Flex gap="10px" align="center">
+              <Circle
+                size="32px"
+                bgImage={profileUrl}
+                bgSize="cover"
+                bgPosition="center"
+                bgRepeat="no-repeat"
               />
+              <Text layerStyle="body2">{nickname}</Text>
             </Flex>
-          ))}
-        </VStack>
-      )}
+            <XIcon
+              w="24px"
+              h="24px"
+              onClick={() => handleClickClearButton(memberId, nickname)}
+            />
+          </Flex>
+        ))}
+      </VStack>
       <ConfirmModal
         isOpen={clearModal.isOpen}
         onClose={clearModal.onClose}
@@ -115,7 +108,7 @@ const LinkedFamily = () => {
           연동을 해제하시겠어요?
         </Text>
       </ConfirmModal>
-    </VStack>
+    </>
   );
 };
 
