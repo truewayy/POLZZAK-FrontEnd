@@ -1,6 +1,7 @@
 import {
   Button,
   Circle,
+  Spinner,
   Text,
   useDisclosure,
   useToast,
@@ -18,6 +19,7 @@ import { userInfoAtom } from '@/store/userInfo';
 import ConfirmModal from '../ConfirmModal';
 
 const SearchResult = () => {
+  const { push } = useRouter();
   const toast = useToast();
   const [infoText, setInfoText] = useState('');
   const [infoText2, setInfoText2] = useState('');
@@ -63,6 +65,10 @@ const SearchResult = () => {
       });
     },
   });
+
+  const handleClickCancelSearch = () => {
+    push('/link?tab=linked');
+  };
 
   const handleClickButton = () => {
     if (data?.data?.familyStatus !== 'NONE') return;
@@ -122,11 +128,34 @@ const SearchResult = () => {
 
   if (isLoading) {
     return (
-      <VStack spacing="16px" justify="center" w="100%" h="300px">
-        <Text>
-          {currentSearch}님을 <br />
+      <VStack spacing="26px" justify="center" w="100%" h="300px">
+        <Spinner
+          speed="0.7s"
+          color="rgba(89, 185, 255, 0.8)"
+          emptyColor="rgba(89, 185, 255, 0.1)"
+          thickness="5px"
+          w="35px"
+          h="35px"
+        />
+        <Text layerStyle="body3" textAlign="center">
+          <Text as="span" layerStyle="body5">
+            {currentSearch}
+          </Text>
+          님을 <br />
           열심히 찾는 중이에요
         </Text>
+        <Button
+          h="32px"
+          bg="polzzak.default"
+          color="white"
+          p="7.5px 36px"
+          fontSize="12px"
+          fontWeight="700"
+          borderRadius="4px"
+          onClick={handleClickCancelSearch}
+        >
+          취소
+        </Button>
       </VStack>
     );
   }
@@ -145,8 +174,11 @@ const SearchResult = () => {
     return (
       <VStack spacing="16px" justify="center" w="100%" h="300px">
         <BigSearchIcon w="74px" h="74px" />
-        <Text layerStyle="body5" color="gray.700" textAlign="center">
-          {currentSearch}님을 <br />
+        <Text layerStyle="body3" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body5">
+            {currentSearch}
+          </Text>
+          님을 <br />
           찾을 수 없어요
         </Text>
       </VStack>
