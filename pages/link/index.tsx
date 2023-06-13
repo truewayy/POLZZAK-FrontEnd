@@ -1,5 +1,6 @@
 import {
   Flex,
+  Grid,
   Tab,
   TabList,
   TabPanel,
@@ -78,13 +79,24 @@ const Link = () => {
       bg="white"
       p="0 5% 26px 5%"
     >
-      <Flex w="100%" p="10px 0" pos="fixed" bg="white">
-        <BackIcon w="24px" h="24px" onClick={handleClickBackButton} />
-      </Flex>
-      <Flex w="100%" p="45px 0 10px 0">
-        <Text layerStyle="title1">연동 관리</Text>
-      </Flex>
-      <Flex w="100%" p="14px 0 24px 0">
+      <Grid
+        pos="fixed"
+        w="90%"
+        p="10px 0"
+        templateColumns="repeat(3, 1fr)"
+        bg="white"
+      >
+        <BackIcon
+          w="24px"
+          h="24px"
+          fill="gray.700"
+          onClick={handleClickBackButton}
+        />
+        <Text layerStyle="subtitle1" textAlign="center">
+          연동 관리
+        </Text>
+      </Grid>
+      <Flex w="100%" p="54px 0 24px 0">
         <SearchInput />
       </Flex>
       <Tabs
