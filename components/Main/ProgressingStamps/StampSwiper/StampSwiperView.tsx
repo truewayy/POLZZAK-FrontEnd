@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import Swiper from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
@@ -29,53 +29,75 @@ const StampSwiperView = ({
           님과 함께해요
         </Text>
       </Text>
-      <Text layerStyle="body3" letterSpacing="tight">
-        {currentBoard}{' '}
-        <Text as="span" color="gray.500">
-          / {totalBoard}
+      {progressingBoard.length > 0 && (
+        <Text layerStyle="body3" letterSpacing="tight">
+          {currentBoard}{' '}
+          <Text as="span" color="gray.500">
+            / {totalBoard}
+          </Text>
         </Text>
-      </Text>
-    </Flex>
-    <SwiperComponent
-      grabCursor
-      slidesPerView={1.15}
-      height={200}
-      centeredSlides
-      spaceBetween={10}
-      coverflowEffect={{
-        rotate: 10, // 회전각도
-        stretch: 0,
-        depth: 100, // 깊이감도
-        modifier: 2, //
-        slideShadows: false,
-      }}
-      style={{ marginBottom: '38px' }}
-      onSlideChange={handleChangeSwiper}
-    >
-      {progressingBoard.map(
-        ({
-          stampBoardId,
-          name,
-          currentStampCount,
-          goalStampCount,
-          missionRequestCount,
-          reward,
-          status,
-        }) => (
-          <SwiperSlide key={stampBoardId}>
-            <Card
-              stampBoardId={stampBoardId}
-              name={name}
-              currentStampCount={currentStampCount}
-              goalStampCount={goalStampCount}
-              missionRequestCount={missionRequestCount}
-              reward={reward}
-              status={status}
-            />
-          </SwiperSlide>
-        )
       )}
-    </SwiperComponent>
+    </Flex>
+    {progressingBoard.length > 0 ? (
+      <SwiperComponent
+        grabCursor
+        slidesPerView={1.15}
+        height={200}
+        centeredSlides
+        spaceBetween={10}
+        coverflowEffect={{
+          rotate: 10, // 회전각도
+          stretch: 0,
+          depth: 100, // 깊이감도
+          modifier: 2, //
+          slideShadows: false,
+        }}
+        style={{ marginBottom: '38px' }}
+        onSlideChange={handleChangeSwiper}
+      >
+        {progressingBoard.map(
+          ({
+            stampBoardId,
+            name,
+            currentStampCount,
+            goalStampCount,
+            missionRequestCount,
+            reward,
+            status,
+          }) => (
+            <SwiperSlide key={stampBoardId}>
+              <Card
+                stampBoardId={stampBoardId}
+                name={name}
+                currentStampCount={currentStampCount}
+                goalStampCount={goalStampCount}
+                missionRequestCount={missionRequestCount}
+                reward={reward}
+                status={status}
+              />
+            </SwiperSlide>
+          )
+        )}
+      </SwiperComponent>
+    ) : (
+      <VStack
+        m="0 7%"
+        mb="30px"
+        bg="white"
+        h="410px"
+        border="1px dashed #DADAE7"
+        borderRadius="8px"
+        justifyContent="center"
+      >
+        <Text layerStyle="body3" textAlign="center" color="gray.700">
+          <Text as="span" layerStyle="body5">
+            {nickname}
+          </Text>
+          님과
+          <br /> 진행 중인 도장판이 없어요
+        </Text>
+      </VStack>
+    )}
   </Box>
 );
 
