@@ -136,3 +136,15 @@ export const rejectRequest = async (targetId: number) => {
     return err.response.data;
   }
 };
+
+export const clearRequest = async (targetId: number) => {
+  try {
+    const { data }: FamilyResponse = await http.delete(
+      API_URLS.FAMILY_CLEAR(targetId)
+    );
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};
