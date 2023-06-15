@@ -9,9 +9,16 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
+import { useSetRecoilState } from 'recoil';
 
-import { approveRequest, receivedRequest, rejectRequest } from '@/apis/family';
+import {
+  approveRequest,
+  familiesInfo,
+  receivedRequest,
+  rejectRequest,
+} from '@/apis/family';
 import { TOKEN_KEY } from '@/constants/auth';
+import { userInfoAtom } from '@/store/userInfo';
 import { getLocalStorage } from '@/utils/storage';
 
 import ConfirmModal from './ConfirmModal';
@@ -22,6 +29,7 @@ const ReceivedRequest = () => {
     nickname: '',
   });
   const { query } = useRouter();
+  const setFamilyInfo = useSetRecoilState(userInfoAtom);
 
   const tab = query.tab as string;
   const token = getLocalStorage(TOKEN_KEY);
@@ -40,9 +48,14 @@ const ReceivedRequest = () => {
   );
 
   const approve = useMutation((targetId: number) => approveRequest(targetId), {
-    onSuccess: () => {
+    onSuccess: async () => {
       receivedRefetch();
-      //   familyRefetch();
+      await familiesInfo().then((data) => {
+        setFamilyInfo((prev) => ({
+          ...prev,
+          families: data.data?.families || [],
+        }));
+      });
       approveModal.onClose();
     },
   });

@@ -2,9 +2,9 @@ import { Circle, Flex, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { cancelRequest, familiesInfo } from '@/apis/family';
+import { clearRequest, familiesInfo } from '@/apis/family';
 import { TOKEN_KEY } from '@/constants/auth';
 import { XIcon } from '@/public/icon';
 import { userInfoAtom } from '@/store/userInfo';
@@ -22,6 +22,7 @@ const LinkedFamily = () => {
   const {
     memberType: { name },
   } = useRecoilValue(userInfoAtom);
+  const setFamilyInfo = useSetRecoilState(userInfoAtom);
   const { query } = useRouter();
 
   const tab = query.tab as string;
@@ -37,9 +38,14 @@ const LinkedFamily = () => {
     }
   );
 
-  const clear = useMutation((targetId: number) => cancelRequest(targetId), {
+  const clear = useMutation((targetId: number) => clearRequest(targetId), {
     onSuccess: () => {
-      familyRefetch();
+      familyRefetch().then((data) => {
+        setFamilyInfo((prev) => ({
+          ...prev,
+          families: data.data?.data?.families || [],
+        }));
+      });
       clearModal.onClose();
     },
   });
