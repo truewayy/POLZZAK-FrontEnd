@@ -81,6 +81,7 @@ const Link = () => {
     >
       <Grid
         pos="fixed"
+        maxW="504px"
         w="90%"
         p="10px 0"
         templateColumns="repeat(3, 1fr)"

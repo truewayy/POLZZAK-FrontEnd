@@ -53,11 +53,11 @@ const FamilySearch = () => {
       <VStack w="100%" align="flex-start" bg="white" p="0 5% 26px 5%">
         <Grid
           pos="fixed"
+          maxW="504px"
           w="90%"
           p="10px 0"
           templateColumns="repeat(3, 1fr)"
           bg="white"
-          zIndex={1}
         >
           <BackIcon
             w="24px"
