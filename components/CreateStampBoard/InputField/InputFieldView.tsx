@@ -61,7 +61,7 @@ const InputFieldView = ({
     <VStack w="100%" spacing="8px" align="flex-start">
       <Text layerStyle="subtitle3">도장 개수</Text>
       <CustomRadio
-        name="stamp"
+        name="goalStampCount"
         options={stampCount}
         control={control}
         rules={stampCountValidate}

@@ -54,6 +54,14 @@ interface StampboardListError {
   };
 }
 
+interface StampboardCreateInfo {
+  kidId: number;
+  name: string;
+  goalStampCount: number;
+  reward: string;
+  missionContents: string[];
+}
+
 export const stampboardList = async ({
   memberId,
   stampBoardGroup,
@@ -69,5 +77,14 @@ export const stampboardList = async ({
   } catch (error) {
     const err = error as StampboardListError;
     return err.response.data;
+  }
+};
+
+export const createStampboard = async (createInfo: StampboardCreateInfo) => {
+  try {
+    const { data } = await http.post(API_URLS.STAMPBOARD, createInfo);
+    return data;
+  } catch (error) {
+    return error;
   }
 };

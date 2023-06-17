@@ -21,6 +21,7 @@ const API_URLS = {
   SENT_REQUEST: '/api/v1/families/requests/sent',
   RECEIVED_REQUEST: '/api/v1/families/requests/received',
   STAMPBOARD_LIST: '/api/v1/stamps/stamp-boards',
+  STAMPBOARD: '/api/v1/stamps/stamp-board',
 };
 
 export default API_URLS;
