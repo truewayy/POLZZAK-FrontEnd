@@ -44,8 +44,8 @@ export const onBoardingContents = {
     {
       title: '열심히 활동하면',
       title2: '포인트가 쌓여요!',
-      description: '아이와 열심히 활동하면 계단이 상승해요',
-      description2: '나의 랭킹도 확인할 수 있어요',
+      description: '아이와 열심히 활동하면',
+      description2: '계단을 폴짝! 올라갈 수 있어요',
     },
   ],
   kid: [

@@ -12,6 +12,7 @@ interface SwiperContentProps {
 }
 
 const SwiperContent = ({ type }: SwiperContentProps) => {
+  const [currentPage, setCurrentPage] = useState(0);
   const { push } = useRouter();
   const [buttonMsg, setButtonMsg] = useState('다음');
   const swiperRef = useRef<Swiper>();
@@ -23,10 +24,11 @@ const SwiperContent = ({ type }: SwiperContentProps) => {
       if (swiperRef.current.realIndex === slideContents.length - 1) {
         push(ROUTES.MAIN);
       }
+      if (currentPage === slideContents.length - 1) return;
+      setCurrentPage(swiperRef.current.realIndex + 1);
       swiperRef.current.slideNext();
     }
   };
-
   const handleSlideRef = (swiper: Swiper) => {
     swiperRef.current = swiper;
   };
@@ -43,6 +45,7 @@ const SwiperContent = ({ type }: SwiperContentProps) => {
     handleChangeSlide,
     handleSlideRef,
     handleClickButton,
+    currentPage,
     slideContents,
     buttonMsg,
   };

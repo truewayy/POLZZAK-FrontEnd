@@ -3,17 +3,19 @@ import 'swiper/css/pagination';
 
 import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import Swiper, { Pagination } from 'swiper';
+import Swiper from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 import NextStepButton from '@/components/SignUp/Button';
 
 import Frame from '../Frame';
+import ProgressBar from '../ProgressBar';
 
 interface SwiperContentVAProps {
   handleSlideRef: (swiper: Swiper) => void;
   handleChangeSlide: (swiper: Swiper) => void;
   handleClickButton: () => void;
+  currentPage: number;
   slideContents: {
     title: string;
     title2?: string;
@@ -27,17 +29,18 @@ const SwiperContentView = ({
   handleChangeSlide,
   handleSlideRef,
   handleClickButton,
+  currentPage,
   slideContents,
   buttonMsg,
 }: SwiperContentVAProps) => (
   <Box w="100%" minH="100vh" pos="relative">
+    <ProgressBar
+      currentPage={currentPage + 1}
+      totalPages={slideContents.length}
+    />
     <CustomSwiper
       slidesPerView={1}
       centeredSlides
-      pagination={{
-        clickable: true,
-      }}
-      modules={[Pagination]}
       onSwiper={handleSlideRef}
       onSlideChange={handleChangeSlide}
       cssMode
@@ -63,15 +66,10 @@ export default SwiperContentView;
 
 const CustomSwiper = styled(SwiperComponent)`
   .swiper-pagination {
-    bottom: 10px;
-    .swiper-pagination-bullet {
-      width: 8px;
-      height: 8px;
-      background-color: #eeeef4;
-      opacity: 1;
-      &-active {
-        background-color: #84ccff;
-      }
+    top: 10px;
+    .swiper-pagination-progressbar {
+      display: flex;
+      gap: 5px;
     }
   }
 `;
