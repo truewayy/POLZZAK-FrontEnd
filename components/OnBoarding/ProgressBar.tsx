@@ -13,7 +13,7 @@ const ProgressBar = ({ currentPage, totalPages }: ProgressBarProps) => {
   );
 
   return (
-    <Flex maxW="100%" justify="space-between" gap="5px" p="20px 5% 0 5%">
+    <Flex maxW="100%" justify="space-between" gap="5px" p="0px 5% 25px 5%">
       {filledArr.map((item) => (
         <Box key={item} w="100%" h="4px" bg="polzzak.default" />
       ))}

@@ -12,8 +12,8 @@ interface SwiperContentProps {
 }
 
 const SwiperContent = ({ type }: SwiperContentProps) => {
-  const [currentPage, setCurrentPage] = useState(0);
   const { push } = useRouter();
+  const [currentPage, setCurrentPage] = useState(0);
   const [buttonMsg, setButtonMsg] = useState('다음');
   const swiperRef = useRef<Swiper>();
 
@@ -29,6 +29,14 @@ const SwiperContent = ({ type }: SwiperContentProps) => {
       swiperRef.current.slideNext();
     }
   };
+
+  const handleClickBackButton = () => {
+    if (swiperRef.current) {
+      if (currentPage === 0) return;
+      swiperRef.current.slidePrev();
+    }
+  };
+
   const handleSlideRef = (swiper: Swiper) => {
     swiperRef.current = swiper;
   };
@@ -36,8 +44,10 @@ const SwiperContent = ({ type }: SwiperContentProps) => {
   const handleChangeSlide = (swiper: Swiper) => {
     if (swiper.realIndex === slideContents.length - 1) {
       setButtonMsg('시작하기');
+      setCurrentPage(swiper.realIndex);
     } else {
       setButtonMsg('다음');
+      setCurrentPage(swiper.realIndex);
     }
   };
 
@@ -45,6 +55,7 @@ const SwiperContent = ({ type }: SwiperContentProps) => {
     handleChangeSlide,
     handleSlideRef,
     handleClickButton,
+    handleClickBackButton,
     currentPage,
     slideContents,
     buttonMsg,

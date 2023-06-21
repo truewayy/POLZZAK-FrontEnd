@@ -7,6 +7,7 @@ import Swiper from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 import NextStepButton from '@/components/SignUp/Button';
+import { LeftArrow } from '@/public/icon';
 
 import Frame from '../Frame';
 import ProgressBar from '../ProgressBar';
@@ -15,6 +16,7 @@ interface SwiperContentVAProps {
   handleSlideRef: (swiper: Swiper) => void;
   handleChangeSlide: (swiper: Swiper) => void;
   handleClickButton: () => void;
+  handleClickBackButton: () => void;
   currentPage: number;
   slideContents: {
     title: string;
@@ -29,15 +31,25 @@ const SwiperContentView = ({
   handleChangeSlide,
   handleSlideRef,
   handleClickButton,
+  handleClickBackButton,
   currentPage,
   slideContents,
   buttonMsg,
 }: SwiperContentVAProps) => (
   <Box w="100%" minH="100vh" pos="relative">
-    <ProgressBar
-      currentPage={currentPage + 1}
-      totalPages={slideContents.length}
-    />
+    {currentPage !== 0 && (
+      <LeftArrow
+        w="10px"
+        h="18px"
+        pos="absolute"
+        top="12px"
+        left="5%"
+        fill="gray.700"
+        cursor="pointer"
+        zIndex={100}
+        onClick={handleClickBackButton}
+      />
+    )}
     <CustomSwiper
       slidesPerView={1}
       centeredSlides
@@ -56,6 +68,10 @@ const SwiperContentView = ({
         </SwiperSlide>
       ))}
     </CustomSwiper>
+    <ProgressBar
+      currentPage={currentPage + 1}
+      totalPages={slideContents.length}
+    />
     <NextStepButton disabled={false} onClick={handleClickButton}>
       {buttonMsg}
     </NextStepButton>
