@@ -19,7 +19,7 @@ import { userInfoAtom } from '@/store/userInfo';
 import ConfirmModal from '../ConfirmModal';
 
 const SearchResult = () => {
-  const { push } = useRouter();
+  const { pathname, push } = useRouter();
   const toast = useToast();
   const [infoText, setInfoText] = useState('');
   const [infoText2, setInfoText2] = useState('');
@@ -40,7 +40,7 @@ const SearchResult = () => {
       enabled: !!currentSearch,
     }
   );
-
+  const isPathOnboarding = pathname === '/find/family/search';
   const isRequestSent = data?.data?.familyStatus === 'SENT';
 
   const send = useMutation((targetId: number) => sendRequest(targetId), {
@@ -67,7 +67,8 @@ const SearchResult = () => {
   });
 
   const handleClickCancelSearch = () => {
-    push('/link?tab=linked');
+    if (isPathOnboarding) push('/find/family');
+    else push('/link?tab=linked');
   };
 
   const handleClickButton = () => {

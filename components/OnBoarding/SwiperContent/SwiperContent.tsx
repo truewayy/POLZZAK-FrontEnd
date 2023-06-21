@@ -22,7 +22,7 @@ const SwiperContent = ({ type }: SwiperContentProps) => {
   const handleClickButton = () => {
     if (swiperRef.current) {
       if (swiperRef.current.realIndex === slideContents.length - 1) {
-        push(ROUTES.MAIN);
+        push(ROUTES.FIND);
       }
       if (currentPage === slideContents.length - 1) return;
       setCurrentPage(swiperRef.current.realIndex + 1);

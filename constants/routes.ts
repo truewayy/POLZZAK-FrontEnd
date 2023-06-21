@@ -19,6 +19,8 @@ const ROUTES = {
     PROFILE: '/oauth/signup/profile',
   },
   MAIN: '/main',
+  FIND: '/find',
+  FIND_FAMILY: '/find/family',
   ON_BOARDING: {
     PARENT: '/onboarding/parent',
     KID: '/onboarding/kid',
