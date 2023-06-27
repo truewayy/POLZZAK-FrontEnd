@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
 import { StampBoard } from '@/apis/stamp';
@@ -9,12 +10,14 @@ import CardView from './CardView';
 
 const Card = ({
   name,
+  stampBoardId,
   currentStampCount,
   goalStampCount,
   missionRequestCount,
   reward,
   status,
 }: StampBoard) => {
+  const { push } = useRouter();
   const { memberType } = useRecoilValue(userInfoAtom);
   const percentage = (currentStampCount / goalStampCount) * 100;
   const isStampBoardComplete = currentStampCount === goalStampCount;
@@ -55,6 +58,10 @@ const Card = ({
     <NoRequestIcon w={76} h={67} />
   );
 
+  const handleClickCard = () => {
+    push(`/stampboard/${stampBoardId}`);
+  };
+
   const CardVAProps = {
     name,
     currentStampCount,
@@ -67,6 +74,7 @@ const Card = ({
     isRequest,
     missionRequestCount,
     reward,
+    handleClickCard,
   };
 
   return <CardView {...CardVAProps} />;

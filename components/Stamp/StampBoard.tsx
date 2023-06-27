@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { Box, Grid, Text } from '@chakra-ui/react';
 
 interface BoardProps {
@@ -58,7 +59,7 @@ const StampBoard = ({ count }: BoardProps) => (
   >
     {[...Array(count)].map((_, i) => (
       <Box
-        key={_}
+        key={i}
         pos="relative"
         w="100%"
         pt="100%"

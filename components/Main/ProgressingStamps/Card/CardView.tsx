@@ -17,6 +17,7 @@ interface CardVAProps {
   isRequest: boolean;
   missionRequestCount: number;
   reward: string;
+  handleClickCard: () => void;
 }
 
 const CardView = ({
@@ -31,6 +32,7 @@ const CardView = ({
   isRequest,
   missionRequestCount,
   reward,
+  handleClickCard,
 }: CardVAProps) => (
   <VStack
     w="100%"
@@ -42,6 +44,7 @@ const CardView = ({
     borderRadius="8px"
     pos="relative"
     justify="space-between"
+    onClick={handleClickCard}
   >
     <VStack w="100%" spacing="0px">
       <Flex w="100%" justifyContent="space-between" align="center">

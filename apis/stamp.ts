@@ -62,6 +62,39 @@ interface StampboardCreateInfo {
   missionContents: string[];
 }
 
+interface StampboardDetailResponse {
+  data: {
+    code: 200;
+    messages: null;
+    data: {
+      stampBoardId: number;
+      name: string;
+      status: string;
+      currentStampCount: number;
+      goalStampCount: 10 | 12 | 16 | 20 | 25 | 36 | 40 | 48 | 60;
+      reward: string;
+      missions: {
+        id: number;
+        content: string;
+      }[];
+      stamps: {
+        id: number;
+        stampDesignId: number;
+        missionContent: string;
+        createdDate: string;
+      }[];
+      missionRequestList: {
+        id: number;
+        missionContent: string;
+        createdDate: string;
+      }[];
+      completedDate: null;
+      rewardDate: null;
+      createdDate: string;
+    };
+  };
+}
+
 export const stampboardList = async ({
   memberId,
   stampBoardGroup,
@@ -86,5 +119,17 @@ export const createStampboard = async (createInfo: StampboardCreateInfo) => {
     return data;
   } catch (error) {
     return error;
+  }
+};
+
+export const stampboardDetail = async (stampboardId: string) => {
+  try {
+    const { data }: StampboardDetailResponse = await http.get(
+      `${API_URLS.STAMPBOARD}/${stampboardId}`
+    );
+    return data;
+  } catch (error) {
+    const err = error as StampboardListError;
+    return err.response.data;
   }
 };
