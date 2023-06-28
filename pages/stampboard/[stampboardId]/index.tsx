@@ -12,7 +12,7 @@ interface StampboardProps {
 
 const Stampboard = ({ stampboardId }: StampboardProps) => {
   const { data } = useQuery(['stampboard', stampboardId], () =>
-    stampboardDetail(stampboardId as string)
+    stampboardDetail(stampboardId)
   );
   const stampboard = data?.data;
 
@@ -44,7 +44,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
             D+{diffDate}
           </Box>
         </Flex>
-        <StampBoard count={stampboard?.goalStampCount || 10} />
+        <StampBoard stampboardId={stampboardId} />
       </VStack>
       <VStack w="100%" p="20px 5%" bg="#fff" spacing="23px">
         <Flex w="100%" justify="space-between" align="center">
@@ -82,7 +82,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
             </Text>
           </Button>
           <Text layerStyle="body4" color="gray.500">
-            도장판을 다 채워서 쿠폰 발급이 가능해요!
+            도장판을 다 채우면 쿠폰을 발급해줄 수 있어요.
           </Text>
         </VStack>
         <Text

@@ -133,3 +133,19 @@ export const stampboardDetail = async (stampboardId: string) => {
     return err.response.data;
   }
 };
+
+export const stampMissionRequest = async (
+  stampBoardId: number,
+  missionId: number,
+  guardianId: number
+) => {
+  try {
+    await http.post(API_URLS.MISSION_REQUEST, {
+      stampBoardId,
+      missionId,
+      guardianId,
+    });
+  } catch (error) {
+    return error;
+  }
+};
