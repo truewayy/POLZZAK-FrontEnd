@@ -85,6 +85,7 @@ interface StampboardDetailResponse {
       }[];
       missionRequestList: {
         id: number;
+        missionId: number;
         missionContent: string;
         createdDate: string;
       }[];
@@ -144,6 +145,23 @@ export const stampMissionRequest = async (
       stampBoardId,
       missionId,
       guardianId,
+    });
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createStamp = async (
+  stampBoardId: number,
+  count: number,
+  missionId: number,
+  stampDesignId: number
+) => {
+  try {
+    await http.post(API_URLS.STAMP(stampBoardId), {
+      count,
+      missionId,
+      stampDesignId,
     });
   } catch (error) {
     return error;
