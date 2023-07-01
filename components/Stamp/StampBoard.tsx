@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { Box, Button, Grid, Text } from '@chakra-ui/react';
+import { Button, Grid, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import Sheet from 'react-modal-sheet';
 import { useQuery } from 'react-query';
@@ -9,6 +9,7 @@ import { stampboardDetail } from '@/apis/stamp';
 import { userInfoAtom } from '@/store/userInfo';
 
 import KidStampModal from './KidStampModal';
+import ParentStampModal from './ParentStampModal';
 
 interface BoardProps {
   stampboardId: string;
@@ -71,8 +72,25 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
   const guardianId = isMemberTypeKid ? families[0].memberId : 0;
   const guardianType = isMemberTypeKid ? families[0].memberType.detail : '';
 
-  const handleClickStamp = () => {
-    setModalOn(true);
+  const stamps = () => {
+    const extendedMissions = Array(count).fill(null);
+    if (stampboard?.stamps) {
+      for (let i = 0; i < stampboard.stamps.length; i += 1) {
+        extendedMissions[i] = stampboard.stamps[i];
+      }
+    }
+    return extendedMissions;
+  };
+
+  const handleClickStamp = (
+    stamp: {
+      id: number;
+      stampDesignId: number;
+      missionContent: string;
+      createdDate: string;
+    } | null
+  ) => {
+    if (!stamp) setModalOn(true);
   };
 
   const onClose = () => {
@@ -93,7 +111,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
       borderRadius="12px"
       bg="white"
     >
-      {[...Array(count)].map((_, i) => (
+      {stamps().map((stamp, i) => (
         <Button
           variant="unstyled"
           key={i}
@@ -108,7 +126,9 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
           color="gray.400"
           cursor="pointer"
           _hover={{ bg: 'blue.100', color: 'polzzak.highlighted' }}
-          onClick={handleClickStamp}
+          _active={{ bg: 'blue.100', color: 'polzzak.highlighted' }}
+          isActive={stamp}
+          onClick={() => handleClickStamp(stamp)}
         >
           <Text
             pos="absolute"
@@ -124,7 +144,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
       <Sheet
         isOpen={modalOn}
         onClose={onClose}
-        snapPoints={[550, 450, 200, 0]}
+        snapPoints={[550, 450, 450, 0]}
         initialSnap={snapPoint}
         style={{
           maxWidth: '560px',
@@ -146,7 +166,14 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
                 setSnapPoint={setSnapPoint}
               />
             ) : (
-              <Box />
+              <ParentStampModal
+                stampboardId={stampboardId}
+                missions={stampboard?.missions || []}
+                missionRequestList={stampboard?.missionRequestList || []}
+                onClose={onClose}
+                snapPoint={snapPoint}
+                setSnapPoint={setSnapPoint}
+              />
             )}
           </Sheet.Content>
         </Sheet.Container>

@@ -23,6 +23,8 @@ const API_URLS = {
   STAMPBOARD_LIST: '/api/v1/stamps/stamp-boards',
   STAMPBOARD: '/api/v1/stamps/stamp-board',
   MISSION_REQUEST: '/api/v1/stamps/mission-request',
+  STAMP: (stampboardId: number) =>
+    `/api/v1/stamps/stamp-board/${stampboardId}/stamp`,
 };
 
 export default API_URLS;
