@@ -1,11 +1,20 @@
-import { Box, Button, Circle, Flex, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Circle,
+  Flex,
+  Text,
+  useDisclosure,
+  VStack,
+} from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { stampboardDetail } from '@/apis/stamp';
+import { deleteStampboard, stampboardDetail } from '@/apis/stamp';
+import ConfirmModal from '@/components/Link/ConfirmModal';
 import StampBoard from '@/components/Stamp/StampBoard';
 import {
   Coupon,
@@ -20,6 +29,7 @@ interface StampboardProps {
 }
 
 const Stampboard = ({ stampboardId }: StampboardProps) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const { back } = useRouter();
   const {
     memberType: { name },
@@ -38,6 +48,15 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
   const currentDate = new Date();
   const diffDate = Math.ceil(
     (currentDate.getTime() - createdDate.getTime()) / (1000 * 3600 * 24)
+  );
+
+  const { mutate: remove, isLoading } = useMutation(
+    () => deleteStampboard(stampboardId),
+    {
+      onSuccess: () => {
+        back();
+      },
+    }
   );
 
   const handleClickBack = () => {
@@ -130,7 +149,15 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
           </Text>
         </VStack>
         <VStack w="100%" spacing="14px" pb="30px">
-          <Button w="100%" h="auto" p="14px 0" bg="polzzak.default" isDisabled>
+          <Button
+            w="100%"
+            h="auto"
+            p="14px 0"
+            bg="polzzak.default"
+            isDisabled={
+              stampboard?.stamps.length !== stampboard?.goalStampCount
+            }
+          >
             <Text layerStyle="subtitle3" color="white">
               {buttonMsg}
             </Text>
@@ -145,11 +172,31 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
             fontWeight="600"
             textDecor="underline"
             color="gray.500"
+            cursor="pointer"
+            onClick={onOpen}
           >
             도장판 삭제하기
           </Text>
         )}
       </VStack>
+      <ConfirmModal
+        isOpen={isOpen}
+        onClose={onClose}
+        handleClickCancelButton={onClose}
+        cancelMessage="아니요"
+        confirmMessage="네, 삭제할래요"
+        handleClickConfirmButton={remove}
+        isLoading={isLoading}
+      >
+        <VStack w="100%" spacing="8px">
+          <Text layerStyle="subtitle1" textAlign="center">
+            도장판을 정말 삭제하시겠어요?
+          </Text>
+          <Text layerStyle="body8" textAlign="center" color="gray.500">
+            (20P 차감돼요)
+          </Text>
+        </VStack>
+      </ConfirmModal>
     </VStack>
   );
 };

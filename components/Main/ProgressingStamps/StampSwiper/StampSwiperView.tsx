@@ -29,14 +29,6 @@ const StampSwiperView = ({
           님과 함께해요
         </Text>
       </Text>
-      {progressingBoard.length > 0 && (
-        <Text layerStyle="body3" letterSpacing="tight">
-          {currentBoard}{' '}
-          <Text as="span" color="gray.500">
-            / {totalBoard}
-          </Text>
-        </Text>
-      )}
     </Flex>
     {progressingBoard.length > 0 ? (
       <SwiperComponent
@@ -77,6 +69,20 @@ const StampSwiperView = ({
               />
             </SwiperSlide>
           )
+        )}
+        {progressingBoard.length > 0 && (
+          <Text
+            pt="8px"
+            w="100%"
+            textAlign="center"
+            layerStyle="body3"
+            letterSpacing="tight"
+          >
+            {currentBoard}{' '}
+            <Text as="span" color="gray.500">
+              / {totalBoard}
+            </Text>
+          </Text>
         )}
       </SwiperComponent>
     ) : (

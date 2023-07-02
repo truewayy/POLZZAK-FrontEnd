@@ -167,3 +167,11 @@ export const createStamp = async (
     return error;
   }
 };
+
+export const deleteStampboard = async (stampBoardId: string) => {
+  try {
+    await http.delete(`${API_URLS.STAMPBOARD}/${stampBoardId}`);
+  } catch (error) {
+    return error;
+  }
+};
