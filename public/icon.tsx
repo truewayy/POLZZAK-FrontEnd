@@ -1794,3 +1794,55 @@ export const LeftNavigation = createIcon({
     </svg>
   ),
 });
+
+export const ChevronDown = createIcon({
+  displayName: 'ChevronDown',
+  viewBox: '0 0 24 24',
+  path: (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_3733_62956)">
+        <path
+          d="M15.8805 9.29006L12.0005 13.1701L8.12047 9.29006C7.73047 8.90006 7.10047 8.90006 6.71047 9.29006C6.32047 9.68006 6.32047 10.3101 6.71047 10.7001L11.3005 15.2901C11.6905 15.6801 12.3205 15.6801 12.7105 15.2901L17.3005 10.7001C17.6905 10.3101 17.6905 9.68006 17.3005 9.29006C16.9105 8.91006 16.2705 8.90006 15.8805 9.29006V9.29006Z"
+          fill="#DADAE7"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_3733_62956">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  ),
+});
+
+export const ChevronUp = createIcon({
+  displayName: 'ChevronUp',
+  viewBox: '0 0 24 24',
+  path: (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_3733_63094)">
+        <path
+          d="M8.13125 15.29L12.0113 11.41L15.8913 15.29C16.2813 15.68 16.9113 15.68 17.3013 15.29C17.6913 14.9 17.6913 14.27 17.3013 13.88L12.7113 9.29002C12.3213 8.90002 11.6913 8.90002 11.3013 9.29002L6.71125 13.88C6.32125 14.27 6.32125 14.9 6.71125 15.29C7.10125 15.67 7.74125 15.68 8.13125 15.29V15.29Z"
+          fill="#DADAE7"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_3733_63094">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  ),
+});

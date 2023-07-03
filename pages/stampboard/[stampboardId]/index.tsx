@@ -3,6 +3,7 @@ import {
   Button,
   Circle,
   Flex,
+  Icon,
   Text,
   useDisclosure,
   VStack,
@@ -17,6 +18,8 @@ import { deleteStampboard, stampboardDetail } from '@/apis/stamp';
 import ConfirmModal from '@/components/Link/ConfirmModal';
 import StampBoard from '@/components/Stamp/StampBoard';
 import {
+  ChevronDown,
+  ChevronUp,
   Coupon,
   EditFilledIcon,
   LeftArrow,
@@ -41,14 +44,24 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
   const [memberType, setMemberType] = useState('');
   const [buttonMsg, setButtonMsg] = useState('');
   const [description, setDescription] = useState('');
+  const [moreMission, setMoreMission] = useState(false);
 
   const stampboard = data?.data;
   const isMissionRequest = !!stampboard?.missionRequestList.length;
   const createdDate = new Date(stampboard?.createdDate || '');
+  const completedDate = new Date(stampboard?.completedDate || '');
   const currentDate = new Date();
   const diffDate = Math.ceil(
     (currentDate.getTime() - createdDate.getTime()) / (1000 * 3600 * 24)
   );
+  const isCompleted = stampboard?.status === 'completed';
+  const completingDate = Math.ceil(
+    (completedDate.getTime() - createdDate.getTime()) / (1000 * 3600 * 24)
+  );
+
+  const showMoreMissionText = stampboard?.missions
+    ? stampboard.missions.length > 3
+    : false;
 
   const { mutate: remove, isLoading } = useMutation(
     () => deleteStampboard(stampboardId),
@@ -61,6 +74,10 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
 
   const handleClickBack = () => {
     back();
+  };
+
+  const handleClickMoreButton = () => {
+    setMoreMission(!moreMission);
   };
 
   useEffect(() => {
@@ -97,7 +114,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
             p="4px 8px"
             layerStyle="subtitle3"
           >
-            D+{diffDate}
+            {isCompleted ? `${completingDate}일 걸렸어요!` : `D+${diffDate}`}
           </Box>
         </Flex>
         {memberType !== 'KID' && isMissionRequest && (
@@ -124,13 +141,34 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
           <Text layerStyle="subtitle3" color="rgba(46, 48, 56, 1)">
             미션 목록
           </Text>
+          {showMoreMissionText && (
+            <Text
+              layerStyle="body4"
+              color="gray.500"
+              cursor="pointer"
+              onClick={handleClickMoreButton}
+            >
+              더보기
+              <Icon
+                as={moreMission ? ChevronUp : ChevronDown}
+                w="24px"
+                h="24px"
+              />
+            </Text>
+          )}
         </Flex>
         <VStack w="100%" spacing="18px">
-          {stampboard?.missions.map(({ id, content }) => (
-            <Text w="100%" key={id} layerStyle="body3" color="#2E3038">
-              {content}
-            </Text>
-          ))}
+          {moreMission
+            ? stampboard?.missions.map(({ id, content }) => (
+                <Text w="100%" key={id} layerStyle="body3" color="#2E3038">
+                  {content}
+                </Text>
+              ))
+            : stampboard?.missions.slice(0, 3).map(({ id, content }) => (
+                <Text w="100%" key={id} layerStyle="body3" color="#2E3038">
+                  {content}
+                </Text>
+              ))}
         </VStack>
       </VStack>
       <Box w="100%" h="8px" bg="#F8F8FC" />
