@@ -21,10 +21,10 @@ const API_URLS = {
   SENT_REQUEST: '/api/v1/families/requests/sent',
   RECEIVED_REQUEST: '/api/v1/families/requests/received',
   STAMPBOARD_LIST: '/api/v1/stamps/stamp-boards',
-  STAMPBOARD: '/api/v1/stamps/stamp-board',
+  STAMPBOARD: '/api/v1/stamps/stamp-boards',
   MISSION_REQUEST: '/api/v1/stamps/mission-request',
   STAMP: (stampboardId: number) =>
-    `/api/v1/stamps/stamp-board/${stampboardId}/stamp`,
+    `/api/v1/stamps/stamp-boards/${stampboardId}/stamp`,
 };
 
 export default API_URLS;
