@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Circle } from '@chakra-ui/react';
 
 import { GoogleIcon, KakaoIcon } from '@/public/icon';
 
@@ -11,36 +11,29 @@ interface LoginButtonVAProps {
 
 const loginStyle = {
   kakao: {
-    msg: '카카오로 시작하기',
-    color: '#000000',
-    bgColor: '#FFC736',
-    bg: <KakaoIcon w={21} h={21} pos="absolute" left="26px" />,
+    bgColor: '#FEE500',
+    icon: <KakaoIcon w="22px" h="20px" />,
+    border: 'none',
+    borderColor: 'none',
   },
   google: {
-    msg: '구글로 시작하기',
-    color: '#000000',
-    bgColor: '#DADAE7',
-    bg: <GoogleIcon w={21} h={21} pos="absolute" left="26px" />,
+    bgColor: '#FFFFFF',
+    icon: <GoogleIcon w="22px" h="20px" />,
+    border: '1px solid',
+    borderColor: 'gray.200',
   },
 };
 
 const LoginButtonView = ({ type, handleClick }: LoginButtonVAProps) => (
-  <Button
-    variant="outline"
-    pos="relative"
-    w="100%"
-    p="24px"
-    borderRadius="8px"
-    fontSize="16px"
-    fontWeight="400"
-    color={loginStyle[type].color}
-    bgColor={loginStyle[type].bgColor}
+  <Circle
+    size="60px"
+    bg={loginStyle[type].bgColor}
     onClick={handleClick}
-    _hover={{ bgColor: loginStyle[type].bgColor }}
+    border={loginStyle[type].border}
+    borderColor={loginStyle[type].borderColor}
   >
-    {loginStyle[type].msg}
-    {loginStyle[type].bg}
-  </Button>
+    {loginStyle[type].icon}
+  </Circle>
 );
 
 export default LoginButtonView;
