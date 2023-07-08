@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react';
+
 import ROUTES from '@/constants/routes';
+import { getLocalStorage } from '@/utils/storage';
 
 import LoginButtonView from './ButtonView';
 
@@ -9,6 +12,7 @@ export interface LoginButtonProps {
 }
 
 const LoginButton = ({ type }: LoginButtonProps) => {
+  const [isLastLoginButton, setIsLastLoginButton] = useState(false);
   const handleClick = () => {
     switch (type) {
       case 'kakao':
@@ -22,8 +26,14 @@ const LoginButton = ({ type }: LoginButtonProps) => {
     }
   };
 
+  useEffect(() => {
+    const lastLoginType = getLocalStorage('lastLoginType');
+    setIsLastLoginButton(lastLoginType === type);
+  }, [type]);
+
   const LoginButtonVAProps = {
     type,
+    isLastLoginButton,
     handleClick,
   };
 

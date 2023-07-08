@@ -1866,3 +1866,63 @@ export const Speaker = createIcon({
     </svg>
   ),
 });
+
+export const Balloon = createIcon({
+  displayName: 'Balloon',
+  viewBox: '0 0 136 74',
+  path: (
+    <svg
+      width="136"
+      height="74"
+      viewBox="0 0 136 74"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_d_3672_64258)">
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M68.3368 8.45247C67.942 7.84918 67.058 7.84918 66.6632 8.45247L61.1514 16.8761C61.0887 16.9719 61.045 17.0721 61.0184 17.1736H18C13.5817 17.1736 10 20.7553 10 25.1736V53.1736C10 57.5919 13.5817 61.1736 18 61.1736H118C122.418 61.1736 126 57.5919 126 53.1736V25.1736C126 20.7553 122.418 17.1736 118 17.1736H73.9816C73.955 17.0721 73.9113 16.9719 73.8486 16.8761L68.3368 8.45247Z"
+          fill="white"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_d_3672_64258"
+          x="0"
+          y="0"
+          width="136"
+          height="73.1736"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="2" />
+          <feGaussianBlur stdDeviation="5" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_3672_64258"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_3672_64258"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  ),
+});
