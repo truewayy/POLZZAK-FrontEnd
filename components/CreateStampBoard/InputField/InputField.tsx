@@ -1,27 +1,17 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useFormContext } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
+
+import { missionsAtom } from '@/store/missions';
 
 import InputFieldView from './InputFieldView';
 
 const stampCount = [10, 12, 16, 20, 25, 30, 36, 40, 48, 60];
 
-const missionDefault = [
-  {
-    id: 1,
-    content: '',
-  },
-  {
-    id: 2,
-    content: '',
-  },
-  {
-    id: 3,
-    content: '',
-  },
-];
-
 const InputField = () => {
-  const [missions, setMissions] = useState(missionDefault);
+  const { push } = useRouter();
+
+  const [missions, setMissions] = useRecoilState(missionsAtom);
   const { unregister, control, watch } = useFormContext();
 
   const isMissionLimit = missions.length >= 50;
@@ -40,6 +30,10 @@ const InputField = () => {
     }
   };
 
+  const handleClickMissionExample = () => {
+    push('/create/stampboard/missions');
+  };
+
   const handleClickDeleteButton = (id: number) => {
     if (missions.length !== 1) {
       setMissions((prev) => prev.filter((item) => item.id !== id));
@@ -50,6 +44,7 @@ const InputField = () => {
   const InputFieldVAProps = {
     handleClickAddButton,
     handleClickDeleteButton,
+    handleClickMissionExample,
     missionValue,
     control,
     missions,

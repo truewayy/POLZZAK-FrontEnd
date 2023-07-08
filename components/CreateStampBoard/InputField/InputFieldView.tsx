@@ -16,8 +16,8 @@ import CustomRadio from './Field/CustomRadio';
 interface InputFieldVAProps {
   handleClickAddButton: () => void;
   handleClickDeleteButton: (id: number) => void;
+  handleClickMissionExample: () => void;
   missionValue: (id: number) => string;
-
   control: Control<FieldValues, any>;
   missions: { id: number; content: string }[];
   isMissionLimit: boolean;
@@ -27,6 +27,7 @@ interface InputFieldVAProps {
 const InputFieldView = ({
   handleClickAddButton,
   handleClickDeleteButton,
+  handleClickMissionExample,
   missionValue,
   control,
   missions,
@@ -127,6 +128,7 @@ const InputFieldView = ({
           borderRadius="20px"
           layerStyle="caption2"
           alignSelf="flex-end"
+          onClick={handleClickMissionExample}
         >
           <ListIcon w="18px" h="18px" mr="4px" />
           미션예시
