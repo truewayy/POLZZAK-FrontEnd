@@ -1926,3 +1926,114 @@ export const Balloon = createIcon({
     </svg>
   ),
 });
+
+export const Barcodes = createIcon({
+  displayName: 'Barcodes',
+  viewBox: '0 0 56 18',
+  path: (
+    <svg
+      width="56"
+      height="18"
+      viewBox="0 0 56 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="0.275391"
+        y="18"
+        width="18"
+        height="2"
+        transform="rotate(-90 0.275391 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="4.27539"
+        y="18"
+        width="18"
+        height="4"
+        transform="rotate(-90 4.27539 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="10.2754"
+        y="18"
+        width="18"
+        height="4"
+        transform="rotate(-90 10.2754 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="16.2754"
+        y="18"
+        width="18"
+        height="2"
+        transform="rotate(-90 16.2754 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="20.2754"
+        y="18"
+        width="18"
+        height="2"
+        transform="rotate(-90 20.2754 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="24.2754"
+        y="18"
+        width="18"
+        height="4"
+        transform="rotate(-90 24.2754 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="30.2754"
+        y="18"
+        width="18"
+        height="2.5"
+        transform="rotate(-90 30.2754 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="34.7754"
+        y="18"
+        width="18"
+        height="2"
+        transform="rotate(-90 34.7754 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="38.7754"
+        y="18"
+        width="18"
+        height="4"
+        transform="rotate(-90 38.7754 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="44.7754"
+        y="18"
+        width="18"
+        height="2"
+        transform="rotate(-90 44.7754 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="48.7754"
+        y="18"
+        width="18"
+        height="2"
+        transform="rotate(-90 48.7754 18)"
+        fill="#6B6C76"
+      />
+      <rect
+        x="52.7754"
+        y="18"
+        width="18"
+        height="2.5"
+        transform="rotate(-90 52.7754 18)"
+        fill="#6B6C76"
+      />
+    </svg>
+  ),
+});

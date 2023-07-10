@@ -1,13 +1,16 @@
-import { Spinner, VStack } from '@chakra-ui/react';
+import { Spinner, Text, VStack } from '@chakra-ui/react';
 
 const LoadingView = () => (
-  <VStack minH="100vh" justify="center">
+  <VStack minH="100vh" justify="center" spacing="26px">
     <Spinner
       size="xl"
       color="blue.400"
       emptyColor="polzzak.disabled"
-      thickness="3px"
+      thickness="7px"
     />
+    <Text layerStyle="subtitle4" color="gray.700">
+      폴짝의 세계로!
+    </Text>
   </VStack>
 );
 export default LoadingView;

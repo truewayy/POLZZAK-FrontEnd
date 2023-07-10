@@ -157,6 +157,12 @@ const polzzakTheme = extendTheme({
       lineHeight: '140%',
       color: 'gray.800',
     },
+    caption3: {
+      fontSize: '12px',
+      fontWeight: '700',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
     head24B: {
       fontSize: '24px',
       fontWeight: '700',
