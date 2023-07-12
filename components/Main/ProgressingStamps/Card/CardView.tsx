@@ -47,8 +47,14 @@ const CardView = ({
     onClick={handleClickCard}
   >
     <VStack w="100%" spacing="0px">
-      <Flex w="100%" justifyContent="space-between" align="center">
-        <Text layerStyle="title3" color="#3F3D3B">
+      <Flex w="100%" justifyContent="space-between" gap="16px" align="center">
+        <Text
+          layerStyle="title3"
+          color="#3F3D3B"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+        >
           {name}
         </Text>
         <ArrowIcon w={4} h={4} />
