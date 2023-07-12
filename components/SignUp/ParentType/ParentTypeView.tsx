@@ -24,23 +24,23 @@ const ParentTypeView = ({
   parentTypes,
   buttonDisabled,
 }: ParentTypeVAProps) => (
-  <Box w="100%" h="120px" overflow="hidden">
+  <Box w="90%" h="120px" overflow="hidden">
     <SwiperComponent
-      height={80}
+      height={140}
       effect="coverflow"
       modules={[EffectCoverflow]}
       direction="vertical"
-      slidesPerView={3}
+      slidesPerView={2}
       loop
-      loopedSlides={5}
-      spaceBetween={-15}
+      loopedSlides={3}
+      spaceBetween={-100}
       centeredSlides
       slideToClickedSlide
       grabCursor
       coverflowEffect={{
         rotate: 0,
         stretch: 0,
-        depth: 100,
+        depth: 500,
         modifier: 1,
         slideShadows: false,
       }}
@@ -58,8 +58,8 @@ const ParentTypeView = ({
             textAlign="center"
             color="#DADADA"
             {...(currentParentType === memberTypeDetailId && {
-              borderColor: 'polzzak.default',
-              color: 'polzzak.default',
+              borderColor: 'blue.600',
+              color: 'blue.600',
               bg: 'blue.100',
             })}
           >

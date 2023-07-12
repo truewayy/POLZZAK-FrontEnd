@@ -2037,3 +2037,29 @@ export const Barcodes = createIcon({
     </svg>
   ),
 });
+
+export const Check = createIcon({
+  displayName: 'Check',
+  viewBox: '0 0 16 16',
+  path: (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_3672_64879)">
+        <path
+          d="M6.00073 10.8L3.6674 8.46667C3.4074 8.20667 2.99406 8.20667 2.73406 8.46667C2.47406 8.72667 2.47406 9.14 2.73406 9.4L5.5274 12.1933C5.7874 12.4533 6.2074 12.4533 6.4674 12.1933L13.5341 5.13334C13.7941 4.87334 13.7941 4.46 13.5341 4.2C13.2741 3.94 12.8607 3.94 12.6007 4.2L6.00073 10.8Z"
+          fill="#259BEF"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_3672_64879">
+          <rect width="16" height="16" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  ),
+});

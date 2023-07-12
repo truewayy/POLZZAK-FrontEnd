@@ -1,4 +1,4 @@
-import { Box, Input, Text, VStack } from '@chakra-ui/react';
+import { Box, Input, VStack } from '@chakra-ui/react';
 
 import { BasicProfileIcon, ProfileEditIcon } from '@/public/icon';
 
@@ -45,9 +45,6 @@ const ProfileImageView = ({
       )}
       <ProfileEditIcon w={29} h={29} pos="absolute" bottom={0} right={0} />
     </Box>
-    <Text fontSize="12px" color="gray.500">
-      사진을 설정하지 않으면 기본 사진으로 설정돼요
-    </Text>
     <Input
       type="file"
       accept="image/png"
@@ -56,7 +53,7 @@ const ProfileImageView = ({
       hidden
     />
     <NextStepButton disabled={false} onClick={handleClickButton}>
-      가입 완료
+      회원가입 완료
     </NextStepButton>
   </VStack>
 );
