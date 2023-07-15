@@ -36,7 +36,7 @@ const InputFieldView = ({
 }: InputFieldVAProps) => (
   <VStack spacing="24px" w="100%">
     <VStack w="100%" spacing="8px" align="flex-start">
-      <Text layerStyle="subtitle3">이름</Text>
+      <Text layerStyle="subtitle16Sbd">이름</Text>
       <CustomInput
         name="name"
         h="50px"
@@ -48,7 +48,7 @@ const InputFieldView = ({
       />
     </VStack>
     <VStack w="100%" spacing="8px" align="flex-start">
-      <Text layerStyle="subtitle3">보상</Text>
+      <Text layerStyle="subtitle16Sbd">보상</Text>
       <CustomInput
         name="reward"
         h="50px"
@@ -60,7 +60,7 @@ const InputFieldView = ({
       />
     </VStack>
     <VStack w="100%" spacing="8px" align="flex-start">
-      <Text layerStyle="subtitle3">도장 개수</Text>
+      <Text layerStyle="subtitle16Sbd">도장 개수</Text>
       <CustomRadio
         name="goalStampCount"
         options={stampCount}
@@ -69,7 +69,7 @@ const InputFieldView = ({
       />
     </VStack>
     <VStack w="100%" spacing="5px" align="flex-start">
-      <Text layerStyle="subtitle3">미션</Text>
+      <Text layerStyle="subtitle16Sbd">미션</Text>
       <VStack
         w="100%"
         p="20px 10px"
@@ -112,7 +112,7 @@ const InputFieldView = ({
           w="100%"
           h="45px"
           bg="blue.400"
-          layerStyle="subtitle3"
+          layerStyle="subtitle16Sbd"
           color="white"
           borderRadius="8px"
           _hover={{ bg: 'blue.400' }}
@@ -126,7 +126,7 @@ const InputFieldView = ({
           bg="gray.500"
           color="white"
           borderRadius="20px"
-          layerStyle="caption2"
+          layerStyle="caption12Md"
           alignSelf="flex-end"
           onClick={handleClickMissionExample}
         >

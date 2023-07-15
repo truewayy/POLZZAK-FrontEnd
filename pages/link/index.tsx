@@ -26,7 +26,7 @@ const tabStyle = {
     color: 'polzzak.default',
     borderBottom: '2px solid',
   },
-  layerStyle: 'subtitle2',
+  layerStyle: 'subtitle16Bd',
   _disabled: {
     borderBottom: '2px solid #DADAE7',
     color: '#DADAE7',
@@ -93,7 +93,7 @@ const Link = () => {
           fill="gray.700"
           onClick={handleClickBackButton}
         />
-        <Text layerStyle="subtitle1" textAlign="center">
+        <Text layerStyle="subtitle18Sbd" textAlign="center">
           연동 관리
         </Text>
       </Grid>

@@ -51,7 +51,7 @@ const ParentTypeView = ({
           <Box
             p="20px"
             bg="white"
-            layerStyle="body16M"
+            layerStyle="subtitle16Md"
             boxShadow="0px 2px 8px rgba(99, 99, 99, 0.2)"
             border="1px solid #E6E4E2"
             borderRadius="8px"

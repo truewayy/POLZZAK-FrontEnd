@@ -49,7 +49,7 @@ const Main = () => {
                 color: 'polzzak.default',
                 borderBottom: '2px solid',
               }}
-              layerStyle="subtitle2"
+              layerStyle="subtitle16Bd"
               _disabled={{
                 borderBottom: '2px solid #DADAE7',
                 color: '#DADAE7',
@@ -66,7 +66,7 @@ const Main = () => {
                 color: 'polzzak.default',
                 borderBottom: '2px solid',
               }}
-              layerStyle="subtitle2"
+              layerStyle="subtitle16Bd"
               _disabled={{
                 borderBottom: '2px solid #DADAE7',
                 color: '#DADAE7',

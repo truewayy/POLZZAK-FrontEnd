@@ -37,160 +37,147 @@ const polzzakTheme = extendTheme({
     },
   },
   layerStyles: {
-    title1: {
+    title24Sbd: {
       fontSize: '24px',
       fontWeight: '600',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    title2: {
-      fontSize: '22px',
-      fontWeight: '600',
-      lineHeight: '140%',
-      color: 'gray.800',
-    },
-    title3: {
-      fontSize: '20px',
-      fontWeight: '700',
-      lineHeight: '140%',
-      color: 'gray.800',
-    },
-    title4: {
+    title22Bd: {
       fontSize: '22px',
       fontWeight: '700',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    subtitle1: {
+    title22Sbd: {
+      fontSize: '22px',
+      fontWeight: '600',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    title20Bd: {
+      fontSize: '20px',
+      fontWeight: '700',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    subtitle18Sbd: {
       fontSize: '18px',
       fontWeight: '600',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    subtitle2: {
+    subtitle16Bd: {
       fontSize: '16px',
       fontWeight: '700',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    subtitle3: {
+    subtitle16Sbd: {
       fontSize: '16px',
       fontWeight: '600',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    subtitle4: {
+    subtitle16Md: {
+      fontSize: '16px',
+      fontWeight: '500',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    subtitle20Sbd: {
       fontSize: '20px',
       fontWeight: '600',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    subtitle5: {
+    subtitle20Rg: {
       fontSize: '20px',
       fontWeight: '400',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    subtitle6: {
+    subtitle18Rg: {
       fontSize: '18px',
       fontWeight: '400',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    body1: {
+    body15Md: {
       fontSize: '15px',
       fontWeight: '500',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    body2: {
+    body14Sbd: {
       fontSize: '14px',
       fontWeight: '600',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    body3: {
+    body14Md: {
       fontSize: '14px',
       fontWeight: '500',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    body4: {
+    body13Md: {
       fontSize: '13px',
       fontWeight: '500',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    body5: {
+    body14Bd: {
       fontSize: '14px',
       fontWeight: '700',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    body6: {
+    body18Bd: {
       fontSize: '18px',
       fontWeight: '700',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    body7: {
+    body18Md: {
       fontSize: '18px',
       fontWeight: '500',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    body8: {
+    body16Md: {
       fontSize: '16px',
       fontWeight: '500',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    caption1: {
+    caption13Sbd: {
+      fontSize: '13px',
+      fontWeight: '600',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
+    caption12Sbd: {
       fontSize: '12px',
       fontWeight: '600',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    caption2: {
+    caption12Md: {
       fontSize: '12px',
       fontWeight: '500',
       lineHeight: '140%',
       color: 'gray.800',
     },
-    caption3: {
+    caption12Bd: {
       fontSize: '12px',
       fontWeight: '700',
       lineHeight: '140%',
       color: 'gray.800',
-    },
-    head24B: {
-      fontSize: '24px',
-      fontWeight: '700',
-      lineHeight: '140%',
-    },
-    head22B: {
-      fontSize: '22px',
-      fontWeight: '700',
-      lineHeight: '140%',
-    },
-    body18R: {
-      fontSize: '18px',
-      fontWeight: '400',
-      lineHeight: '140%',
-    },
-    body16M: {
-      fontSize: '16px',
-      fontWeight: '500',
-      lineHeight: '140%',
     },
     caption13L: {
       fontSize: '13px',
       fontWeight: '300',
-      lineHeight: '140%',
-    },
-    caption12B: {
-      fontSize: '12px',
-      fontWeight: '700',
       lineHeight: '140%',
     },
   },

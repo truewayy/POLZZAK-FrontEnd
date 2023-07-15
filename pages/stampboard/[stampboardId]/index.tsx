@@ -104,7 +104,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
           <EditFilledIcon w="24px" h="24px" />
         </Flex>
         <Flex w="100%" pb="10px" justify="space-between" align="center">
-          <Text layerStyle="title1" color="rgba(46, 48, 56, 1)">
+          <Text layerStyle="title24Sbd" color="rgba(46, 48, 56, 1)">
             {stampboard?.name}
           </Text>
           <Box
@@ -112,7 +112,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
             borderRadius="6px"
             color="white"
             p="4px 8px"
-            layerStyle="subtitle3"
+            layerStyle="subtitle16Sbd"
           >
             {isCompleted ? `${completingDate}일 걸렸어요!` : `D+${diffDate}`}
           </Box>
@@ -124,7 +124,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
               p="12px 16px"
               align="center"
               bg="#F0F7FF"
-              layerStyle="body2"
+              layerStyle="body14Sbd"
               color="polzzak.highlighted"
               border="1px solid rgba(13, 122, 211, 0.16)"
               borderRadius="8px"
@@ -138,12 +138,12 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
       </VStack>
       <VStack w="100%" p="20px 5%" bg="#fff" spacing="23px">
         <Flex w="100%" justify="space-between" align="center">
-          <Text layerStyle="subtitle3" color="rgba(46, 48, 56, 1)">
+          <Text layerStyle="subtitle16Sbd" color="rgba(46, 48, 56, 1)">
             미션 목록
           </Text>
           {showMoreMissionText && (
             <Text
-              layerStyle="body4"
+              layerStyle="body13Md"
               color="gray.500"
               cursor="pointer"
               onClick={handleClickMoreButton}
@@ -160,12 +160,12 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
         <VStack w="100%" spacing="18px">
           {moreMission
             ? stampboard?.missions.map(({ id, content }) => (
-                <Text w="100%" key={id} layerStyle="body3" color="#2E3038">
+                <Text w="100%" key={id} layerStyle="body14Md" color="#2E3038">
                   {content}
                 </Text>
               ))
             : stampboard?.missions.slice(0, 3).map(({ id, content }) => (
-                <Text w="100%" key={id} layerStyle="body3" color="#2E3038">
+                <Text w="100%" key={id} layerStyle="body14Md" color="#2E3038">
                   {content}
                 </Text>
               ))}
@@ -174,7 +174,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
       <Box w="100%" h="8px" bg="#F8F8FC" />
       <VStack w="100%" p="20px 5%" bg="#fff" spacing="16px">
         <Flex w="100%" justify="space-between" align="center">
-          <Text layerStyle="subtitle3" color="rgba(46, 48, 56, 1)">
+          <Text layerStyle="subtitle16Sbd" color="rgba(46, 48, 56, 1)">
             보상
           </Text>
         </Flex>
@@ -182,7 +182,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
           <Circle size="80px" bg="#C7E5FF">
             <Coupon w="48px" h="48px" />
           </Circle>
-          <Text layerStyle="subtitle1" color="#2E3038">
+          <Text layerStyle="subtitle18Sbd" color="#2E3038">
             {stampboard?.reward}
           </Text>
         </VStack>
@@ -196,11 +196,11 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
               stampboard?.stamps.length !== stampboard?.goalStampCount
             }
           >
-            <Text layerStyle="subtitle3" color="white">
+            <Text layerStyle="subtitle16Sbd" color="white">
               {buttonMsg}
             </Text>
           </Button>
-          <Text layerStyle="body4" color="gray.500">
+          <Text layerStyle="body13Md" color="gray.500">
             {description}
           </Text>
         </VStack>
@@ -227,10 +227,10 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
         isLoading={isLoading}
       >
         <VStack w="100%" spacing="8px">
-          <Text layerStyle="subtitle1" textAlign="center">
+          <Text layerStyle="subtitle18Sbd" textAlign="center">
             도장판을 정말 삭제하시겠어요?
           </Text>
-          <Text layerStyle="body8" textAlign="center" color="gray.500">
+          <Text layerStyle="body16Md" textAlign="center" color="gray.500">
             (20P 차감돼요)
           </Text>
         </VStack>

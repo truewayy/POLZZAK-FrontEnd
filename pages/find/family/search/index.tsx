@@ -57,7 +57,7 @@ const FamilySearch = () => {
     <VStack w="100%" minH="100vh" bg="white">
       <VStack w="100%" align="flex-start" bg="white" p="0 5% 26px 5%">
         <Box pos="fixed" maxW="504px" w="90%" p="10px 0" bg="white">
-          <Text layerStyle="subtitle1" textAlign="center">
+          <Text layerStyle="subtitle18Sbd" textAlign="center">
             {title}
           </Text>
         </Box>
@@ -102,7 +102,7 @@ const FamilySearch = () => {
             onClick={handleClickBackButton}
             isDisabled={isLoading}
           >
-            <Text layerStyle="body2" color="gray.600">
+            <Text layerStyle="body14Sbd" color="gray.600">
               취소
             </Text>
           </Button>

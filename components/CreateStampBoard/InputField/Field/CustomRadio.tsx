@@ -58,7 +58,7 @@ const CustomRadio = ({ w = '100%', options, ...props }: RadioProps) => {
               display="none"
             />
             <Text
-              layerStyle="body16M"
+              layerStyle="subtitle16Md"
               color={field.value === option ? 'blue.600' : 'gray.400'}
             >
               {option}
@@ -67,7 +67,7 @@ const CustomRadio = ({ w = '100%', options, ...props }: RadioProps) => {
         ))}
       </Grid>
       {isError && (
-        <Text w="100%" layerStyle="caption1" color="error.500">
+        <Text w="100%" layerStyle="caption12Sbd" color="error.500">
           {errorMsg as React.ReactNode}
         </Text>
       )}

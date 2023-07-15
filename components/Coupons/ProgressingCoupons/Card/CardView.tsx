@@ -46,16 +46,16 @@ CardVAProps) => (
           p="4px 8px"
           bg="blue.150"
           color="polzzak.default"
-          layerStyle="caption3"
+          layerStyle="caption12Bd"
           borderRadius="4px"
         >
           ⏰&nbsp;&nbsp;D-99
         </Box>
-        <Text layerStyle="subtitle3" color="#000">
+        <Text layerStyle="subtitle16Sbd" color="#000">
           {reward}
         </Text>
       </VStack>
-      <Text color="gray.700" layerStyle="caption2">
+      <Text color="gray.700" layerStyle="caption12Md">
         <Text as="span" color="polzzak.default">
           2023.03.27
         </Text>

@@ -269,12 +269,12 @@ const Missions = () => {
         zIndex="1"
       >
         <LeftArrow w="24px" h="24px" fill="gray.400" onClick={back} />
-        <Text layerStyle="subtitle1" color="#000" textAlign="center">
+        <Text layerStyle="subtitle18Sbd" color="#000" textAlign="center">
           미션 예시
         </Text>
         <Text
           as="button"
-          layerStyle="subtitle3"
+          layerStyle="subtitle16Sbd"
           color="polzzak.default"
           textAlign="right"
           _disabled={{ color: 'gray.400' }}
@@ -298,7 +298,7 @@ const Missions = () => {
             w="100%"
             p="12px 16px"
             pos="relative"
-            layerStyle="body2"
+            layerStyle="body14Sbd"
             border="1px solid"
             borderColor="gray.300"
             borderRadius="8px"

@@ -20,10 +20,10 @@ const LinkedFilterView = ({
     onClick={handleClickFilter}
     gap="4px"
   >
-    <Text layerStyle="title3">
+    <Text layerStyle="title20Bd">
       {currentValue}
       {currentValue !== '전체' && (
-        <Text as="span" layerStyle="body18R">
+        <Text as="span" layerStyle="subtitle18Rg">
           님과 함께해요
         </Text>
       )}

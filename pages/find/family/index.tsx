@@ -75,7 +75,7 @@ const FindFamily = () => {
       pos="relative"
     >
       <Box pos="fixed" maxW="504px" w="90%" p="10px 0" bg="white">
-        <Text w="100%" layerStyle="subtitle1" textAlign="center">
+        <Text w="100%" layerStyle="subtitle18Sbd" textAlign="center">
           {title}
         </Text>
       </Box>
@@ -83,12 +83,21 @@ const FindFamily = () => {
         <SearchInput />
       </Flex>
       <VStack w="100%" spacing="16px" align="center">
-        <Text layerStyle="subtitle3" color="gray.600" alignSelf="flex-start">
+        <Text
+          layerStyle="subtitle16Sbd"
+          color="gray.600"
+          alignSelf="flex-start"
+        >
           요청 보낸 목록
         </Text>
         {isNoSentRequests ? (
           <VStack w="100%">
-            <Text w="100%" layerStyle="body1" color="gray.500" textAlign="left">
+            <Text
+              w="100%"
+              layerStyle="body15Md"
+              color="gray.500"
+              textAlign="left"
+            >
               보낸 요청이 없어요
             </Text>
           </VStack>
@@ -104,7 +113,7 @@ const FindFamily = () => {
                     bgPosition="center"
                     bgRepeat="no-repeat"
                   />
-                  <Text layerStyle="body2">{nickname}</Text>
+                  <Text layerStyle="body14Sbd">{nickname}</Text>
                 </Flex>
                 <Button
                   variant="unstyled"

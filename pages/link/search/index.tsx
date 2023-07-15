@@ -65,7 +65,7 @@ const FamilySearch = () => {
             fill="gray.700"
             onClick={handleClickBackButton}
           />
-          <Text layerStyle="subtitle1" textAlign="center">
+          <Text layerStyle="subtitle18Sbd" textAlign="center">
             연동 관리
           </Text>
         </Grid>
@@ -110,7 +110,7 @@ const FamilySearch = () => {
             onClick={handleClickBackButton}
             isDisabled={isLoading}
           >
-            <Text layerStyle="body2" color="gray.600">
+            <Text layerStyle="body14Sbd" color="gray.600">
               취소
             </Text>
           </Button>

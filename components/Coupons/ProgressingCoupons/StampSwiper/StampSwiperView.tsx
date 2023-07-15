@@ -23,10 +23,10 @@ const StampSwiperView = ({
 }: StampSwiperVAProps) => (
   <Box key={nickname}>
     <Flex align="center" p="0 7.5%" mb="16px" gap="8px">
-      <Text as="span" layerStyle="subtitle2" color="blue.500">
+      <Text as="span" layerStyle="subtitle16Bd" color="blue.500">
         To
       </Text>
-      <Text layerStyle="subtitle1">{nickname}</Text>
+      <Text layerStyle="subtitle18Sbd">{nickname}</Text>
     </Flex>
     {progressingBoard.length > 0 ? (
       <SwiperComponent
@@ -73,7 +73,7 @@ const StampSwiperView = ({
             pt="8px"
             w="100%"
             textAlign="center"
-            layerStyle="body3"
+            layerStyle="body14Md"
             letterSpacing="tight"
           >
             {currentBoard}{' '}
@@ -93,8 +93,8 @@ const StampSwiperView = ({
         borderRadius="8px"
         justifyContent="center"
       >
-        <Text layerStyle="body3" textAlign="center" color="gray.700">
-          <Text as="span" layerStyle="body5">
+        <Text layerStyle="body14Md" textAlign="center" color="gray.700">
+          <Text as="span" layerStyle="body14Bd">
             {nickname}
           </Text>
           님과

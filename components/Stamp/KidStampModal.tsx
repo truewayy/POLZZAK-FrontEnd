@@ -53,10 +53,10 @@ const KidStampModal = ({
       {snapPoint === 0 ? (
         <>
           <VStack w="100%" spacing="6px">
-            <Text layerStyle="subtitle3" color="#2E3038">
+            <Text layerStyle="subtitle16Sbd" color="#2E3038">
               도장 요청 보내기
             </Text>
-            <Text layerStyle="body4" color="#9C9CA8">
+            <Text layerStyle="body13Md" color="#9C9CA8">
               어떤 미션을 완료했나요?
             </Text>
           </VStack>
@@ -68,7 +68,7 @@ const KidStampModal = ({
                 w="100%"
                 p="12px 16px"
                 pos="relative"
-                layerStyle="body2"
+                layerStyle="body14Sbd"
                 border="1px solid"
                 borderColor="gray.300"
                 borderRadius="8px"
@@ -101,7 +101,7 @@ const KidStampModal = ({
               borderRadius="8px"
               onClick={onClose}
             >
-              <Text layerStyle="subtitle3" color="white" textAlign="center">
+              <Text layerStyle="subtitle16Sbd" color="white" textAlign="center">
                 요청 취소
               </Text>
             </Button>
@@ -114,7 +114,7 @@ const KidStampModal = ({
               isDisabled={!missionId || request.isLoading}
               onClick={handleClickRequest}
             >
-              <Text layerStyle="subtitle3" color="white" textAlign="center">
+              <Text layerStyle="subtitle16Sbd" color="white" textAlign="center">
                 요청 하기
               </Text>
             </Button>
@@ -125,11 +125,11 @@ const KidStampModal = ({
           <Box pos="absolute" top="0" right="0">
             <Timer count={3} onTimerEnd={onClose} />
           </Box>
-          <Text layerStyle="subtitle4" color="#2E3038">
+          <Text layerStyle="subtitle20Sbd" color="#2E3038">
             도장 요청 완료!
           </Text>
           <Square size="200px" bg="#EEEEF4" />
-          <Text layerStyle="body3" color="#9C9CA8" textAlign="center">
+          <Text layerStyle="body14Md" color="#9C9CA8" textAlign="center">
             <Text as="span" color="polzzak.highlighted">
               {guardianType}
             </Text>

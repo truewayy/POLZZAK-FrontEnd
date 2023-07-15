@@ -45,7 +45,7 @@ const SentRequest = () => {
 
   return isNoSentRequests ? (
     <VStack w="100%" h="300px" justify="center">
-      <Text layerStyle="body1" color="gray.500">
+      <Text layerStyle="body15Md" color="gray.500">
         보낸 요청이 없어요
       </Text>
     </VStack>
@@ -61,7 +61,7 @@ const SentRequest = () => {
               bgPosition="center"
               bgRepeat="no-repeat"
             />
-            <Text layerStyle="body2">{nickname}</Text>
+            <Text layerStyle="body14Sbd">{nickname}</Text>
           </Flex>
           <Button
             variant="unstyled"

@@ -207,7 +207,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
           borderColor="gray.200"
         >
           <Text
-            layerStyle="body4"
+            layerStyle="body13Md"
             color="gray.500"
             cursor="pointer"
             onClick={handleClickMoreButton}

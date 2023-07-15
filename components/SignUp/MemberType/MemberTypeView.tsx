@@ -32,14 +32,14 @@ const MemberTypeView = ({
         onClick={handleChangeMemberType}
       >
         <Text
-          layerStyle="subtitle3"
+          layerStyle="subtitle16Sbd"
           color={memberType === 'PARENT' ? 'polzzak.default' : 'black'}
           fontWeight={memberType === 'PARENT' ? '700' : '600'}
         >
           보호자 회원
         </Text>
         <Text
-          layerStyle="caption2"
+          layerStyle="caption12Md"
           color={memberType === 'PARENT' ? 'polzzak.default' : 'gray.500'}
           fontWeight={memberType === 'PARENT' ? '600' : '500'}
           textAlign="center"
@@ -63,14 +63,14 @@ const MemberTypeView = ({
         onClick={handleChangeMemberType}
       >
         <Text
-          layerStyle="subtitle3"
+          layerStyle="subtitle16Sbd"
           color={memberType === 'KID' ? 'polzzak.default' : 'black'}
           fontWeight={memberType === 'KID' ? '700' : '600'}
         >
           아이 회원
         </Text>
         <Text
-          layerStyle="caption2"
+          layerStyle="caption12Md"
           color={memberType === 'KID' ? 'polzzak.default' : 'gray.500'}
           fontWeight={memberType === 'KID' ? '600' : '500'}
           textAlign="center"

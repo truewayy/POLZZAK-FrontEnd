@@ -49,7 +49,7 @@ const CardView = ({
     <VStack w="100%" spacing="0px">
       <Flex w="100%" justifyContent="space-between" gap="16px" align="center">
         <Text
-          layerStyle="title3"
+          layerStyle="title20Bd"
           color="#3F3D3B"
           overflow="hidden"
           textOverflow="ellipsis"
@@ -70,10 +70,10 @@ const CardView = ({
           transform="translate(-50%, 0%)"
         >
           <Box mb="10px">
-            <Text as="span" layerStyle="title1" color="polzzak.default">
+            <Text as="span" layerStyle="title24Sbd" color="polzzak.default">
               {currentStampCount}
             </Text>
-            <Text as="span" layerStyle="body16M" color="gray.400">
+            <Text as="span" layerStyle="subtitle16Md" color="gray.400">
               /{goalStampCount}
             </Text>
           </Box>
@@ -83,7 +83,7 @@ const CardView = ({
               borderRadius="10px"
               p="4px 12px"
               color="white"
-              layerStyle="body2"
+              layerStyle="body14Sbd"
               pos="relative"
             >
               {completeMessage}
@@ -104,7 +104,7 @@ const CardView = ({
           {statusIcon}
           {!isStampBoardComplete && (
             <Box
-              layerStyle="caption1"
+              layerStyle="caption12Sbd"
               color={isRequest ? 'polzzak.highlighted' : 'polzzak.default'}
               bg="blue.100"
               p="3px 12px"
@@ -123,7 +123,7 @@ const CardView = ({
     </Box>
     <Flex w="100%" align="center" gap="8px">
       <Box
-        layerStyle="caption1"
+        layerStyle="caption12Sbd"
         color="white"
         p="4px 6px"
         bg="blue.400"
@@ -131,7 +131,7 @@ const CardView = ({
       >
         보상
       </Box>
-      <Text layerStyle="body2">{reward}</Text>
+      <Text layerStyle="body14Sbd">{reward}</Text>
     </Flex>
   </VStack>
 );

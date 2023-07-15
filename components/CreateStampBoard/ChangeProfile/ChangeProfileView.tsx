@@ -21,7 +21,7 @@ const ChangeProfileView = ({
         bg="gray.800"
         color="white"
         borderRadius="20px"
-        layerStyle="caption2"
+        layerStyle="caption12Md"
       >
         {currentValue}
       </Text>
@@ -34,7 +34,7 @@ const ChangeProfileView = ({
         border="1px solid"
         borderColor="blue.400"
         borderRadius="35px"
-        layerStyle="body3"
+        layerStyle="body14Md"
       >
         {balloonMessage}
       </Box>

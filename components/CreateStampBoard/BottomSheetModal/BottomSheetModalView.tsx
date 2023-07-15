@@ -41,7 +41,7 @@ const BottomSheetModalView = ({
       <Sheet.Header />
       <Sheet.Content>
         <VStack w="100%" h={500} bg="white" p="20px" spacing="20px">
-          <Text layerStyle="subtitle3">
+          <Text layerStyle="subtitle16Sbd">
             도장판을 생성해줄 아이를 선택해주세요{' '}
           </Text>
           <VStack w="100%" spacing="10px">
@@ -54,7 +54,7 @@ const BottomSheetModalView = ({
                   w="100%"
                   p="12px 16px"
                   pos="relative"
-                  layerStyle="body2"
+                  layerStyle="body14Sbd"
                   border="1px solid"
                   borderColor="gray.200"
                   borderRadius="8px"

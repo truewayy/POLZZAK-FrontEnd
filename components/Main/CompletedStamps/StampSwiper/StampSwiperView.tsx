@@ -23,9 +23,9 @@ const StampSwiperView = ({
 }: StampSwiperVAProps) => (
   <Box key={nickname}>
     <Flex justify="space-between" align="center" p="0 7.5%" mb="16px">
-      <Text layerStyle="subtitle1">
+      <Text layerStyle="subtitle18Sbd">
         {nickname}
-        <Text as="span" layerStyle="subtitle6">
+        <Text as="span" layerStyle="subtitle18Rg">
           님과 함께해요
         </Text>
       </Text>
@@ -56,7 +56,7 @@ const StampSwiperView = ({
             pt="8px"
             w="100%"
             textAlign="center"
-            layerStyle="body3"
+            layerStyle="body14Md"
             letterSpacing="tight"
           >
             {currentBoard}{' '}
@@ -76,7 +76,7 @@ const StampSwiperView = ({
         borderRadius="8px"
         justifyContent="center"
       >
-        <Text layerStyle="body3" textAlign="center" color="gray.700">
+        <Text layerStyle="body14Md" textAlign="center" color="gray.700">
           완료된 도장판이 없어요
         </Text>
       </VStack>

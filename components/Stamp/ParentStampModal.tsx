@@ -49,7 +49,7 @@ const tabStyle = {
     color: 'polzzak.default',
     borderBottom: '2px solid',
   },
-  layerStyle: 'subtitle3',
+  layerStyle: 'subtitle16Sbd',
   _disabled: {
     borderBottom: '2px solid #DADAE7',
     color: '#DADAE7',
@@ -155,10 +155,10 @@ const ParentStampModal = ({
       {snapPoint === 0 && (
         <>
           <VStack w="100%" spacing="6px">
-            <Text layerStyle="subtitle3" color="#2E3038">
+            <Text layerStyle="subtitle16Sbd" color="#2E3038">
               미션 선택 (택1)
             </Text>
-            <Text layerStyle="body4" color="#9C9CA8">
+            <Text layerStyle="body13Md" color="#9C9CA8">
               1/2
             </Text>
           </VStack>
@@ -178,7 +178,7 @@ const ParentStampModal = ({
                         w="100%"
                         p="12px 16px"
                         pos="relative"
-                        layerStyle="body2"
+                        layerStyle="body14Sbd"
                         border="1px solid"
                         borderColor="gray.300"
                         borderRadius="8px"
@@ -191,11 +191,11 @@ const ParentStampModal = ({
                       >
                         <Text>{missionContent}</Text>
                         <Flex gap="10px" align="center">
-                          <Text layerStyle="caption2" color="gray.500">
+                          <Text layerStyle="caption12Md" color="gray.500">
                             {getFormattedDate(createdDate)}
                           </Text>
                           <Box
-                            layerStyle="caption1"
+                            layerStyle="caption12Sbd"
                             p="3px 6px"
                             w="auto"
                             h="auto"
@@ -227,7 +227,7 @@ const ParentStampModal = ({
                       w="100%"
                       p="12px 16px"
                       pos="relative"
-                      layerStyle="body2"
+                      layerStyle="body14Sbd"
                       border="1px solid"
                       borderColor="gray.300"
                       borderRadius="8px"
@@ -263,7 +263,7 @@ const ParentStampModal = ({
               borderRadius="8px"
               onClick={onClose}
             >
-              <Text layerStyle="subtitle3" color="white" textAlign="center">
+              <Text layerStyle="subtitle16Sbd" color="white" textAlign="center">
                 선택 취소
               </Text>
             </Button>
@@ -275,7 +275,7 @@ const ParentStampModal = ({
               borderRadius="8px"
               onClick={handleClickNextButton}
             >
-              <Text layerStyle="subtitle3" color="white" textAlign="center">
+              <Text layerStyle="subtitle16Sbd" color="white" textAlign="center">
                 다음
               </Text>
             </Button>
@@ -285,16 +285,16 @@ const ParentStampModal = ({
       {snapPoint === 1 && (
         <VStack w="100%" spacing="14px">
           <VStack w="100%" spacing="6px">
-            <Text layerStyle="subtitle3" color="#2E3038">
+            <Text layerStyle="subtitle16Sbd" color="#2E3038">
               도장 선택
             </Text>
-            <Text layerStyle="body4" color="#9C9CA8">
+            <Text layerStyle="body13Md" color="#9C9CA8">
               2/2
             </Text>
           </VStack>
           <VStack w="100%" spacing="10px" pb="10px">
             <Circle size="121px" bg="gray.200" />
-            <Text layerStyle="subtitle3" color="gray.800">
+            <Text layerStyle="subtitle16Sbd" color="gray.800">
               {stampsExample.find(({ id }) => id === stampDesignId)?.content}
             </Text>
           </VStack>
@@ -351,7 +351,7 @@ const ParentStampModal = ({
               borderRadius="8px"
               onClick={() => setSnapPoint(0)}
             >
-              <Text layerStyle="subtitle3" color="white" textAlign="center">
+              <Text layerStyle="subtitle16Sbd" color="white" textAlign="center">
                 이전
               </Text>
             </Button>
@@ -363,7 +363,7 @@ const ParentStampModal = ({
               borderRadius="8px"
               onClick={handleClickCreateButton}
             >
-              <Text layerStyle="subtitle3" color="white" textAlign="center">
+              <Text layerStyle="subtitle16Sbd" color="white" textAlign="center">
                 도장 찍기
               </Text>
             </Button>
@@ -376,13 +376,13 @@ const ParentStampModal = ({
             <Timer count={3} onTimerEnd={handleCloseTimer} />
           </Box>
           <Text
-            layerStyle="subtitle1"
+            layerStyle="subtitle18Sbd"
             color="polzzak.highlighted"
             textAlign="center"
           >
             {stampsExample.find(({ id }) => id === stampDesignId)?.content}
             <br />
-            <Text as="span" layerStyle="subtitle3" color="gray.800">
+            <Text as="span" layerStyle="subtitle16Sbd" color="gray.800">
               도장이 찍혔어요!
             </Text>
           </Text>

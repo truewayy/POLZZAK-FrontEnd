@@ -8,7 +8,7 @@ const LoadingView = () => (
       emptyColor="polzzak.disabled"
       thickness="7px"
     />
-    <Text layerStyle="subtitle4" color="gray.700">
+    <Text layerStyle="subtitle20Sbd" color="gray.700">
       폴짝의 세계로!
     </Text>
   </VStack>

@@ -32,7 +32,7 @@ const Timer = ({ count, onTimerEnd }: TimerProps) => {
   return (
     <Box w="32px" h="32px" pos="relative" textAlign="center">
       <Box
-        textStyle="subtitle3"
+        textStyle="subtitle16Sbd"
         color="#59B9FF"
         lineHeight="32px"
         display="inline-block"

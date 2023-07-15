@@ -30,7 +30,7 @@ const Find = () => {
     <VStack w="100%" minH="100vh" bg="white" p="0 5% 26px 5%" pos="relative">
       <VStack w="100%" spacing="42px" pt="80px">
         <Square size="256px" bg="gray.200" />
-        <Text w="100%" layerStyle="body7" textAlign="center">
+        <Text w="100%" layerStyle="body18Md" textAlign="center">
           {description1}
           <br />
           {description2}
@@ -42,7 +42,7 @@ const Find = () => {
           w="100%"
           p="22px"
           borderRadius={10}
-          layerStyle="subtitle3"
+          layerStyle="subtitle16Sbd"
           color="white"
           _hover={{ bg: 'polzzak.default' }}
           cursor="pointer"
@@ -57,7 +57,7 @@ const Find = () => {
           border="1px solid"
           borderColor="gray.400"
           borderRadius={10}
-          layerStyle="subtitle3"
+          layerStyle="subtitle16Sbd"
           color="gray.400"
           cursor="pointer"
           onClick={handleClickLaterButton}

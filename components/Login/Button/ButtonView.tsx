@@ -44,7 +44,7 @@ const LoginButtonView = ({
       <Box pos="absolute" bottom="-60px">
         <Box
           pos="relative"
-          layerStyle="caption2"
+          layerStyle="caption12Md"
           textAlign="center"
           w="120px"
           p="5px 10px"

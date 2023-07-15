@@ -70,7 +70,7 @@ const LinkedFamily = () => {
 
   return isNoFamilies ? (
     <VStack w="100%" h="300px" justify="center">
-      <Text layerStyle="body1" color="gray.500">
+      <Text layerStyle="body15Md" color="gray.500">
         연동된 {userType}가 없어요
       </Text>
     </VStack>
@@ -87,7 +87,7 @@ const LinkedFamily = () => {
                 bgPosition="center"
                 bgRepeat="no-repeat"
               />
-              <Text layerStyle="body2">{nickname}</Text>
+              <Text layerStyle="body14Sbd">{nickname}</Text>
             </Flex>
             <XIcon
               w="24px"
@@ -105,8 +105,8 @@ const LinkedFamily = () => {
         isLoading={clear.isLoading}
         confirmMessage="네, 해제할래요"
       >
-        <Text layerStyle="body7" color="gray.700" textAlign="center">
-          <Text as="span" layerStyle="body6">
+        <Text layerStyle="body18Md" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body18Bd">
             {selected.nickname}
           </Text>
           님과

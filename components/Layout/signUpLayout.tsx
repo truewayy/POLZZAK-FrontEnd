@@ -36,7 +36,7 @@ const SignUpLayout = ({
     <VStack pos="relative" minH="100vh" p="0 5%" bg="gray.100">
       <Header />
       <VStack w="100%" spacing="16px" pb={65}>
-        <Text layerStyle="title4" color="#413E39" alignSelf="flex-start">
+        <Text layerStyle="title22Bd" color="#413E39" alignSelf="flex-start">
           {title}
           {title2 && (
             <>
@@ -46,7 +46,7 @@ const SignUpLayout = ({
           )}
         </Text>
         {description && (
-          <Text layerStyle="body1" color="gray.600" alignSelf="flex-start">
+          <Text layerStyle="body15Md" color="gray.600" alignSelf="flex-start">
             {description}
             {description2 && (
               <>

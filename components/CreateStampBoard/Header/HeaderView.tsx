@@ -41,7 +41,7 @@ const HeaderView = ({
     >
       <BackIcon w={4} h={5} onClick={handleClickBack} />
       <Text
-        layerStyle="subtitle1"
+        layerStyle="subtitle18Sbd"
         pos="absolute"
         top="50%"
         left="50%"
@@ -50,7 +50,7 @@ const HeaderView = ({
         도장판 생성
       </Text>
       <Text
-        layerStyle="subtitle3"
+        layerStyle="subtitle16Sbd"
         color="polzzak.default"
         onClick={handleSubmit(handleClickRegister)}
       >
@@ -65,7 +65,7 @@ const HeaderView = ({
       isLoading={isLoading}
       confirmMessage="네, 등록할게요"
     >
-      <Text layerStyle="subtitle1" textAlign="center">
+      <Text layerStyle="subtitle18Sbd" textAlign="center">
         도장판을 등록하시겠어요?
       </Text>
     </ConfirmModal>

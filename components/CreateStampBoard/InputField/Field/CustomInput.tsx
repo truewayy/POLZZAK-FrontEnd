@@ -63,7 +63,7 @@ const CustomInput = ({
           placeholder={placeholder}
           maxLength={maxLength}
           _placeholder={{
-            layerStyle: 'body3',
+            layerStyle: 'body14Md',
             color: 'gray.400',
           }}
           _focus={{
@@ -91,12 +91,12 @@ const CustomInput = ({
 
       <Flex w="100%">
         {isError && (
-          <Text layerStyle="caption1" color="error.500">
+          <Text layerStyle="caption12Sbd" color="error.500">
             {errorMsg as React.ReactNode}
           </Text>
         )}
         {focusOn && (
-          <Text layerStyle="caption2" color="gray.500" ml="auto">
+          <Text layerStyle="caption12Md" color="gray.500" ml="auto">
             {valueLength}/{maxLength}
           </Text>
         )}

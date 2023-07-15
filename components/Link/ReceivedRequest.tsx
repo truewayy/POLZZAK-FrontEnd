@@ -94,7 +94,7 @@ const ReceivedRequest = () => {
 
   return isNoReceivedRequests ? (
     <VStack w="100%" h="300px" justify="center">
-      <Text layerStyle="body1" color="gray.500">
+      <Text layerStyle="body15Md" color="gray.500">
         받은 요청이 없어요
       </Text>
     </VStack>
@@ -111,7 +111,7 @@ const ReceivedRequest = () => {
                 bgPosition="center"
                 bgRepeat="no-repeat"
               />
-              <Text layerStyle="body2">{nickname}</Text>
+              <Text layerStyle="body14Sbd">{nickname}</Text>
             </Flex>
             <Flex gap="10px">
               <Button
@@ -149,8 +149,8 @@ const ReceivedRequest = () => {
         handleClickConfirmButton={handleClickConfirmApproveButton}
         isLoading={approve.isLoading}
       >
-        <Text layerStyle="body7" color="gray.700" textAlign="center">
-          <Text as="span" layerStyle="body6">
+        <Text layerStyle="body18Md" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body18Bd">
             {selected.nickname}
           </Text>
           님의
@@ -166,8 +166,8 @@ const ReceivedRequest = () => {
         isLoading={reject.isLoading}
         confirmMessage="네, 거절할래요"
       >
-        <Text layerStyle="body7" color="gray.700" textAlign="center">
-          <Text as="span" layerStyle="body6">
+        <Text layerStyle="body18Md" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body18Bd">
             {selected.nickname}
           </Text>
           님의

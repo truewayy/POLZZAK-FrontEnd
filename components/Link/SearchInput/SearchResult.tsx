@@ -138,8 +138,8 @@ const SearchResult = () => {
           w="35px"
           h="35px"
         />
-        <Text layerStyle="body3" textAlign="center">
-          <Text as="span" layerStyle="body5">
+        <Text layerStyle="body14Md" textAlign="center">
+          <Text as="span" layerStyle="body14Bd">
             {currentSearch}
           </Text>
           님을 <br />
@@ -164,7 +164,7 @@ const SearchResult = () => {
     return (
       <VStack spacing="16px" justify="center" w="100%" h="300px">
         <BigSearchIcon w="74px" h="74px" />
-        <Text layerStyle="caption2" color="gray.500" textAlign="center">
+        <Text layerStyle="caption12Md" color="gray.500" textAlign="center">
           {infoText}
           <br />
           {infoText2}
@@ -175,8 +175,8 @@ const SearchResult = () => {
     return (
       <VStack spacing="16px" justify="center" w="100%" h="300px">
         <BigSearchIcon w="74px" h="74px" />
-        <Text layerStyle="body3" color="gray.700" textAlign="center">
-          <Text as="span" layerStyle="body5">
+        <Text layerStyle="body14Md" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body14Bd">
             {currentSearch}
           </Text>
           님을 <br />
@@ -193,7 +193,7 @@ const SearchResult = () => {
           bgSize="cover"
           bgPos="center"
         />
-        <Text layerStyle="body5" color="black" textAlign="center">
+        <Text layerStyle="body14Bd" color="black" textAlign="center">
           {data.data.nickname}
         </Text>
       </VStack>
@@ -206,13 +206,13 @@ const SearchResult = () => {
           {...buttonColor}
           onClick={handleClickButton}
         >
-          <Text layerStyle="caption12B" textAlign="center">
+          <Text layerStyle="caption12Bd" textAlign="center">
             {buttonMsg}
           </Text>
         </Button>
         {isRequestSent && (
           <Text
-            layerStyle="body4"
+            layerStyle="body13Md"
             textDecor="underline"
             color="gray.500"
             cursor="pointer"
@@ -229,8 +229,8 @@ const SearchResult = () => {
         handleClickConfirmButton={handleClickConfirmButton}
         isLoading={send.isLoading}
       >
-        <Text layerStyle="body7" color="gray.700" textAlign="center">
-          <Text as="span" layerStyle="body6">
+        <Text layerStyle="body18Md" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body18Bd">
             {data.data.nickname}
           </Text>
           님에게

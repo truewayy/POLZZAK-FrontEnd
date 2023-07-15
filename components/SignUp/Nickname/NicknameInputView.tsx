@@ -55,7 +55,7 @@ const NicknameInputView = ({
   buttonDisabled,
 }: NicknameInputVAProps) => (
   <VStack w="100%" spacing="10px">
-    <Text layerStyle="body4" alignSelf="flex-start" color="gray.500">
+    <Text layerStyle="body13Md" alignSelf="flex-start" color="gray.500">
       한글, 영문(대소문자 구별), 숫자 사용 가능 / 특수 문자, 공백 불가
     </Text>
     <Flex pos="relative" w="100%" h="50px" gap="7px">
@@ -65,7 +65,7 @@ const NicknameInputView = ({
           h="100%"
           variant="outline"
           borderColor="gray.300"
-          layerStyle="body3"
+          layerStyle="body14Md"
           fontSize="14px"
           placeholder="닉네임을 입력해주세요"
           maxLength={10}
@@ -87,7 +87,7 @@ const NicknameInputView = ({
       <Button
         bg="polzzak.default"
         h="100%"
-        layerStyle="body16M"
+        layerStyle="subtitle16Md"
         fontWeight="500"
         color="white"
         borderRadius="8px"
@@ -107,7 +107,7 @@ const NicknameInputView = ({
           pos="absolute"
           bottom="-25px"
           left="5px"
-          layerStyle="body4"
+          layerStyle="body13Md"
           color="#FF6161"
         >
           {errorMsg as React.ReactNode}
@@ -118,7 +118,7 @@ const NicknameInputView = ({
           pos="absolute"
           bottom="-25px"
           left="5px"
-          layerStyle="caption1"
+          layerStyle="caption12Sbd"
           color="blue.600"
         >
           <Check /> 사용가능한 닉네임이에요
