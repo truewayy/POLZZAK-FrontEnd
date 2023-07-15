@@ -1,6 +1,15 @@
-import { Box } from '@chakra-ui/react';
-
+import CouponCreateNotification from './Notification/CouponCreate';
+import GiftCompleteNotification from './Notification/GiftComplete';
+import GiftConfirmNotification from './Notification/GiftConfirm';
+import GiftDayNotification from './Notification/GiftDay';
+import GiftNoGiveNotification from './Notification/GiftNoGive';
+import GiftRequestNotification from './Notification/GiftRequest';
+import LevelNotification from './Notification/Level';
+import LinkAcceptNotification from './Notification/LinkAccept';
 import LinkRequestNotification from './Notification/LinkRequest';
+import NewStampboardNotification from './Notification/NewStampboard';
+import StampboardCompleteNotification from './Notification/StampboardComplete';
+import StampRequestNotification from './Notification/StampRequest';
 
 type UserType = 'KID' | 'GUARDIAN';
 type GuardianNotificationTypes =
@@ -20,7 +29,7 @@ type ChildNotificationTypes =
   | 'levelUp'
   | 'newStampboard'
   | 'couponCreate'
-  | 'giftDay';
+  | 'giftConfirm';
 
 interface Guardian {
   [key: string]: JSX.Element;
@@ -37,24 +46,24 @@ interface NotificationProps {
 const Notification = ({ userType, notificationType }: NotificationProps) => {
   const guardianNotificationTypes: Guardian = {
     linkRequest: <LinkRequestNotification />,
-    linkAccept: <Box />,
-    levelUp: <Box />,
-    levelDown: <Box />,
-    stampRequest: <Box />,
-    giftRequest: <Box />,
-    stampboardComplete: <Box />,
-    giftComplete: <Box />,
-    giftDay: <Box />,
-    giftNoGive: <Box />,
+    linkAccept: <LinkAcceptNotification />,
+    levelUp: <LevelNotification type="up" />,
+    levelDown: <LevelNotification type="down" />,
+    stampRequest: <StampRequestNotification />,
+    giftRequest: <GiftRequestNotification />,
+    stampboardComplete: <StampboardCompleteNotification />,
+    giftComplete: <GiftCompleteNotification />,
+    giftDay: <GiftDayNotification />,
+    giftNoGive: <GiftNoGiveNotification />,
   };
 
   const kidNotificationTypes: Kid = {
-    linkRequest: <Box />,
-    linkAccept: <Box />,
-    levelUp: <Box />,
-    newStampboard: <Box />,
-    couponCreate: <Box />,
-    giftDay: <Box />,
+    linkRequest: <LinkRequestNotification />,
+    linkAccept: <LinkAcceptNotification />,
+    levelUp: <LevelNotification type="up" />,
+    newStampboard: <NewStampboardNotification />,
+    couponCreate: <CouponCreateNotification />,
+    giftConfirm: <GiftConfirmNotification />,
   };
 
   if (userType === 'KID') {
