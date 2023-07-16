@@ -24,7 +24,7 @@ const HeaderView = ({
     <LeftArrow w={11} h={19} onClick={goBack} />
     {!isSelectTypePage && (
       <Flex gap="8px">
-        {progress.map((value, i) => (
+        {progress?.map((value, i) => (
           <Circle
             key={i}
             size="8px"

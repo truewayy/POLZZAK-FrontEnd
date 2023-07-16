@@ -1,42 +1,21 @@
-import { Circle, Flex, Text, VStack } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
+
+import NotificationFrame from './NotificationFrame';
 
 const GiftRequestNotification = () => (
-  <VStack
-    w="100%"
-    p="16px"
-    bg="white"
-    border="1px solid"
-    borderColor="gray.200"
-    borderRadius="8px"
-    spacing="16px"
+  <NotificationFrame
+    id={6}
+    type="giftRequest"
+    emoticon="⚡️"
+    title="선물 조르기"
+    time="3일 전"
+    sender="죽음의 ASMR"
   >
-    <VStack w="100%" spacing="8px" align="flex-start">
-      <Flex w="100%" gap="7px" justify="flex-start" align="center">
-        <Text layerStyle="subtitle16Bd">
-          <Text as="span" mr="4px">
-            ⚡️
-          </Text>
-          선물 조르기
-        </Text>
-        <Circle size="4px" bg="gray.300" />
-        <Text layerStyle="caption12Md" color="gray.500">
-          3일 전
-        </Text>
-      </Flex>
-      <Text layerStyle="body14Md" wordBreak="keep-all">
-        <Text as="span" layerStyle="body14Sbd">
-          ‘에어팟 맥스’{' '}
-        </Text>
-        선물을 얼른 받고 싶어요!
-      </Text>
-    </VStack>
-    <Flex w="100%" gap="4px" justify="flex-start" align="center">
-      <Circle size="24px" bg="gray.300" />
-      <Text layerStyle="caption12Md" color="gray.500">
-        죽음의 ASMR
-      </Text>
-    </Flex>
-  </VStack>
+    <Text as="span" layerStyle="body14Sbd">
+      ‘에어팟 맥스’{' '}
+    </Text>
+    선물을 얼른 받고 싶어요!
+  </NotificationFrame>
 );
 
 export default GiftRequestNotification;

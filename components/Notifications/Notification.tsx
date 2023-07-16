@@ -23,7 +23,7 @@ type GuardianNotificationTypes =
   | 'giftComplete'
   | 'giftDay'
   | 'giftNoGive';
-type ChildNotificationTypes =
+type KidNotificationTypes =
   | 'linkRequest'
   | 'linkAccept'
   | 'levelUp'
@@ -38,17 +38,22 @@ interface Kid {
   [key: string]: JSX.Element;
 }
 
-interface NotificationProps {
-  userType: UserType;
-  notificationType: GuardianNotificationTypes | ChildNotificationTypes;
+interface NotificationProps<T extends UserType> {
+  userType: T;
+  notificationType: T extends 'KID'
+    ? KidNotificationTypes
+    : GuardianNotificationTypes;
 }
 
-const Notification = ({ userType, notificationType }: NotificationProps) => {
+const Notification = <T extends UserType>({
+  userType,
+  notificationType,
+}: NotificationProps<T>) => {
   const guardianNotificationTypes: Guardian = {
     linkRequest: <LinkRequestNotification />,
     linkAccept: <LinkAcceptNotification />,
-    levelUp: <LevelNotification type="up" />,
-    levelDown: <LevelNotification type="down" />,
+    levelUp: <LevelNotification id={3} type="UP" />,
+    levelDown: <LevelNotification id={4} type="DOWN" />,
     stampRequest: <StampRequestNotification />,
     giftRequest: <GiftRequestNotification />,
     stampboardComplete: <StampboardCompleteNotification />,
@@ -60,7 +65,7 @@ const Notification = ({ userType, notificationType }: NotificationProps) => {
   const kidNotificationTypes: Kid = {
     linkRequest: <LinkRequestNotification />,
     linkAccept: <LinkAcceptNotification />,
-    levelUp: <LevelNotification type="up" />,
+    levelUp: <LevelNotification id={4} type="UP" />,
     newStampboard: <NewStampboardNotification />,
     couponCreate: <CouponCreateNotification />,
     giftConfirm: <GiftConfirmNotification />,
