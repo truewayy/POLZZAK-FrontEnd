@@ -1,5 +1,12 @@
 /* eslint-disable no-nested-ternary */
-import { Button, Flex, Text, VStack } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  Modal,
+  ModalContent,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { Control, FieldValues } from 'react-hook-form';
 
 import {
@@ -10,6 +17,7 @@ import {
 } from '@/constants/validate';
 import { DeleteIcon, ListIcon } from '@/public/icon';
 
+import MissionExamples from '../MissionExamples';
 import CustomInput from './Field/CustomInput';
 import CustomRadio from './Field/CustomRadio';
 
@@ -17,30 +25,28 @@ interface InputFieldVAProps {
   handleClickAddButton: () => void;
   handleClickDeleteButton: (id: number) => void;
   handleClickMissionExample: () => void;
+  handleClickMissionModalCloseButton: () => void;
   missionValue: (id: number) => string;
   control: Control<FieldValues, any>;
   missions: { id: number; content: string }[];
+  missionModal: boolean;
   isMissionLimit: boolean;
   stampCount: number[];
-  stampboardInput: {
-    name: string;
-    reward: string;
-    goalStampCount: number;
-  };
 }
 
 const InputFieldView = ({
   handleClickAddButton,
   handleClickDeleteButton,
   handleClickMissionExample,
+  handleClickMissionModalCloseButton,
   missionValue,
   control,
   missions,
+  missionModal,
   isMissionLimit,
   stampCount,
-  stampboardInput,
 }: InputFieldVAProps) => (
-  <VStack spacing="24px" w="100%">
+  <VStack spacing="24px" w="100%" pos="relative">
     <VStack w="100%" spacing="8px" align="flex-start">
       <Text layerStyle="subtitle16Sbd">이름</Text>
       <CustomInput
@@ -48,7 +54,6 @@ const InputFieldView = ({
         h="50px"
         maxLength={20}
         placeholder="도장판 이름을 입력해주세요"
-        defaultValue={stampboardInput.name}
         rules={nameValidate}
         control={control}
       />
@@ -60,7 +65,6 @@ const InputFieldView = ({
         h="50px"
         maxLength={30}
         placeholder="도장판을 다 모으면 어떤 선물을 줄까요?"
-        defaultValue={stampboardInput.reward}
         rules={rewardValidate}
         control={control}
       />
@@ -71,7 +75,6 @@ const InputFieldView = ({
         name="goalStampCount"
         options={stampCount}
         control={control}
-        defaultValue={stampboardInput.goalStampCount}
         rules={stampCountValidate}
       />
     </VStack>
@@ -143,6 +146,24 @@ const InputFieldView = ({
         </Flex>
       </VStack>
     </VStack>
+    <Modal
+      isOpen={missionModal}
+      onClose={handleClickMissionModalCloseButton}
+      motionPreset="none"
+      scrollBehavior="inside"
+      isCentered
+      size="xl"
+    >
+      <ModalContent
+        w="100%"
+        h="auto"
+        minH="100%"
+        overflow="auto"
+        boxShadow="none"
+      >
+        <MissionExamples onClose={handleClickMissionModalCloseButton} />
+      </ModalContent>
+    </Modal>
   </VStack>
 );
 

@@ -57,7 +57,9 @@ const Header = () => {
       goalStampCount: data.goalStampCount as number,
       name: data.name as string,
       reward: data.reward as string,
-      missionContents: missionContents as string[],
+      missionContents: missionContents.filter(
+        (item) => item.length !== 0
+      ) as string[],
     };
     create.mutate(sendingData);
   };

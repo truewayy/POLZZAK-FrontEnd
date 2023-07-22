@@ -213,8 +213,12 @@ const missionExamples = [
   },
 ];
 
-const Missions = () => {
-  const { push, back } = useRouter();
+interface MissionExamplesProps {
+  onClose: () => void;
+}
+
+const MissionExamples = ({ onClose }: MissionExamplesProps) => {
+  const { back } = useRouter();
   const [missions, setMissions] = useRecoilState(missionsAtom);
   const [selectedMissions, setSelectedMissions] = useState<
     { id: number; content: string }[]
@@ -237,35 +241,28 @@ const Missions = () => {
   const handleClickAddButton = () => {
     if (!isMissionLimit) {
       selectedMissions.map((mission) =>
-        setMissions((prev) => {
-          if (prev.find((prevMission) => prevMission.content.length === 0)) {
-            return [
-              ...prev.filter((prevMission) => prevMission.content.length !== 0),
-              mission,
-            ];
-          }
-          return [
-            ...prev,
-            {
-              id: prev[prev.length - 1].id + 1,
-              content: mission.content,
-            },
-          ];
-        })
+        setMissions((prev) => [
+          ...prev,
+          {
+            id: prev[prev.length - 1].id + 1,
+            content: mission.content,
+          },
+        ])
       );
-      push('/create/stampboard');
     }
+    onClose();
   };
 
   return (
-    <VStack w="100%" minH="100vh" p="50px 5%" bg="gray.100" spacing="16px">
+    <VStack w="100%" maxW="560px" p="50px 5%" bg="gray.100" spacing="16px">
       <Grid
         w="90%"
         maxW="504px"
         templateColumns="repeat(3, 1fr)"
+        p="10px 0"
         pos="fixed"
         top="0"
-        p="10px 0"
+        bg="gray.100"
         zIndex="1"
       >
         <LeftArrow w="24px" h="24px" fill="gray.400" onClick={back} />
@@ -290,7 +287,7 @@ const Missions = () => {
           마음에 드는 미션들을 선택해보세요!
         </Text>
       </Flex>
-      <VStack w="100%" overflowY="auto" spacing="8px">
+      <VStack w="100%" spacing="8px">
         {missionExamples.map((mission) => (
           <Box
             key={mission.id}
@@ -327,4 +324,4 @@ const Missions = () => {
   );
 };
 
-export default Missions;
+export default MissionExamples;
