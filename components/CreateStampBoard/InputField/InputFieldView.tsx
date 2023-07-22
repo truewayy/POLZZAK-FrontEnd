@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
+import { Button, Flex, Text, VStack } from '@chakra-ui/react';
 import { Control, FieldValues } from 'react-hook-form';
 
 import {
@@ -22,6 +22,11 @@ interface InputFieldVAProps {
   missions: { id: number; content: string }[];
   isMissionLimit: boolean;
   stampCount: number[];
+  stampboardInput: {
+    name: string;
+    reward: string;
+    goalStampCount: number;
+  };
 }
 
 const InputFieldView = ({
@@ -33,6 +38,7 @@ const InputFieldView = ({
   missions,
   isMissionLimit,
   stampCount,
+  stampboardInput,
 }: InputFieldVAProps) => (
   <VStack spacing="24px" w="100%">
     <VStack w="100%" spacing="8px" align="flex-start">
@@ -42,7 +48,7 @@ const InputFieldView = ({
         h="50px"
         maxLength={20}
         placeholder="도장판 이름을 입력해주세요"
-        defaultValue=""
+        defaultValue={stampboardInput.name}
         rules={nameValidate}
         control={control}
       />
@@ -54,7 +60,7 @@ const InputFieldView = ({
         h="50px"
         maxLength={30}
         placeholder="도장판을 다 모으면 어떤 선물을 줄까요?"
-        defaultValue=""
+        defaultValue={stampboardInput.reward}
         rules={rewardValidate}
         control={control}
       />
@@ -65,6 +71,7 @@ const InputFieldView = ({
         name="goalStampCount"
         options={stampCount}
         control={control}
+        defaultValue={stampboardInput.goalStampCount}
         rules={stampCountValidate}
       />
     </VStack>
@@ -121,7 +128,8 @@ const InputFieldView = ({
         >
           {isMissionLimit ? '미션은 50개까지 만들 수 있어요' : '+ 미션 추가'}
         </Button>
-        <Box
+        <Flex
+          align="flex-end"
           p="5.5px 10px"
           bg="gray.500"
           color="white"
@@ -132,7 +140,7 @@ const InputFieldView = ({
         >
           <ListIcon w="18px" h="18px" mr="4px" />
           미션예시
-        </Box>
+        </Flex>
       </VStack>
     </VStack>
   </VStack>

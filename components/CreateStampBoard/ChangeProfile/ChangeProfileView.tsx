@@ -1,20 +1,27 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Circle, Flex, Text } from '@chakra-ui/react';
 
-import { BasicProfileIcon, ChangeProfileIcon } from '@/public/icon';
+import { BalloonMsg, ChangeProfileIcon } from '@/public/icon';
 
 interface ChangeProfileVAProps {
   handleClickFilter: () => void;
   currentValue: string;
-  balloonMessage: string;
+  profileUrl: string | undefined;
 }
 
 const ChangeProfileView = ({
   handleClickFilter,
   currentValue,
-  balloonMessage,
+  profileUrl,
 }: ChangeProfileVAProps) => (
   <Box w="100%" pos="relative" alignSelf="flex-start">
-    <BasicProfileIcon width="60px" height="60px" />
+    <Circle
+      size="60px"
+      bgImg={profileUrl}
+      bgColor={profileUrl ? 'none' : 'gray.200'}
+      bgPos="center"
+      bgSize="cover"
+      bgRepeat="no-repeat"
+    />
     <Flex align="center" pos="absolute" bottom="0" left="45px" gap="8px">
       <Text
         p="4px 8px"
@@ -28,16 +35,7 @@ const ChangeProfileView = ({
       <ChangeProfileIcon w="16px" h="16px" onClick={handleClickFilter} />
     </Flex>
     <Box pos="absolute" top="-25px" left="70px">
-      <Box
-        p="10px 14px 12px 17px"
-        bg="blue.100"
-        border="1px solid"
-        borderColor="blue.400"
-        borderRadius="35px"
-        layerStyle="body14Md"
-      >
-        {balloonMessage}
-      </Box>
+      <BalloonMsg w="181px" h="42px" />
     </Box>
   </Box>
 );
