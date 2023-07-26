@@ -70,7 +70,7 @@ const NotificationFrame = ({
               {time}
             </Text>
           </Flex>
-          {isDeleteModeOn && (
+          {isDeleteModeOn && type !== 'linkRequest' && (
             <Circle
               size="16px"
               border="1.5px solid"

@@ -38,6 +38,7 @@ const Notifications = () => {
               transform="translateY(-50%)"
               layerStyle="body15Md"
               color="gray.400"
+              cursor="pointer"
               onClick={handleClickTrash}
             >
               취소
@@ -48,6 +49,7 @@ const Notifications = () => {
               top="50%"
               transform="translateY(-50%)"
               layerStyle="body15Md"
+              cursor="pointer"
               color="error.500"
             >
               삭제
