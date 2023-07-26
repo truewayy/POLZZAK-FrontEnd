@@ -8,15 +8,17 @@ interface BottomSheetModalVAProps {
   handleChangeFilter: (nickname: string) => void;
   filterOn: boolean;
   currentValue: string;
-  families: {
-    memberId: number;
-    nickname: string;
-    memberType: {
-      name: string;
-      detail: string;
-    };
-    profileUrl: string;
-  }[];
+  families:
+    | {
+        memberId: number;
+        nickname: string;
+        memberType: {
+          name: string;
+          detail: string;
+        };
+        profileUrl: string;
+      }[]
+    | undefined;
 }
 
 const BottomSheetModalView = ({

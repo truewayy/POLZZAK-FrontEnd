@@ -1,14 +1,15 @@
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
+import { familiesInfo } from '@/apis/family';
 import useControlFilter from '@/hooks/useControlFilter';
-import { userInfoAtom } from '@/store/userInfo';
 
 import BottomSheetModalView from './BottomSheetModalView';
 
 const BottomSheetModal = () => {
   const { handleClickFilter, handleChangeFilter, filterOn, currentValue } =
     useControlFilter();
-  const { families } = useRecoilValue(userInfoAtom);
+  const { data } = useQuery(['families'], familiesInfo);
+  const families = data?.data?.families;
 
   const BottomSheetModalVAProps = {
     handleClickFilter,
