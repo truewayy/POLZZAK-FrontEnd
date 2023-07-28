@@ -2,7 +2,7 @@ import 'swiper/css/pagination';
 
 import { VStack } from '@chakra-ui/react';
 
-import { StampboardListData } from '@/apis/stamp';
+import { CouponListData } from '@/apis/coupon';
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
 
 import Card from './Card/Card';
@@ -10,7 +10,7 @@ import StampSwiper from './StampSwiper/StampSwiper';
 
 interface ProgressingStampsVAProps {
   handleRefresh: () => Promise<any>;
-  cards: StampboardListData[] | undefined | null;
+  cards: CouponListData[] | undefined | null;
   filter: string;
 }
 
@@ -23,37 +23,14 @@ const ProgressingCouponsView = ({
     {filter !== '전체' ? (
       <VStack w="100%" p="0 5%" spacing="20px">
         {cards
-          ?.find(({ partner: { nickname } }) => nickname === filter)
-          ?.stampBoardSummaries.map(
-            ({
-              stampBoardId,
-              name,
-              currentStampCount,
-              goalStampCount,
-              missionRequestCount,
-              reward,
-              status,
-            }) => (
-              <Card
-                key={stampBoardId}
-                stampBoardId={stampBoardId}
-                name={name}
-                currentStampCount={currentStampCount}
-                goalStampCount={goalStampCount}
-                missionRequestCount={missionRequestCount}
-                reward={reward}
-                status={status}
-              />
-            )
-          )}
+          ?.find(({ family: { nickname } }) => nickname === filter)
+          ?.coupons.map(({ reward, rewardDate }) => (
+            <Card key={reward} reward={reward} rewardDate={rewardDate} />
+          ))}
       </VStack>
     ) : (
-      cards?.map(({ partner, stampBoardSummaries }) => (
-        <StampSwiper
-          key={partner.nickname}
-          partner={partner}
-          stampBoardSummaries={stampBoardSummaries}
-        />
+      cards?.map(({ family, coupons }) => (
+        <StampSwiper key={family.memberId} family={family} coupons={coupons} />
       ))
     )}
   </PullToRefresh>

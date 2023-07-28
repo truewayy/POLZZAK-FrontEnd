@@ -22,6 +22,7 @@ const API_URLS = {
   RECEIVED_REQUEST: '/api/v1/families/requests/received',
   STAMPBOARD_LIST: '/api/v1/stamps/stamp-boards',
   STAMPBOARD: '/api/v1/stamps/stamp-boards',
+  COUPON_LIST: '/api/v1/coupons',
   MISSION_REQUEST: '/api/v1/stamps/mission-request',
   STAMP: (stampboardId: number) =>
     `/api/v1/stamps/stamp-boards/${stampboardId}/stamp`,

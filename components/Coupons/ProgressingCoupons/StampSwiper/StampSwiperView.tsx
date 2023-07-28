@@ -2,25 +2,25 @@ import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import Swiper from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
-import { StampBoard } from '@/apis/stamp';
+import { Coupon } from '@/apis/coupon';
 
 import Card from '../Card/Card';
 
-interface StampSwiperVAProps {
+interface CouponSwiperVAProps {
   handleChangeSwiper: (swiper: Swiper) => void;
   nickname: string;
   currentBoard: number;
-  totalBoard: number;
-  progressingBoard: StampBoard[];
+  totalCoupons: number;
+  progressingCoupons: Coupon[];
 }
 
-const StampSwiperView = ({
+const CouponSwiperView = ({
   handleChangeSwiper,
   nickname,
   currentBoard,
-  totalBoard,
-  progressingBoard,
-}: StampSwiperVAProps) => (
+  totalCoupons,
+  progressingCoupons,
+}: CouponSwiperVAProps) => (
   <Box key={nickname}>
     <Flex align="center" p="0 7.5%" mb="16px" gap="8px">
       <Text as="span" layerStyle="subtitle16Bd" color="blue.500">
@@ -28,7 +28,7 @@ const StampSwiperView = ({
       </Text>
       <Text layerStyle="subtitle18Sbd">{nickname}</Text>
     </Flex>
-    {progressingBoard.length > 0 ? (
+    {progressingCoupons.length > 0 ? (
       <SwiperComponent
         grabCursor
         slidesPerView={1.15}
@@ -45,30 +45,12 @@ const StampSwiperView = ({
         style={{ marginBottom: '38px' }}
         onSlideChange={handleChangeSwiper}
       >
-        {progressingBoard.map(
-          ({
-            stampBoardId,
-            name,
-            currentStampCount,
-            goalStampCount,
-            missionRequestCount,
-            reward,
-            status,
-          }) => (
-            <SwiperSlide key={stampBoardId}>
-              <Card
-                stampBoardId={stampBoardId}
-                name={name}
-                currentStampCount={currentStampCount}
-                goalStampCount={goalStampCount}
-                missionRequestCount={missionRequestCount}
-                reward={reward}
-                status={status}
-              />
-            </SwiperSlide>
-          )
-        )}
-        {progressingBoard.length > 0 && (
+        {progressingCoupons.map(({ reward, rewardDate }) => (
+          <SwiperSlide key={reward}>
+            <Card reward={reward} rewardDate={rewardDate} />
+          </SwiperSlide>
+        ))}
+        {progressingCoupons.length > 0 && (
           <Text
             pt="8px"
             w="100%"
@@ -78,7 +60,7 @@ const StampSwiperView = ({
           >
             {currentBoard}{' '}
             <Text as="span" color="gray.500">
-              / {totalBoard}
+              / {totalCoupons}
             </Text>
           </Text>
         )}
@@ -88,21 +70,17 @@ const StampSwiperView = ({
         m="0 7%"
         mb="30px"
         bg="white"
-        h="410px"
+        h="180px"
         border="1px dashed #DADAE7"
         borderRadius="8px"
         justifyContent="center"
       >
         <Text layerStyle="body14Md" textAlign="center" color="gray.700">
-          <Text as="span" layerStyle="body14Bd">
-            {nickname}
-          </Text>
-          님과
-          <br /> 진행 중인 도장판이 없어요
+          쿠폰이 없어요
         </Text>
       </VStack>
     )}
   </Box>
 );
 
-export default StampSwiperView;
+export default CouponSwiperView;

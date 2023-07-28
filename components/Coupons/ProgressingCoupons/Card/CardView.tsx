@@ -4,35 +4,21 @@ import { Box, Circle, Flex, Text, VStack } from '@chakra-ui/react';
 import { Barcodes } from '@/public/icon';
 
 interface CardVAProps {
-  // name: string;
-  // currentStampCount: number;
-  // goalStampCount: number;
-  // percentage: number;
-  // isStampBoardComplete: boolean;
-  // completeMessage: string;
-  // messageColor: string;
-  // statusIcon: React.ReactNode;
-  // isRequest: boolean;
-  // missionRequestCount: number;
   reward: string;
-  // handleClickCard: () => void;
+  rewardDate: string;
+  dateDiff: number;
+  isKid: boolean;
+  handleClickCard: () => void;
 }
 
 const CardView = ({
-  // name,
-  // currentStampCount,
-  // goalStampCount,
-  // percentage,
-  // isStampBoardComplete,
-  // completeMessage,
-  // messageColor,
-  // statusIcon,
-  // isRequest,
-  // missionRequestCount,
   reward,
-}: // handleClickCard,
-CardVAProps) => (
-  <Flex w="100%" minH="180px">
+  rewardDate,
+  dateDiff,
+  isKid,
+  handleClickCard,
+}: CardVAProps) => (
+  <Flex w="100%" minH="180px" onClick={handleClickCard}>
     <VStack
       w="70%"
       p="16px 16px 24px 16px"
@@ -49,18 +35,20 @@ CardVAProps) => (
           layerStyle="caption12Bd"
           borderRadius="4px"
         >
-          ⏰&nbsp;&nbsp;D-99
+          ⏰&nbsp;&nbsp;D-{dateDiff}
         </Box>
         <Text layerStyle="subtitle16Sbd" color="#000">
           {reward}
         </Text>
       </VStack>
-      <Text color="gray.700" layerStyle="caption12Md">
-        <Text as="span" color="polzzak.default">
-          2023.03.27
+      {!isKid && (
+        <Text color="gray.700" layerStyle="caption12Md">
+          <Text as="span" color="polzzak.default">
+            {rewardDate}
+          </Text>
+          까지 주기로 약속했어요
         </Text>
-        까지 주기로 약속했어요
-      </Text>
+      )}
     </VStack>
     <VStack
       w="30%"

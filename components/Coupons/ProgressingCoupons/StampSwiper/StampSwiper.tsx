@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import Swiper from 'swiper';
 
-import { StampboardListData } from '@/apis/stamp';
+import { CouponListData } from '@/apis/coupon';
 
 import StampSwiperView from './StampSwiperView';
 
-const StampSwiper = ({
-  partner: { nickname },
-  stampBoardSummaries,
-}: StampboardListData) => {
+const StampSwiper = ({ family, coupons }: CouponListData) => {
   const [currentBoard, setCurrentBoard] = useState<number>(1);
-  const totalBoard = stampBoardSummaries.length;
-  const progressingBoard = stampBoardSummaries;
+  const totalCoupons = coupons.length;
+  const progressingCoupons = coupons;
 
   const handleChangeSwiper: (swiper: Swiper) => void = (swiper) => {
     setCurrentBoard(swiper.activeIndex + 1);
@@ -19,10 +16,10 @@ const StampSwiper = ({
 
   const StampSwiperVAProps = {
     handleChangeSwiper,
-    nickname,
+    nickname: family.nickname,
     currentBoard,
-    totalBoard,
-    progressingBoard,
+    totalCoupons,
+    progressingCoupons,
   };
 
   return <StampSwiperView {...StampSwiperVAProps} />;

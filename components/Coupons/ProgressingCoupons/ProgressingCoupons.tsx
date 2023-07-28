@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { stampboardList } from '@/apis/stamp';
+import { couponList } from '@/apis/coupon';
 import { filterAtom } from '@/store/filter';
 import { userInfoAtom } from '@/store/userInfo';
 
@@ -19,8 +19,8 @@ const ProgressingCoupons = () => {
 
   const filter = useRecoilValue(filterAtom);
   const { data, isLoading, refetch } = useQuery(
-    ['stampboardList', 'in_progress', filter],
-    () => stampboardList({ stampBoardGroup: 'in_progress' }),
+    ['couponList', 'issued', filter],
+    () => couponList({ couponState: 'issued' }),
     {
       enabled: !isNoFamily,
     }

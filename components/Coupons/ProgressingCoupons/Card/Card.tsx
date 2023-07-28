@@ -2,78 +2,44 @@
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
-import { StampBoard } from '@/apis/stamp';
-import { CompleteIcon, HandIcon, NoRequestIcon } from '@/public/icon';
+import { Coupon } from '@/apis/coupon';
 import { userInfoAtom } from '@/store/userInfo';
 
 import CardView from './CardView';
 
-const Card = ({
-  name,
-  stampBoardId,
-  currentStampCount,
-  goalStampCount,
-  missionRequestCount,
-  reward,
-  status,
-}: StampBoard) => {
+const Card = ({ reward, rewardDate }: Coupon) => {
   const { push } = useRouter();
   const { memberType } = useRecoilValue(userInfoAtom);
-  const percentage = (currentStampCount / goalStampCount) * 100;
-  const isStampBoardComplete = currentStampCount === goalStampCount;
-  const isRequest = missionRequestCount !== 0;
 
-  const completeType = () => {
-    if (memberType.name === 'KID') {
-      if (status === 'progress') {
-        return 'kidCoupon';
-      }
-      return 'kidComplete';
-    }
-    if (status === 'progress') {
-      return 'parentCoupon';
-    }
-    return 'parentComplete';
+  const isKid = memberType.name === 'KID';
+
+  const formatDate = (timestamp: Date) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}.${month}.${day}`;
   };
 
-  const completeMessage = {
-    kidCoupon: '쿠폰 선물이 있어요!',
-    kidComplete: '수고했어요!',
-    parentCoupon: '쿠폰 발급 완료!',
-    parentComplete: '쿠폰을 발급해주세요!',
-  };
-
-  const messageColor = {
-    kidCoupon: '#FE6E6E',
-    kidComplete: '#59B9FF',
-    parentCoupon: '#59B9FF',
-    parentComplete: '#FE6E6E',
-  };
-
-  const statusIcon = isStampBoardComplete ? (
-    <CompleteIcon w={76} h={70} />
-  ) : isRequest ? (
-    <HandIcon w={76} h={67} />
-  ) : (
-    <NoRequestIcon w={76} h={67} />
+  const formattedDate = formatDate(rewardDate);
+  const dateDiff = Math.floor(
+    (new Date(rewardDate).getTime() - new Date().getTime()) /
+      1000 /
+      60 /
+      60 /
+      24
   );
 
   const handleClickCard = () => {
-    push(`/stampboard/${stampBoardId}`);
+    push(`/coupon/1`);
   };
 
   const CardVAProps = {
-    name,
-    currentStampCount,
-    goalStampCount,
-    percentage,
-    isStampBoardComplete,
-    completeMessage: completeMessage[completeType()],
-    messageColor: messageColor[completeType()],
-    statusIcon,
-    isRequest,
-    missionRequestCount,
     reward,
+    rewardDate: formattedDate,
+    dateDiff,
+    isKid,
     handleClickCard,
   };
 
