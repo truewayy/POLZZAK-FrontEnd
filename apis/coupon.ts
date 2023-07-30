@@ -30,6 +30,14 @@ interface CouponListResponse {
   };
 }
 
+interface IssueCouponResponse {
+  data: {
+    code: 201;
+    messages: null;
+    data: null;
+  };
+}
+
 export interface CouponListData {
   family: Family;
   coupons: Coupon[];
@@ -58,6 +66,21 @@ export const couponList = async ({
     const { data }: CouponListResponse = await http.get(API_URLS.COUPON_LIST, {
       params: memberId ? { memberId, couponState } : { couponState },
     });
+    return data;
+  } catch (error) {
+    const err = error as CouponListError;
+    return err.response.data;
+  }
+};
+
+export const issueCoupon = async (stampBoardId: string) => {
+  try {
+    const { data }: IssueCouponResponse = await http.post(
+      API_URLS.COUPON_LIST,
+      {
+        stampBoardId,
+      }
+    );
     return data;
   } catch (error) {
     const err = error as CouponListError;

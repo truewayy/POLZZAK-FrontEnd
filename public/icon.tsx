@@ -2175,3 +2175,46 @@ export const Dash = createIcon({
     </svg>
   ),
 });
+
+export const Calendar = createIcon({
+  displayName: 'Calendar',
+  viewBox: '0 0 20 20',
+  path: (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14.9987 3.66699H4.9987C4.07822 3.66699 3.33203 4.41318 3.33203 5.33366V15.3337C3.33203 16.2541 4.07822 17.0003 4.9987 17.0003H14.9987C15.9192 17.0003 16.6654 16.2541 16.6654 15.3337V5.33366C16.6654 4.41318 15.9192 3.66699 14.9987 3.66699Z"
+        stroke="#259BEF"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M13.332 2V5.33333"
+        stroke="#259BEF"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.66406 2V5.33333"
+        stroke="#259BEF"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3.33203 8.66699H16.6654"
+        stroke="#259BEF"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+});
