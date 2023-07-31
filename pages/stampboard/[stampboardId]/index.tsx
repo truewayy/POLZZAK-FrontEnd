@@ -3,11 +3,11 @@ import {
   Button,
   Circle,
   Flex,
-  Icon,
   Text,
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -15,14 +15,14 @@ import Sheet from 'react-modal-sheet';
 import { useMutation, useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
+import { issueCoupon } from '@/apis/coupon';
 import { deleteStampboard, stampboardDetail } from '@/apis/stamp';
 import ConfirmModal from '@/components/Link/ConfirmModal';
 import DatepickerModal from '@/components/Stamp/DatePickerModal';
+import MissionList from '@/components/Stamp/MissionList';
 import StampBoard from '@/components/Stamp/StampBoard';
 import {
   Calendar,
-  ChevronDown,
-  ChevronUp,
   Coupon,
   EditFilledIcon,
   LeftArrow,
@@ -48,13 +48,13 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
   const [memberType, setMemberType] = useState('');
   const [buttonMsg, setButtonMsg] = useState('');
   const [description, setDescription] = useState('');
-  const [moreMission, setMoreMission] = useState(false);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const [confirmedDate, setConfirmedDate] = useState<Date>();
 
   const stampboard = data?.data;
   const isMissionRequest = !!stampboard?.missionRequestList.length;
-  const createdDate = new Date(stampboard?.createdDate || '');
-  const completedDate = new Date(stampboard?.completedDate || '');
+  const createdDate = new Date(stampboard?.createdDate ?? '');
+  const completedDate = new Date(stampboard?.completedDate ?? '');
   const currentDate = new Date();
   const diffDate = Math.ceil(
     (currentDate.getTime() - createdDate.getTime()) / (1000 * 3600 * 24)
@@ -63,10 +63,6 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
   const completingDate = Math.ceil(
     (completedDate.getTime() - createdDate.getTime()) / (1000 * 3600 * 24)
   );
-
-  const showMoreMissionText = stampboard?.missions
-    ? stampboard.missions.length > 3
-    : false;
 
   const { mutate: remove, isLoading } = useMutation(
     () => deleteStampboard(stampboardId),
@@ -77,12 +73,21 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
     }
   );
 
-  const handleClickBack = () => {
-    back();
+  const { mutate: issue } = useMutation(
+    () => issueCoupon(stampboardId, confirmedDate?.getTime() ?? 0),
+    {
+      onSuccess: () => {
+        console.log('success');
+      },
+    }
+  );
+
+  const handleClickIssue = () => {
+    issue();
   };
 
-  const handleClickMoreButton = () => {
-    setMoreMission(!moreMission);
+  const handleClickBack = () => {
+    back();
   };
 
   const openBottomSheet = () => {
@@ -148,41 +153,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
         )}
         <StampBoard stampboardId={stampboardId} />
       </VStack>
-      <VStack w="100%" p="20px 5%" bg="#fff" spacing="23px">
-        <Flex w="100%" justify="space-between" align="center">
-          <Text layerStyle="subtitle16Sbd" color="rgba(46, 48, 56, 1)">
-            미션 목록
-          </Text>
-          {showMoreMissionText && (
-            <Text
-              layerStyle="body13Md"
-              color="gray.500"
-              cursor="pointer"
-              onClick={handleClickMoreButton}
-            >
-              더보기
-              <Icon
-                as={moreMission ? ChevronUp : ChevronDown}
-                w="24px"
-                h="24px"
-              />
-            </Text>
-          )}
-        </Flex>
-        <VStack w="100%" spacing="18px">
-          {moreMission
-            ? stampboard?.missions.map(({ id, content }) => (
-                <Text w="100%" key={id} layerStyle="body14Md" color="#2E3038">
-                  {content}
-                </Text>
-              ))
-            : stampboard?.missions.slice(0, 3).map(({ id, content }) => (
-                <Text w="100%" key={id} layerStyle="body14Md" color="#2E3038">
-                  {content}
-                </Text>
-              ))}
-        </VStack>
-      </VStack>
+      <MissionList missions={stampboard?.missions} />
       <Box w="100%" h="8px" bg="#F8F8FC" />
       <VStack w="100%" p="20px 5%" bg="#fff" spacing="16px">
         <Flex w="100%" justify="space-between" align="center">
@@ -249,6 +220,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
         </VStack>
       </ConfirmModal>
       <DatepickerModal
+        setConfirmedDate={setConfirmedDate}
         isOpen={datepicker.isOpen}
         onClose={datepicker.onClose}
       />
@@ -316,7 +288,9 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
                   </Text>
                   <Flex gap="8px" align="center">
                     <Text layerStyle="body14Md" color="gray.800">
-                      날짜를 설정해주세요
+                      {confirmedDate !== undefined
+                        ? dayjs(confirmedDate).format('YYYY.MM.DD')
+                        : '날짜를 설정해주세요'}
                     </Text>
                     <Calendar w="20px" h="20px" />
                   </Flex>
@@ -331,6 +305,8 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
                 color="white"
                 pos="absolute"
                 bottom="20px"
+                isDisabled={!confirmedDate}
+                onClick={handleClickIssue}
               >
                 쿠폰 발급하기
               </Button>

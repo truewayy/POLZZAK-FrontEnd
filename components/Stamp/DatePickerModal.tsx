@@ -15,16 +15,25 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 import { LeftArrow } from '@/public/icon';
 
 interface DatepickerModalProps {
+  setConfirmedDate: (date: Date) => void;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const DatepickerModal = ({ isOpen, onClose }: DatepickerModalProps) => {
+const DatepickerModal = ({
+  setConfirmedDate,
+  isOpen,
+  onClose,
+}: DatepickerModalProps) => {
   const [date, setDate] = useState(new Date() as Value);
-  // const [confirmedDate, setConfirmedDate] = useState(new Date());
 
   const handleChangeCalendar = (value: Value) => {
     setDate(value);
+  };
+
+  const handleClickConfirm = () => {
+    setConfirmedDate(date as Date);
+    onClose();
   };
 
   return (
@@ -62,7 +71,14 @@ const DatepickerModal = ({ isOpen, onClose }: DatepickerModalProps) => {
             onChange={handleChangeCalendar}
           />
           <Flex w="90%" gap="10px" p="30px 0 15px 0">
-            <Button w="100%" h="auto" p="12px 24px" bg="gray.300" color="white">
+            <Button
+              w="100%"
+              h="auto"
+              p="12px 24px"
+              bg="gray.300"
+              color="white"
+              onClick={onClose}
+            >
               닫기
             </Button>
             <Button
@@ -71,6 +87,7 @@ const DatepickerModal = ({ isOpen, onClose }: DatepickerModalProps) => {
               p="12px 24px"
               bg="polzzak.default"
               color="white"
+              onClick={handleClickConfirm}
             >
               설정 완료
             </Button>
