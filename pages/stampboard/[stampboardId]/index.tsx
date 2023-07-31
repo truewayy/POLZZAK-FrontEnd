@@ -34,6 +34,48 @@ interface StampboardProps {
   stampboardId: string;
 }
 
+const guardianCouponIssueButtonMsg = {
+  progress: '쿠폰 발급하기',
+  completed: '쿠폰 발급하기',
+  issued_coupon: '쿠폰 발급 완료',
+  rewarded: '쿠폰 발급 완료',
+};
+
+const guardianCouponIssueButtonDisabled = {
+  progress: true,
+  completed: false,
+  issued_coupon: true,
+  rewarded: true,
+};
+
+const guardianCouponIssueDescription = {
+  progress: '도장판이 다 채워지면 쿠폰을 발급해줄 수 있어요',
+  completed: '도장판이 다 채워졌어요! 쿠폰을 발급해주세요',
+  issued_coupon: '내 쿠폰함에서 확인하세요',
+  rewarded: '내 쿠폰함에서 확인하세요',
+};
+
+const kidCouponIssueButtonMsg = {
+  progress: '쿠폰 받기',
+  completed: '쿠폰 받기',
+  issued_coupon: '쿠폰 받기',
+  rewarded: '쿠폰 받기 완료',
+};
+
+const kidCouponIssueButtonDisabled = {
+  progress: true,
+  completed: true,
+  issued_coupon: false,
+  rewarded: true,
+};
+
+const kidCouponIssueDescription = {
+  progress: '도장판을 다 채우면 쿠폰을 받을 수 있어요',
+  completed: '보호자가 쿠폰을 발급해줄 때까지 잠시만 기다려주세요',
+  issued_coupon: '선물 쿠폰이 도착했어요!',
+  rewarded: '내 쿠폰함에서 확인하세요',
+};
+
 const Stampboard = ({ stampboardId }: StampboardProps) => {
   const stampboardDelete = useDisclosure();
   const datepicker = useDisclosure();
@@ -59,7 +101,8 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
   const diffDate = Math.ceil(
     (currentDate.getTime() - createdDate.getTime()) / (1000 * 3600 * 24)
   );
-  const isCompleted = stampboard?.status === 'completed';
+  const isMemberTypeKid = name === 'KID';
+  const isCompleted = stampboard?.status !== 'progress';
   const completingDate = Math.ceil(
     (completedDate.getTime() - createdDate.getTime()) / (1000 * 3600 * 24)
   );
@@ -99,14 +142,19 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
 
   useEffect(() => {
     setMemberType(name);
-    const isMemberTypeKid = name === 'KID';
-    setButtonMsg(isMemberTypeKid ? '쿠폰 받기' : '쿠폰 발급하기');
-    setDescription(
-      isMemberTypeKid
-        ? '도장판을 다 채우면 쿠폰을 받을 수 있어요.'
-        : '도장판을 다 채우면 쿠폰을 발급해줄 수 있어요.'
-    );
-  }, [setButtonMsg, setDescription, name]);
+    if (stampboard) {
+      setButtonMsg(
+        isMemberTypeKid
+          ? kidCouponIssueButtonMsg[stampboard?.status]
+          : guardianCouponIssueButtonMsg[stampboard?.status]
+      );
+      setDescription(
+        isMemberTypeKid
+          ? kidCouponIssueDescription[stampboard?.status]
+          : guardianCouponIssueDescription[stampboard?.status]
+      );
+    }
+  }, [setButtonMsg, name, stampboard, isMemberTypeKid]);
 
   return (
     <VStack w="100%" h="100%">
@@ -176,7 +224,11 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
             p="14px 0"
             bg="polzzak.default"
             isDisabled={
-              stampboard?.stamps.length !== stampboard?.goalStampCount
+              isMemberTypeKid
+                ? kidCouponIssueButtonDisabled[stampboard?.status || 'progress']
+                : guardianCouponIssueButtonDisabled[
+                    stampboard?.status || 'progress'
+                  ]
             }
             onClick={openBottomSheet}
           >
