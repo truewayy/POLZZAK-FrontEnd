@@ -12,10 +12,10 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Sheet from 'react-modal-sheet';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { issueCoupon } from '@/apis/coupon';
+import { issueCoupon, receiveCoupon } from '@/apis/coupon';
 import { deleteStampboard, stampboardDetail } from '@/apis/stamp';
 import ConfirmModal from '@/components/Link/ConfirmModal';
 import DatepickerModal from '@/components/Stamp/DatePickerModal';
@@ -77,9 +77,11 @@ const kidCouponIssueDescription = {
 };
 
 const Stampboard = ({ stampboardId }: StampboardProps) => {
+  const queryClient = useQueryClient();
   const stampboardDelete = useDisclosure();
   const datepicker = useDisclosure();
   const { back } = useRouter();
+
   const {
     memberType: { name },
   } = useRecoilValue(userInfoAtom);
@@ -92,6 +94,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
   const [description, setDescription] = useState('');
   const [showBottomSheet, setShowBottomSheet] = useState(false);
   const [confirmedDate, setConfirmedDate] = useState<Date>();
+  const [bottomSheetDescription, setBottomSheetDescription] = useState('');
 
   const stampboard = data?.data;
   const isMissionRequest = !!stampboard?.missionRequestList.length;
@@ -107,6 +110,15 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
     (completedDate.getTime() - createdDate.getTime()) / (1000 * 3600 * 24)
   );
 
+  const rewardDate = () => {
+    if (!isMemberTypeKid) {
+      if (confirmedDate !== undefined)
+        return dayjs(confirmedDate).format('YYYY.MM.DD');
+      return '날짜를 설정해주세요';
+    }
+    return dayjs(stampboard?.rewardDate).format('YYYY.MM.DD');
+  };
+
   const { mutate: remove, isLoading } = useMutation(
     () => deleteStampboard(stampboardId),
     {
@@ -119,14 +131,28 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
   const { mutate: issue } = useMutation(
     () => issueCoupon(stampboardId, confirmedDate?.getTime() ?? 0),
     {
-      onSuccess: () => {
-        console.log('success');
+      onSuccess: (res) => {
+        if (res.code === 201) {
+          queryClient.invalidateQueries(['stampboard', stampboardId]);
+          setShowBottomSheet(false);
+        }
       },
     }
   );
 
+  const { mutate: receive } = useMutation(() => receiveCoupon(stampboardId), {
+    onSuccess: (res) => {
+      if (res.code === 201) {
+        queryClient.invalidateQueries(['stampboard', stampboardId]);
+        setShowBottomSheet(false);
+      }
+    },
+  });
+
   const handleClickIssue = () => {
-    issue();
+    if (isMemberTypeKid) {
+      receive();
+    } else issue();
   };
 
   const handleClickBack = () => {
@@ -152,6 +178,9 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
         isMemberTypeKid
           ? kidCouponIssueDescription[stampboard?.status]
           : guardianCouponIssueDescription[stampboard?.status]
+      );
+      setBottomSheetDescription(
+        isMemberTypeKid ? '쿠폰을 선물 받았어요!' : '쿠폰이 활성화 되었어요!'
       );
     }
   }, [setButtonMsg, name, stampboard, isMemberTypeKid]);
@@ -279,7 +308,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
       <Sheet
         isOpen={showBottomSheet}
         onClose={closeBottomSheet}
-        snapPoints={[500, 350, 200, 0]}
+        snapPoints={[480, 350, 200, 0]}
         initialSnap={0}
         style={{
           maxWidth: '560px',
@@ -293,10 +322,10 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
           <Sheet.Content>
             <VStack
               w="100%"
-              h={450}
+              h={430}
               bg="white"
               p="20px 5%"
-              spacing="30px"
+              spacing={isMemberTypeKid ? '50px' : '30px'}
               pos="relative"
             >
               <Text
@@ -307,22 +336,27 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
                 {stampboard?.reward}
                 <br />
                 <Text as="span" layerStyle="subtitle16Sbd" color="#312F2E">
-                  쿠폰이 활성화 되었어요!
+                  {bottomSheetDescription}
                 </Text>
               </Text>
-              <Circle size="100px" bg="#C7E5FF">
-                <Coupon w="60px" h="60px" />
+              <Circle size={isMemberTypeKid ? '120px' : '100px'} bg="#C7E5FF">
+                <Coupon
+                  w={isMemberTypeKid ? '72px' : '60px'}
+                  h={isMemberTypeKid ? '72px' : '60px'}
+                />
               </Circle>
               <VStack w="100%" spacing="22px">
-                <Text
-                  layerStyle="caption12Md"
-                  color="gray.500"
-                  textAlign="center"
-                >
-                  언제까지 선물을 주실 예정인가요?
-                  <br />
-                  선물 예정일은 수정이 불가하니 신중하게 정해주세요.
-                </Text>
+                {!isMemberTypeKid && (
+                  <Text
+                    layerStyle="caption12Md"
+                    color="gray.500"
+                    textAlign="center"
+                  >
+                    언제까지 선물을 주실 예정인가요?
+                    <br />
+                    선물 예정일은 수정이 불가하니 신중하게 정해주세요.
+                  </Text>
+                )}
                 <Flex
                   w="100%"
                   p="14px 16px"
@@ -332,17 +366,15 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
                   bg="gray.100"
                   justify="space-between"
                   align="center"
-                  cursor="pointer"
-                  onClick={datepicker.onOpen}
+                  cursor={isMemberTypeKid ? 'default' : 'pointer'}
+                  onClick={isMemberTypeKid ? () => {} : datepicker.onOpen}
                 >
                   <Text layerStyle="body14Md" color="gray.500">
                     선물 예정일
                   </Text>
                   <Flex gap="8px" align="center">
                     <Text layerStyle="body14Md" color="gray.800">
-                      {confirmedDate !== undefined
-                        ? dayjs(confirmedDate).format('YYYY.MM.DD')
-                        : '날짜를 설정해주세요'}
+                      {rewardDate()}
                     </Text>
                     <Calendar w="20px" h="20px" />
                   </Flex>
@@ -357,10 +389,10 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
                 color="white"
                 pos="absolute"
                 bottom="20px"
-                isDisabled={!confirmedDate}
+                isDisabled={!isMemberTypeKid && !confirmedDate}
                 onClick={handleClickIssue}
               >
-                쿠폰 발급하기
+                {isMemberTypeKid ? '쿠폰 받기' : '쿠폰 발급하기'}
               </Button>
             </VStack>
           </Sheet.Content>

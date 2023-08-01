@@ -90,7 +90,7 @@ interface StampboardDetailResponse {
         createdDate: string;
       }[];
       completedDate: string | null;
-      rewardDate: null;
+      rewardDate: Date;
       createdDate: string;
     };
   };

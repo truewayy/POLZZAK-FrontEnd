@@ -87,3 +87,18 @@ export const issueCoupon = async (stampBoardId: string, rewardDate: number) => {
     return err.response.data;
   }
 };
+
+export const receiveCoupon = async (stampboardId: string) => {
+  try {
+    const { data }: IssueCouponResponse = await http.post(
+      API_URLS.COUPON_LIST,
+      {
+        stampboardId,
+      }
+    );
+    return data;
+  } catch (error) {
+    const err = error as CouponListError;
+    return err.response.data;
+  }
+};
