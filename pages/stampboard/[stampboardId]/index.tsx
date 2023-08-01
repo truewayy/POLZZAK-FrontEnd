@@ -17,7 +17,9 @@ import { useRecoilValue } from 'recoil';
 
 import { issueCoupon, receiveCoupon } from '@/apis/coupon';
 import { deleteStampboard, stampboardDetail } from '@/apis/stamp';
+import Loading from '@/components/Common/Loading';
 import ConfirmModal from '@/components/Link/ConfirmModal';
+import CouponIssuedModal from '@/components/Stamp/CouponIssuedModal';
 import DatepickerModal from '@/components/Stamp/DatePickerModal';
 import MissionList from '@/components/Stamp/MissionList';
 import StampBoard from '@/components/Stamp/StampBoard';
@@ -80,6 +82,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
   const queryClient = useQueryClient();
   const stampboardDelete = useDisclosure();
   const datepicker = useDisclosure();
+  const couponIssueModal = useDisclosure();
   const { back } = useRouter();
 
   const {
@@ -128,31 +131,37 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
     }
   );
 
-  const { mutate: issue } = useMutation(
+  const { mutate: issue, isLoading: issueLoading } = useMutation(
     () => issueCoupon(stampboardId, confirmedDate?.getTime() ?? 0),
     {
       onSuccess: (res) => {
         if (res.code === 201) {
+          couponIssueModal.onOpen();
           queryClient.invalidateQueries(['stampboard', stampboardId]);
-          setShowBottomSheet(false);
         }
       },
     }
   );
 
-  const { mutate: receive } = useMutation(() => receiveCoupon(stampboardId), {
-    onSuccess: (res) => {
-      if (res.code === 201) {
-        queryClient.invalidateQueries(['stampboard', stampboardId]);
-        setShowBottomSheet(false);
-      }
-    },
-  });
+  const { mutate: receive, isLoading: receiveloading } = useMutation(
+    () => receiveCoupon(stampboardId),
+    {
+      onSuccess: (res) => {
+        if (res.code === 201) {
+          couponIssueModal.onOpen();
+          queryClient.invalidateQueries(['stampboard', stampboardId]);
+        }
+      },
+    }
+  );
 
   const handleClickIssue = () => {
+    setShowBottomSheet(false);
     if (isMemberTypeKid) {
       receive();
-    } else issue();
+    } else {
+      issue();
+    }
   };
 
   const handleClickBack = () => {
@@ -186,7 +195,8 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
   }, [setButtonMsg, name, stampboard, isMemberTypeKid]);
 
   return (
-    <VStack w="100%" h="100%">
+    <VStack w="100%" h="100%" spacing="0">
+      {(issueLoading || receiveloading) && <Loading />}
       <VStack w="100%" p="20px 5%" bg="#F8F8FC">
         <Flex pb="10px" w="100%" justify="space-between" align="center">
           <LeftArrow
@@ -282,6 +292,7 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
           </Text>
         )}
       </VStack>
+
       <ConfirmModal
         isOpen={stampboardDelete.isOpen}
         onClose={stampboardDelete.onClose}
@@ -300,11 +311,19 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
           </Text>
         </VStack>
       </ConfirmModal>
+
       <DatepickerModal
         setConfirmedDate={setConfirmedDate}
         isOpen={datepicker.isOpen}
         onClose={datepicker.onClose}
       />
+
+      <CouponIssuedModal
+        reward={stampboard?.reward || ''}
+        isOpen={couponIssueModal.isOpen}
+        onClose={couponIssueModal.onClose}
+      />
+
       <Sheet
         isOpen={showBottomSheet}
         onClose={closeBottomSheet}
