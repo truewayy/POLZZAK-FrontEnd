@@ -83,7 +83,6 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
     stampboardDetail(stampboardId)
   );
 
-  const [memberType, setMemberType] = useState('');
   const [buttonMsg, setButtonMsg] = useState('');
   const [description, setDescription] = useState('');
   const [showBottomSheet, setShowBottomSheet] = useState(false);
@@ -91,10 +90,10 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
   const [bottomSheetDescription, setBottomSheetDescription] = useState('');
 
   const stampboard = data?.data;
-  const isMemberTypeKid = name === 'KID';
+  const isKid = name === 'KID';
 
   const rewardDate = () => {
-    if (!isMemberTypeKid) {
+    if (!isKid) {
       if (confirmedDate !== undefined)
         return dayjs(confirmedDate).format('YYYY.MM.DD');
       return '날짜를 설정해주세요';
@@ -137,7 +136,7 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
 
   const handleClickIssue = () => {
     setShowBottomSheet(false);
-    if (isMemberTypeKid) {
+    if (isKid) {
       receive();
     } else {
       issue();
@@ -152,23 +151,22 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
   };
 
   useEffect(() => {
-    setMemberType(name);
     if (stampboard) {
       setButtonMsg(
-        isMemberTypeKid
+        isKid
           ? kidCouponIssueButtonMsg[stampboard?.status]
           : guardianCouponIssueButtonMsg[stampboard?.status]
       );
       setDescription(
-        isMemberTypeKid
+        isKid
           ? kidCouponIssueDescription[stampboard?.status]
           : guardianCouponIssueDescription[stampboard?.status]
       );
       setBottomSheetDescription(
-        isMemberTypeKid ? '쿠폰을 선물 받았어요!' : '쿠폰이 활성화 되었어요!'
+        isKid ? '쿠폰을 선물 받았어요!' : '쿠폰이 활성화 되었어요!'
       );
     }
-  }, [setButtonMsg, name, stampboard, isMemberTypeKid]);
+  }, [setButtonMsg, name, stampboard, isKid]);
 
   return (
     <>
@@ -195,7 +193,7 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
             p="14px 0"
             bg="polzzak.default"
             isDisabled={
-              isMemberTypeKid
+              isKid
                 ? kidCouponIssueButtonDisabled[stampboard?.status ?? 'progress']
                 : guardianCouponIssueButtonDisabled[
                     stampboard?.status ?? 'progress'
@@ -211,7 +209,7 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
             {description}
           </Text>
         </VStack>
-        {memberType !== 'KID' && (
+        {!isKid && (
           <Text
             fontSize="13px"
             fontWeight="600"
@@ -275,7 +273,7 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
                 h={430}
                 bg="white"
                 p="20px 5%"
-                spacing={isMemberTypeKid ? '50px' : '30px'}
+                spacing={isKid ? '50px' : '30px'}
                 pos="relative"
               >
                 <Text
@@ -289,14 +287,14 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
                     {bottomSheetDescription}
                   </Text>
                 </Text>
-                <Circle size={isMemberTypeKid ? '120px' : '100px'} bg="#C7E5FF">
+                <Circle size={isKid ? '120px' : '100px'} bg="#C7E5FF">
                   <Coupon
-                    w={isMemberTypeKid ? '72px' : '60px'}
-                    h={isMemberTypeKid ? '72px' : '60px'}
+                    w={isKid ? '72px' : '60px'}
+                    h={isKid ? '72px' : '60px'}
                   />
                 </Circle>
                 <VStack w="100%" spacing="22px">
-                  {!isMemberTypeKid && (
+                  {!isKid && (
                     <Text
                       layerStyle="caption12Md"
                       color="gray.500"
@@ -316,8 +314,8 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
                     bg="gray.100"
                     justify="space-between"
                     align="center"
-                    cursor={isMemberTypeKid ? 'default' : 'pointer'}
-                    onClick={isMemberTypeKid ? () => {} : datepicker.onOpen}
+                    cursor={isKid ? 'default' : 'pointer'}
+                    onClick={isKid ? () => {} : datepicker.onOpen}
                   >
                     <Text layerStyle="body14Md" color="gray.500">
                       선물 예정일
@@ -339,10 +337,10 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
                   color="white"
                   pos="absolute"
                   bottom="20px"
-                  isDisabled={!isMemberTypeKid && !confirmedDate}
+                  isDisabled={!isKid && !confirmedDate}
                   onClick={handleClickIssue}
                 >
-                  {isMemberTypeKid ? '쿠폰 받기' : '쿠폰 발급하기'}
+                  {isKid ? '쿠폰 받기' : '쿠폰 발급하기'}
                 </Button>
               </VStack>
             </Sheet.Content>
