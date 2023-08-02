@@ -5,10 +5,11 @@ import {
   Modal,
   ModalContent,
   ModalOverlay,
-  Spinner,
   Text,
   VStack,
 } from '@chakra-ui/react';
+
+import Spinner from '../Common/Spinner';
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -42,7 +43,7 @@ const ConfirmModal = ({
           gap="11px"
         >
           {isLoading ? (
-            <Spinner color="polzzak.default" size="md" />
+            <Spinner />
           ) : (
             <>
               <Button
