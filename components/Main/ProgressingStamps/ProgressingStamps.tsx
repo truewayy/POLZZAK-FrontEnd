@@ -18,9 +18,16 @@ const ProgressingStamps = () => {
   const [isNoFamily, setIsNoFamily] = useState(true);
 
   const filter = useRecoilValue(filterAtom);
+  const currentFilterId = families.find(
+    (family) => family.nickname === filter
+  )?.memberId;
   const { data, isLoading, refetch } = useQuery(
     ['stampboardList', 'in_progress', filter],
-    () => stampboardList({ stampBoardGroup: 'in_progress' }),
+    () =>
+      stampboardList({
+        stampBoardGroup: 'in_progress',
+        memberId: currentFilterId,
+      }),
     {
       enabled: !isNoFamily,
     }
