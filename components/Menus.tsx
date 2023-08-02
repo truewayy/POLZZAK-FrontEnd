@@ -39,6 +39,8 @@ const Menus = () => {
       bottom="0"
       bg="white"
       zIndex="3"
+      borderTop="1px solid"
+      borderColor="gray.200"
     >
       {menus.map(({ name, path, icon }) => (
         <VStack key={name} onClick={() => push(path)} cursor="pointer">
