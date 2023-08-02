@@ -19,35 +19,38 @@ const Card = ({
 }: StampBoard) => {
   const { push } = useRouter();
   const { memberType } = useRecoilValue(userInfoAtom);
+  const isKid = memberType.name === 'KID';
+
   const percentage = (currentStampCount / goalStampCount) * 100;
   const isStampBoardComplete = currentStampCount === goalStampCount;
   const isRequest = missionRequestCount !== 0;
 
-  const completeType = () => {
-    if (memberType.name === 'KID') {
-      if (status === 'progress') {
-        return 'kidCoupon';
-      }
-      return 'kidComplete';
-    }
-    if (status === 'progress') {
-      return 'parentCoupon';
-    }
-    return 'parentComplete';
+  const guardianMessageColor = {
+    progress: '',
+    completed: 'linear-gradient(90deg, #F0BC05 0%, #F67373 93.23%)',
+    issued_coupon: 'linear-gradient(272deg, #A3A1FF 0%, #55DEF1 100%)',
+    rewarded: '#FE6E6E',
   };
 
-  const completeMessage = {
-    kidCoupon: '쿠폰 선물이 있어요!',
-    kidComplete: '수고했어요!',
-    parentCoupon: '쿠폰 발급 완료!',
-    parentComplete: '쿠폰을 발급해주세요!',
+  const kidMessageColor = {
+    progress: '',
+    completed: 'linear-gradient(272deg, #A3A1FF 0%, #55DEF1 100%)',
+    issued_coupon: 'linear-gradient(90deg, #F0BC05 0%, #F67373 93.23%)',
+    rewarded: '#FE6E6E',
   };
 
-  const messageColor = {
-    kidCoupon: '#FE6E6E',
-    kidComplete: '#59B9FF',
-    parentCoupon: '#59B9FF',
-    parentComplete: '#FE6E6E',
+  const guardianStampboardMessage = {
+    progress: '',
+    completed: '쿠폰을 발급해주세요!',
+    issued_coupon: '쿠폰 발급 완료!',
+    rewarded: '',
+  };
+
+  const kidStampboardMessage = {
+    progress: '',
+    completed: '도장을 다 모았어요!',
+    issued_coupon: '쿠폰 선물이 있어요!',
+    rewarded: '',
   };
 
   const statusIcon = isStampBoardComplete ? (
@@ -68,8 +71,12 @@ const Card = ({
     goalStampCount,
     percentage,
     isStampBoardComplete,
-    completeMessage: completeMessage[completeType()],
-    messageColor: messageColor[completeType()],
+    completeMessage: !isKid
+      ? guardianStampboardMessage[status]
+      : kidStampboardMessage[status],
+    messageColor: !isKid
+      ? guardianMessageColor[status]
+      : kidMessageColor[status],
     statusIcon,
     isRequest,
     missionRequestCount,

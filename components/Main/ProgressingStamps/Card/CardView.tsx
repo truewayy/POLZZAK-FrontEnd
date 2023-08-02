@@ -88,16 +88,14 @@ const CardView = ({
             >
               {completeMessage}
               <Box
-                w={0}
-                h={0}
+                w="10px"
+                h="10px"
                 pos="absolute"
-                bottom="-15px"
+                bottom="-4px"
                 left="50%"
-                transform="translate(-50%, 0%)"
-                borderLeft="10px solid transparent"
-                borderRight="10px solid transparent"
-                borderTop={`10px solid ${messageColor}`}
-                borderBottom="10px solid transparent"
+                transform="translate(-50%, 0%) rotate(45deg)"
+                zIndex="-1"
+                bg={messageColor}
               />
             </Box>
           )}

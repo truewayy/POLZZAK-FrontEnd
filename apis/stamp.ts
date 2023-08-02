@@ -25,7 +25,7 @@ export interface StampBoard {
   goalStampCount: number;
   reward: string;
   missionRequestCount: number;
-  status: string;
+  status: 'progress' | 'completed' | 'issued_coupon' | 'rewarded';
 }
 
 export interface StampboardListData {
