@@ -1,14 +1,18 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 import { FilterArrowIcon } from '@/public/icon';
 
 interface LinkedFilterVAProps {
   handleClickFilter: () => void;
+  isKid: boolean;
+  currentFilterMemberType: string;
   currentValue: string;
 }
 
 const LinkedFilterView = ({
   handleClickFilter,
+  isKid,
+  currentFilterMemberType,
   currentValue,
 }: LinkedFilterVAProps) => (
   <Flex
@@ -20,6 +24,19 @@ const LinkedFilterView = ({
     onClick={handleClickFilter}
     gap="4px"
   >
+    {isKid && currentValue !== '전체' && (
+      <Box
+        p="4px 8px"
+        bg="gray.200"
+        border="1px solid rgba(0, 0, 0, 0.12)"
+        borderRadius="8px"
+        layerStyle="body14Sbd"
+        color="gray.700"
+        mr="2px"
+      >
+        {currentFilterMemberType}
+      </Box>
+    )}
     <Text layerStyle="title20Bd">
       {currentValue}
       {currentValue !== '전체' && (

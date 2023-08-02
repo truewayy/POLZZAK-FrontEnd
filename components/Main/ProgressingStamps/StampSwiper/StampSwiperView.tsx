@@ -8,6 +8,8 @@ import Card from '../Card/Card';
 
 interface StampSwiperVAProps {
   handleChangeSwiper: (swiper: Swiper) => void;
+  isKid: boolean;
+  currentFilterMemberType: string;
   nickname: string;
   currentBoard: number;
   totalBoard: number;
@@ -16,13 +18,28 @@ interface StampSwiperVAProps {
 
 const StampSwiperView = ({
   handleChangeSwiper,
+  isKid,
+  currentFilterMemberType,
   nickname,
   currentBoard,
   totalBoard,
   progressingBoard,
 }: StampSwiperVAProps) => (
   <Box key={nickname}>
-    <Flex justify="space-between" align="center" p="0 7.5%" mb="16px">
+    <Flex justify="flex-start" align="center" p="0 7.5%" mb="16px" gap="6px">
+      {isKid && (
+        <Box
+          p="4px 8px"
+          bg="gray.200"
+          border="1px solid rgba(0, 0, 0, 0.12)"
+          borderRadius="8px"
+          layerStyle="body14Sbd"
+          color="gray.700"
+          mr="2px"
+        >
+          {currentFilterMemberType}
+        </Box>
+      )}
       <Text layerStyle="subtitle18Sbd">
         {nickname}
         <Text as="span" layerStyle="subtitle18Rg" color="gray.600">
