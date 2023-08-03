@@ -4,7 +4,7 @@ import API_URLS from '@/constants/apiUrls';
 import http from './http';
 
 interface StampboardListProps {
-  memberId?: number;
+  partnerMemberId?: number;
   stampBoardGroup: string;
 }
 
@@ -97,14 +97,16 @@ interface StampboardDetailResponse {
 }
 
 export const stampboardList = async ({
-  memberId,
+  partnerMemberId,
   stampBoardGroup,
 }: StampboardListProps) => {
   try {
     const { data }: StampboardListResponse = await http.get(
       API_URLS.STAMPBOARD_LIST,
       {
-        params: memberId ? { memberId, stampBoardGroup } : { stampBoardGroup },
+        params: partnerMemberId
+          ? { partnerMemberId, stampBoardGroup }
+          : { stampBoardGroup },
       }
     );
     return data;

@@ -22,30 +22,28 @@ const ProgressingStampsView = ({
   <PullToRefresh onRefresh={handleRefresh}>
     {filter !== '전체' ? (
       <VStack w="100%" p="0 5%" spacing="20px">
-        {cards
-          ?.find(({ partner: { nickname } }) => nickname === filter)
-          ?.stampBoardSummaries.map(
-            ({
-              stampBoardId,
-              name,
-              currentStampCount,
-              goalStampCount,
-              missionRequestCount,
-              reward,
-              status,
-            }) => (
-              <Card
-                key={stampBoardId}
-                stampBoardId={stampBoardId}
-                name={name}
-                currentStampCount={currentStampCount}
-                goalStampCount={goalStampCount}
-                missionRequestCount={missionRequestCount}
-                reward={reward}
-                status={status}
-              />
-            )
-          )}
+        {cards?.[0]?.stampBoardSummaries.map(
+          ({
+            stampBoardId,
+            name,
+            currentStampCount,
+            goalStampCount,
+            missionRequestCount,
+            reward,
+            status,
+          }) => (
+            <Card
+              key={stampBoardId}
+              stampBoardId={stampBoardId}
+              name={name}
+              currentStampCount={currentStampCount}
+              goalStampCount={goalStampCount}
+              missionRequestCount={missionRequestCount}
+              reward={reward}
+              status={status}
+            />
+          )
+        )}
       </VStack>
     ) : (
       cards?.map(({ partner, stampBoardSummaries }) => (

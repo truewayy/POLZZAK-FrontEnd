@@ -26,7 +26,7 @@ const ProgressingStamps = () => {
     () =>
       stampboardList({
         stampBoardGroup: 'in_progress',
-        memberId: currentFilterId,
+        partnerMemberId: currentFilterId,
       }),
     {
       enabled: !isNoFamily,
