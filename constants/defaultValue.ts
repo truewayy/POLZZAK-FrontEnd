@@ -294,3 +294,34 @@ export const totalCompletedStampData = [
     ],
   },
 ];
+
+export const stampsExample = [
+  {
+    id: 1,
+    content: '참 잘했어요1',
+  },
+  {
+    id: 2,
+    content: '참 잘했어요2',
+  },
+  {
+    id: 3,
+    content: '참 잘했어요3',
+  },
+  {
+    id: 4,
+    content: '참 잘했어요4',
+  },
+  {
+    id: 5,
+    content: '참 잘했어요5',
+  },
+  {
+    id: 6,
+    content: '참 잘했어요6',
+  },
+  {
+    id: 7,
+    content: '참 잘했어요7',
+  },
+];

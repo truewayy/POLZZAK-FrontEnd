@@ -63,7 +63,12 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
           completingDate={completingDate}
           progressingDate={progressingDate}
         />
-        {!isMemberTypeKid && isMissionRequest && <StampRequestBox />}
+        {!isMemberTypeKid && isMissionRequest && (
+          <StampRequestBox
+            stampboardId={stampboardId}
+            missionRequestList={stampboard.missionRequestList || []}
+          />
+        )}
         <StampBoard stampboardId={stampboardId} />
       </VStack>
       <MissionList missions={stampboard?.missions} />
