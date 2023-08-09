@@ -136,7 +136,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
   };
 
   const create = useMutation(
-    () => createStamp(Number(stampboardId), 1, missionId, stampDesignId),
+    () => createStamp(Number(stampboardId), null, missionId, stampDesignId),
     {
       onSuccess: () => {
         stampCompleteModal.onOpen();

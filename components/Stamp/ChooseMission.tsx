@@ -10,6 +10,7 @@ interface ChooseMissionProps {
   isRequest?: boolean;
   missionRequestList?: {
     id: number;
+    missionId: number;
     missionContent: string;
     createdDate: string;
   }[];
@@ -18,7 +19,9 @@ interface ChooseMissionProps {
     content: string;
   }[];
   missionId: number;
-  handleClickMission: (id: number) => void;
+  missionRequestId?: number;
+  handleClickMission?: (id: number) => void;
+  handleClickRequestMission?: (id: number, requestId: number) => void;
   handleClickClose: () => void;
   handleClickNextButton: () => void;
 }
@@ -28,7 +31,9 @@ const ChooseMission = ({
   missionRequestList,
   missions,
   missionId,
+  missionRequestId,
   handleClickMission,
+  handleClickRequestMission,
   handleClickClose,
   handleClickNextButton,
 }: ChooseMissionProps) => {
@@ -60,50 +65,60 @@ const ChooseMission = ({
       </VStack>
       <VStack w="100%" h="300px" overflowY="auto" spacing="8px">
         {isRequest
-          ? missionRequestList?.map(({ id, missionContent, createdDate }) => (
-              <Flex
-                key={id}
-                justify="space-between"
-                w="100%"
-                p="12px 16px"
-                pos="relative"
-                layerStyle="body14Sbd"
-                border="1px solid"
-                borderColor="gray.300"
-                borderRadius="8px"
-                textAlign="left"
-                onClick={() => handleClickMission(id)}
-                {...(missionId === id && {
-                  bgColor: 'blue.100',
-                  borderColor: 'polzzak.default',
-                })}
-              >
-                <Text>{missionContent}</Text>
-                <Flex gap="10px" align="center">
-                  <Text layerStyle="caption12Md" color="gray.500">
-                    {getFormattedDate(createdDate)}
-                  </Text>
-                  <Box
-                    layerStyle="caption12Sbd"
-                    p="3px 6px"
-                    w="auto"
-                    h="auto"
-                    color="error.500"
-                    border="1px solid rgba(255, 111, 80, 0.16)"
-                    borderRadius="6px"
-                    bg="error.100"
-                    _active={{ bg: 'error.500', color: 'white' }}
-                    _disabled={{
-                      bg: 'rgba(255, 111, 80, 0.16)',
-                      border: '1px solid rgba(255, 111, 80, 0.16)',
-                      color: 'white',
-                    }}
-                  >
-                    거절하기
-                  </Box>
+          ? missionRequestList?.map(
+              ({
+                id: requestId,
+                missionId: id,
+                missionContent,
+                createdDate,
+              }) => (
+                <Flex
+                  key={requestId}
+                  justify="space-between"
+                  w="100%"
+                  p="12px 16px"
+                  pos="relative"
+                  layerStyle="body14Sbd"
+                  border="1px solid"
+                  borderColor="gray.300"
+                  borderRadius="8px"
+                  textAlign="left"
+                  onClick={() =>
+                    handleClickRequestMission &&
+                    handleClickRequestMission(id, requestId)
+                  }
+                  {...(missionRequestId === requestId && {
+                    bgColor: 'blue.100',
+                    borderColor: 'polzzak.default',
+                  })}
+                >
+                  <Text>{missionContent}</Text>
+                  <Flex gap="10px" align="center">
+                    <Text layerStyle="caption12Md" color="gray.500">
+                      {getFormattedDate(createdDate)}
+                    </Text>
+                    <Box
+                      layerStyle="caption12Sbd"
+                      p="3px 6px"
+                      w="auto"
+                      h="auto"
+                      color="error.500"
+                      border="1px solid rgba(255, 111, 80, 0.16)"
+                      borderRadius="6px"
+                      bg="error.100"
+                      _active={{ bg: 'error.500', color: 'white' }}
+                      _disabled={{
+                        bg: 'rgba(255, 111, 80, 0.16)',
+                        border: '1px solid rgba(255, 111, 80, 0.16)',
+                        color: 'white',
+                      }}
+                    >
+                      거절하기
+                    </Box>
+                  </Flex>
                 </Flex>
-              </Flex>
-            ))
+              )
+            )
           : missions?.map(({ id, content }) => (
               <Box
                 key={id}
@@ -116,7 +131,7 @@ const ChooseMission = ({
                 borderColor="gray.300"
                 borderRadius="8px"
                 textAlign="left"
-                onClick={() => handleClickMission(id)}
+                onClick={() => handleClickMission && handleClickMission(id)}
                 {...(missionId === id && {
                   bgColor: 'blue.100',
                   borderColor: 'polzzak.default',
@@ -142,7 +157,10 @@ const ChooseMission = ({
           h="50px"
           w="50%"
           borderRadius="8px"
-          onClick={handleClickClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleClickClose();
+          }}
         >
           <Text layerStyle="subtitle16Sbd" color="white" textAlign="center">
             닫기
@@ -155,7 +173,10 @@ const ChooseMission = ({
           w="50%"
           borderRadius="8px"
           isDisabled={!missionId}
-          onClick={handleClickNextButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleClickNextButton();
+          }}
         >
           <Text layerStyle="subtitle16Sbd" color="white" textAlign="center">
             {isKid ? '요청하기' : '다음'}

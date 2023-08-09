@@ -155,13 +155,13 @@ export const stampMissionRequest = async (
 
 export const createStamp = async (
   stampBoardId: number,
-  count: number,
+  missionRequestId: number | null,
   missionId: number,
   stampDesignId: number
 ) => {
   try {
     await http.post(API_URLS.STAMP(stampBoardId), {
-      count,
+      missionRequestId,
       missionId,
       stampDesignId,
     });

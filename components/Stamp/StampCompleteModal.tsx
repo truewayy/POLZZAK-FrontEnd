@@ -12,7 +12,7 @@ import {
 interface CouponIssuedModalProps {
   isKid: boolean;
   stampType: string;
-  guardianType: string;
+  guardianType: string | null;
   isOpen: boolean;
   onClose: () => void;
 }

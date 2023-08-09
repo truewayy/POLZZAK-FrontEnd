@@ -25,7 +25,7 @@ const API_URLS = {
   ISSUE_COUPON: (id: string) =>
     `/api/v1/stamps/stamp-boards/${id}/issue-coupon`,
   COUPON_LIST: '/api/v1/coupons',
-  MISSION_REQUEST: '/api/v1/stamps/mission-request',
+  MISSION_REQUEST: '/api/v1/stamps/mission-requests',
   STAMP: (stampboardId: number) =>
     `/api/v1/stamps/stamp-boards/${stampboardId}/stamp`,
 };

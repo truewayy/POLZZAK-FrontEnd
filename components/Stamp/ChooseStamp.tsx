@@ -115,7 +115,10 @@ const ChooseStamp = ({
           h="50px"
           w="50%"
           borderRadius="8px"
-          onClick={handleClickCreateButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleClickCreateButton();
+          }}
         >
           <Text layerStyle="subtitle16Sbd" color="white" textAlign="center">
             도장 찍기
