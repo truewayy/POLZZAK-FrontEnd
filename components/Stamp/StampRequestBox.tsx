@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Sheet from 'react-modal-sheet';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { createStamp } from '@/apis/stamp';
+import { createStamp, refuseMission } from '@/apis/stamp';
 import { stampsExample } from '@/constants/defaultValue';
 import { Notifications } from '@/public/icon';
 
@@ -60,6 +60,16 @@ const StampRequestBox = ({
     }
   );
 
+  const refuse = useMutation((id: number) => refuseMission(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('stampboard');
+    },
+  });
+
+  const handleClickRefuseButton = (requestId: number) => {
+    refuse.mutate(requestId);
+  };
+
   const handleClickCreateButton = () => {
     onClose();
     create.mutate();
@@ -81,7 +91,7 @@ const StampRequestBox = ({
   return (
     <>
       {create.isLoading && <Loading />}
-      <Flex w="100%" pb="10px" onClick={handleClickOpen}>
+      <Flex w="100%" pb="10px" cursor="pointer" onClick={handleClickOpen}>
         <Flex
           w="100%"
           p="12px 16px"
@@ -118,6 +128,7 @@ const StampRequestBox = ({
                     missionRequestList={missionRequestList}
                     handleClickRequestMission={handleClickRequestMission}
                     handleClickClose={onClose}
+                    handleClickRefuseButton={handleClickRefuseButton}
                     handleClickNextButton={handleClickNextButton}
                   />
                 )}

@@ -153,6 +153,14 @@ export const stampMissionRequest = async (
   }
 };
 
+export const refuseMission = async (missionRequestId: number) => {
+  try {
+    await http.delete(`${API_URLS.MISSION_REQUEST}/${missionRequestId}`);
+  } catch (error) {
+    return error;
+  }
+};
+
 export const createStamp = async (
   stampBoardId: number,
   missionRequestId: number | null,

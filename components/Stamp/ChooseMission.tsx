@@ -21,6 +21,7 @@ interface ChooseMissionProps {
   missionId: number;
   missionRequestId?: number;
   handleClickMission?: (id: number) => void;
+  handleClickRefuseButton?: (id: number) => void;
   handleClickRequestMission?: (id: number, requestId: number) => void;
   handleClickClose: () => void;
   handleClickNextButton: () => void;
@@ -33,6 +34,7 @@ const ChooseMission = ({
   missionId,
   missionRequestId,
   handleClickMission,
+  handleClickRefuseButton,
   handleClickRequestMission,
   handleClickClose,
   handleClickNextButton,
@@ -111,6 +113,11 @@ const ChooseMission = ({
                         bg: 'rgba(255, 111, 80, 0.16)',
                         border: '1px solid rgba(255, 111, 80, 0.16)',
                         color: 'white',
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (handleClickRefuseButton)
+                          handleClickRefuseButton(requestId);
                       }}
                     >
                       거절하기
