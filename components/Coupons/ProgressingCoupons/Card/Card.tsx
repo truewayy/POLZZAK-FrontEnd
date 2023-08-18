@@ -23,13 +23,14 @@ const Card = ({ reward, rewardDate }: Coupon) => {
   };
 
   const formattedDate = formatDate(rewardDate);
-  const dateDiff = Math.floor(
+  const dateCal = Math.floor(
     (new Date(rewardDate).getTime() - new Date().getTime()) /
       1000 /
       60 /
       60 /
       24
   );
+  const dateDiff = dateCal > 0 ? `-${dateCal}` : `+${-dateCal}`;
 
   const handleClickCard = () => {
     push(`/coupon/1`);

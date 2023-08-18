@@ -6,7 +6,7 @@ import { Barcodes } from '@/public/icon';
 interface CardVAProps {
   reward: string;
   rewardDate: string;
-  dateDiff: number;
+  dateDiff: string;
   isKid: boolean;
   handleClickCard: () => void;
 }
@@ -35,7 +35,7 @@ const CardView = ({
           layerStyle="caption12Bd"
           borderRadius="4px"
         >
-          ⏰&nbsp;&nbsp;D-{dateDiff}
+          ⏰&nbsp;&nbsp;D{dateDiff}
         </Box>
         <Text layerStyle="subtitle16Sbd" color="#000">
           {reward}
