@@ -1,41 +1,37 @@
 import { VStack } from '@chakra-ui/react';
 
-import { StampboardListData } from '@/apis/stamp';
+import { CouponListData } from '@/apis/coupon';
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
 
-import Card from './Card/Card';
-import StampSwiper from './StampSwiper/StampSwiper';
+import Card from '../ProgressingCoupons/Card/Card';
+import StampSwiper from '../ProgressingCoupons/StampSwiper/StampSwiper';
 
-interface CompletedStampsVAProps {
+interface CompletedCouponsVAProps {
   handleRefresh: () => Promise<any>;
-  cards: StampboardListData[] | undefined | null;
+  cards: CouponListData[] | undefined | null;
   filter: string;
 }
 
-const CompletedStampsView = ({
+const CompletedCouponsView = ({
   handleRefresh,
   cards,
   filter,
-}: CompletedStampsVAProps) => (
+}: CompletedCouponsVAProps) => (
   <PullToRefresh onRefresh={handleRefresh}>
     {filter !== '전체' ? (
       <VStack w="100%" p="0 5%" spacing="20px">
         {cards
-          ?.find(({ partner: { nickname } }) => nickname === filter)
-          ?.stampBoardSummaries.map(({ stampBoardId, name, reward }) => (
-            <Card key={stampBoardId} name={name} reward={reward} />
+          ?.find(({ family: { nickname } }) => nickname === filter)
+          ?.coupons.map(({ reward, rewardDate }) => (
+            <Card key={reward} reward={reward} rewardDate={rewardDate} />
           ))}
       </VStack>
     ) : (
-      cards?.map(({ partner, stampBoardSummaries }) => (
-        <StampSwiper
-          key={partner.nickname}
-          partner={partner}
-          stampBoardSummaries={stampBoardSummaries}
-        />
+      cards?.map(({ family, coupons }) => (
+        <StampSwiper key={family.memberId} family={family} coupons={coupons} />
       ))
     )}
   </PullToRefresh>
 );
 
-export default CompletedStampsView;
+export default CompletedCouponsView;

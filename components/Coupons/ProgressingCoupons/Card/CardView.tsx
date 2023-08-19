@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import { Box, Circle, Flex, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Circle, Flex, Text, VStack } from '@chakra-ui/react';
 
 import { Barcodes } from '@/public/icon';
 
@@ -48,6 +48,36 @@ const CardView = ({
           </Text>
           까지 주기로 약속했어요
         </Text>
+      )}
+      {isKid && (
+        <Flex w="100%" pr="4px" gap="6px">
+          <Button
+            variant="unstyled"
+            w="100%"
+            h="auto"
+            p="8.5px"
+            borderRadius="5px"
+            color="white"
+            bg="polzzak.default"
+            layerStyle="caption12Md"
+          >
+            선물 조르기
+          </Button>
+          <Button
+            variant="unstyled"
+            w="100%"
+            h="auto"
+            p="8.5px"
+            color="blue.600"
+            borderRadius="5px"
+            border="1px solid"
+            borderColor="blue.150"
+            bg="white"
+            layerStyle="caption12Md"
+          >
+            선물 받기 완료
+          </Button>
+        </Flex>
       )}
     </VStack>
     <VStack

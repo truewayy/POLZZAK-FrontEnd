@@ -11,10 +11,10 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import SEO from '@/components/Common/SEO';
+import CompletedCoupons from '@/components/Coupons/CompletedCoupons/CompletedCoupons';
 import ProgressingCoupons from '@/components/Coupons/ProgressingCoupons/ProgressingCoupons';
 import AddButton from '@/components/Main/AddButton/AddButton';
 import BottomSheetModal from '@/components/Main/BottomSheetModal/BottomSheetModal';
-import CompletedStamps from '@/components/Main/CompletedStamps/CompletedStamps';
 import Header from '@/components/Main/Header/Header';
 import LinkedFilter from '@/components/Main/LinkedFilter/LinkedFilter';
 import { userInfoAtom } from '@/store/userInfo';
@@ -84,7 +84,7 @@ const Coupons = () => {
           </TabPanel>
           <TabPanel minH="100vh" p="110px 0" pb="100px" bg="#F8F8FC">
             {!isNoFamily && <LinkedFilter />}
-            <CompletedStamps />
+            <CompletedCoupons />
           </TabPanel>
         </TabPanels>
       </Tabs>

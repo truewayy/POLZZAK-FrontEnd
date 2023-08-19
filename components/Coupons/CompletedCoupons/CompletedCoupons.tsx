@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { stampboardList } from '@/apis/stamp';
+import { couponList } from '@/apis/coupon';
 import { filterAtom } from '@/store/filter';
 import { userInfoAtom } from '@/store/userInfo';
 
 import CompletedStampsSkeleton from './CompletedCouponsSkeleton';
 import CompletedStampsView from './CompletedCouponsView';
 
-const CompletedStamps = () => {
+const CompletedCoupons = () => {
   const { families } = useRecoilValue(userInfoAtom);
   const [isNoFamily, setIsNoFamily] = useState(true);
 
   const filter = useRecoilValue(filterAtom);
   const { data, isLoading, refetch } = useQuery(
-    ['stampboardList', 'ended', filter],
-    () => stampboardList({ stampBoardGroup: 'ended' }),
+    ['couponList', 'rewarded', filter],
+    () => couponList({ couponState: 'rewarded' }),
     {
       enabled: !isNoFamily,
     }
@@ -34,7 +34,7 @@ const CompletedStamps = () => {
     setIsNoFamily(noFamily);
   }, [families]);
 
-  const CompletedStampsVAProps = {
+  const CompletedCouponsVAProps = {
     handleRefresh,
     cards,
     filter,
@@ -43,8 +43,8 @@ const CompletedStamps = () => {
   return isLoading ? (
     <CompletedStampsSkeleton filter={filter} />
   ) : (
-    <CompletedStampsView {...CompletedStampsVAProps} />
+    <CompletedStampsView {...CompletedCouponsVAProps} />
   );
 };
 
-export default CompletedStamps;
+export default CompletedCoupons;
