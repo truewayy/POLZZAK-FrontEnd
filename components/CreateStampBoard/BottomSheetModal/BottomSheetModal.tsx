@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { familiesInfo } from '@/apis/family';
-import useControlFilter from '@/hooks/useControlFilter';
+import useControlFilter from '@/hooks/useControlMainFilter';
 
 import BottomSheetModalView from './BottomSheetModalView';
 

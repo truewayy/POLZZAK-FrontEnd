@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 import { createStampboard } from '@/apis/stamp';
-import { filterAtom } from '@/store/filter';
+import { MainfilterAtom } from '@/store/filter';
 import { userInfoAtom } from '@/store/userInfo';
 
 import HeaderView from './HeaderView';
@@ -20,7 +20,7 @@ interface StampboardCreateInfo {
 
 const Header = () => {
   const confirm = useDisclosure();
-  const filter = useRecoilValue(filterAtom);
+  const filter = useRecoilValue(MainfilterAtom);
   const userInfo = useRecoilValue(userInfoAtom);
   const families = userInfo?.families;
   const familyId = families.find(

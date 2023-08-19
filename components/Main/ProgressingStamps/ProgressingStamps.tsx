@@ -6,7 +6,7 @@ import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 import { stampboardList } from '@/apis/stamp';
-import { filterAtom } from '@/store/filter';
+import { MainfilterAtom } from '@/store/filter';
 import { userInfoAtom } from '@/store/userInfo';
 
 import ProgressingStampsNoFamiles from './ProgressingStampsNoFamiles';
@@ -17,7 +17,7 @@ const ProgressingStamps = () => {
   const { families } = useRecoilValue(userInfoAtom);
   const [isNoFamily, setIsNoFamily] = useState(true);
 
-  const filter = useRecoilValue(filterAtom);
+  const filter = useRecoilValue(MainfilterAtom);
   const currentFilterId = families.find(
     (family) => family.nickname === filter
   )?.memberId;

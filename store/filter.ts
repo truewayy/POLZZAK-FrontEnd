@@ -5,8 +5,13 @@ export const filterModalAtom = atom<boolean>({
   default: false,
 });
 
-export const filterAtom = atom<'전체' | string>({
-  key: 'filterAtom',
+export const MainfilterAtom = atom<'전체' | string>({
+  key: 'MainfilterAtom',
+  default: '전체',
+});
+
+export const CouponfilterAtom = atom<'전체' | string>({
+  key: 'CouponfilterAtom',
   default: '전체',
 });
 

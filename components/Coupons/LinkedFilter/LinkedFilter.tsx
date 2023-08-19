@@ -1,13 +1,13 @@
 import { useRecoilValue } from 'recoil';
 
-import useControlFilter from '@/hooks/useControlFilter';
+import useControlCouponFilter from '@/hooks/useControlCouponFilter';
 import { userInfoAtom } from '@/store/userInfo';
 
 import LinkedFilterView from './LinkedFilterView';
 
 const LinkedFilter = () => {
   const { families, memberType } = useRecoilValue(userInfoAtom);
-  const { handleClickFilter, currentValue } = useControlFilter();
+  const { handleClickFilter, currentValue } = useControlCouponFilter();
 
   const isKid = memberType.name === 'KID';
 

@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import useControlFilter from '@/hooks/useControlFilter';
+import useControlFilter from '@/hooks/useControlMainFilter';
 import { userInfoAtom } from '@/store/userInfo';
 
 import LinkedFilterView from './LinkedFilterView';

@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 import { couponList } from '@/apis/coupon';
-import { filterAtom } from '@/store/filter';
+import { CouponfilterAtom } from '@/store/filter';
 import { userInfoAtom } from '@/store/userInfo';
 
 import CompletedStampsSkeleton from './CompletedCouponsSkeleton';
@@ -13,7 +13,7 @@ const CompletedCoupons = () => {
   const { families } = useRecoilValue(userInfoAtom);
   const [isNoFamily, setIsNoFamily] = useState(true);
 
-  const filter = useRecoilValue(filterAtom);
+  const filter = useRecoilValue(CouponfilterAtom);
   const { data, isLoading, refetch } = useQuery(
     ['couponList', 'rewarded', filter],
     () => couponList({ couponState: 'rewarded' }),
