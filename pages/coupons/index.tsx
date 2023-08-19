@@ -12,11 +12,11 @@ import { useRecoilValue } from 'recoil';
 
 import SEO from '@/components/Common/SEO';
 import CompletedCoupons from '@/components/Coupons/CompletedCoupons/CompletedCoupons';
+import LinkedFilter from '@/components/Coupons/LinkedFilter/LinkedFilter';
 import ProgressingCoupons from '@/components/Coupons/ProgressingCoupons/ProgressingCoupons';
 import AddButton from '@/components/Main/AddButton/AddButton';
 import BottomSheetModal from '@/components/Main/BottomSheetModal/BottomSheetModal';
 import Header from '@/components/Main/Header/Header';
-import LinkedFilter from '@/components/Main/LinkedFilter/LinkedFilter';
 import { userInfoAtom } from '@/store/userInfo';
 
 const Coupons = () => {
