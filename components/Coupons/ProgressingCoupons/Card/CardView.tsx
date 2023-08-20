@@ -1,22 +1,33 @@
 /* eslint-disable no-nested-ternary */
 import { Box, Button, Circle, Flex, Text, VStack } from '@chakra-ui/react';
 
+import ConfirmModal from '@/components/Link/ConfirmModal';
 import { Barcodes } from '@/public/icon';
 
 interface CardVAProps {
+  isOpen: boolean;
+  isLoading: boolean;
+  onClose: () => void;
   reward: string;
   rewardDate: string;
   dateDiff: string;
   isKid: boolean;
   handleClickCard: () => void;
+  handleClickReceiveButton: () => void;
+  handleClickConfirmButton: () => void;
 }
 
 const CardView = ({
+  isOpen,
+  isLoading,
+  onClose,
   reward,
   rewardDate,
   dateDiff,
   isKid,
   handleClickCard,
+  handleClickReceiveButton,
+  handleClickConfirmButton,
 }: CardVAProps) => (
   <Flex w="100%" minH="180px" onClick={handleClickCard}>
     <VStack
@@ -74,6 +85,10 @@ const CardView = ({
             borderColor="blue.150"
             bg="white"
             layerStyle="caption12Md"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClickReceiveButton();
+            }}
           >
             선물 받기 완료
           </Button>
@@ -99,6 +114,22 @@ const CardView = ({
         bg="blue.400"
       />
     </VStack>
+    <ConfirmModal
+      isOpen={isOpen}
+      isLoading={isLoading}
+      onClose={onClose}
+      handleClickConfirmButton={handleClickConfirmButton}
+      handleClickCancelButton={onClose}
+    >
+      <VStack spacing="8px">
+        <Text layerStyle="subtitle18Sbd" color="blue.600">
+          {reward}
+        </Text>
+        <Text layerStyle="body16Md" color="gray.800">
+          선물을 실제로 전달받았나요?
+        </Text>
+      </VStack>
+    </ConfirmModal>
   </Flex>
 );
 

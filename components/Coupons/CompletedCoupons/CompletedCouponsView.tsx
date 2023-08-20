@@ -22,8 +22,13 @@ const CompletedCouponsView = ({
       <VStack w="100%" p="0 5%" spacing="20px">
         {cards
           ?.find(({ family: { nickname } }) => nickname === filter)
-          ?.coupons.map(({ reward, rewardDate }) => (
-            <Card key={reward} reward={reward} rewardDate={rewardDate} />
+          ?.coupons.map(({ reward, rewardDate, couponId }) => (
+            <Card
+              key={reward}
+              reward={reward}
+              rewardDate={rewardDate}
+              couponId={couponId}
+            />
           ))}
       </VStack>
     ) : (

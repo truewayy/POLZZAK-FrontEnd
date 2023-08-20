@@ -28,6 +28,7 @@ const API_URLS = {
   MISSION_REQUEST: '/api/v1/stamps/mission-requests',
   STAMP: (stampboardId: number) =>
     `/api/v1/stamps/stamp-boards/${stampboardId}/stamp`,
+  RECEIVE_GIFT: (couponId: number) => `/api/v1/coupons/${couponId}/receive`,
 };
 
 export default API_URLS;

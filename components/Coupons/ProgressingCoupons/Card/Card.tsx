@@ -1,16 +1,19 @@
 /* eslint-disable no-nested-ternary */
+import { useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useMutation, useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { Coupon } from '@/apis/coupon';
+import { Coupon, receiveGift } from '@/apis/coupon';
 import { userInfoAtom } from '@/store/userInfo';
 
 import CardView from './CardView';
 
-const Card = ({ reward, rewardDate }: Coupon) => {
+const Card = ({ reward, rewardDate, couponId }: Coupon) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const queryClient = useQueryClient();
   const { push } = useRouter();
   const { memberType } = useRecoilValue(userInfoAtom);
-
   const isKid = memberType.name === 'KID';
 
   const formatDate = (timestamp: Date) => {
@@ -32,16 +35,39 @@ const Card = ({ reward, rewardDate }: Coupon) => {
   );
   const dateDiff = dateCal > 0 ? `-${dateCal}` : `+${-dateCal}`;
 
+  const { mutate: receive, isLoading: receiveLoading } = useMutation(
+    () => receiveGift(couponId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('couponList');
+        onClose();
+      },
+    }
+  );
+
+  const handleClickReceiveButton = () => {
+    onOpen();
+  };
+
+  const handleClickConfirmButton = () => {
+    receive();
+  };
+
   const handleClickCard = () => {
     push(`/coupon/1`);
   };
 
   const CardVAProps = {
+    isOpen,
+    isLoading: receiveLoading,
+    onClose,
     reward,
     rewardDate: formattedDate,
     dateDiff,
     isKid,
     handleClickCard,
+    handleClickReceiveButton,
+    handleClickConfirmButton,
   };
 
   return <CardView {...CardVAProps} />;

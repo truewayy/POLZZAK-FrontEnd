@@ -15,6 +15,7 @@ export interface Family {
 }
 
 export interface Coupon {
+  couponId: number;
   reward: string;
   rewardDate: Date;
 }
@@ -96,6 +97,19 @@ export const receiveCoupon = async (stampBoardId: string) => {
         stampBoardId,
       }
     );
+    return data;
+  } catch (error) {
+    const err = error as CouponListError;
+    return err.response.data;
+  }
+};
+
+export const receiveGift = async (couponId: number) => {
+  try {
+    const { data }: IssueCouponResponse = await http.post(
+      API_URLS.RECEIVE_GIFT(couponId)
+    );
+
     return data;
   } catch (error) {
     const err = error as CouponListError;
