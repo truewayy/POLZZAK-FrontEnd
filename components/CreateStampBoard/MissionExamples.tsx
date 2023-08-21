@@ -1,9 +1,8 @@
-import { Box, Flex, Grid, Text, VStack } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { Box, Button, Text, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { CheckIcon, LeftArrow, Speaker } from '@/public/icon';
+import { CheckIcon } from '@/public/icon';
 import { missionsAtom } from '@/store/missions';
 
 const missionExamples = [
@@ -218,7 +217,6 @@ interface MissionExamplesProps {
 }
 
 const MissionExamples = ({ onClose }: MissionExamplesProps) => {
-  const { back } = useRouter();
   const [missions, setMissions] = useRecoilState(missionsAtom);
   const [selectedMissions, setSelectedMissions] = useState<
     { id: number; content: string }[]
@@ -254,40 +252,8 @@ const MissionExamples = ({ onClose }: MissionExamplesProps) => {
   };
 
   return (
-    <VStack w="100%" maxW="560px" p="50px 5%" bg="gray.100" spacing="16px">
-      <Grid
-        w="90%"
-        maxW="504px"
-        templateColumns="repeat(3, 1fr)"
-        p="10px 0"
-        pos="fixed"
-        top="0"
-        bg="gray.100"
-        zIndex="1"
-      >
-        <LeftArrow w="24px" h="24px" fill="gray.400" onClick={back} />
-        <Text layerStyle="subtitle18Sbd" color="#000" textAlign="center">
-          미션 예시
-        </Text>
-        <Text
-          as="button"
-          layerStyle="subtitle16Sbd"
-          color="polzzak.default"
-          textAlign="right"
-          _disabled={{ color: 'gray.400' }}
-          disabled={selectedMissions.length === 0}
-          onClick={handleClickAddButton}
-        >
-          추가
-        </Text>
-      </Grid>
-      <Flex w="100%" align="center" gap="8px" p="0 5px">
-        <Speaker w="24px" h="24px" />
-        <Text layerStyle="caption13L" color="#000">
-          마음에 드는 미션들을 선택해보세요!
-        </Text>
-      </Flex>
-      <VStack w="100%" spacing="8px">
+    <VStack w="100%" bg="white" spacing="16px">
+      <VStack w="100%" h="300px" overflow="auto" spacing="8px">
         {missionExamples.map((mission) => (
           <Box
             key={mission.id}
@@ -320,6 +286,21 @@ const MissionExamples = ({ onClose }: MissionExamplesProps) => {
           </Box>
         ))}
       </VStack>
+      <Button
+        pos="absolute"
+        bottom="20px"
+        variant="unstyled"
+        w="calc(100% - 40px)"
+        h="50px"
+        p="12px 24px"
+        bg="polzzak.default"
+        isDisabled={selectedMissions.length === 0}
+        onClick={handleClickAddButton}
+      >
+        <Text layerStyle="subtitle16Sbd" color="white">
+          추가하기
+        </Text>
+      </Button>
     </VStack>
   );
 };

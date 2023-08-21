@@ -1,13 +1,7 @@
 /* eslint-disable no-nested-ternary */
-import {
-  Button,
-  Flex,
-  Modal,
-  ModalContent,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Button, Flex, Text, VStack } from '@chakra-ui/react';
 import { Control, FieldValues } from 'react-hook-form';
+import Sheet from 'react-modal-sheet';
 
 import {
   missionValidate,
@@ -119,51 +113,66 @@ const InputFieldView = ({
           </Flex>
         ))}
         <Button
-          w="100%"
+          variant="unstyled"
+          alignSelf="flex-start"
+          bg="none"
+          w="90%"
           h="45px"
-          bg="blue.400"
-          layerStyle="subtitle16Sbd"
-          color="white"
+          p="0 16px"
+          border="1px dashed"
+          borderColor="gray.300"
           borderRadius="8px"
-          _hover={{ bg: 'blue.400' }}
           onClick={handleClickAddButton}
           isDisabled={isMissionLimit}
         >
-          {isMissionLimit ? '미션은 50개까지 만들 수 있어요' : '+ 미션 추가'}
+          <Text
+            w="100%"
+            textAlign="left"
+            layerStyle="body14Md"
+            color="gray.400"
+          >
+            {isMissionLimit ? '미션은 50개까지 만들 수 있어요' : '+ 미션 추가'}
+          </Text>
         </Button>
-        <Flex
-          align="flex-end"
-          p="5.5px 10px"
-          bg="gray.500"
-          color="white"
-          borderRadius="20px"
-          layerStyle="caption12Md"
-          alignSelf="flex-end"
+        <Button
+          w="100%"
+          h="50px"
+          p="12px 24px"
+          bg="gray.400"
+          borderRadius="8px"
           onClick={handleClickMissionExample}
         >
-          <ListIcon w="18px" h="18px" mr="4px" />
-          미션예시
-        </Flex>
+          <ListIcon w="18px" h="18px" mr="8px" />
+          <Text layerStyle="subtitle16Sbd" color="white">
+            미션예시
+          </Text>
+        </Button>
       </VStack>
     </VStack>
-    <Modal
+    <Sheet
       isOpen={missionModal}
       onClose={handleClickMissionModalCloseButton}
-      motionPreset="none"
-      scrollBehavior="inside"
-      isCentered
-      size="xl"
+      snapPoints={[500, 320, 200, 0]}
+      initialSnap={0}
+      style={{
+        maxWidth: '560px',
+        width: '100%',
+        margin: '0 auto',
+      }}
     >
-      <ModalContent
-        w="100%"
-        h="auto"
-        minH="100%"
-        overflow="auto"
-        boxShadow="none"
-      >
-        <MissionExamples onClose={handleClickMissionModalCloseButton} />
-      </ModalContent>
-    </Modal>
+      <Sheet.Container>
+        <Sheet.Header />
+        <Sheet.Content>
+          <VStack w="100%" h={400} bg="white" p="0 20px" spacing="20px">
+            <Text layerStyle="subtitle16Sbd">
+              마음에 드는 미션들을 추가해보세요!
+            </Text>
+            <MissionExamples onClose={handleClickMissionModalCloseButton} />
+          </VStack>
+        </Sheet.Content>
+      </Sheet.Container>
+      <Sheet.Backdrop onTap={handleClickMissionModalCloseButton} />
+    </Sheet>
   </VStack>
 );
 
