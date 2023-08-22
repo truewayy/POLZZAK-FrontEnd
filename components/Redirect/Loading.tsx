@@ -59,7 +59,7 @@ const Loading = () => {
           ...prev,
           ...data,
         }));
-        push(ROUTES.SIGNUP.TYPE);
+        push(ROUTES.SIGNUP.TERMS);
       }
     };
     fetchCode();

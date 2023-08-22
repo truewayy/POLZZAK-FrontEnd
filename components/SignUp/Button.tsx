@@ -26,6 +26,7 @@ const NextStepButton = ({
     _hover={{ bg: 'polzzak.default' }}
     onClick={onClick}
     isDisabled={disabled}
+    _disabled={{ bg: 'gray.300', cursor: 'not-allowed' }}
     cursor="pointer"
     {...props}
   >

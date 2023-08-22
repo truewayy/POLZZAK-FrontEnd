@@ -13,6 +13,7 @@ const ROUTES = {
   REDIRECT: '/oauth/redirect',
   SIGNUP: {
     ROOT: '/oauth/signup',
+    TERMS: '/oauth/signup/terms',
     TYPE: '/oauth/signup/type',
     NICKNAME: '/oauth/signup/nickname',
     PARENT: '/oauth/signup/parent',
