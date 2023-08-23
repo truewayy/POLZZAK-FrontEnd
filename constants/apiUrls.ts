@@ -29,6 +29,7 @@ const API_URLS = {
   STAMP: (stampboardId: number) =>
     `/api/v1/stamps/stamp-boards/${stampboardId}/stamp`,
   RECEIVE_GIFT: (couponId: number) => `/api/v1/coupons/${couponId}/receive`,
+  RANKING: '/api/v1/rankings',
 };
 
 export default API_URLS;

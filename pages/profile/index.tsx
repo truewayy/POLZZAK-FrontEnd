@@ -8,7 +8,10 @@ const Profile = () => {
   const { push } = useRouter();
 
   const handleClickRanking = () => {
-    push(ROUTES.PROFILE.RANKING);
+    push({
+      pathname: ROUTES.PROFILE.RANKING,
+      query: { memberType: 'guardians' },
+    });
   };
 
   return (

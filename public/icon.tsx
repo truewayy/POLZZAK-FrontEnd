@@ -2370,3 +2370,41 @@ export const Clock = createIcon({
     </svg>
   ),
 });
+
+export const UpTriangle = createIcon({
+  displayName: 'UpTriangle',
+  viewBox: '0 0 8 6',
+  path: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="8"
+      height="6"
+      viewBox="0 0 8 6"
+      fill="none"
+    >
+      <path
+        d="M3.56699 0.25C3.75944 -0.0833337 4.24056 -0.0833333 4.43301 0.25L7.03109 4.75C7.22354 5.08333 6.98298 5.5 6.59808 5.5H1.40192C1.01702 5.5 0.776461 5.08333 0.968911 4.75L3.56699 0.25Z"
+        fill="#59B9FF"
+      />
+    </svg>
+  ),
+});
+
+export const DownTriangle = createIcon({
+  displayName: 'DownTriangle',
+  viewBox: '0 0 8 6',
+  path: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="8"
+      height="6"
+      viewBox="0 0 8 6"
+      fill="none"
+    >
+      <path
+        d="M3.56699 5.75C3.75944 6.08333 4.24056 6.08333 4.43301 5.75L7.03109 1.25C7.22354 0.916667 6.98298 0.5 6.59808 0.5H1.40192C1.01702 0.5 0.776461 0.916667 0.968911 1.25L3.56699 5.75Z"
+        fill="#FF6F50"
+      />
+    </svg>
+  ),
+});
