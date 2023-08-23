@@ -82,16 +82,18 @@ const Ranking = () => {
             </Text>
             <Circle size="40px" bg="gray.100" />
             <VStack spacing="3.5px" align="flex-start">
-              <Box
-                p="3px 6px"
-                bg="gray.200"
-                border="1px solid rgba(0, 0, 0, 0.12)"
-                borderRadius="8px"
-                layerStyle="caption12Md"
-                color="gray.700"
-              >
-                엄마 회원
-              </Box>
+              {isGuardianpage && (
+                <Box
+                  p="3px 6px"
+                  bg="gray.200"
+                  border="1px solid rgba(0, 0, 0, 0.12)"
+                  borderRadius="8px"
+                  layerStyle="caption12Md"
+                  color="gray.700"
+                >
+                  엄마 회원
+                </Box>
+              )}
               <Flex gap="8px" align="center">
                 <Text layerStyle="caption13Sbd" color="gray.700">
                   해린이네두목
@@ -158,16 +160,18 @@ const Ranking = () => {
                   bgRepeat="no-repeat"
                 />
                 <VStack spacing="3.5px" align="flex-start">
-                  <Box
-                    p="3px 6px"
-                    bg="gray.200"
-                    border="1px solid rgba(0, 0, 0, 0.12)"
-                    borderRadius="8px"
-                    layerStyle="caption12Md"
-                    color="gray.700"
-                  >
-                    {rank.memberTypeDetail} 회원
-                  </Box>
+                  {isGuardianpage && (
+                    <Box
+                      p="3px 6px"
+                      bg="gray.200"
+                      border="1px solid rgba(0, 0, 0, 0.12)"
+                      borderRadius="8px"
+                      layerStyle="caption12Md"
+                      color="gray.700"
+                    >
+                      {rank.memberTypeDetail} 회원
+                    </Box>
+                  )}
                   <Text layerStyle="caption13Sbd" color="gray.700">
                     {rank.nickname}
                   </Text>
