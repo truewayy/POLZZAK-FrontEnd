@@ -19,6 +19,10 @@ const ROUTES = {
     PARENT: '/oauth/signup/parent',
     PROFILE: '/oauth/signup/profile',
   },
+  PROFILE: {
+    ROOT: '/profile',
+    RANKING: '/profile/ranking',
+  },
   MAIN: '/main',
   FIND: '/find',
   FIND_FAMILY: '/find/family',

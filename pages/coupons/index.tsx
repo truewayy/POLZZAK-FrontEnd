@@ -73,7 +73,7 @@ const Coupons = () => {
                 cursor: 'not-allowed',
               }}
             >
-              선물받기 완료
+              {isTypeParent ? '선물 완료' : '선물받기 완료'}
             </Tab>
           </TabList>
         </Box>
