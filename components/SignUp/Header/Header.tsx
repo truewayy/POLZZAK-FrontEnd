@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { signUpInfoDefaultValue } from '@/constants/defaultValue';
@@ -12,10 +13,9 @@ interface ProgressDots {
 
 const Header = () => {
   const { pathname } = useRouter();
+  const [isTypeKid, setIsTypeKid] = useState(false);
   const [signUpInfo, setSignuUpInfo] = useRecoilState(signUpInfoAtom);
   const { push, back } = useRouter();
-
-  const isTypeKid = signUpInfo.memberType === 'KID';
 
   const isSelectTypePage = pathname === '/oauth/signup/type';
 
@@ -45,6 +45,12 @@ const Header = () => {
       back();
     }
   };
+
+  useEffect(() => {
+    if (signUpInfo.memberType === 'KID') {
+      setIsTypeKid(true);
+    }
+  }, [isTypeKid, signUpInfo.memberType]);
 
   const HeaderVAProps = {
     isSelectTypePage,
