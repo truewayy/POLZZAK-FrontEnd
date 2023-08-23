@@ -63,13 +63,21 @@ const NicknameInputView = ({
         <Input
           bg="white"
           h="100%"
-          variant="outline"
-          borderColor="gray.300"
+          p="0 16px"
+          variant="unstyled"
+          outline="none"
+          border="1px solid"
+          borderColor={isNicknameError ? '#FF6161' : 'gray.300'}
           layerStyle="body14Md"
           fontSize="14px"
           placeholder="닉네임을 입력해주세요"
           maxLength={10}
           _placeholder={{ color: 'gray.300' }}
+          _focus={{
+            outline: 'none',
+            border: '1px solid',
+            borderColor: isNicknameError ? '#FF6161' : 'polzzak.default',
+          }}
           {...register('nickname', validateNickname)}
         />
         <Text
@@ -113,7 +121,7 @@ const NicknameInputView = ({
           {errorMsg as React.ReactNode}
         </Text>
       )}
-      {isNicknameValidate && (
+      {isNicknameValidate === true && (
         <Text
           pos="absolute"
           bottom="-25px"
@@ -121,7 +129,7 @@ const NicknameInputView = ({
           layerStyle="caption12Sbd"
           color="blue.600"
         >
-          <Check /> 사용가능한 닉네임이에요
+          <Check /> 사용 가능한 닉네임이에요
         </Text>
       )}
     </Flex>

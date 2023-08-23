@@ -27,18 +27,18 @@ const NicknameInput = () => {
   const isNicknameError = !!errors.nickname;
   const errorMsg = errors.nickname?.message;
   const validateNickname = {
-    required: '닉네임을 입력해주세요.',
+    required: '최소 2글자로 설정해주세요',
     minLength: {
       value: 2,
-      message: '최소 2글자 이상 입력해주세요',
+      message: '최소 2글자로 설정해주세요',
     },
     maxLength: {
       value: 10,
-      message: '최대 10글자까지 입력 가능해요',
+      message: '10자까지만 쓸 수 있어요',
     },
     pattern: {
       value: /^[a-zA-Z0-9가-힣]*$/,
-      message: '특수문자 제외 후 입력해주세요',
+      message: '특수문자(공백)는 쓸 수 없어요',
     },
   };
 
