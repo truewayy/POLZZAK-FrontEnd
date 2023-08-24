@@ -2408,3 +2408,36 @@ export const DownTriangle = createIcon({
     </svg>
   ),
 });
+
+export const PointPlus = createIcon({
+  displayName: 'PointPlus',
+  viewBox: '0 0 25 20',
+  path: (
+    <svg
+      width="25"
+      height="20"
+      viewBox="0 0 25 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M6.25781 1.76782C6.25781 1.21554 6.70553 0.767822 7.25781 0.767822H10.424C10.9763 0.767822 11.424 1.21554 11.424 1.76782V3.25122H14.6064V1.76782C14.6064 1.21554 15.0542 0.767822 15.6064 0.767822H18.7726C19.3249 0.767822 19.7726 1.21554 19.7726 1.76782V3.25122H22.9971C24.1016 3.25122 24.9971 4.14665 24.9971 5.25122V17.2512C24.9971 18.3558 24.1016 19.2512 22.9971 19.2512H2.99707C1.8925 19.2512 0.99707 18.3558 0.99707 17.2512V5.25122C0.99707 4.14665 1.8925 3.25122 2.99707 3.25122H6.25781V1.76782Z"
+        fill="white"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M14.1523 6.44067V15.5593H11.8496V6.44067H14.1523Z"
+        fill="#59B9FF"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8.44141 9.84888H17.5494V12.1489H8.44141V9.84888Z"
+        fill="#59B9FF"
+      />
+    </svg>
+  ),
+});

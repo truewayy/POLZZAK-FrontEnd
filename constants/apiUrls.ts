@@ -30,6 +30,7 @@ const API_URLS = {
     `/api/v1/stamps/stamp-boards/${stampboardId}/stamp`,
   RECEIVE_GIFT: (couponId: number) => `/api/v1/coupons/${couponId}/receive`,
   RANKING: '/api/v1/rankings',
+  POINT_LOG: '/api/v1/member-points/earning-histories/me',
 };
 
 export default API_URLS;

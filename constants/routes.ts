@@ -22,6 +22,7 @@ const ROUTES = {
   PROFILE: {
     ROOT: '/profile',
     RANKING: '/profile/ranking',
+    POINTS: '/profile/points',
   },
   MAIN: '/main',
   FIND: '/find',
