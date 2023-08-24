@@ -20,6 +20,17 @@ export interface PointLogResponse {
   };
 }
 
+export interface MyPointResponse {
+  data: {
+    code: 200;
+    messages: null;
+    data: {
+      point: number;
+      level: number;
+    };
+  };
+}
+
 export interface RankingError {
   response: {
     data: {
@@ -49,6 +60,15 @@ export const pointLog = async (
       response: data.data,
       nextPage,
     };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const myPoint = async () => {
+  try {
+    const { data }: MyPointResponse = await http.get(API_URLS.MY_POINT);
+    return data.data;
   } catch (error) {
     console.error(error);
   }

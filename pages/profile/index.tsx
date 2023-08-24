@@ -1,11 +1,22 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { Box, Circle, Flex, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
 
+import { myPoint } from '@/apis/point';
 import ROUTES from '@/constants/routes';
 import { ClipIcon, Medal, Point, Rule, Setting } from '@/public/icon';
+import { userInfoAtom } from '@/store/userInfo';
 
 const Profile = () => {
+  const { memberType, nickname, profileUrl, families } =
+    useRecoilValue(userInfoAtom);
   const { push } = useRouter();
+
+  const { data: my } = useQuery(['myPoint'], myPoint);
+
+  const isKid = memberType.name === 'KID';
 
   const handleClickRanking = () => {
     push({
@@ -31,35 +42,43 @@ const Profile = () => {
           justify="flex-start"
           gap="12px"
         >
-          <Circle size="70px" bg="gray.100" />
+          <Circle
+            size="70px"
+            bg={`url(${profileUrl})`}
+            bgSize="cover"
+            bgPos="center"
+          />
           <VStack spacing="8px" align="flex-start">
             <Flex gap="6px" align="center">
-              <Box
-                p="4px 10px"
-                bg="gray.200"
-                border="1px solid rgba(0, 0, 0, 0.12)"
-                borderRadius="8px"
-                layerStyle="body14Sbd"
-                color="gray.700"
-              >
-                엄마
-              </Box>
+              {!isKid && (
+                <Box
+                  p="4px 10px"
+                  bg="gray.200"
+                  border="1px solid rgba(0, 0, 0, 0.12)"
+                  borderRadius="8px"
+                  layerStyle="body14Sbd"
+                  color="gray.700"
+                >
+                  {memberType.detail}
+                </Box>
+              )}
               <Text layerStyle="subtitle16Sbd" color="gray.800">
-                해린맘
+                {nickname}
               </Text>
             </Flex>
             <Flex gap="6px" align="center">
               <ClipIcon w="14px" h="14px" />
               <Text layerStyle="body13Md" color="gray.600">
-                연동된 아이{' '}
+                연동된 {isKid ? '보호자' : '아이'}{' '}
                 <Text
                   as="span"
                   layerStyle="body13Md"
                   fontWeight="600"
                   textDecor="underline"
                   color="polzzak.default"
+                  cursor="pointer"
                 >
-                  3명
+                  {families.length}명
                 </Text>
               </Text>
             </Flex>
@@ -78,7 +97,7 @@ const Profile = () => {
             다음 계단까지
             <br />
             <Text as="span" layerStyle="title22Bd" color="polzzak.default">
-              20P{' '}
+              {100 - (Number(my?.point) % 100)}P{' '}
             </Text>
             남았어요!
           </Text>
@@ -102,7 +121,7 @@ const Profile = () => {
                 pos="absolute"
                 top="-10px"
               />
-              9
+              {my?.level === 0 ? null : Number(my?.level) - 1}
             </Flex>
             <Flex
               w="60px"
@@ -135,7 +154,7 @@ const Profile = () => {
                 pos="absolute"
                 top="-10px"
               />
-              10
+              {my?.level}
             </Flex>
             <Flex
               w="60px"
@@ -156,7 +175,7 @@ const Profile = () => {
                 pos="absolute"
                 top="-10px"
               />
-              11
+              {Number(my?.level) + 1}
             </Flex>
           </Flex>
           <Flex align="center" gap="6px">
@@ -164,7 +183,7 @@ const Profile = () => {
               보유포인트
             </Text>
             <Text layerStyle="body14Sbd" color="blue.600">
-              1,020P
+              {my?.point}P
             </Text>
           </Flex>
         </VStack>

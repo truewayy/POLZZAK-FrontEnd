@@ -1,10 +1,10 @@
-import { Box, Circle, Flex, Text, VStack } from '@chakra-ui/react';
+import { Box, Circle, Flex, Icon, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery } from 'react-query';
 
 import { pointLog } from '@/apis/point';
-import { PointPlus } from '@/public/icon';
+import { PointMinus, PointPlus } from '@/public/icon';
 import { formatDateDifference } from '@/utils/dateConvert';
 
 const Points = () => {
@@ -54,8 +54,15 @@ const Points = () => {
               borderRadius="8px"
               pos="relative"
             >
-              <Circle size="40px" bgColor="blue.200">
-                <PointPlus w="25px" h="20px" />
+              <Circle
+                size="40px"
+                bgColor={item.increasedPoint > 0 ? 'blue.200' : 'error.200'}
+              >
+                <Icon
+                  as={item.increasedPoint > 0 ? PointPlus : PointMinus}
+                  w="25px"
+                  h="20px"
+                />
               </Circle>
               <VStack align="flex-start" spacing="8px">
                 <Flex gap="7px" align="center">
@@ -68,7 +75,8 @@ const Points = () => {
                   </Text>
                 </Flex>
                 <Text layerStyle="subtitle16Bd">
-                  {item.increasedPoint}P 적립
+                  {Math.abs(item.increasedPoint)}P{' '}
+                  {item.increasedPoint > 0 ? '적립' : '차감'}
                 </Text>
               </VStack>
               <Text
