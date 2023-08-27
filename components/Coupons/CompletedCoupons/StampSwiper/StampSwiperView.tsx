@@ -2,38 +2,54 @@ import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import Swiper from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
-import { CompletedStampBoardPreview } from '@/interfaces/stampBoard';
+import { Coupon } from '@/apis/coupon';
 
 import Card from '../Card/Card';
 
-interface StampSwiperVAProps {
+interface CouponSwiperVAProps {
   handleChangeSwiper: (swiper: Swiper) => void;
+  isKid: boolean;
+  familyType: string;
   nickname: string;
   currentBoard: number;
-  totalBoard: number;
-  completedBoard: CompletedStampBoardPreview[];
+  totalCoupons: number;
+  progressingCoupons: Coupon[];
 }
 
-const StampSwiperView = ({
+const CouponSwiperView = ({
   handleChangeSwiper,
+  isKid,
+  familyType,
   nickname,
   currentBoard,
-  totalBoard,
-  completedBoard,
-}: StampSwiperVAProps) => (
+  totalCoupons,
+  progressingCoupons,
+}: CouponSwiperVAProps) => (
   <Box key={nickname}>
-    <Flex justify="space-between" align="center" p="0 7.5%" mb="16px">
-      <Text layerStyle="subtitle18Sbd">
-        {nickname}
-        <Text as="span" layerStyle="subtitle18Rg">
-          님과 함께해요
-        </Text>
+    <Flex align="center" p="0 7.5%" mb="16px" gap="8px">
+      <Text as="span" layerStyle="subtitle16Bd" color="blue.500">
+        {isKid ? 'From' : 'To'}
       </Text>
+      {isKid && (
+        <Box
+          p="4px 8px"
+          bg="gray.200"
+          border="1px solid rgba(0, 0, 0, 0.12)"
+          borderRadius="8px"
+          layerStyle="body14Sbd"
+          color="gray.700"
+          mr="2px"
+        >
+          {familyType}
+        </Box>
+      )}
+      <Text layerStyle="subtitle18Sbd">{nickname}</Text>
     </Flex>
-    {completedBoard.length > 0 ? (
+    {progressingCoupons.length > 0 ? (
       <SwiperComponent
         grabCursor
         slidesPerView={1.15}
+        height={200}
         centeredSlides
         spaceBetween={10}
         coverflowEffect={{
@@ -46,12 +62,12 @@ const StampSwiperView = ({
         style={{ marginBottom: '38px' }}
         onSlideChange={handleChangeSwiper}
       >
-        {completedBoard.map(({ stampBoardId, name, reward }) => (
-          <SwiperSlide key={stampBoardId}>
-            <Card name={name} reward={reward} />
+        {progressingCoupons.map(({ reward, rewardDate, couponId }) => (
+          <SwiperSlide key={reward}>
+            <Card reward={reward} rewardDate={rewardDate} couponId={couponId} />
           </SwiperSlide>
         ))}
-        {completedBoard.length > 0 && (
+        {progressingCoupons.length > 0 && (
           <Text
             pt="8px"
             w="100%"
@@ -61,7 +77,7 @@ const StampSwiperView = ({
           >
             {currentBoard}{' '}
             <Text as="span" color="gray.500">
-              / {totalBoard}
+              / {totalCoupons}
             </Text>
           </Text>
         )}
@@ -77,11 +93,11 @@ const StampSwiperView = ({
         justifyContent="center"
       >
         <Text layerStyle="body14Md" textAlign="center" color="gray.700">
-          완료된 도장판이 없어요
+          쿠폰이 없어요
         </Text>
       </VStack>
     )}
   </Box>
 );
 
-export default StampSwiperView;
+export default CouponSwiperView;

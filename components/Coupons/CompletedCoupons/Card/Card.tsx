@@ -1,57 +1,76 @@
-import { Box, Flex, Text, VStack } from '@chakra-ui/react';
+/* eslint-disable no-nested-ternary */
+import { useDisclosure } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useMutation, useQueryClient } from 'react-query';
+import { useRecoilValue } from 'recoil';
 
-import { CouponCompleteIcon } from '@/public/icon';
+import { Coupon, receiveGift } from '@/apis/coupon';
+import { userInfoAtom } from '@/store/userInfo';
 
-interface CardProps {
-  name: string;
-  reward: string;
-}
+import CardView from './CardView';
 
-const Card = ({ name, reward }: CardProps) => (
-  <VStack
-    w="100%"
-    minH="180px"
-    p="24px 20px"
-    border="1px solid #E6E4E2"
-    align="flex-start"
-    borderRadius="8px"
-    pos="relative"
-  >
-    <Box
-      pos="absolute"
-      top="0px"
-      left="0px"
-      w="100%"
-      h="100%"
-      bg="#000000B2"
-      opacity="0.6"
-      borderRadius="8px"
-    />
-    <CouponCompleteIcon
-      w={160}
-      h={100}
-      pos="absolute"
-      bottom="20px"
-      right="10px"
-    />
-    <Text layerStyle="title20Bd" color="#3F3D3B80">
-      {name}
-    </Text>
-    <Flex w="100%" align="center" gap="8px">
-      <Box
-        layerStyle="caption12Sbd"
-        color="#259BEF80"
-        p="4px 6px"
-        bg="#C7E5FF99"
-        borderRadius="4px"
-      >
-        보상
-      </Box>
-      <Text layerStyle="body14Sbd" color="#3F3D3B80">
-        {reward}
-      </Text>
-    </Flex>
-  </VStack>
-);
+const Card = ({ reward, rewardDate, couponId }: Coupon) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const queryClient = useQueryClient();
+  const { push } = useRouter();
+  const { memberType } = useRecoilValue(userInfoAtom);
+  const isKid = memberType.name === 'KID';
+
+  const formatDate = (timestamp: Date) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}.${month}.${day}`;
+  };
+
+  const formattedDate = formatDate(rewardDate);
+  const dateCal = Math.floor(
+    (new Date(rewardDate).getTime() - new Date().getTime()) /
+      1000 /
+      60 /
+      60 /
+      24
+  );
+  const dateDiff = dateCal > 0 ? `-${dateCal}` : `+${-dateCal}`;
+
+  const { mutate: receive, isLoading: receiveLoading } = useMutation(
+    () => receiveGift(couponId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('couponList');
+        onClose();
+      },
+    }
+  );
+
+  const handleClickReceiveButton = () => {
+    onOpen();
+  };
+
+  const handleClickConfirmButton = () => {
+    receive();
+  };
+
+  const handleClickCard = () => {
+    push(`/coupon/1`);
+  };
+
+  const CardVAProps = {
+    isOpen,
+    isLoading: receiveLoading,
+    onClose,
+    reward,
+    rewardDate: formattedDate,
+    dateDiff,
+    isKid,
+    handleClickCard,
+    handleClickReceiveButton,
+    handleClickConfirmButton,
+  };
+
+  return <CardView {...CardVAProps} />;
+};
 
 export default Card;
