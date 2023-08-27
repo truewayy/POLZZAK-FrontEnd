@@ -16,15 +16,12 @@ import CompletedCoupons from '@/components/Coupons/CompletedCoupons/CompletedCou
 import Header from '@/components/Coupons/Header/Header';
 import LinkedFilter from '@/components/Coupons/LinkedFilter/LinkedFilter';
 import ProgressingCoupons from '@/components/Coupons/ProgressingCoupons/ProgressingCoupons';
-import AddButton from '@/components/Main/AddButton/AddButton';
 import { userInfoAtom } from '@/store/userInfo';
 
 const Coupons = () => {
   const { families, memberType } = useRecoilValue(userInfoAtom);
   const [isNoFamily, setIsNoFamily] = useState(true);
   const [isTypeParent, setIsTypeParent] = useState(true);
-
-  const isShowAddButton = isTypeParent && !isNoFamily;
 
   useEffect(() => {
     const noKid = memberType.name !== 'KID';
@@ -89,7 +86,6 @@ const Coupons = () => {
         </TabPanels>
       </Tabs>
       <BottomSheetModal />
-      {isShowAddButton && <AddButton />}
     </VStack>
   );
 };
