@@ -23,6 +23,7 @@ const ROUTES = {
     ROOT: '/profile',
     RANKING: '/profile/ranking',
     POINTS: '/profile/points',
+    RULES: '/profile/rules',
   },
   MAIN: '/main',
   FIND: '/find',

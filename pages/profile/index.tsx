@@ -36,6 +36,10 @@ const Profile = () => {
     push(ROUTES.PROFILE.POINTS);
   };
 
+  const handleClickRules = () => {
+    push(ROUTES.PROFILE.RULES);
+  };
+
   return (
     <VStack w="100%" minH="100vh" pb="100px" spacing="0px">
       <VStack w="100%" spacing="0px">
@@ -225,6 +229,8 @@ const Profile = () => {
             spacing="10px"
             bg="white"
             borderRadius="8px"
+            cursor="pointer"
+            onClick={handleClickRules}
           >
             <Circle size="50px" bg="blue.150">
               <Rule w="22px" h="29px" />
