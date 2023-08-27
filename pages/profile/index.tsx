@@ -6,7 +6,14 @@ import { useRecoilValue } from 'recoil';
 
 import { myPoint } from '@/apis/point';
 import ROUTES from '@/constants/routes';
-import { ClipIcon, Medal, Point, Rule, Setting } from '@/public/icon';
+import {
+  ClipIcon,
+  Medal,
+  Point,
+  Rule,
+  Setting,
+  StepPudding,
+} from '@/public/icon';
 import { userInfoAtom } from '@/store/userInfo';
 
 const Profile = () => {
@@ -134,11 +141,7 @@ const Profile = () => {
               layerStyle="subtitle16Sbd"
               color="blue.600"
             >
-              <Box
-                bg="url('/stepPudding.png')"
-                bgSize="contain"
-                bgRepeat="no-repeat"
-                bgPosition="center"
+              <StepPudding
                 w="93px"
                 h="106px"
                 pos="absolute"

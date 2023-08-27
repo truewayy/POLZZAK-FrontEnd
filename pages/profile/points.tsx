@@ -21,6 +21,8 @@ const Points = () => {
           };
         return undefined;
       },
+      cacheTime: 0,
+      staleTime: 0,
     }
   );
 
