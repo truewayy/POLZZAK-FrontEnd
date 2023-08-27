@@ -14,9 +14,17 @@ const CompletedStamps = () => {
   const [isNoFamily, setIsNoFamily] = useState(true);
 
   const filter = useRecoilValue(MainfilterAtom);
+  const currentFilterId = families.find(
+    (family) => family.nickname === filter
+  )?.memberId;
+
   const { data, isLoading, refetch } = useQuery(
     ['stampboardList', 'ended', filter],
-    () => stampboardList({ stampBoardGroup: 'ended' }),
+    () =>
+      stampboardList({
+        stampBoardGroup: 'ended',
+        partnerMemberId: currentFilterId,
+      }),
     {
       enabled: !isNoFamily,
     }

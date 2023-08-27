@@ -18,9 +18,14 @@ const ProgressingCoupons = () => {
   const [isNoFamily, setIsNoFamily] = useState(true);
 
   const filter = useRecoilValue(CouponfilterAtom);
+  const currentFilterId = families.find(
+    (family) => family.nickname === filter
+  )?.memberId;
+
   const { data, isLoading, refetch } = useQuery(
     ['couponList', 'issued', filter],
-    () => couponList({ couponState: 'issued' }),
+    () =>
+      couponList({ couponState: 'issued', partnerMemberId: currentFilterId }),
     {
       enabled: !isNoFamily,
     }

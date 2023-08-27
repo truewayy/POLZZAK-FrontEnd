@@ -55,17 +55,19 @@ interface CouponListError {
 }
 
 interface CouponListProps {
-  memberId?: number;
+  partnerMemberId?: number;
   couponState: string;
 }
 
 export const couponList = async ({
-  memberId,
+  partnerMemberId,
   couponState,
 }: CouponListProps) => {
   try {
     const { data }: CouponListResponse = await http.get(API_URLS.COUPON_LIST, {
-      params: memberId ? { memberId, couponState } : { couponState },
+      params: partnerMemberId
+        ? { partnerMemberId, couponState }
+        : { couponState },
     });
     return data;
   } catch (error) {

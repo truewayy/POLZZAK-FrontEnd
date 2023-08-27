@@ -30,7 +30,6 @@ const CouponSwiperView = ({
       <Text as="span" layerStyle="subtitle16Bd" color="blue.500">
         {isKid ? 'From' : 'To'}
       </Text>
-      <Text layerStyle="subtitle18Sbd">{nickname}</Text>
       {isKid && (
         <Box
           p="4px 8px"
@@ -44,6 +43,7 @@ const CouponSwiperView = ({
           {familyType}
         </Box>
       )}
+      <Text layerStyle="subtitle18Sbd">{nickname}</Text>
     </Flex>
     {progressingCoupons.length > 0 ? (
       <SwiperComponent
