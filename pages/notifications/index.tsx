@@ -1,11 +1,15 @@
 import { Flex, Text, VStack } from '@chakra-ui/react';
+import { useState } from 'react';
+import { useInfiniteQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 
+import { notificationList } from '@/apis/notifications';
 import Notification from '@/components/Notifications/Notification';
 import { Trash } from '@/public/icon';
 import { notiDeleteOnAtom, notificationsAtom } from '@/store/notifications';
 
 const Notifications = () => {
+  const [startId, setStartId] = useState<number | null | undefined>(null);
   const [deleteModeOn, setDeleteModeOn] = useRecoilState(notiDeleteOnAtom);
   const [, setDeleteArr] = useRecoilState(notificationsAtom);
   const handleClickTrash = () => {
@@ -14,6 +18,23 @@ const Notifications = () => {
       setDeleteArr([]);
     }
   };
+
+  const { data } = useInfiniteQuery(
+    ['notifications'],
+    ({ pageParam = 0 }) => notificationList(pageParam, startId),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage?.response.notificationDtoList.length === 10) {
+          setStartId(lastPage?.response.startId);
+          return {
+            pageParam: lastPage.nextPage,
+          };
+        }
+        return undefined;
+      },
+    }
+  );
+  console.log(data, startId);
   return (
     <VStack w="100%" minH="100vh" bg="gray.100" spacing="0px">
       <Flex w="100%" p="27px 0" bg="white" justify="center" pos="relative">
@@ -58,19 +79,15 @@ const Notifications = () => {
         )}
       </Flex>
       <VStack w="100%" p="15px 5% 100px 5%" spacing="8px">
-        <Notification userType="GUARDIAN" notificationType="linkRequest" />
-        <Notification userType="GUARDIAN" notificationType="linkAccept" />
-        <Notification userType="GUARDIAN" notificationType="levelUp" />
-        <Notification userType="GUARDIAN" notificationType="levelDown" />
-        <Notification userType="GUARDIAN" notificationType="stampRequest" />
-        <Notification userType="GUARDIAN" notificationType="giftRequest" />
-        <Notification
-          userType="GUARDIAN"
-          notificationType="stampboardComplete"
-        />
-        <Notification userType="GUARDIAN" notificationType="giftComplete" />
-        <Notification userType="GUARDIAN" notificationType="giftDay" />
-        <Notification userType="GUARDIAN" notificationType="giftNoGive" />
+        {data?.pages.map((notification) =>
+          notification?.response.notificationDtoList.map((item) => (
+            <Notification
+              key={item.id}
+              userType="GUARDIAN"
+              notificationType="FAMILY_REQUEST"
+            />
+          ))
+        )}
       </VStack>
     </VStack>
   );

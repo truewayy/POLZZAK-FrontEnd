@@ -13,23 +13,23 @@ import StampRequestNotification from './Notification/StampRequest';
 
 type UserType = 'KID' | 'GUARDIAN';
 type GuardianNotificationTypes =
-  | 'linkRequest'
-  | 'linkAccept'
-  | 'levelUp'
-  | 'levelDown'
-  | 'stampRequest'
-  | 'giftRequest'
-  | 'stampboardComplete'
-  | 'giftComplete'
-  | 'giftDay'
-  | 'giftNoGive';
+  | 'FAMILY_REQUEST'
+  | 'FAMILY_REQUEST_COMPLETE'
+  | 'LEVEL_UP'
+  | 'LEVEL_DOWN'
+  | 'STAMP_REQUEST'
+  | 'REWARD_REQUEST'
+  | 'STAMP_BOARD_COMPLETE'
+  | 'REWARDED'
+  | 'REWARD_REQUEST_AGAIN'
+  | 'REWARD_FAIL';
 type KidNotificationTypes =
-  | 'linkRequest'
-  | 'linkAccept'
-  | 'levelUp'
-  | 'newStampboard'
-  | 'couponCreate'
-  | 'giftConfirm';
+  | 'FAMILY_REQUEST'
+  | 'FAMILY_REQUEST_COMPLETE'
+  | 'LEVEL_UP'
+  | 'CREATED_STAMP_BOARD'
+  | 'ISSUED_COUPON'
+  | 'REWARDED_REQUEST';
 
 interface Guardian {
   [key: string]: JSX.Element;
@@ -50,25 +50,25 @@ const Notification = <T extends UserType>({
   notificationType,
 }: NotificationProps<T>) => {
   const guardianNotificationTypes: Guardian = {
-    linkRequest: <LinkRequestNotification />,
-    linkAccept: <LinkAcceptNotification />,
-    levelUp: <LevelNotification id={3} type="UP" />,
-    levelDown: <LevelNotification id={4} type="DOWN" />,
-    stampRequest: <StampRequestNotification />,
-    giftRequest: <GiftRequestNotification />,
-    stampboardComplete: <StampboardCompleteNotification />,
-    giftComplete: <GiftCompleteNotification />,
-    giftDay: <GiftDayNotification />,
-    giftNoGive: <GiftNoGiveNotification />,
+    FAMILY_REQUEST: <LinkRequestNotification />,
+    FAMILY_REQUEST_COMPLETE: <LinkAcceptNotification />,
+    LEVEL_UP: <LevelNotification id={3} type="UP" />,
+    LEVEL_DOWN: <LevelNotification id={4} type="DOWN" />,
+    STAMP_REQUEST: <StampRequestNotification />,
+    REWARD_REQUEST: <GiftRequestNotification />,
+    STAMP_BOARD_COMPLETE: <StampboardCompleteNotification />,
+    REWARDED: <GiftCompleteNotification />,
+    REWARD_REQUEST_AGAIN: <GiftDayNotification />,
+    REWARD_FAIL: <GiftNoGiveNotification />,
   };
 
   const kidNotificationTypes: Kid = {
-    linkRequest: <LinkRequestNotification />,
-    linkAccept: <LinkAcceptNotification />,
-    levelUp: <LevelNotification id={4} type="UP" />,
-    newStampboard: <NewStampboardNotification />,
-    couponCreate: <CouponCreateNotification />,
-    giftConfirm: <GiftConfirmNotification />,
+    FAMILY_REQUEST: <LinkRequestNotification />,
+    FAMILY_REQUEST_COMPLETE: <LinkAcceptNotification />,
+    LEVEL_UP: <LevelNotification id={4} type="UP" />,
+    CREATED_STAMP_BOARD: <NewStampboardNotification />,
+    ISSUED_COUPON: <CouponCreateNotification />,
+    REWARDED_REQUEST: <GiftConfirmNotification />,
   };
 
   if (userType === 'KID') {

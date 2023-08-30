@@ -32,6 +32,7 @@ const API_URLS = {
   RANKING: '/api/v1/rankings',
   POINT_LOG: '/api/v1/member-points/earning-histories/me',
   MY_POINT: '/api/v1/member-points/me',
+  NOTIFICATION_LIST: '/api/v1/notifications',
 };
 
 export default API_URLS;
