@@ -1,4 +1,4 @@
-import { Flex, Text, VStack } from '@chakra-ui/react';
+import { Flex, Skeleton, Text, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
@@ -19,7 +19,7 @@ const Notifications = () => {
     }
   };
 
-  const { data } = useInfiniteQuery(
+  const { data, isLoading } = useInfiniteQuery(
     ['notifications'],
     ({ pageParam = 0 }) => notificationList(pageParam, startId),
     {
@@ -34,7 +34,7 @@ const Notifications = () => {
       },
     }
   );
-  console.log(data, startId);
+
   return (
     <VStack w="100%" minH="100vh" bg="gray.100" spacing="0px">
       <Flex w="100%" p="27px 0" bg="white" justify="center" pos="relative">
@@ -79,14 +79,24 @@ const Notifications = () => {
         )}
       </Flex>
       <VStack w="100%" p="15px 5% 100px 5%" spacing="8px">
-        {data?.pages.map((notification) =>
-          notification?.response.notificationDtoList.map((item) => (
-            <Notification
-              key={item.id}
-              userType="GUARDIAN"
-              notificationType="FAMILY_REQUEST"
-            />
-          ))
+        {isLoading ? (
+          <>
+            <Skeleton h="180px" w="100%" borderRadius="8px" />
+            <Skeleton h="180px" w="100%" borderRadius="8px" />
+            <Skeleton h="180px" w="100%" borderRadius="8px" />
+            <Skeleton h="180px" w="100%" borderRadius="8px" />
+            <Skeleton h="180px" w="100%" borderRadius="8px" />
+          </>
+        ) : (
+          data?.pages.map((notification) =>
+            notification?.response.notificationDtoList.map((item) => (
+              <Notification
+                key={item.id}
+                userType="GUARDIAN"
+                notificationType="FAMILY_REQUEST"
+              />
+            ))
+          )
         )}
       </VStack>
     </VStack>
