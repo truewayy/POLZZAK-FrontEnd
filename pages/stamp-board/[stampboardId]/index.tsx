@@ -1,6 +1,6 @@
 import { Box, VStack } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
@@ -10,10 +10,6 @@ import MissionList from '@/components/Stamp/MissionList';
 import Nav from '@/components/Stamp/Nav';
 import StampBoard from '@/components/Stamp/StampBoard';
 import { userInfoAtom } from '@/store/userInfo';
-
-interface StampboardProps {
-  stampboardId: string;
-}
 
 const StampRequestBox = dynamic(
   () => import('@/components/Stamp/StampRequestBox'),
@@ -26,12 +22,18 @@ const RewardBox = dynamic(() => import('@/components/Stamp/RewardBox'), {
   ssr: false,
 });
 
-const Stampboard = ({ stampboardId }: StampboardProps) => {
+const Stampboard = () => {
+  const { query } = useRouter();
+  const stampboardId = query.stampboardId as string;
   const {
     memberType: { name },
   } = useRecoilValue(userInfoAtom);
-  const { data } = useQuery(['stampboard', stampboardId], () =>
-    stampboardDetail(stampboardId)
+  const { data } = useQuery(
+    ['stampboard', stampboardId],
+    () => stampboardDetail(stampboardId),
+    {
+      enabled: !!stampboardId,
+    }
   );
 
   const stampboard = data?.data;
@@ -79,12 +81,3 @@ const Stampboard = ({ stampboardId }: StampboardProps) => {
 };
 
 export default Stampboard;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { stampboardId } = context.query;
-  return {
-    props: {
-      stampboardId,
-    },
-  };
-};
