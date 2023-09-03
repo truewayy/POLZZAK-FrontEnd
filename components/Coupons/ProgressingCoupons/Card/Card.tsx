@@ -54,7 +54,7 @@ const Card = ({ reward, rewardDate, couponId }: Coupon) => {
   };
 
   const handleClickCard = () => {
-    push(`/coupon/1`);
+    push(`/coupon/${couponId}`);
   };
 
   const CardVAProps = {

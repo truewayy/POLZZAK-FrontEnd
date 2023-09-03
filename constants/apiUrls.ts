@@ -25,10 +25,12 @@ const API_URLS = {
   ISSUE_COUPON: (id: string) =>
     `/api/v1/stamps/stamp-boards/${id}/issue-coupon`,
   COUPON_LIST: '/api/v1/coupons',
+  COUPON_DETAIL: (couponId: string) => `/api/v1/coupons/${couponId}`,
   MISSION_REQUEST: '/api/v1/stamps/mission-requests',
   STAMP: (stampboardId: number) =>
     `/api/v1/stamps/stamp-boards/${stampboardId}/stamp`,
-  RECEIVE_GIFT: (couponId: number) => `/api/v1/coupons/${couponId}/receive`,
+  RECEIVE_GIFT: (couponId: number | string) =>
+    `/api/v1/coupons/${couponId}/receive`,
   RANKING: '/api/v1/rankings',
   POINT_LOG: '/api/v1/member-points/earning-histories/me',
   MY_POINT: '/api/v1/member-points/me',

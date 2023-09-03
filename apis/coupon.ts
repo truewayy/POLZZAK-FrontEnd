@@ -31,6 +31,32 @@ interface CouponListResponse {
   };
 }
 
+interface CouponDetailResponse {
+  data: {
+    code: 200;
+    messages: null;
+    data: {
+      couponId: number;
+      reward: string;
+      guardian: {
+        nickname: string;
+        profileUrl: string;
+      };
+      kid: {
+        nickname: string;
+        profileUrl: string;
+      };
+      missionContents: string[];
+      stampCount: number;
+      state: 'ISSUED' | 'REWARDED';
+      rewardDate: Date;
+      rewardRequestDate: Date;
+      startDate: Date;
+      endDate: Date;
+    };
+  };
+}
+
 interface IssueCouponResponse {
   data: {
     code: 201;
@@ -76,6 +102,17 @@ export const couponList = async ({
   }
 };
 
+export const couponDetail = async (couponId: string) => {
+  try {
+    const { data }: CouponDetailResponse = await http.get(
+      API_URLS.COUPON_DETAIL(couponId)
+    );
+    return data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const issueCoupon = async (stampBoardId: string, rewardDate: number) => {
   try {
     const { data }: IssueCouponResponse = await http.post(
@@ -106,7 +143,7 @@ export const receiveCoupon = async (stampBoardId: string) => {
   }
 };
 
-export const receiveGift = async (couponId: number) => {
+export const receiveGift = async (couponId: number | string) => {
   try {
     const { data }: IssueCouponResponse = await http.post(
       API_URLS.RECEIVE_GIFT(couponId)

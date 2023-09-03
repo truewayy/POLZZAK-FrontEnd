@@ -93,7 +93,7 @@ const NotificationFrame = ({
           {children}
         </Text>
       </VStack>
-      {type === 'linkRequest' && (
+      {type === 'FAMILY_REQUEST' && (
         <Flex w="100%" gap="10px">
           <Button w="100%" p="8px 20px" bg="polzzak.default" borderRadius="8px">
             <Text layerStyle="body16Md" color="white">
