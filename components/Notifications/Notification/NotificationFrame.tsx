@@ -1,5 +1,6 @@
 /* eslint-disable react/require-default-props */
 import { Button, Circle, Flex, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { notiDeleteOnAtom, notificationsAtom } from '@/store/notifications';
@@ -12,6 +13,7 @@ interface NotificationFrameProps {
   type: string;
   senderProfile?: string;
   sender: string;
+  link: string;
 }
 
 const NotificationFrame = ({
@@ -22,7 +24,9 @@ const NotificationFrame = ({
   type,
   senderProfile,
   sender,
+  link,
 }: NotificationFrameProps) => {
+  const { push } = useRouter();
   const isDeleteModeOn = useRecoilValue(notiDeleteOnAtom);
   const [deleteArr, setDeleteArr] = useRecoilState(notificationsAtom);
 
@@ -36,6 +40,12 @@ const NotificationFrame = ({
         setDeleteArr([...deleteArr, id]);
       }
     }
+  };
+
+  const handleClickNotification = () => {
+    if (isDeleteModeOn) {
+      onClickCheckCircle();
+    } else if (link) push(`/${link}`);
   };
 
   return (
@@ -53,6 +63,7 @@ const NotificationFrame = ({
           border: '1px solid',
           borderColor: 'error.500',
         })}
+      onClick={handleClickNotification}
     >
       <VStack w="100%" spacing="8px" align="flex-start">
         <Flex w="100%" justify="space-between" align="center">

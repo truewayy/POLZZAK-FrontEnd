@@ -62,7 +62,7 @@ const Card = ({
   );
 
   const handleClickCard = () => {
-    push(`/stampboard/${stampBoardId}`);
+    push(`/stamp-board/${stampBoardId}`);
   };
 
   const CardVAProps = {

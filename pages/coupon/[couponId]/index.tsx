@@ -311,6 +311,7 @@ const Coupon = () => {
               >
                 {coupon?.missionContents.map((mission) => (
                   <Box
+                    key={mission}
                     w="100%"
                     p="14px 0"
                     borderBottom="1px solid"
