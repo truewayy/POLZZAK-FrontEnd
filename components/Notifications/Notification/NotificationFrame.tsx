@@ -6,7 +6,6 @@ import { notiDeleteOnAtom, notificationsAtom } from '@/store/notifications';
 
 interface NotificationFrameProps {
   id: number;
-  emoticon: string;
   title: string;
   time: string;
   children: React.ReactNode;
@@ -17,7 +16,6 @@ interface NotificationFrameProps {
 
 const NotificationFrame = ({
   id,
-  emoticon,
   title,
   time,
   children,
@@ -59,12 +57,7 @@ const NotificationFrame = ({
       <VStack w="100%" spacing="8px" align="flex-start">
         <Flex w="100%" justify="space-between" align="center">
           <Flex gap="7px" justify="flex-start" align="center">
-            <Text layerStyle="subtitle16Bd">
-              <Text as="span" mr="4px">
-                {emoticon}
-              </Text>
-              {title}
-            </Text>
+            <Text layerStyle="subtitle16Bd">{title}</Text>
             <Circle size="4px" bg="gray.300" />
             <Text layerStyle="caption12Md" color="gray.500">
               {time}
@@ -115,7 +108,13 @@ const NotificationFrame = ({
         </Flex>
       )}
       <Flex w="100%" gap="4px" justify="flex-start" align="center">
-        <Circle size="24px" bg={senderProfile ?? 'gray.300'} />
+        <Circle
+          size="24px"
+          bgImg={senderProfile ?? 'gray.300'}
+          bgSize="cover"
+          bgPos="center"
+          bgRepeat="no-repeat"
+        />
         <Text layerStyle="caption12Md" color="gray.500">
           {sender}
         </Text>

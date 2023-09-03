@@ -90,11 +90,7 @@ const Notifications = () => {
         ) : (
           data?.pages.map((notification) =>
             notification?.response.notificationDtoList.map((item) => (
-              <Notification
-                key={item.id}
-                userType="GUARDIAN"
-                notificationType="FAMILY_REQUEST"
-              />
+              <Notification key={item.id} notification={item} />
             ))
           )
         )}
