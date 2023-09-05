@@ -1,12 +1,19 @@
 import { Flex, Skeleton, Text, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 
 import { notificationList } from '@/apis/notifications';
-import Notification from '@/components/Notifications/Notification';
 import { Trash } from '@/public/icon';
 import { notiDeleteOnAtom, notificationsAtom } from '@/store/notifications';
+
+const Notification = dynamic(
+  () => import('@/components/Notifications/Notification'),
+  {
+    ssr: false,
+  }
+);
 
 const Notifications = () => {
   const [startId, setStartId] = useState<number | null | undefined>(null);
@@ -25,7 +32,6 @@ const Notifications = () => {
     {
       getNextPageParam: (lastPage) => {
         if (lastPage?.response.notificationDtoList.length === 10) {
-          setStartId(lastPage?.response.startId);
           return {
             pageParam: lastPage.nextPage,
           };
@@ -34,6 +40,10 @@ const Notifications = () => {
       },
     }
   );
+
+  useEffect(() => {
+    setStartId(data?.pages[0]?.response.startId);
+  }, [data]);
 
   return (
     <VStack w="100%" minH="100vh" bg="gray.100" spacing="0px">
