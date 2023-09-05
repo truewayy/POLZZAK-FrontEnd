@@ -13,17 +13,23 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
+import { saveAs } from 'file-saver';
+import html2canvas from 'html2canvas';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 import { couponDetail, receiveGift } from '@/apis/coupon';
+import Loading from '@/components/Common/Loading';
 import ConfirmModal from '@/components/Link/ConfirmModal';
 import { Dash, LeftArrow, Picture, RightNavigation } from '@/public/icon';
 import { userInfoAtom } from '@/store/userInfo';
 
 const Coupon = () => {
+  const captureRef = useRef<HTMLDivElement>(null);
+  const [captureLoading, setCaptureLoading] = useState<boolean>(false);
+
   const queryClient = useQueryClient();
   const receiveModal = useDisclosure();
   const missionsModal = useDisclosure();
@@ -72,6 +78,27 @@ const Coupon = () => {
     receive();
   };
 
+  const handleDownload = async () => {
+    if (!captureRef.current) return;
+
+    try {
+      const div = captureRef.current;
+      const canvas = await html2canvas(div, {
+        allowTaint: true,
+        useCORS: true,
+      });
+      setCaptureLoading(true);
+      canvas.toBlob((blob) => {
+        if (blob !== null) {
+          saveAs(blob, 'polzzak-gift.png');
+        }
+      });
+    } catch (error) {
+      console.error('Error converting div to image:', error);
+    }
+    setCaptureLoading(false);
+  };
+
   useEffect(() => {
     if (memberType.name === 'KID') {
       setIsKid(true);
@@ -79,264 +106,278 @@ const Coupon = () => {
   }, [memberType]);
 
   return (
-    <VStack bg="polzzak.default" minH="100vh" spacing="30px">
-      <Flex w="100%" p="10px 16px" justify="space-between">
-        <LeftArrow w="24px" h="24px" fill="white" onClick={back} />
-        <Picture w="30px" h="30px" />
-      </Flex>
-      <VStack w="100%" spacing="0px" p="0 5%">
-        <VStack
-          w="100%"
-          p="26px"
-          spacing="10px"
-          bg="white"
-          borderRadius="12px"
-          pos="relative"
-          overflow="hidden"
-        >
-          <Box w="100%" h="6px" pos="absolute" bg="blue.200" top="0" />
-          <Text layerStyle="subtitle16Sbd" color="blue.600">
-            Reward
-          </Text>
-          <Text layerStyle="subtitle20Sbd">{coupon?.reward}</Text>
-          <Dash w="95%" h="16px" pos="absolute" bottom="-8px" zIndex="1" />
-        </VStack>
-        <VStack
-          w="100%"
-          p="24px 26px"
-          spacing="24px"
-          bg="white"
-          borderRadius="12px"
-          pos="relative"
-        >
-          <VStack w="100%" spacing="21px">
-            <Flex w="100%" gap="14px" align="center">
-              <Circle
-                size="44px"
-                bgImg={coupon?.kid.profileUrl}
-                bgSize="cover"
-                bgPos="center"
-                bgRepeat="no-repeat"
-              />
-              <VStack spacing="2px" align="flex-start">
-                <Text layerStyle="body13Md" color="gray.500">
-                  받는 사람
-                </Text>
-                <Text layerStyle="subtitle16Sbd" color="gray.800">
-                  {coupon?.kid.nickname}
-                </Text>
-              </VStack>
-            </Flex>
-            <Flex w="100%" gap="14px" align="center">
-              <Circle
-                size="44px"
-                bgImg={coupon?.guardian.profileUrl}
-                bgSize="cover"
-                bgPos="center"
-                bgRepeat="no-repeat"
-              />
-              <VStack spacing="2px" align="flex-start">
-                <Text layerStyle="body13Md" color="gray.500">
-                  주는 사람
-                </Text>
-                <Text layerStyle="subtitle16Sbd" color="gray.800">
-                  {coupon?.guardian.nickname}
-                </Text>
-              </VStack>
-            </Flex>
-          </VStack>
-          <VStack w="100%" spacing="20px">
-            <Box h="1.5px" w="100%" bg="gray.200" />
-            <Grid w="100%" templateColumns="repeat(3, 1fr)">
-              <VStack spacing="2px">
-                <Flex
-                  align="center"
-                  cursor="pointer"
-                  onClick={handleClickCompletedMissions}
-                >
-                  <Text layerStyle="body13Md" color="gray.500">
-                    완료 미션
-                  </Text>
-                  <RightNavigation w="12px" h="12px" />
-                </Flex>
-                <Text layerStyle="subtitle18Sbd" color="blue.600">
-                  {coupon?.missionContents.length}{' '}
-                  <Text as="span" layerStyle="caption12Sbd" color="blue.600">
-                    개
-                  </Text>
-                </Text>
-              </VStack>
-              <VStack spacing="2px">
-                <Text layerStyle="body13Md" color="gray.500">
-                  모은 도장
-                </Text>
-                <Text layerStyle="subtitle18Sbd" color="blue.600">
-                  {coupon?.stampCount}{' '}
-                  <Text as="span" layerStyle="caption12Sbd" color="blue.600">
-                    개
-                  </Text>
-                </Text>
-              </VStack>
-              <VStack spacing="2px">
-                <Text layerStyle="body13Md" color="gray.500">
-                  걸린 기간
-                </Text>
-                <Text layerStyle="subtitle18Sbd" color="blue.600">
-                  {dateCal}{' '}
-                  <Text as="span" layerStyle="caption12Sbd" color="blue.600">
-                    일
-                  </Text>
-                </Text>
-              </VStack>
-            </Grid>
-          </VStack>
-          <Dash w="95%" h="16px" pos="absolute" bottom="-8px" zIndex="1" />
-        </VStack>
-        <Flex
-          w="100%"
-          p="24px 36px"
-          bg="white"
-          borderRadius="12px"
-          gap="30px"
-          justify="center"
-          pos="relative"
-          overflow="hidden"
-        >
-          <VStack spacing="2px" align="flex-start">
-            <Text layerStyle="body13Md" color="gray.500">
-              미션 시작일
-            </Text>
-            <Text layerStyle="subtitle18Sbd" color="gray.800">
-              {dayjs(coupon?.startDate).format('YYYY. MM. DD')}
-            </Text>
-          </VStack>
-          <VStack spacing="2px" align="flex-start">
-            <Text layerStyle="body13Md" color="gray.500">
-              미션 완료일
-            </Text>
-            <Text layerStyle="subtitle18Sbd" color="gray.800">
-              {dayjs(coupon?.endDate).format('YYYY. MM. DD')}
-            </Text>
-          </VStack>
-          <Box w="100%" h="6px" pos="absolute" bg="blue.200" bottom="0" />
+    <>
+      {captureLoading && <Loading />}
+      <VStack ref={captureRef} bg="polzzak.default" minH="100vh" spacing="30px">
+        <Flex w="100%" p="10px 16px" justify="space-between">
+          <LeftArrow w="24px" h="24px" fill="white" onClick={back} />
+          <Picture w="30px" h="30px" onClick={handleDownload} />
         </Flex>
-      </VStack>
-      {coupon?.state === 'ISSUED' && (
-        <Text layerStyle="body14Sbd" textAlign="center" color="gray.700">
-          <Text color="#fff" as="span">
-            {dayjs(coupon?.rewardDate).format('YYYY. MM. DD')}
-          </Text>{' '}
-          까지 <br />
-          선물을 전달하기로 약속했어요!
-        </Text>
-      )}
-      {coupon?.state === 'REWARDED' && isKid && (
-        <Box
-          p="6px 12px"
-          borderRadius="100px"
-          bg="blue.600"
-          layerStyle="body14Sbd"
-          color="white"
-        >
-          선물 받기 완료
-        </Box>
-      )}
-      {coupon?.state === 'ISSUED' && isKid && (
-        <Flex w="100%" gap="7px" p="0 5%">
-          <Button
+        <VStack w="100%" spacing="0px" p="0 5%">
+          <VStack
             w="100%"
-            h="auto"
-            p="14px"
+            p="26px"
+            spacing="10px"
+            bg="white"
+            borderRadius="12px"
+            pos="relative"
+            overflow="hidden"
+          >
+            <Box w="100%" h="6px" pos="absolute" bg="blue.200" top="0" />
+            <Text layerStyle="subtitle16Sbd" color="blue.600">
+              Reward
+            </Text>
+            <Text layerStyle="subtitle20Sbd">{coupon?.reward}</Text>
+            <Dash w="95%" h="16px" pos="absolute" bottom="-8px" zIndex="1" />
+          </VStack>
+          <VStack
+            w="100%"
+            p="24px 26px"
+            spacing="24px"
+            bg="white"
+            borderRadius="12px"
+            pos="relative"
+          >
+            <VStack w="100%" spacing="21px">
+              <Flex w="100%" gap="14px" align="center">
+                <Circle
+                  size="44px"
+                  bg={`url(${coupon?.kid.profileUrl})`}
+                  bgSize="cover"
+                  bgPos="center"
+                  bgRepeat="no-repeat"
+                />
+                <VStack spacing="2px" align="flex-start">
+                  <Text layerStyle="body13Md" color="gray.500">
+                    받는 사람
+                  </Text>
+                  <Text layerStyle="subtitle16Sbd" color="gray.800">
+                    {coupon?.kid.nickname}
+                  </Text>
+                </VStack>
+              </Flex>
+              <Flex w="100%" gap="14px" align="center">
+                <Circle
+                  size="44px"
+                  bg={`url(${coupon?.guardian.profileUrl})`}
+                  bgSize="cover"
+                  bgPos="center"
+                  bgRepeat="no-repeat"
+                />
+                <VStack spacing="2px" align="flex-start">
+                  <Text layerStyle="body13Md" color="gray.500">
+                    주는 사람
+                  </Text>
+                  <Text layerStyle="subtitle16Sbd" color="gray.800">
+                    {coupon?.guardian.nickname}
+                  </Text>
+                </VStack>
+              </Flex>
+            </VStack>
+            <VStack w="100%" spacing="20px">
+              <Box h="1.5px" w="100%" bg="gray.200" />
+              <Grid w="100%" templateColumns="repeat(3, 1fr)">
+                <VStack spacing="2px">
+                  <Flex
+                    align="center"
+                    cursor="pointer"
+                    onClick={handleClickCompletedMissions}
+                  >
+                    <Text layerStyle="body13Md" color="gray.500">
+                      완료 미션
+                    </Text>
+                    <RightNavigation w="12px" h="12px" />
+                  </Flex>
+                  <Text layerStyle="subtitle18Sbd" color="blue.600">
+                    {coupon?.missionContents.length}{' '}
+                    <Text as="span" layerStyle="caption12Sbd" color="blue.600">
+                      개
+                    </Text>
+                  </Text>
+                </VStack>
+                <VStack spacing="2px">
+                  <Text layerStyle="body13Md" color="gray.500">
+                    모은 도장
+                  </Text>
+                  <Text layerStyle="subtitle18Sbd" color="blue.600">
+                    {coupon?.stampCount}{' '}
+                    <Text as="span" layerStyle="caption12Sbd" color="blue.600">
+                      개
+                    </Text>
+                  </Text>
+                </VStack>
+                <VStack spacing="2px">
+                  <Text layerStyle="body13Md" color="gray.500">
+                    걸린 기간
+                  </Text>
+                  <Text layerStyle="subtitle18Sbd" color="blue.600">
+                    {dateCal}{' '}
+                    <Text as="span" layerStyle="caption12Sbd" color="blue.600">
+                      일
+                    </Text>
+                  </Text>
+                </VStack>
+              </Grid>
+            </VStack>
+            <Dash w="95%" h="16px" pos="absolute" bottom="-8px" zIndex="1" />
+          </VStack>
+          <Flex
+            w="100%"
+            p="24px 36px"
+            bg="white"
+            borderRadius="12px"
+            gap="30px"
+            justify="center"
+            pos="relative"
+            overflow="hidden"
+          >
+            <VStack spacing="2px" align="flex-start">
+              <Text layerStyle="body13Md" color="gray.500">
+                미션 시작일
+              </Text>
+              <Text layerStyle="subtitle18Sbd" color="gray.800">
+                {dayjs(coupon?.startDate).format('YYYY. MM. DD')}
+              </Text>
+            </VStack>
+            <VStack spacing="2px" align="flex-start">
+              <Text layerStyle="body13Md" color="gray.500">
+                미션 완료일
+              </Text>
+              <Text layerStyle="subtitle18Sbd" color="gray.800">
+                {dayjs(coupon?.endDate).format('YYYY. MM. DD')}
+              </Text>
+            </VStack>
+            <Box w="100%" h="6px" pos="absolute" bg="blue.200" bottom="0" />
+          </Flex>
+        </VStack>
+        {coupon?.state === 'ISSUED' && (
+          <Text layerStyle="body14Sbd" textAlign="center" color="gray.700">
+            <Text color="#fff" as="span">
+              {dayjs(coupon?.rewardDate).format('YYYY. MM. DD')}
+            </Text>{' '}
+            까지 <br />
+            선물을 전달하기로 약속했어요!
+          </Text>
+        )}
+        {coupon?.state === 'REWARDED' && isKid && (
+          <Box
+            p="6px 12px"
+            borderRadius="100px"
             bg="blue.600"
-            layerStyle="subtitle16Sbd"
+            layerStyle="body14Sbd"
             color="white"
           >
-            선물 조르기
-          </Button>
-          <Button
-            w="100%"
-            h="auto"
-            p="14px"
-            bg="white"
-            layerStyle="subtitle16Sbd"
-            color="blue.600"
-            onClick={handleClickReceiveButton}
-          >
             선물 받기 완료
-          </Button>
-        </Flex>
-      )}
-      <ConfirmModal
-        isOpen={receiveModal.isOpen}
-        isLoading={receiveLoading}
-        onClose={receiveModal.onClose}
-        handleClickConfirmButton={handleClickConfirmButton}
-        handleClickCancelButton={receiveModal.onClose}
-      >
-        <VStack spacing="8px">
-          <Text layerStyle="subtitle18Sbd" color="blue.600">
-            {coupon?.reward}
-          </Text>
-          <Text layerStyle="body16Md" color="gray.800">
-            선물을 실제로 전달받았나요?
-          </Text>
-        </VStack>
-      </ConfirmModal>
-      <Modal
-        isOpen={missionsModal.isOpen}
-        onClose={missionsModal.onClose}
-        isCentered
-      >
-        <ModalOverlay />
-        <ModalBody>
-          <ModalContent borderRadius="12px">
-            <VStack p="16px" pt="30px" spacing="24px">
-              <Flex
-                layerStyle="subtitle16Sbd"
-                color="gray.800"
-                gap="8px"
-                align="center"
-              >
-                완료한 미션
-                <Text as="span" color="polzzak.default">
-                  {coupon?.missionContents.length}
-                </Text>
-              </Flex>
-              <VStack
-                w="100%"
-                h="300px"
-                p="12px"
-                spacing="0px"
-                overflowY="auto"
-              >
-                {coupon?.missionContents.map((mission) => (
-                  <Box
-                    key={mission}
-                    w="100%"
-                    p="14px 0"
-                    borderBottom="1px solid"
-                    borderColor="gray.200"
-                  >
-                    {mission}
-                  </Box>
-                ))}
+          </Box>
+        )}
+        {coupon?.state === 'REWARDED' && !isKid && (
+          <Box
+            p="6px 12px"
+            borderRadius="100px"
+            bg="blue.600"
+            layerStyle="body14Sbd"
+            color="white"
+          >
+            선물 전달 완료
+          </Box>
+        )}
+        {coupon?.state === 'ISSUED' && isKid && (
+          <Flex w="100%" gap="7px" p="0 5%">
+            <Button
+              w="100%"
+              h="auto"
+              p="14px"
+              bg="blue.600"
+              layerStyle="subtitle16Sbd"
+              color="white"
+            >
+              선물 조르기
+            </Button>
+            <Button
+              w="100%"
+              h="auto"
+              p="14px"
+              bg="white"
+              layerStyle="subtitle16Sbd"
+              color="blue.600"
+              onClick={handleClickReceiveButton}
+            >
+              선물 받기 완료
+            </Button>
+          </Flex>
+        )}
+        <ConfirmModal
+          isOpen={receiveModal.isOpen}
+          isLoading={receiveLoading}
+          onClose={receiveModal.onClose}
+          handleClickConfirmButton={handleClickConfirmButton}
+          handleClickCancelButton={receiveModal.onClose}
+        >
+          <VStack spacing="8px">
+            <Text layerStyle="subtitle18Sbd" color="blue.600">
+              {coupon?.reward}
+            </Text>
+            <Text layerStyle="body16Md" color="gray.800">
+              선물을 실제로 전달받았나요?
+            </Text>
+          </VStack>
+        </ConfirmModal>
+        <Modal
+          isOpen={missionsModal.isOpen}
+          onClose={missionsModal.onClose}
+          isCentered
+        >
+          <ModalOverlay />
+          <ModalBody>
+            <ModalContent borderRadius="12px">
+              <VStack p="16px" pt="30px" spacing="24px">
+                <Flex
+                  layerStyle="subtitle16Sbd"
+                  color="gray.800"
+                  gap="8px"
+                  align="center"
+                >
+                  완료한 미션
+                  <Text as="span" color="polzzak.default">
+                    {coupon?.missionContents.length}
+                  </Text>
+                </Flex>
+                <VStack
+                  w="100%"
+                  h="300px"
+                  p="12px"
+                  spacing="0px"
+                  overflowY="auto"
+                >
+                  {coupon?.missionContents.map((mission) => (
+                    <Box
+                      key={mission}
+                      w="100%"
+                      p="14px 0"
+                      borderBottom="1px solid"
+                      borderColor="gray.200"
+                    >
+                      {mission}
+                    </Box>
+                  ))}
+                </VStack>
+                <Button
+                  w="100%"
+                  h="50px"
+                  borderRadius="8px"
+                  bg="blue.500"
+                  layerStyle="subtitle16Sbd"
+                  color="white"
+                  onClick={missionsModal.onClose}
+                >
+                  닫기
+                </Button>
               </VStack>
-              <Button
-                w="100%"
-                h="50px"
-                borderRadius="8px"
-                bg="blue.500"
-                layerStyle="subtitle16Sbd"
-                color="white"
-                onClick={missionsModal.onClose}
-              >
-                닫기
-              </Button>
-            </VStack>
-          </ModalContent>
-        </ModalBody>
-      </Modal>
-    </VStack>
+            </ModalContent>
+          </ModalBody>
+        </Modal>
+      </VStack>
+    </>
   );
 };
 
