@@ -1,8 +1,18 @@
 /* eslint-disable react/require-default-props */
-import { Button, Circle, Flex, Text, VStack } from '@chakra-ui/react';
+import {
+  Button,
+  Circle,
+  Flex,
+  Text,
+  useDisclosure,
+  VStack,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useMutation, useQueryClient } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
+import { approveRequest, rejectRequest } from '@/apis/family';
+import ConfirmModal from '@/components/Link/ConfirmModal';
 import { notiDeleteOnAtom, notificationsAtom } from '@/store/notifications';
 
 interface NotificationFrameProps {
@@ -11,8 +21,11 @@ interface NotificationFrameProps {
   time: string;
   children: React.ReactNode;
   type: string;
-  senderProfile?: string;
-  sender: string;
+  sender: {
+    id: number;
+    nickname: string;
+    profileUrl: string;
+  };
   link: string;
 }
 
@@ -22,10 +35,11 @@ const NotificationFrame = ({
   time,
   children,
   type,
-  senderProfile,
   sender,
   link,
 }: NotificationFrameProps) => {
+  const queryClient = useQueryClient();
+
   const { push } = useRouter();
   const isDeleteModeOn = useRecoilValue(notiDeleteOnAtom);
   const [deleteArr, setDeleteArr] = useRecoilState(notificationsAtom);
@@ -46,6 +60,39 @@ const NotificationFrame = ({
     if (isDeleteModeOn) {
       onClickCheckCircle();
     } else if (link) push(`/${link}`);
+  };
+
+  const approveModal = useDisclosure();
+  const rejectModal = useDisclosure();
+
+  const approve = useMutation((targetId: number) => approveRequest(targetId), {
+    onSuccess: async () => {
+      queryClient.invalidateQueries(['notifications']);
+      approveModal.onClose();
+    },
+  });
+
+  const reject = useMutation((targetId: number) => rejectRequest(targetId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['notifications']);
+      rejectModal.onClose();
+    },
+  });
+
+  const handleClickApproveButton = () => {
+    approveModal.onOpen();
+  };
+
+  const handleClickConfirmApproveButton = () => {
+    approve.mutate(sender.id);
+  };
+
+  const handleClickRejectButton = () => {
+    rejectModal.onOpen();
+  };
+
+  const handleClickConfirmRejectButton = () => {
+    reject.mutate(sender.id);
   };
 
   return (
@@ -106,12 +153,24 @@ const NotificationFrame = ({
       </VStack>
       {type === 'FAMILY_REQUEST' && (
         <Flex w="100%" gap="10px">
-          <Button w="100%" p="8px 20px" bg="polzzak.default" borderRadius="8px">
+          <Button
+            w="100%"
+            p="8px 20px"
+            bg="polzzak.default"
+            borderRadius="8px"
+            onClick={handleClickApproveButton}
+          >
             <Text layerStyle="body16Md" color="white">
               수락
             </Text>
           </Button>
-          <Button w="100%" p="8px 20px" bg="error.500" borderRadius="8px">
+          <Button
+            w="100%"
+            p="8px 20px"
+            bg="error.500"
+            borderRadius="8px"
+            onClick={handleClickRejectButton}
+          >
             <Text layerStyle="body16Md" color="white">
               거절
             </Text>
@@ -121,15 +180,48 @@ const NotificationFrame = ({
       <Flex w="100%" gap="4px" justify="flex-start" align="center">
         <Circle
           size="24px"
-          bgImg={senderProfile ?? 'gray.300'}
+          bgImg={sender.profileUrl ?? 'gray.300'}
           bgSize="cover"
           bgPos="center"
           bgRepeat="no-repeat"
         />
         <Text layerStyle="caption12Md" color="gray.500">
-          {sender}
+          {sender.nickname}
         </Text>
       </Flex>
+      <ConfirmModal
+        isOpen={approveModal.isOpen}
+        onClose={approveModal.onClose}
+        handleClickCancelButton={approveModal.onClose}
+        handleClickConfirmButton={handleClickConfirmApproveButton}
+        isLoading={approve.isLoading}
+      >
+        <Text layerStyle="body18Md" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body18Bd">
+            {sender.nickname}
+          </Text>
+          님의
+          <br />
+          연동 요청을 수락하시겠어요?
+        </Text>
+      </ConfirmModal>
+      <ConfirmModal
+        isOpen={rejectModal.isOpen}
+        onClose={rejectModal.onClose}
+        handleClickCancelButton={rejectModal.onClose}
+        handleClickConfirmButton={handleClickConfirmRejectButton}
+        isLoading={reject.isLoading}
+        confirmMessage="네, 거절할래요"
+      >
+        <Text layerStyle="body18Md" color="gray.700" textAlign="center">
+          <Text as="span" layerStyle="body18Bd">
+            {sender.nickname}
+          </Text>
+          님의
+          <br />
+          연동 요청을 거절하시겠어요?
+        </Text>
+      </ConfirmModal>
     </VStack>
   );
 };

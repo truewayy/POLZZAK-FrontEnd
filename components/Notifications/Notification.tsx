@@ -15,8 +15,7 @@ const Notification = ({ notification }: NotificationProps) => (
     type={notification.type}
     title={notification.title}
     time={formatDateDifference(notification.createdDate)}
-    sender={notification.sender.nickname}
-    senderProfile={notification.sender.profileUrl}
+    sender={notification.sender}
     link={notification.link}
   >
     <Box dangerouslySetInnerHTML={{ __html: notification.message }} />
