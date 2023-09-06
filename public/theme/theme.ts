@@ -61,6 +61,12 @@ const polzzakTheme = extendTheme({
       lineHeight: '140%',
       color: 'gray.800',
     },
+    title20Xbd: {
+      fontSize: '20px',
+      fontWeight: '800',
+      lineHeight: '140%',
+      color: 'gray.800',
+    },
     subtitle18Sbd: {
       fontSize: '18px',
       fontWeight: '600',

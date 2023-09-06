@@ -25,6 +25,7 @@ import Loading from '@/components/Common/Loading';
 import ConfirmModal from '@/components/Link/ConfirmModal';
 import { Dash, LeftArrow, Picture, RightNavigation } from '@/public/icon';
 import { userInfoAtom } from '@/store/userInfo';
+import sleep from '@/utils/sleep';
 
 const Coupon = () => {
   const captureRef = useRef<HTMLDivElement>(null);
@@ -80,14 +81,15 @@ const Coupon = () => {
 
   const handleDownload = async () => {
     if (!captureRef.current) return;
+    setCaptureLoading(true);
 
     try {
+      await sleep(1000);
       const div = captureRef.current;
       const canvas = await html2canvas(div, {
         allowTaint: true,
         useCORS: true,
       });
-      setCaptureLoading(true);
       canvas.toBlob((blob) => {
         if (blob !== null) {
           saveAs(blob, 'polzzak-gift.png');
@@ -259,7 +261,7 @@ const Coupon = () => {
             선물을 전달하기로 약속했어요!
           </Text>
         )}
-        {coupon?.state === 'REWARDED' && isKid && (
+        {coupon?.state === 'REWARDED' && isKid && !captureLoading && (
           <Box
             p="6px 12px"
             borderRadius="100px"
@@ -270,7 +272,7 @@ const Coupon = () => {
             선물 받기 완료
           </Box>
         )}
-        {coupon?.state === 'REWARDED' && !isKid && (
+        {coupon?.state === 'REWARDED' && !isKid && !captureLoading && (
           <Box
             p="6px 12px"
             borderRadius="100px"
@@ -280,6 +282,11 @@ const Coupon = () => {
           >
             선물 전달 완료
           </Box>
+        )}
+        {captureLoading && (
+          <Text layerStyle="title20Xbd" color="white" opacity="0.5">
+            PolZZak!
+          </Text>
         )}
         {coupon?.state === 'ISSUED' && isKid && (
           <Flex w="100%" gap="7px" p="0 5%">
