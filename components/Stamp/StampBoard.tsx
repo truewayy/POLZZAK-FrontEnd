@@ -57,6 +57,11 @@ const board = {
     column: 5,
     foldedRow: 5,
   },
+  30: {
+    row: 6,
+    column: 5,
+    foldedRow: 5,
+  },
   36: {
     row: 6,
     column: 6,
@@ -189,7 +194,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
         bg="white"
       >
         <Grid
-          templateColumns={`repeat(${board[count].column}, 1fr)`}
+          templateColumns={`repeat(${board[count]?.column}, 1fr)`}
           templateRows={`repeat(${
             moreStamp ? board[count].row : board[count].foldedRow
           }, 1fr)`}

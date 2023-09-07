@@ -62,37 +62,44 @@ interface StampboardCreateInfo {
   missionContents: string[];
 }
 
+export interface StampboardDetailData {
+  stampBoardId: number;
+  name: string;
+  status: 'progress' | 'completed' | 'issued_coupon' | 'rewarded';
+  currentStampCount: number;
+  goalStampCount: 10 | 12 | 16 | 20 | 25 | 36 | 40 | 48 | 60;
+  kid: {
+    id: number;
+    nickname: string;
+    profileUrl: string;
+  };
+  reward: string;
+  missions: {
+    id: number;
+    content: string;
+  }[];
+  stamps: {
+    id: number;
+    stampDesignId: number;
+    missionContent: string;
+    createdDate: string;
+  }[];
+  missionRequestList: {
+    id: number;
+    missionId: number;
+    missionContent: string;
+    createdDate: string;
+  }[];
+  completedDate: string | null;
+  rewardDate: Date;
+  createdDate: string;
+}
+
 interface StampboardDetailResponse {
   data: {
     code: 200;
     messages: null;
-    data: {
-      stampBoardId: number;
-      name: string;
-      status: 'progress' | 'completed' | 'issued_coupon' | 'rewarded';
-      currentStampCount: number;
-      goalStampCount: 10 | 12 | 16 | 20 | 25 | 36 | 40 | 48 | 60;
-      reward: string;
-      missions: {
-        id: number;
-        content: string;
-      }[];
-      stamps: {
-        id: number;
-        stampDesignId: number;
-        missionContent: string;
-        createdDate: string;
-      }[];
-      missionRequestList: {
-        id: number;
-        missionId: number;
-        missionContent: string;
-        createdDate: string;
-      }[];
-      completedDate: string | null;
-      rewardDate: Date;
-      createdDate: string;
-    };
+    data: StampboardDetailData;
   };
 }
 
@@ -132,8 +139,7 @@ export const stampboardDetail = async (stampboardId: string) => {
     );
     return data;
   } catch (error) {
-    const err = error as StampboardListError;
-    return err.response.data;
+    console.error(error);
   }
 };
 
