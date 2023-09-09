@@ -13,6 +13,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { approveRequest, rejectRequest } from '@/apis/family';
 import ConfirmModal from '@/components/Link/ConfirmModal';
+import { CheckCircle, XCircle } from '@/public/icon';
 import { notiDeleteOnAtom, notificationsAtom } from '@/store/notifications';
 
 interface NotificationFrameProps {
@@ -21,6 +22,12 @@ interface NotificationFrameProps {
   time: string;
   children: React.ReactNode;
   type: string;
+  status:
+    | 'READ'
+    | 'UNREAD'
+    | 'REQUEST_FAMILY'
+    | 'REQUEST_FAMILY_ACCEPT'
+    | 'REQUEST_FAMILY_REJECT';
   sender: {
     id: number;
     nickname: string;
@@ -35,6 +42,7 @@ const NotificationFrame = ({
   time,
   children,
   type,
+  status,
   sender,
   link,
 }: NotificationFrameProps) => {
@@ -45,6 +53,11 @@ const NotificationFrame = ({
   const [deleteArr, setDeleteArr] = useRecoilState(notificationsAtom);
 
   const isChecked = deleteArr.includes(id);
+
+  const isFamilyRequest =
+    type === 'FAMILY_REQUEST' && status === 'REQUEST_FAMILY';
+  const isFamilyRequestAccept = status === 'REQUEST_FAMILY_ACCEPT';
+  const isFamilyRequestReject = status === 'REQUEST_FAMILY_REJECT';
 
   const onClickCheckCircle = () => {
     if (isDeleteModeOn) {
@@ -151,7 +164,7 @@ const NotificationFrame = ({
           {children}
         </Text>
       </VStack>
-      {type === 'FAMILY_REQUEST' && (
+      {isFamilyRequest && (
         <Flex w="100%" gap="10px">
           <Button
             w="100%"
@@ -175,6 +188,44 @@ const NotificationFrame = ({
               거절
             </Text>
           </Button>
+        </Flex>
+      )}
+      {isFamilyRequestAccept && (
+        <Flex
+          w="100%"
+          justify="center"
+          align="center"
+          p="8px 20px"
+          bg="white"
+          border="1px solid"
+          borderColor="polzzak.default"
+          borderRadius="8px"
+          gap="8px"
+          cursor="default"
+        >
+          <CheckCircle w="16px" h="16px" fill="polzzak.default" />
+          <Text layerStyle="subtitle16Bd" color="polzzak.default">
+            수락했어요
+          </Text>
+        </Flex>
+      )}
+      {isFamilyRequestReject && (
+        <Flex
+          w="100%"
+          justify="center"
+          align="center"
+          p="8px 20px"
+          bg="white"
+          border="1px solid"
+          borderColor="error.500"
+          borderRadius="8px"
+          gap="8px"
+          cursor="default"
+        >
+          <XCircle w="20px" h="20px" fill="error.500" />
+          <Text layerStyle="subtitle16Bd" color="error.500">
+            거절했어요
+          </Text>
         </Flex>
       )}
       <Flex w="100%" gap="4px" justify="flex-start" align="center">

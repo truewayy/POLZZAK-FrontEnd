@@ -13,6 +13,7 @@ const Notification = ({ notification }: NotificationProps) => (
   <NotificationFrame
     id={notification.id}
     type={notification.type}
+    status={notification.status}
     title={notification.title}
     time={formatDateDifference(notification.createdDate)}
     sender={notification.sender}
