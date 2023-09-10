@@ -238,7 +238,7 @@ const Terms = () => (
         부칙
       </Text>
       <Text w="100%" layerStyle="body14Md" color="gray.600">
-        이 약관은 2023년 8월 31일부터 적용됩니다.
+        이 약관은 2023년 9월 21일부터 적용됩니다.
       </Text>
     </VStack>
   </VStack>
