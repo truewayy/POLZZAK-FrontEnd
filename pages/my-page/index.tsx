@@ -29,6 +29,10 @@ const Profile = () => {
     }
   };
 
+  const handleClickAccountManage = () => {
+    push(ROUTES.PROFILE.ACCOUNT);
+  };
+
   return (
     <VStack w="100%" minH="100vh" pb="100px" spacing="0px">
       <BasicInfo />
@@ -57,6 +61,7 @@ const Profile = () => {
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            onClick={handleClickAccountManage}
           >
             계정관리
           </Box>

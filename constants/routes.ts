@@ -25,6 +25,7 @@ const ROUTES = {
     POINTS: '/my-page/points',
     RULES: '/my-page/rules',
     CALL_CENTER: '/my-page/call-center',
+    ACCOUNT: '/my-page/account',
   },
   MAIN: '/main',
   FIND: '/find',

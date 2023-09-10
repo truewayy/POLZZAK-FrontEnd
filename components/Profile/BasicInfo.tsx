@@ -114,7 +114,13 @@ const BasicInfo = () => {
               </VStack>
               <VStack w="100%" spacing="8px">
                 {families?.map((family) => (
-                  <Flex w="100%" p="12px 16px" align="center" gap="16px">
+                  <Flex
+                    key={family.memberId}
+                    w="100%"
+                    p="12px 16px"
+                    align="center"
+                    gap="16px"
+                  >
                     <Circle
                       size="60px"
                       bg={`url(${family.profileUrl})`}
