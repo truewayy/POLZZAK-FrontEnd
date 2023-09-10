@@ -21,46 +21,65 @@ const MemberTypeView = ({
   <VStack w="100%">
     <Grid w="100%" gap={13} templateColumns="repeat(2, 1fr)">
       <VStack
-        id="KID"
-        p="24px 20px"
-        spacing={42}
-        border="1px solid"
-        borderColor={memberType === 'KID' ? 'polzzak.default' : 'white'}
-        borderRadius={10}
-        bg={memberType === 'KID' ? 'blue.100' : 'white'}
-        cursor="pointer"
-        onClick={handleChangeMemberType}
-      >
-        <Text
-          layerStyle="subtitle2"
-          color={memberType === 'KID' ? 'polzzak.default' : 'black'}
-          fontWeight={memberType === 'KID' ? 'bold' : 'normal'}
-          alignSelf="flex-start"
-        >
-          아이 회원
-        </Text>
-        <YellowCharacter alignSelf="flex-end" w="63%" h="71%" />
-      </VStack>
-      <VStack
         id="PARENT"
-        p="24px 20px"
-        spacing={42}
+        p="20px 14px"
+        spacing="12px"
         border="1px solid"
-        borderColor={memberType === 'PARENT' ? 'polzzak.default' : 'white'}
+        borderColor={memberType === 'PARENT' ? 'polzzak.default' : 'gray.300'}
         borderRadius={10}
         bg={memberType === 'PARENT' ? 'blue.100' : 'white'}
         cursor="pointer"
         onClick={handleChangeMemberType}
       >
         <Text
-          layerStyle="subtitle2"
+          layerStyle="subtitle16Sbd"
           color={memberType === 'PARENT' ? 'polzzak.default' : 'black'}
-          fontWeight={memberType === 'PARENT' ? 'bold' : 'normal'}
-          alignSelf="flex-start"
+          fontWeight={memberType === 'PARENT' ? '700' : '600'}
         >
           보호자 회원
         </Text>
-        <RedCharacter alignSelf="flex-end" w="75%" h="71%" />
+        <Text
+          layerStyle="caption12Md"
+          color={memberType === 'PARENT' ? 'polzzak.default' : 'gray.500'}
+          fontWeight={memberType === 'PARENT' ? '600' : '500'}
+          textAlign="center"
+        >
+          “도장판을 만들어서
+          <br />
+          칭찬 도장을 찍어주고 싶어요”
+        </Text>
+        <RedCharacter alignSelf="center" w="120px" h="100px" />
+      </VStack>
+
+      <VStack
+        id="KID"
+        p="20px 14px"
+        spacing="12px"
+        border="1px solid"
+        borderColor={memberType === 'KID' ? 'polzzak.default' : 'gray.300'}
+        borderRadius={10}
+        bg={memberType === 'KID' ? 'blue.100' : 'white'}
+        cursor="pointer"
+        onClick={handleChangeMemberType}
+      >
+        <Text
+          layerStyle="subtitle16Sbd"
+          color={memberType === 'KID' ? 'polzzak.default' : 'black'}
+          fontWeight={memberType === 'KID' ? '700' : '600'}
+        >
+          아이 회원
+        </Text>
+        <Text
+          layerStyle="caption12Md"
+          color={memberType === 'KID' ? 'polzzak.default' : 'gray.500'}
+          fontWeight={memberType === 'KID' ? '600' : '500'}
+          textAlign="center"
+        >
+          “칭찬 도장을 모아서
+          <br />
+          선물을 받고 싶어요”
+        </Text>
+        <YellowCharacter alignSelf="center" w="90px" h="100px" />
       </VStack>
     </Grid>
     <NextStepButton onClick={handleClickButton} disabled={buttonDisabled}>

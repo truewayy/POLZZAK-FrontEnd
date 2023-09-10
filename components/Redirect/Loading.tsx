@@ -52,13 +52,14 @@ const Loading = () => {
       const { code, data } = await login(loginType, oAuthAccessToken);
       if (code === 200 && 'accessToken' in data) {
         setLocalStorage(TOKEN_KEY, data.accessToken);
+        setLocalStorage('lastLoginType', loginType);
         await setUserInfoAndPush();
       } else if (code === 412) {
         setSignUpInfo((prev) => ({
           ...prev,
           ...data,
         }));
-        push(ROUTES.SIGNUP.TYPE);
+        push(ROUTES.SIGNUP.TERMS);
       }
     };
     fetchCode();

@@ -88,3 +88,63 @@ export const sentRequest = async () => {
     return err.response.data;
   }
 };
+
+export const sendRequest = async (targetId: number) => {
+  try {
+    const { data }: FamilyResponse = await http.post(API_URLS.FAMILIES, {
+      targetId,
+    });
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};
+
+export const cancelRequest = async (targetId: number) => {
+  try {
+    const { data }: FamilyResponse = await http.delete(
+      API_URLS.FAMILY_CANCEL(targetId)
+    );
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};
+
+export const approveRequest = async (targetId: number) => {
+  try {
+    const { data }: FamilyResponse = await http.patch(
+      API_URLS.FAMILY_APPROVE(targetId)
+    );
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};
+
+export const rejectRequest = async (targetId: number) => {
+  try {
+    const { data }: FamilyResponse = await http.delete(
+      API_URLS.FAMILY_REJECT(targetId)
+    );
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};
+
+export const clearRequest = async (targetId: number) => {
+  try {
+    const { data }: FamilyResponse = await http.delete(
+      API_URLS.FAMILY_CLEAR(targetId)
+    );
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};

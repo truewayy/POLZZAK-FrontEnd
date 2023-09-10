@@ -1,23 +1,24 @@
-import { Button } from '@chakra-ui/react';
+/* eslint-disable react/require-default-props */
+import { Button, ButtonProps } from '@chakra-ui/react';
 
-interface ButtonProps {
-  // eslint-disable-next-line react/require-default-props
+interface NextStepButtonProps extends ButtonProps {
   onClick?: () => void;
   children: React.ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const NextStepButton = ({
   onClick = () => {},
   children,
   disabled,
-}: ButtonProps) => (
+  ...props
+}: NextStepButtonProps) => (
   <Button
     bg="polzzak.default"
     w="90%"
     p="22px"
     borderRadius={10}
-    layerStyle="subtitle3"
+    layerStyle="subtitle16Sbd"
     color="white"
     pos="absolute"
     bottom="30px"
@@ -25,6 +26,9 @@ const NextStepButton = ({
     _hover={{ bg: 'polzzak.default' }}
     onClick={onClick}
     isDisabled={disabled}
+    _disabled={{ bg: 'gray.300', cursor: 'not-allowed' }}
+    cursor="pointer"
+    {...props}
   >
     {children}
   </Button>

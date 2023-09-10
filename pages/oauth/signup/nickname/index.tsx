@@ -4,7 +4,7 @@ import NicknameInput from '@/components/SignUp/Nickname/NicknameInput';
 const Nickname = () => (
   <SignUpLayout
     title="닉네임을 설정해주세요"
-    description="나중에 수정할 수 있어요"
+    description="나중에 자유롭게 수정할 수 있어요"
   >
     <NicknameInput />
   </SignUpLayout>

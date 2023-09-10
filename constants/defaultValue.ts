@@ -44,8 +44,8 @@ export const onBoardingContents = {
     {
       title: '열심히 활동하면',
       title2: '포인트가 쌓여요!',
-      description: '아이와 열심히 활동하면 계단이 상승해요',
-      description2: '나의 랭킹도 확인할 수 있어요',
+      description: '아이와 열심히 활동하면',
+      description2: '계단을 폴짝! 올라갈 수 있어요',
     },
   ],
   kid: [
@@ -292,5 +292,36 @@ export const totalCompletedStampData = [
         reward: '4k 고해상도 모니터',
       },
     ],
+  },
+];
+
+export const stampsExample = [
+  {
+    id: 1,
+    content: '참 잘했어요1',
+  },
+  {
+    id: 2,
+    content: '참 잘했어요2',
+  },
+  {
+    id: 3,
+    content: '참 잘했어요3',
+  },
+  {
+    id: 4,
+    content: '참 잘했어요4',
+  },
+  {
+    id: 5,
+    content: '참 잘했어요5',
+  },
+  {
+    id: 6,
+    content: '참 잘했어요6',
+  },
+  {
+    id: 7,
+    content: '참 잘했어요7',
   },
 ];

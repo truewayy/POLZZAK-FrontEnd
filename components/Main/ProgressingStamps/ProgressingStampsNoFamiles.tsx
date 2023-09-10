@@ -28,7 +28,7 @@ const ProgressingStampsNoFamiles = () => {
       borderRadius="8px"
       justifyContent="center"
     >
-      <Text layerStyle="body3" textAlign="center">
+      <Text layerStyle="body14Md" textAlign="center">
         {title}와 연동되면 <br />
         도장판을 {description} 수 있어요!
       </Text>

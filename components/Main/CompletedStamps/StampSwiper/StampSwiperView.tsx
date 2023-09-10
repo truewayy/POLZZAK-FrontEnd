@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import Swiper from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
@@ -23,40 +23,64 @@ const StampSwiperView = ({
 }: StampSwiperVAProps) => (
   <Box key={nickname}>
     <Flex justify="space-between" align="center" p="0 7.5%" mb="16px">
-      <Text layerStyle="subtitle1">
+      <Text layerStyle="subtitle18Sbd">
         {nickname}
-        <Text as="span" layerStyle="subtitle6">
+        <Text as="span" layerStyle="subtitle18Rg">
           님과 함께해요
         </Text>
       </Text>
-      <Text layerStyle="body3" letterSpacing="tight">
-        {currentBoard}{' '}
-        <Text as="span" color="gray.500">
-          / {totalBoard}
-        </Text>
-      </Text>
     </Flex>
-    <SwiperComponent
-      grabCursor
-      slidesPerView={1.15}
-      centeredSlides
-      spaceBetween={10}
-      coverflowEffect={{
-        rotate: 10, // 회전각도
-        stretch: 0,
-        depth: 100, // 깊이감도
-        modifier: 2, //
-        slideShadows: false,
-      }}
-      style={{ marginBottom: '38px' }}
-      onSlideChange={handleChangeSwiper}
-    >
-      {completedBoard.map(({ stampBoardId, name, reward }) => (
-        <SwiperSlide key={stampBoardId}>
-          <Card name={name} reward={reward} />
-        </SwiperSlide>
-      ))}
-    </SwiperComponent>
+    {completedBoard.length > 0 ? (
+      <SwiperComponent
+        grabCursor
+        slidesPerView={1.15}
+        centeredSlides
+        spaceBetween={10}
+        coverflowEffect={{
+          rotate: 10, // 회전각도
+          stretch: 0,
+          depth: 100, // 깊이감도
+          modifier: 2, //
+          slideShadows: false,
+        }}
+        style={{ marginBottom: '38px' }}
+        onSlideChange={handleChangeSwiper}
+      >
+        {completedBoard.map(({ stampBoardId, name, reward }) => (
+          <SwiperSlide key={stampBoardId}>
+            <Card name={name} reward={reward} />
+          </SwiperSlide>
+        ))}
+        {completedBoard.length > 0 && (
+          <Text
+            pt="8px"
+            w="100%"
+            textAlign="center"
+            layerStyle="body14Md"
+            letterSpacing="tight"
+          >
+            {currentBoard}{' '}
+            <Text as="span" color="gray.500">
+              / {totalBoard}
+            </Text>
+          </Text>
+        )}
+      </SwiperComponent>
+    ) : (
+      <VStack
+        m="0 7%"
+        mb="30px"
+        bg="white"
+        h="180px"
+        border="1px dashed #DADAE7"
+        borderRadius="8px"
+        justifyContent="center"
+      >
+        <Text layerStyle="body14Md" textAlign="center" color="gray.700">
+          완료된 도장판이 없어요
+        </Text>
+      </VStack>
+    )}
   </Box>
 );
 

@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 import { stampboardList } from '@/apis/stamp';
-import { filterAtom } from '@/store/filter';
+import { MainfilterAtom } from '@/store/filter';
 import { userInfoAtom } from '@/store/userInfo';
 
 import CompletedStampsSkeleton from './CompletedStampsSkeleton';
@@ -10,13 +11,22 @@ import CompletedStampsView from './CompletedStampsView';
 
 const CompletedStamps = () => {
   const { families } = useRecoilValue(userInfoAtom);
-  const filter = useRecoilValue(filterAtom);
-  const noFamiles = families.length === 0;
+  const [isNoFamily, setIsNoFamily] = useState(true);
+
+  const filter = useRecoilValue(MainfilterAtom);
+  const currentFilterId = families.find(
+    (family) => family.nickname === filter
+  )?.memberId;
+
   const { data, isLoading, refetch } = useQuery(
     ['stampboardList', 'ended', filter],
-    () => stampboardList({ stampBoardGroup: 'ended' }),
+    () =>
+      stampboardList({
+        stampBoardGroup: 'ended',
+        partnerMemberId: currentFilterId,
+      }),
     {
-      enabled: !noFamiles,
+      enabled: !isNoFamily,
     }
   );
 
@@ -25,6 +35,12 @@ const CompletedStamps = () => {
   const handleRefresh = async () => {
     await refetch();
   };
+
+  useEffect(() => {
+    const noFamily = families.length === 0;
+
+    setIsNoFamily(noFamily);
+  }, [families]);
 
   const CompletedStampsVAProps = {
     handleRefresh,

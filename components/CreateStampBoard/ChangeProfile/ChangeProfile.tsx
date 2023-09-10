@@ -1,19 +1,24 @@
-import useControlFilter from '@/hooks/useControlFilter';
+import { useQuery } from 'react-query';
+
+import { familiesInfo } from '@/apis/family';
+import useControlFilter from '@/hooks/useControlMainFilter';
 
 import ChangeProfileView from './ChangeProfileView';
 
 const ChangeProfile = () => {
+  const { data } = useQuery(['families'], familiesInfo, {
+    refetchOnWindowFocus: false,
+  });
   const { currentValue, handleClickFilter } = useControlFilter();
 
-  const balloonMessage =
-    currentValue === '전체'
-      ? '도장판을 누구에게 만들어줄까요?'
-      : '칭찬 도장이 필요해요!';
+  const profileUrl = data?.data?.families?.find(
+    (family) => family.nickname === currentValue
+  )?.profileUrl;
 
   const ChangeProfileVAProps = {
     handleClickFilter,
     currentValue: currentValue === '전체' ? '아이 선택' : currentValue,
-    balloonMessage,
+    profileUrl,
   };
 
   return <ChangeProfileView {...ChangeProfileVAProps} />;

@@ -7,14 +7,18 @@ import { userInfoAtom } from '@/store/userInfo';
 import SearchInputView from './SearchInputView';
 
 const SearchInput = () => {
+  const { pathname } = useRouter();
   const [userType, setUserType] = useState('');
   const {
     memberType: { name },
   } = useRecoilValue(userInfoAtom);
   const { push } = useRouter();
 
+  const isPathOnboarding = pathname === '/find/family';
+
   const handleClickInputFrame = () => {
-    push('/link/search');
+    if (isPathOnboarding) push('/find/family/search');
+    else push('/link/search');
   };
 
   useEffect(() => {
@@ -23,6 +27,7 @@ const SearchInput = () => {
 
   const SearchInputViewVAProps = {
     userType,
+    isPathOnboarding,
     handleClickInputFrame,
   };
 

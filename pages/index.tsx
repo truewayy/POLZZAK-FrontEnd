@@ -1,59 +1,42 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/react';
+import { Flex, Image, Text, VStack } from '@chakra-ui/react';
 
 import SEO from '@/components/Common/SEO';
 import LoginButton from '@/components/Login/Button/Button';
-import { MainCharactors } from '@/public/icon';
 
 export default function Home() {
   return (
-    <VStack m="auto 0" p="0 5%" gap={30}>
+    <VStack
+      m="auto 0"
+      p="0 5%"
+      h="100vh"
+      justify="center"
+      spacing="110px"
+      bg="gray.100"
+    >
       <SEO title="폴짝!" />
-      <HStack w="90%" justify="space-between" align="flex-start" pos="relative">
-        <VStack
-          justify="center"
-          w={145}
-          h={145}
-          mt="20px"
-          border="10px solid"
-          borderColor="polzzak.default"
-          borderRadius="100%"
-        >
-          <Text
-            fontSize="42px"
-            fontWeight="900"
-            lineHeight="44px"
-            color="polzzak.default"
-          >
-            반가
+      <VStack w="100%" spacing="26px">
+        <Image src="/helloeveryone.png" w="200px" h="200px" />
+        <VStack w="100%" spacing="16px">
+          <Text layerStyle="title22Bd">참 잘 했어요 도장 쾅!</Text>
+          <Text layerStyle="body16Md" textAlign="center" color="gray.600">
+            미션을 수행하고 칭찬 도장을 모으며
             <br />
-            워요
+            <Text as="span" color="blue.600">
+              폴짝
+            </Text>{' '}
+            성장해요
           </Text>
         </VStack>
-        <MainCharactors w={125} h={300} />
-        <Box
-          pos="absolute"
-          w={200}
-          h={4}
-          right={7}
-          bottom={-2}
-          borderRadius="50%"
-          zIndex={-1}
-          bgColor="gray.300"
-        />
-      </HStack>
-
-      <VStack w="100%">
-        <Text layerStyle="head24B" color="gray.800" w="100%" textAlign="left">
-          참 잘했어요 도장 쾅!
-        </Text>
-        <Text layerStyle="body1" color="gray.800" w="100%" textAlign="left">
-          손가락 거는 걸로는 부족한 우리에게 필요했던
-        </Text>
       </VStack>
 
-      <VStack w="100%">
-        <LoginButton type="kakao" />
-        <LoginButton type="google" />
+      <VStack w="100%" spacing="18px">
+        <Text layerStyle="body15Md" color="gray.700">
+          다음 소셜 계정으로 시작하기
+        </Text>
+        <Flex justifyContent="space-between" gap="23px">
+          <LoginButton type="kakao" />
+          <LoginButton type="google" />
+        </Flex>
       </VStack>
     </VStack>
   );

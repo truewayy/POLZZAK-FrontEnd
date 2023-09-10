@@ -11,6 +11,7 @@ import Header from '../SignUp/Header/Header';
 interface SignupLayoutProps {
   children: React.ReactNode;
   title: string;
+  title2?: string;
   description?: string;
   description2?: string;
 }
@@ -18,6 +19,7 @@ interface SignupLayoutProps {
 const SignUpLayout = ({
   children,
   title,
+  title2,
   description,
   description2,
 }: SignupLayoutProps) => {
@@ -34,11 +36,17 @@ const SignUpLayout = ({
     <VStack pos="relative" minH="100vh" p="0 5%" bg="gray.100">
       <Header />
       <VStack w="100%" spacing="16px" pb={65}>
-        <Text layerStyle="head22B" color="#413E39" alignSelf="flex-start">
+        <Text layerStyle="title22Bd" color="#413E39" alignSelf="flex-start">
           {title}
+          {title2 && (
+            <>
+              <br />
+              {title2}
+            </>
+          )}
         </Text>
         {description && (
-          <Text layerStyle="caption13L" color="gray.500" alignSelf="flex-start">
+          <Text layerStyle="body15Md" color="gray.600" alignSelf="flex-start">
             {description}
             {description2 && (
               <>

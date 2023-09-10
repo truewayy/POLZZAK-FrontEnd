@@ -2,7 +2,8 @@
 import axios, { AxiosInstance } from 'axios';
 
 import { TOKEN_KEY } from '@/constants/auth';
-import { getLocalStorage } from '@/utils/storage';
+import ROUTES from '@/constants/routes';
+import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
 // API 주소
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -22,7 +23,7 @@ const setInterceptor = (instance: AxiosInstance) => {
         ) {
           config.withCredentials = true;
         }
-        config.headers.Authorization = `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHT09HTEVfMTExNDk2OTMxOTY0MDgyMjEwNDY4Iiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTY4NjExNjcwMywiZXhwIjoxNjg2MTE2NzA0fQ.pqvsNrdxESxhKD_veOPWDAOI-b3-qXsBzV-ftayDBaQa5wcYOvxXQ-vmrqhyQWnN`;
+        config.headers.Authorization = `Bearer ${accessToken}`;
       }
       return config;
     },
@@ -31,7 +32,19 @@ const setInterceptor = (instance: AxiosInstance) => {
 
   instance.interceptors.response.use(
     (response) => response,
-    (error) => Promise.reject(error)
+    (error) => {
+      const tokenInvalidErr = error.response.data.code === 431;
+      const tokenExpiredErr = error.response.data.code === 434;
+      if (tokenInvalidErr) {
+        window.location.href = ROUTES.LOGIN;
+      }
+      if (tokenExpiredErr) {
+        const newToken = error.response.data.data;
+        setLocalStorage(TOKEN_KEY, newToken);
+        return instance(error.response.config);
+      }
+      return Promise.reject(error);
+    }
   );
 
   return instance;

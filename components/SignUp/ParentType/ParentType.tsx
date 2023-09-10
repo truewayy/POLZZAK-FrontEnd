@@ -11,6 +11,10 @@ import ParentTypeView from './ParentTypeView';
 
 export const defaultParentTypes = [
   {
+    detail: '선택해 주세요',
+    memberTypeDetailId: 0,
+  },
+  {
     detail: '엄마',
     memberTypeDetailId: 2,
   },
@@ -87,6 +91,7 @@ const ParentType = () => {
         const parentTypeList = data.memberTypeDetailList.filter(
           ({ memberTypeDetailId }) => memberTypeDetailId !== 1
         );
+        parentTypeList.unshift(defaultParentTypes[0]);
         setParentTypes(parentTypeList);
       }
     };

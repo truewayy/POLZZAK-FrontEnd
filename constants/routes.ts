@@ -9,13 +9,30 @@ const clientId = {
 };
 
 const ROUTES = {
+  LOGIN: '/',
+  REDIRECT: '/oauth/redirect',
   SIGNUP: {
+    ROOT: '/oauth/signup',
+    TERMS: '/oauth/signup/terms',
     TYPE: '/oauth/signup/type',
     NICKNAME: '/oauth/signup/nickname',
     PARENT: '/oauth/signup/parent',
     PROFILE: '/oauth/signup/profile',
   },
+  PROFILE: {
+    ROOT: '/my-page',
+    RANKING: '/my-page/ranking',
+    POINTS: '/my-page/points',
+    RULES: '/my-page/rules',
+    CALL_CENTER: '/my-page/call-center',
+    ACCOUNT: '/my-page/account',
+    EXIT: '/my-page/account/exit',
+  },
   MAIN: '/main',
+  FIND: '/find',
+  TERMS: '/terms',
+  PRIVACY: '/privacy',
+  FIND_FAMILY: '/find/family',
   ON_BOARDING: {
     PARENT: '/onboarding/parent',
     KID: '/onboarding/kid',

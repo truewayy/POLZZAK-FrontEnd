@@ -1,20 +1,25 @@
 import { useRecoilValue } from 'recoil';
 
-import useControlFilter from '@/hooks/useControlFilter';
+import useControlFilter from '@/hooks/useControlMainFilter';
 import { userInfoAtom } from '@/store/userInfo';
 
 import LinkedFilterView from './LinkedFilterView';
 
 const LinkedFilter = () => {
-  const { families } = useRecoilValue(userInfoAtom);
+  const { families, memberType } = useRecoilValue(userInfoAtom);
   const { handleClickFilter, currentValue } = useControlFilter();
 
-  const noFamily = families.length === 0;
+  const isKid = memberType.name === 'KID';
+
+  const currentFilterMemberType =
+    families.find((family) => family.nickname === currentValue)?.memberType
+      .detail || '';
 
   const LinkedFilterVAProps = {
     handleClickFilter,
+    isKid,
+    currentFilterMemberType,
     currentValue,
-    noFamily,
   };
 
   return <LinkedFilterView {...LinkedFilterVAProps} />;

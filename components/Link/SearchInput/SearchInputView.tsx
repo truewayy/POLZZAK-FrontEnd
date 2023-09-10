@@ -4,11 +4,13 @@ import { SearchIcon } from '@/public/icon';
 
 interface SearchInputVAProps {
   userType: string;
+  isPathOnboarding: boolean;
   handleClickInputFrame: () => void;
 }
 
 const SearchInputView = ({
   userType,
+  isPathOnboarding,
   handleClickInputFrame,
 }: SearchInputVAProps) => (
   <Flex
@@ -22,8 +24,8 @@ const SearchInputView = ({
     justify="space-between"
     onClick={handleClickInputFrame}
   >
-    <Text layerStyle="body3" color="gray.500">
-      {userType} 추가
+    <Text layerStyle="body14Md" color="gray.500">
+      {userType} {isPathOnboarding ? '닉네임 검색' : '추가'}
     </Text>
     <SearchIcon w="20px" h="20px" />
   </Flex>

@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
-import useControlFilter from '@/hooks/useControlFilter';
-import { userInfoAtom } from '@/store/userInfo';
+import { familiesInfo } from '@/apis/family';
+import useControlFilter from '@/hooks/useControlMainFilter';
 
 import BottomSheetModalView from './BottomSheetModalView';
 
@@ -14,7 +14,17 @@ const BottomSheetModal = () => {
     filterOn,
     currentValue,
   } = useControlFilter();
-  const { families } = useRecoilValue(userInfoAtom);
+  const [selectedProfile, setSelectedProfile] = useState<string>(currentValue);
+
+  const { data, isLoading } = useQuery(['families'], familiesInfo, {
+    refetchOnWindowFocus: false,
+  });
+
+  const families = data?.data?.families;
+
+  const handleClickProfile = (profile: string) => {
+    setSelectedProfile(profile);
+  };
 
   useEffect(() => {
     if (currentValue === '전체') handleClickOpen();
@@ -23,9 +33,11 @@ const BottomSheetModal = () => {
   const BottomSheetModalVAProps = {
     onClose: handleClickClose,
     handleChangeFilter,
+    handleClickProfile,
     filterOn,
-    currentValue,
+    selectedProfile,
     families,
+    isLoading,
   };
 
   return <BottomSheetModalView {...BottomSheetModalVAProps} />;

@@ -1,10 +1,10 @@
 import { useRecoilState } from 'recoil';
 
-import { filterAtom, filterModalAtom } from '@/store/filter';
+import { filterModalAtom, MainfilterAtom } from '@/store/filter';
 
-const useControlFilter = () => {
+const useControlMainFilter = () => {
   const [filterOn, setFilterOn] = useRecoilState(filterModalAtom);
-  const [currentValue, setCurrentValue] = useRecoilState(filterAtom);
+  const [currentValue, setCurrentValue] = useRecoilState(MainfilterAtom);
 
   const handleClickFilter = () => {
     setFilterOn(!filterOn);
@@ -33,4 +33,4 @@ const useControlFilter = () => {
   };
 };
 
-export default useControlFilter;
+export default useControlMainFilter;
