@@ -26,6 +26,7 @@ const ROUTES = {
     RULES: '/my-page/rules',
     CALL_CENTER: '/my-page/call-center',
     ACCOUNT: '/my-page/account',
+    EXIT: '/my-page/account/exit',
   },
   MAIN: '/main',
   FIND: '/find',

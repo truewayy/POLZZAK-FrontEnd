@@ -8,7 +8,7 @@ import { LeftNavigation } from '@/public/icon';
 import { removeLocalStorage } from '@/utils/storage';
 
 const Account = () => {
-  const { back, replace } = useRouter();
+  const { back, replace, push } = useRouter();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const logout = () => {
@@ -16,6 +16,10 @@ const Account = () => {
     removeLocalStorage(POLZZAK_LOCAL);
     onClose();
     replace(ROUTES.LOGIN);
+  };
+
+  const handleClickExit = () => {
+    push(ROUTES.PROFILE.EXIT);
   };
 
   return (
@@ -51,7 +55,12 @@ const Account = () => {
         >
           로그아웃
         </Box>
-        <Box w="100%" p="20px 0" layerStyle="body14Md">
+        <Box
+          w="100%"
+          p="20px 0"
+          layerStyle="body14Md"
+          onClick={handleClickExit}
+        >
           회원탈퇴
         </Box>
       </VStack>
