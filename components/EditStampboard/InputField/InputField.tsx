@@ -3,8 +3,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
 
 import { stampboardDetail, StampboardDetailData } from '@/apis/stamp';
+import { missionEditAtom } from '@/store/missions';
 
 import InputFieldView from './InputFieldView';
 
@@ -13,20 +15,7 @@ const stampCount = [10, 12, 16, 20, 25, 30, 36, 40, 48, 60];
 const InputField = () => {
   const toast = useToast();
   const [missionModal, setMissionModal] = useState(false);
-  const [missions, setMissions] = useState([
-    {
-      id: 1,
-      content: '',
-    },
-    {
-      id: 2,
-      content: '',
-    },
-    {
-      id: 3,
-      content: '',
-    },
-  ]);
+  const [missions, setMissions] = useRecoilState(missionEditAtom);
   const { unregister, control, watch, reset } = useFormContext();
 
   const { query } = useRouter();
@@ -39,7 +28,6 @@ const InputField = () => {
   const defaultMissionId = stampboard?.missions.map((item) => item.id) ?? [];
 
   const isMissionLimit = missions.length >= 50;
-
   const missionValue = (id: number) => watch(`mission${id}`);
 
   const handleClickAddButton = () => {
@@ -53,7 +41,6 @@ const InputField = () => {
       ]);
     }
   };
-
   const handleClickMissionExample = () => {
     setMissionModal(true);
   };

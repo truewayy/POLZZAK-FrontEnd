@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { CheckIcon } from '@/public/icon';
-import { missionsAtom } from '@/store/missions';
+import { missionEditAtom } from '@/store/missions';
 
 const missionExamples = [
   {
@@ -217,7 +217,7 @@ interface MissionExamplesProps {
 }
 
 const MissionExamples = ({ onClose }: MissionExamplesProps) => {
-  const [missions, setMissions] = useRecoilState(missionsAtom);
+  const [missions, setMissions] = useRecoilState(missionEditAtom);
   const [selectedMissions, setSelectedMissions] = useState<
     { id: number; content: string }[]
   >([]);

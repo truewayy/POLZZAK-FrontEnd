@@ -63,10 +63,10 @@ const HeaderView = ({
       handleClickCancelButton={confirm.onClose}
       handleClickConfirmButton={handleSubmit(handleClickConfirmApproveButton)}
       isLoading={isLoading}
-      confirmMessage="네, 등록할게요"
+      confirmMessage="네, 수정할게요"
     >
       <Text layerStyle="subtitle18Sbd" textAlign="center">
-        도장판을 등록하시겠어요?
+        {isLoading ? '도장판이 곧 완성돼요' : '도장판을 수정하시겠어요?'}
       </Text>
     </ConfirmModal>
   </Box>

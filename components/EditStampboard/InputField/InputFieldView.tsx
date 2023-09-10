@@ -114,6 +114,7 @@ const InputFieldView = ({
               name={`mission${id}`}
               w="90%"
               h="45px"
+              id={id}
               maxLength={20}
               placeholder="미션을 입력해주세요"
               defaultValue={content}

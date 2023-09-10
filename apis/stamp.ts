@@ -62,6 +62,22 @@ interface StampboardCreateInfo {
   missionContents: string[];
 }
 
+interface StampboardEditInfo {
+  name: string;
+  goalStampCount: number;
+  reward: string;
+  missions: (
+    | {
+        id: number;
+        content: string;
+      }
+    | {
+        id: null;
+        content: string;
+      }
+  )[];
+}
+
 export interface StampboardDetailData {
   stampBoardId: number;
   name: string;
@@ -126,6 +142,21 @@ export const stampboardList = async ({
 export const createStampboard = async (createInfo: StampboardCreateInfo) => {
   try {
     const { data } = await http.post(API_URLS.STAMPBOARD, createInfo);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const editStampboard = async (
+  createInfo: StampboardEditInfo,
+  stampboardId: string
+) => {
+  try {
+    const { data } = await http.patch(
+      `${API_URLS.STAMPBOARD}/${stampboardId}`,
+      createInfo
+    );
     return data;
   } catch (error) {
     return error;

@@ -1,40 +1,53 @@
 import { useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useFormContext } from 'react-hook-form';
-import { useMutation } from 'react-query';
-import { useRecoilValue } from 'recoil';
+import { useMutation, useQuery } from 'react-query';
 
-import { createStampboard } from '@/apis/stamp';
-import { MainfilterAtom } from '@/store/filter';
-import { userInfoAtom } from '@/store/userInfo';
+import {
+  editStampboard,
+  stampboardDetail,
+  StampboardDetailData,
+} from '@/apis/stamp';
 
 import HeaderView from './HeaderView';
 
-interface StampboardCreateInfo {
-  kidId: number;
+interface StampboardEditInfo {
   name: string;
   goalStampCount: number;
   reward: string;
-  missionContents: string[];
+  missions: (
+    | {
+        id: number;
+        content: string;
+      }
+    | {
+        id: null;
+        content: string;
+      }
+  )[];
 }
 
 const Header = () => {
   const confirm = useDisclosure();
-  const filter = useRecoilValue(MainfilterAtom);
-  const userInfo = useRecoilValue(userInfoAtom);
-  const families = userInfo?.families;
-  const familyId = families.find(
-    (family) => family.nickname === filter
-  )?.memberId;
 
   const { handleSubmit, watch } = useFormContext();
   const { push, back } = useRouter();
 
-  const create = useMutation(
-    (data: StampboardCreateInfo) => createStampboard(data),
+  const { query } = useRouter();
+  const stampboardId = query.stampboardId as string;
+  const { data, refetch } = useQuery(['stampboard', stampboardId], () =>
+    stampboardDetail(stampboardId)
+  );
+
+  const stampboard = data?.data as StampboardDetailData;
+  const defaultMissionId = stampboard?.missions.map((item) => item.id) ?? [];
+
+  const edit = useMutation(
+    (formData: StampboardEditInfo) => editStampboard(formData, stampboardId),
     {
       onSuccess: () => {
         confirm.onClose();
+        refetch();
         push('/main');
       },
     }
@@ -45,23 +58,31 @@ const Header = () => {
   };
 
   const handleClickConfirmApproveButton = () => {
-    const data = {
+    const watchData = {
       ...watch(),
     };
-    const missionContents = Object.keys(data)
+    const missionContents = Object.keys(watchData)
       .filter((key) => key.includes('mission'))
-      .map((key) => data[key]);
+      .map((key) => ({
+        id: Number(key.replace('mission', '')),
+        content: watchData[key] as string,
+      }));
+
+    const convertedMissionContents = missionContents.map((item) => {
+      if (defaultMissionId.includes(item.id)) return item;
+      return {
+        id: null,
+        content: item.content,
+      };
+    });
 
     const sendingData = {
-      kidId: familyId as number,
-      goalStampCount: data.goalStampCount as number,
-      name: data.name as string,
-      reward: data.reward as string,
-      missionContents: missionContents.filter(
-        (item) => item.length !== 0
-      ) as string[],
+      goalStampCount: watchData.goalStampCount as number,
+      name: watchData.name as string,
+      reward: watchData.reward as string,
+      missions: convertedMissionContents,
     };
-    create.mutate(sendingData);
+    edit.mutate(sendingData);
   };
 
   const handleClickRegister = () => {
@@ -74,7 +95,7 @@ const Header = () => {
     handleClickRegister,
     handleClickConfirmApproveButton,
     confirm,
-    isLoading: create.isLoading,
+    isLoading: edit.isLoading,
   };
 
   return <HeaderView {...HeaderVAProps} />;

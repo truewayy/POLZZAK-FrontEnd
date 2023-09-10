@@ -20,3 +20,8 @@ export const missionsAtom = atom<{ id: number; content: string }[]>({
   key: 'missionsAtom',
   default: missionDefault,
 });
+
+export const missionEditAtom = atom<{ id: number; content: string }[]>({
+  key: 'missionEditAtom',
+  default: missionDefault,
+});
