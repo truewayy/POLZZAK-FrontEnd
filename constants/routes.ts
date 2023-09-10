@@ -30,6 +30,8 @@ const ROUTES = {
   },
   MAIN: '/main',
   FIND: '/find',
+  TERMS: '/terms',
+  PRIVACY: '/privacy',
   FIND_FAMILY: '/find/family',
   ON_BOARDING: {
     PARENT: '/onboarding/parent',

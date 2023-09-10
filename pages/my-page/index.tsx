@@ -33,6 +33,14 @@ const Profile = () => {
     push(ROUTES.PROFILE.ACCOUNT);
   };
 
+  const handleClickTerms = () => {
+    push(ROUTES.TERMS);
+  };
+
+  const handleClickPrivacy = () => {
+    push(ROUTES.PRIVACY);
+  };
+
   return (
     <VStack w="100%" minH="100vh" pb="100px" spacing="0px">
       <BasicInfo />
@@ -79,6 +87,7 @@ const Profile = () => {
             layerStyle="caption13Sbd"
             color="gray.400"
             textDecor="underline"
+            onClick={handleClickTerms}
           >
             이용약관
           </Text>
@@ -86,6 +95,7 @@ const Profile = () => {
             layerStyle="caption13Sbd"
             color="gray.400"
             textDecor="underline"
+            onClick={handleClickPrivacy}
           >
             개인정보처리방침
           </Text>
