@@ -24,6 +24,7 @@ const ROUTES = {
     RANKING: '/my-page/ranking',
     POINTS: '/my-page/points',
     RULES: '/my-page/rules',
+    CALL_CENTER: '/my-page/call-center',
   },
   MAIN: '/main',
   FIND: '/find',
