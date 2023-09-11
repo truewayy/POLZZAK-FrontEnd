@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import { FormLabel, Grid, Radio, Text, VStack } from '@chakra-ui/react';
+import { FormLabel, Grid, Text, VStack } from '@chakra-ui/react';
 import { useController, UseControllerProps } from 'react-hook-form';
 
 interface RadioProps extends UseControllerProps {
@@ -16,7 +16,6 @@ const CustomRadio = ({ w = '100%', options, ...props }: RadioProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     field.onChange(Number(event.target.value));
   };
-
   const isError = !!error;
   const errorMsg = error?.message;
 
@@ -48,14 +47,14 @@ const CustomRadio = ({ w = '100%', options, ...props }: RadioProps) => {
             bg={field.value === option ? 'blue.100' : 'white'}
             cursor="pointer"
           >
-            <Radio
+            <input
               type="radio"
               id={`option${option}`}
               {...field}
+              hidden
               value={String(option)}
               checked={field.value === option}
               onChange={handleChange}
-              display="none"
             />
             <Text
               layerStyle="subtitle16Md"

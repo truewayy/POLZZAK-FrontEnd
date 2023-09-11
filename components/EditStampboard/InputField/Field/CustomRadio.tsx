@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import { FormLabel, Grid, Radio, Text, VStack } from '@chakra-ui/react';
+import { FormLabel, Grid, Text, VStack } from '@chakra-ui/react';
 import { useController, UseControllerProps } from 'react-hook-form';
 
 interface RadioProps extends UseControllerProps {
@@ -55,15 +55,15 @@ const CustomRadio = ({ w = '100%', options, ...props }: RadioProps) => {
               option < props.currentStampCount ? 'not-allowed' : 'pointer'
             }
           >
-            <Radio
+            <input
               type="radio"
               id={`option${option}`}
               {...field}
               value={String(option)}
               checked={field.value === option}
               onChange={handleChange}
-              display="none"
-              isDisabled={option < props.currentStampCount}
+              hidden
+              disabled={option < props.currentStampCount}
             />
             <Text
               layerStyle="subtitle16Md"
