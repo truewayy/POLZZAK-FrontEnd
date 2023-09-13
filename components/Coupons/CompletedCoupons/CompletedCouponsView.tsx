@@ -20,13 +20,8 @@ const CompletedCouponsView = ({
   <PullToRefresh onRefresh={handleRefresh}>
     {filter !== '전체' ? (
       <VStack w="100%" p="0 5%" spacing="20px">
-        {cards?.[0].coupons.map(({ reward, rewardDate, couponId }) => (
-          <Card
-            key={reward}
-            reward={reward}
-            rewardDate={rewardDate}
-            couponId={couponId}
-          />
+        {cards?.[0].coupons.map((card) => (
+          <Card key={card.couponId} {...card} />
         ))}
       </VStack>
     ) : (

@@ -62,9 +62,9 @@ const CouponSwiperView = ({
         style={{ marginBottom: '38px' }}
         onSlideChange={handleChangeSwiper}
       >
-        {progressingCoupons.map(({ reward, rewardDate, couponId }) => (
-          <SwiperSlide key={reward}>
-            <Card reward={reward} rewardDate={rewardDate} couponId={couponId} />
+        {progressingCoupons.map((coupon) => (
+          <SwiperSlide key={coupon.couponId}>
+            <Card {...coupon} />
           </SwiperSlide>
         ))}
         {progressingCoupons.length > 0 && (
