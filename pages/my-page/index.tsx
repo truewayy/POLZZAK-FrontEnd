@@ -34,11 +34,11 @@ const Profile = () => {
   };
 
   const handleClickTerms = () => {
-    push(ROUTES.TERMS);
+    push(`${ROUTES.PROFILE.ROOT}${ROUTES.TERMS}`);
   };
 
   const handleClickPrivacy = () => {
-    push(ROUTES.PRIVACY);
+    push(`${ROUTES.PROFILE.ROOT}${ROUTES.PRIVACY}`);
   };
 
   return (
@@ -87,6 +87,7 @@ const Profile = () => {
             layerStyle="caption13Sbd"
             color="gray.400"
             textDecor="underline"
+            cursor="pointer"
             onClick={handleClickTerms}
           >
             이용약관
@@ -95,6 +96,7 @@ const Profile = () => {
             layerStyle="caption13Sbd"
             color="gray.400"
             textDecor="underline"
+            cursor="pointer"
             onClick={handleClickPrivacy}
           >
             개인정보처리방침

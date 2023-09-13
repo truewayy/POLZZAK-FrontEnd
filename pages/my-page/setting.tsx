@@ -50,7 +50,7 @@ const Setting = () => {
         <Text w="100%" layerStyle="subtitle16Sbd">
           닉네임
         </Text>
-        <NicknameInput defaultValue={user?.nickname || ''} />
+        <NicknameInput defaultValue={user?.nickname ?? ''} />
       </VStack>
     </VStack>
   );
