@@ -68,29 +68,29 @@ const CardView = ({
             h="auto"
             p="8.5px"
             borderRadius="5px"
-            color="white"
             bg="polzzak.default"
-            layerStyle="caption12Md"
           >
-            선물 조르기
+            <Text layerStyle="caption12Md" color="white">
+              선물 조르기
+            </Text>
           </Button>
           <Button
             variant="unstyled"
             w="100%"
             h="auto"
             p="8.5px"
-            color="blue.600"
             borderRadius="5px"
             border="1px solid"
             borderColor="blue.150"
             bg="white"
-            layerStyle="caption12Md"
             onClick={(e) => {
               e.stopPropagation();
               handleClickReceiveButton();
             }}
           >
-            선물 받기 완료
+            <Text layerStyle="caption12Md" color="blue.600">
+              선물 받기 완료
+            </Text>
           </Button>
         </Flex>
       )}

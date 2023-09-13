@@ -31,7 +31,7 @@ const CouponIssuedModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
-      <ModalContent w="100%" h="460px" borderRadius="12px" bg="white">
+      <ModalContent w="90%" h="460px" borderRadius="12px" bg="white">
         <VStack w="100%" h="100%" p="48px 5% 16px 5%" spacing="35px">
           <Text layerStyle="subtitle18Sbd" color="blue.600" textAlign="center">
             {reward}

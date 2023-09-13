@@ -289,7 +289,7 @@ const Coupon = () => {
           </Text>
         )}
         {coupon?.state === 'ISSUED' && isKid && (
-          <Flex w="100%" gap="7px" p="0 5%">
+          <Flex w="100%" gap="7px" p="0 5%" pb="30px">
             <Button
               w="100%"
               h="auto"
