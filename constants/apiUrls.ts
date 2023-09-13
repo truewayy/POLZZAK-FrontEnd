@@ -31,6 +31,8 @@ const API_URLS = {
     `/api/v1/stamps/stamp-boards/${stampboardId}/stamp`,
   RECEIVE_GIFT: (couponId: number | string) =>
     `/api/v1/coupons/${couponId}/receive`,
+  REQUEST_GIFT: (couponId: number | string) =>
+    `/api/v1/coupons/${couponId}/request`,
   RANKING: '/api/v1/rankings',
   POINT_LOG: '/api/v1/member-points/earning-histories/me',
   MY_POINT: '/api/v1/member-points/me',

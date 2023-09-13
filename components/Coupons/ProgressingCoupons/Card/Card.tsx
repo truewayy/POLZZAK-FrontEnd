@@ -1,20 +1,42 @@
 /* eslint-disable no-nested-ternary */
 import { useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { Coupon, receiveGift } from '@/apis/coupon';
+import { Coupon, receiveGift, requestGift } from '@/apis/coupon';
 import { userInfoAtom } from '@/store/userInfo';
 
 import CardView from './CardView';
 
-const Card = ({ reward, rewardDate, couponId }: Coupon) => {
+const Card = ({ reward, rewardDate, couponId, rewardRequestDate }: Coupon) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const [remainRequestTime, setRemainingTime] = useState('00:00');
   const queryClient = useQueryClient();
   const { push } = useRouter();
   const { memberType } = useRecoilValue(userInfoAtom);
   const isKid = memberType.name === 'KID';
+
+  useEffect(() => {
+    if (!rewardRequestDate) return;
+    const rewardRequestTime = Math.floor(
+      (new Date(rewardRequestDate).getTime() - new Date().getTime()) / 1000
+    );
+    if (rewardRequestTime < -36000) return setRemainingTime('00:00');
+    const interval = setInterval(() => {
+      // MM:SS
+      const rewardRequestMinute = Math.floor(rewardRequestTime / 60) + 600;
+      const rewardRequestSecond = (rewardRequestTime % 60) + 60;
+      const rewardRequestTimeFormat = `${String(rewardRequestMinute).padStart(
+        2,
+        '0'
+      )}:${String(rewardRequestSecond).padStart(2, '0')}`;
+      setRemainingTime(rewardRequestTimeFormat);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [rewardRequestDate, remainRequestTime]);
 
   const formatDate = (timestamp: Date) => {
     const date = new Date(timestamp);
@@ -45,6 +67,17 @@ const Card = ({ reward, rewardDate, couponId }: Coupon) => {
     }
   );
 
+  const { mutate: request } = useMutation(() => requestGift(couponId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('couponList');
+      onClose();
+    },
+  });
+
+  const handleClickReqeustButton = () => {
+    request();
+  };
+
   const handleClickReceiveButton = () => {
     onOpen();
   };
@@ -61,6 +94,7 @@ const Card = ({ reward, rewardDate, couponId }: Coupon) => {
     isOpen,
     isLoading: receiveLoading,
     onClose,
+    remainRequestTime,
     reward,
     rewardDate: formattedDate,
     dateDiff,
@@ -68,6 +102,7 @@ const Card = ({ reward, rewardDate, couponId }: Coupon) => {
     handleClickCard,
     handleClickReceiveButton,
     handleClickConfirmButton,
+    handleClickReqeustButton,
   };
 
   return <CardView {...CardVAProps} />;

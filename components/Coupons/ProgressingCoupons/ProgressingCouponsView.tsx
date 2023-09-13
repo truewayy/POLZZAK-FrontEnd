@@ -38,14 +38,17 @@ const ProgressingCouponsView = ({
             </Text>
           </VStack>
         ) : (
-          cards?.[0]?.coupons.map(({ reward, rewardDate, couponId }) => (
-            <Card
-              key={reward}
-              reward={reward}
-              rewardDate={rewardDate}
-              couponId={couponId}
-            />
-          ))
+          cards?.[0]?.coupons.map(
+            ({ reward, rewardDate, couponId, rewardRequestDate }) => (
+              <Card
+                key={couponId}
+                reward={reward}
+                rewardDate={rewardDate}
+                rewardRequestDate={rewardRequestDate}
+                couponId={couponId}
+              />
+            )
+          )
         )}
       </VStack>
     ) : (

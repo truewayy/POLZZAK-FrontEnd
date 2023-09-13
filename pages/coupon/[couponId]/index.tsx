@@ -319,6 +319,7 @@ const Coupon = () => {
           onClose={receiveModal.onClose}
           handleClickConfirmButton={handleClickConfirmButton}
           handleClickCancelButton={receiveModal.onClose}
+          confirmMessage="네, 받았어요!"
         >
           <VStack spacing="8px">
             <Text layerStyle="subtitle18Sbd" color="blue.600">
