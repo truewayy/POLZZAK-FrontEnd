@@ -18,7 +18,12 @@ const Nav = () => {
   return (
     <Flex pb="10px" w="100%" justify="space-between" align="center">
       <LeftArrow w="24px" h="24px" fill="gray.700" onClick={handleClickBack} />
-      <EditFilledIcon w="24px" h="24px" onClick={handleClickEdit} />
+      <EditFilledIcon
+        w="24px"
+        h="24px"
+        fill="#45464F"
+        onClick={handleClickEdit}
+      />
     </Flex>
   );
 };

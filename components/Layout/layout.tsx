@@ -18,12 +18,15 @@ function Layout({ children }: Props) {
   const notRequiredToken =
     pathname.includes(ROUTES.LOGIN) ||
     pathname.includes(ROUTES.SIGNUP.ROOT) ||
-    pathname.includes(ROUTES.REDIRECT);
+    pathname.includes(ROUTES.REDIRECT) ||
+    pathname.includes('/terms') ||
+    pathname.includes('/privacy');
+
   const isMenu = menus.some(({ path }) => pathname === path);
 
   // 토큰이 없으면 로그인 페이지로 이동
   useEffect(() => {
-    if (!token && !notRequiredToken) {
+    if (!token || !notRequiredToken) {
       push(ROUTES.LOGIN);
     }
   }, [token, push, notRequiredToken]);

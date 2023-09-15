@@ -10,6 +10,7 @@ interface ParentTypeVAProps {
   handleChangeSwiper: (swiper: Swiper) => void;
   handleClickButton: () => void;
   currentParentType: number;
+  savedParentType: number;
   parentTypes: {
     memberTypeDetailId: number;
     detail: string;
@@ -21,6 +22,7 @@ const ParentTypeView = ({
   handleChangeSwiper,
   handleClickButton,
   currentParentType,
+  savedParentType,
   parentTypes,
   buttonDisabled,
 }: ParentTypeVAProps) => (
@@ -35,8 +37,8 @@ const ParentTypeView = ({
       loopedSlides={3}
       spaceBetween={-100}
       centeredSlides
-      slideToClickedSlide
       grabCursor
+      initialSlide={savedParentType - 1}
       coverflowEffect={{
         rotate: 0,
         stretch: 0,
@@ -47,7 +49,11 @@ const ParentTypeView = ({
       onSlideChange={handleChangeSwiper}
     >
       {parentTypes.map(({ memberTypeDetailId, detail }) => (
-        <SwiperSlide key={memberTypeDetailId}>
+        <SwiperSlide
+          key={memberTypeDetailId}
+          defaultChecked={currentParentType === memberTypeDetailId}
+          defaultValue={memberTypeDetailId}
+        >
           <Box
             p="20px"
             bg="white"

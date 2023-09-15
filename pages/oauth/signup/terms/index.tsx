@@ -92,7 +92,13 @@ const Terms = () => {
             <Text layerStyle="body15Md" color="gray.500">
               서비스 이용약관에 동의합니다.
             </Text>
-            <RightNavigation ml="auto" />
+            <RightNavigation
+              ml="auto"
+              onClick={(e) => {
+                e.stopPropagation();
+                push('/oauth/signup/terms/service');
+              }}
+            />
           </Flex>
           <Flex
             w="100%"
@@ -110,7 +116,13 @@ const Terms = () => {
             <Text layerStyle="body15Md" color="gray.500">
               개인정보처리방침에 동의합니다.
             </Text>
-            <RightNavigation ml="auto" />
+            <RightNavigation
+              ml="auto"
+              onClick={(e) => {
+                e.stopPropagation();
+                push('/oauth/signup/terms/privacy');
+              }}
+            />
           </Flex>
         </VStack>
         <NextStepButton

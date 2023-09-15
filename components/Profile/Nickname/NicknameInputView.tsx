@@ -7,7 +7,7 @@ import {
   UseFormRegister,
 } from 'react-hook-form';
 
-import { Check } from '@/public/icon';
+import { Check, EditFilledIcon } from '@/public/icon';
 
 interface NicknameInputVAProps {
   register: UseFormRegister<FieldValues>;
@@ -83,6 +83,17 @@ const NicknameInputView = ({
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
         />
+        {!isInputFocused && (
+          <EditFilledIcon
+            pos="absolute"
+            right="13px"
+            top="50%"
+            transform="translateY(-50%)"
+            w="24px"
+            h="24px"
+            fill="gray.300"
+          />
+        )}
         {isInputFocused && (
           <Text
             pos="absolute"
