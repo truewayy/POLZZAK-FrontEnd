@@ -26,7 +26,7 @@ function Layout({ children }: Props) {
 
   // 토큰이 없으면 로그인 페이지로 이동
   useEffect(() => {
-    if (!token || !notRequiredToken) {
+    if (!token && !notRequiredToken) {
       push(ROUTES.LOGIN);
     }
   }, [token, push, notRequiredToken]);

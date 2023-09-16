@@ -74,6 +74,7 @@ const FamilySearch = () => {
               p="12px 16px"
               h="45px"
               fontSize="16px"
+              autoFocus
               _placeholder={{ color: 'gray.500', fontSize: '14px' }}
               value={search}
               onChange={(e) => setSearch(e.target.value)}

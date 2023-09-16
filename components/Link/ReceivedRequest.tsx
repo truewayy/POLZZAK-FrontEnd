@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useSetRecoilState } from 'recoil';
 
 import {
@@ -24,6 +24,7 @@ import { getLocalStorage } from '@/utils/storage';
 import ConfirmModal from './ConfirmModal';
 
 const ReceivedRequest = () => {
+  const queryClient = useQueryClient();
   const [selected, setSelected] = useState({
     memberId: 0,
     nickname: '',
@@ -56,6 +57,7 @@ const ReceivedRequest = () => {
           families: data.data?.families || [],
         }));
       });
+      queryClient.invalidateQueries(['newRequest']);
       approveModal.onClose();
     },
   });
@@ -63,6 +65,7 @@ const ReceivedRequest = () => {
   const reject = useMutation((targetId: number) => rejectRequest(targetId), {
     onSuccess: () => {
       receivedRefetch();
+      queryClient.invalidateQueries(['newRequest']);
       //   familyRefetch();
       rejectModal.onClose();
     },

@@ -203,10 +203,15 @@ const SearchResult = () => {
           p="0 24px"
           h="32px"
           border="1px solid"
-          {...buttonColor}
+          borderColor={buttonColor.borderColor}
+          bg={buttonColor.bgColor}
           onClick={handleClickButton}
         >
-          <Text layerStyle="caption12Bd" textAlign="center">
+          <Text
+            layerStyle="caption12Bd"
+            textAlign="center"
+            color={buttonColor.color}
+          >
             {buttonMsg}
           </Text>
         </Button>
