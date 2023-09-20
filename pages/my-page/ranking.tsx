@@ -58,8 +58,10 @@ const Ranking = () => {
         <Flex gap="5px" align="center">
           <Clock w="10px" h="10px" />
           <Text layerStyle="caption12Md" color="blue.200">
-            {dayjs(new Date() - 1000 * 60 * 60 * 24).format('M월 DD일')} 20:00
-            기준
+            {dayjs(new Date().getTime() - 1000 * 60 * 60 * 24).format(
+              'M월 DD일'
+            )}{' '}
+            20:00 기준
           </Text>
         </Flex>
       </VStack>
