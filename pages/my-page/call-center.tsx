@@ -434,6 +434,7 @@ const CallCenter = () => {
       {!isSearchResultMode && (
         <Flex
           w="100%"
+          maxW="560px"
           h="86px"
           p="0 24px"
           justify="space-between"
