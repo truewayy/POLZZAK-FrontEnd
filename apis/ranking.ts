@@ -9,6 +9,19 @@ export interface RankingResponse {
     code: 200;
     messages: null;
     data: {
+      memberSimpleResponse: {
+        memberId: number;
+        nickname: string;
+        memberPoint: {
+          point: number;
+          level: number;
+        };
+        memberType: {
+          name: string;
+          detail: string;
+        };
+        profileUrl: string;
+      };
       rankingSummaries: {
         ranking: number;
         rankingStatus: 'UP' | 'DOWN' | 'HOLD';

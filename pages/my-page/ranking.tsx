@@ -1,4 +1,5 @@
 import { Box, Circle, Flex, Text, VStack } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
@@ -57,7 +58,8 @@ const Ranking = () => {
         <Flex gap="5px" align="center">
           <Clock w="10px" h="10px" />
           <Text layerStyle="caption12Md" color="blue.200">
-            7월 1일 20:00 기준
+            {dayjs(new Date() - 1000 * 60 * 60 * 24).format('M월 DD일')} 20:00
+            기준
           </Text>
         </Flex>
       </VStack>
@@ -80,7 +82,15 @@ const Ranking = () => {
             >
               56
             </Text>
-            <Circle size="40px" bg="gray.100" />
+            <Circle
+              size="40px"
+              bg={
+                `url(${ranking?.data?.memberSimpleResponse.profileUrl})` ??
+                'gray.100'
+              }
+              bgSize="cover"
+              bgRepeat="no-repeat"
+            />
             <VStack spacing="3.5px" align="flex-start">
               {isGuardianpage && (
                 <Box
@@ -91,12 +101,12 @@ const Ranking = () => {
                   layerStyle="caption12Md"
                   color="gray.700"
                 >
-                  엄마 회원
+                  {ranking?.data?.memberSimpleResponse.memberType.detail} 회원
                 </Box>
               )}
               <Flex gap="8px" align="center">
                 <Text layerStyle="caption13Sbd" color="gray.700">
-                  해린이네두목
+                  {ranking?.data?.memberSimpleResponse.nickname}
                 </Text>
                 <Circle
                   size="21px"
@@ -117,10 +127,10 @@ const Ranking = () => {
             spacing="2px"
           >
             <Text fontSize="10px" fontWeight="500" color="blue.400">
-              20,230P
+              {ranking?.data?.memberSimpleResponse.memberPoint.point}P
             </Text>
             <Text layerStyle="caption12Sbd" color="polzzak.default">
-              20 계단
+              {ranking?.data?.memberSimpleResponse.memberPoint.level} 계단
             </Text>
           </VStack>
         </Flex>
