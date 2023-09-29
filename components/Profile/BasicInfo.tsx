@@ -9,21 +9,20 @@ import {
 import { useRouter } from 'next/router';
 import Sheet from 'react-modal-sheet';
 import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
 import { familiesInfo } from '@/apis/family';
+import { userInfo } from '@/apis/user';
 import ROUTES from '@/constants/routes';
 import { ClipIcon, Setting } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 const BasicInfo = () => {
   const { push } = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { memberType, nickname, profileUrl } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
   const { data } = useQuery(['families'], familiesInfo);
   const families = data?.data?.families;
 
-  const isKid = memberType.name === 'KID';
+  const isKid = user?.data?.memberType.name === 'KID';
   const linkedFamily = families?.length;
 
   const handleClickSetting = () => {
@@ -44,7 +43,7 @@ const BasicInfo = () => {
       >
         <Circle
           size="70px"
-          bg={`url(${profileUrl})`}
+          bg={`url(${user?.data?.profileUrl})`}
           bgSize="cover"
           bgPos="center"
         />
@@ -59,11 +58,11 @@ const BasicInfo = () => {
                 layerStyle="body14Sbd"
                 color="gray.700"
               >
-                {memberType.detail}
+                {user?.data?.memberType.detail}
               </Box>
             )}
             <Text layerStyle="subtitle16Sbd" color="gray.800">
-              {nickname}
+              {user?.data?.nickname}
             </Text>
           </Flex>
           <Flex gap="6px" align="center">

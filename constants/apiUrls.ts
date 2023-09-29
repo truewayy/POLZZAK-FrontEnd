@@ -12,6 +12,8 @@ const API_URLS = {
   DUPLICATE_CHECK: (nickname: string) =>
     `/api/v1/auth/validate/nickname?value=${nickname}`,
   USER_INFO: '/api/v1/users/me',
+  PROFILE_CHANGE: '/api/v1/users/profile',
+  NICKNAME_CHANGE: '/api/v1/users/nickname',
   FAMILIES: '/api/v1/families',
   FAMILY_CANCEL: (memberId: number) => `/api/v1/families/cancel/${memberId}`,
   FAMILY_CLEAR: (memberId: number) => `/api/v1/families/${memberId}`,

@@ -29,7 +29,7 @@ const ROUTES = {
     EXIT: '/my-page/account/exit',
     SETTING: '/my-page/setting',
   },
-  MAIN: '/main',
+  MAIN: '/home',
   FIND: '/find',
   TERMS: '/terms',
   PRIVACY: '/privacy',

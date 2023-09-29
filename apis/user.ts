@@ -27,7 +27,7 @@ export interface UserInfoError {
   };
 }
 
-const userInfo = async () => {
+export const userInfo = async () => {
   try {
     const { data }: UserInfoResponse = await http.get(API_URLS.USER_INFO);
     return data;
@@ -37,4 +37,20 @@ const userInfo = async () => {
   }
 };
 
-export default userInfo;
+export const changeProfile = async (formData: FormData) => {
+  try {
+    const data = await http.patch(API_URLS.PROFILE_CHANGE, formData);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const changeNickname = async (nickname: string) => {
+  try {
+    const data = await http.patch(API_URLS.NICKNAME_CHANGE, { nickname });
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

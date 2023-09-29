@@ -21,6 +21,7 @@ export interface RankingResponse {
           detail: string;
         };
         profileUrl: string;
+        myRanking: number;
       };
       rankingSummaries: {
         ranking: number;

@@ -82,7 +82,7 @@ const Ranking = () => {
               color="gray.800"
               pr="3px"
             >
-              56
+              {ranking?.data?.memberSimpleResponse.myRanking}
             </Text>
             <Circle
               size="40px"

@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import { duplicateCheck } from '@/apis/auth';
 
 import NicknameInputView from './NicknameInputView';
 
-const NicknameInput = ({ defaultValue }: { defaultValue: string }) => {
-  const [isNicknameValidate, setIsNicknameValidate] = useState(false);
+const NicknameInput = ({
+  defaultValue,
+  isNicknameValidate,
+  setIsNicknameValidate,
+}: {
+  defaultValue: string | undefined;
+  isNicknameValidate: boolean;
+  setIsNicknameValidate: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const {
@@ -14,10 +21,11 @@ const NicknameInput = ({ defaultValue }: { defaultValue: string }) => {
     watch,
     setError,
     formState: { isValid, errors },
-  } = useForm({ mode: 'onChange' });
+  } = useFormContext();
 
   const nickname = watch('nickname');
-  const duplicateButtonDisabled = !isValid || isNicknameValidate;
+  const duplicateButtonDisabled =
+    !isValid || isNicknameValidate || defaultValue === nickname;
   const buttonDisabled = !isValid || !isNicknameValidate;
   const inputLength = nickname?.length || 0;
   const isNicknameError = !!errors.nickname;
@@ -60,7 +68,7 @@ const NicknameInput = ({ defaultValue }: { defaultValue: string }) => {
 
   useEffect(() => {
     setIsNicknameValidate(false);
-  }, [nickname]);
+  }, [nickname, setIsNicknameValidate]);
 
   const NicknameInputVAProps = {
     register,

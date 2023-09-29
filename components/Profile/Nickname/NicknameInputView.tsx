@@ -78,8 +78,8 @@ const NicknameInputView = ({
             border: '1px solid',
             borderColor: isNicknameError ? '#FF6161' : 'polzzak.default',
           }}
-          defaultValue={defaultValue}
           {...register('nickname', validateNickname)}
+          defaultValue={defaultValue}
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
         />

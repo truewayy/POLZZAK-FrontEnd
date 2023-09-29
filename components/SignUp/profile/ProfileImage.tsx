@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { register } from '@/apis/auth';
 import { familiesInfo } from '@/apis/family';
-import userInfo from '@/apis/user';
+import { userInfo } from '@/apis/user';
 import { TOKEN_KEY } from '@/constants/auth';
 import ROUTES from '@/constants/routes';
 import { signUpInfoAtom, userInfoAtom } from '@/store/userInfo';

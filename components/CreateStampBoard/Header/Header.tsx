@@ -35,7 +35,7 @@ const Header = () => {
     {
       onSuccess: () => {
         confirm.onClose();
-        push('/main');
+        push('/home');
       },
     }
   );
