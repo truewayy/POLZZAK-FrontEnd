@@ -14,7 +14,7 @@ interface NicknameInputVAProps {
   handleClickDuplicateButton: () => void;
   handleInputFocus: () => void;
   handleInputBlur: () => void;
-  defaultValue: string;
+  defaultValue: string | undefined;
   validateNickname: {
     required: string;
     minLength: {

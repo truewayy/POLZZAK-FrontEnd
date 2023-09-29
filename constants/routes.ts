@@ -33,6 +33,7 @@ const ROUTES = {
   FIND: '/find',
   TERMS: '/terms',
   PRIVACY: '/privacy',
+  NOTICE: '/notice',
   FIND_FAMILY: '/find/family',
   ON_BOARDING: {
     PARENT: '/onboarding/parent',

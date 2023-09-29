@@ -41,6 +41,10 @@ const Profile = () => {
     push(`${ROUTES.PROFILE.ROOT}${ROUTES.PRIVACY}`);
   };
 
+  const handleClickNotice = () => {
+    push(`${ROUTES.PROFILE.ROOT}${ROUTES.NOTICE}`);
+  };
+
   return (
     <VStack w="100%" minH="100vh" pb="100px" spacing="0px">
       <BasicInfo />
@@ -61,6 +65,7 @@ const Profile = () => {
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            onClick={handleClickNotice}
           >
             공지사항
           </Box>
