@@ -47,7 +47,7 @@ const MemberTypeView = ({
           칭찬 도장을
           <br /> <b>찍어주고</b> 싶어요
         </Text>
-        <RedCharacter alignSelf="center" w="120px" h="100px" />
+        <RedCharacter alignSelf="center" w="94px" h="94px" />
       </VStack>
 
       <VStack
@@ -77,7 +77,7 @@ const MemberTypeView = ({
           칭찬 도장을
           <br /> <b>받고</b> 싶어요
         </Text>
-        <YellowCharacter alignSelf="center" w="90px" h="100px" />
+        <YellowCharacter alignSelf="center" w="84px" h="88px" />
       </VStack>
     </Grid>
     <NextStepButton onClick={handleClickButton} disabled={buttonDisabled}>

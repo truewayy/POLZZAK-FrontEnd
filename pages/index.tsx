@@ -15,7 +15,7 @@ export default function Home() {
     >
       <SEO title="폴짝!" />
       <VStack w="100%" spacing="26px">
-        <Image src="/helloeveryone.png" w="200px" h="200px" />
+        <Image src="/helloeveryone.png" w="168px" h="191px" />
         <VStack w="100%" spacing="16px">
           <Text layerStyle="title22Bd">참 잘 했어요 도장 쾅!</Text>
           <Text layerStyle="body16Md" textAlign="center" color="gray.600">

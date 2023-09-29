@@ -1,4 +1,4 @@
-import { Button, Square, Text, VStack } from '@chakra-ui/react';
+import { Button, Image, Square, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -18,6 +18,9 @@ const Find = () => {
     type.name === 'KID' ? '보호자와 연동이 필요해요' : '아이와 연동이 필요해요';
   const buttonMsg = type.name === 'KID' ? '보호자 찾기' : '아이 찾기';
 
+  const searchIcon =
+    type.name === 'KID' ? '/kidSearch.png' : 'guardianSearch.png';
+
   const handleClickFindButton = () => {
     push(ROUTES.FIND_FAMILY);
   };
@@ -29,7 +32,7 @@ const Find = () => {
   return (
     <VStack w="100%" minH="100vh" bg="white" p="0 5% 26px 5%" pos="relative">
       <VStack w="100%" spacing="42px" pt="80px">
-        <Square size="256px" bg="gray.200" />
+        <Image src={searchIcon} w="180px" />
         <Text w="100%" layerStyle="body18Md" textAlign="center">
           {description1}
           <br />

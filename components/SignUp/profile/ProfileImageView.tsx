@@ -1,6 +1,13 @@
-import { Box, Input, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  ComponentWithAs,
+  Icon,
+  IconProps,
+  Input,
+  VStack,
+} from '@chakra-ui/react';
 
-import { BasicProfileIcon, ProfileEditIcon } from '@/public/icon';
+import { ProfileEditIcon } from '@/public/icon';
 
 import NextStepButton from '../Button';
 
@@ -15,6 +22,7 @@ interface ProfileImageVAProps {
         url: string;
       }
     | undefined;
+  basicProfileIcon: ComponentWithAs<'svg', IconProps>;
 }
 
 const ProfileImageView = ({
@@ -23,6 +31,7 @@ const ProfileImageView = ({
   handleChangeProfile,
   profileRef,
   profileImage,
+  basicProfileIcon,
 }: ProfileImageVAProps) => (
   <VStack spacing="40px">
     <Box pos="relative">
@@ -36,7 +45,8 @@ const ProfileImageView = ({
           onClick={handleClickProfile}
         />
       ) : (
-        <BasicProfileIcon
+        <Icon
+          as={basicProfileIcon}
           w={127}
           h={127}
           cursor="pointer"

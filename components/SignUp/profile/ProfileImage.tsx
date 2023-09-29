@@ -7,6 +7,7 @@ import { familiesInfo } from '@/apis/family';
 import { userInfo } from '@/apis/user';
 import { TOKEN_KEY } from '@/constants/auth';
 import ROUTES from '@/constants/routes';
+import { GuardianBasicProfile, KidBasicProfile } from '@/public/icon';
 import { signUpInfoAtom, userInfoAtom } from '@/store/userInfo';
 import imgToBase64 from '@/utils/imgToBase64';
 import { setLocalStorage } from '@/utils/storage';
@@ -18,12 +19,20 @@ const ProfileImage = () => {
   const setUserInfo = useSetRecoilState(userInfoAtom);
   const { username, socialType, nickname, memberType, memberTypeDetailId } =
     useRecoilValue(signUpInfoAtom);
+  const [userType, setUserType] = useState<string>('');
   const profileRef = useRef<HTMLInputElement>(null);
   const [profileFile, setProfileFile] = useState<FileList | null>();
   const [profileImage, setProfileImage] = useState<{
     image: File;
     url: string;
   }>();
+
+  useEffect(() => {
+    setUserType(memberType);
+  }, [memberType]);
+
+  const basicProfileIcon =
+    userType === 'KID' ? KidBasicProfile : GuardianBasicProfile;
 
   const handleClickProfile = () => {
     if (profileRef.current) {
@@ -101,6 +110,7 @@ const ProfileImage = () => {
     handleChangeProfile,
     profileRef,
     profileImage,
+    basicProfileIcon,
   };
 
   return <ProfileImageView {...ProfileImageVAProps} />;

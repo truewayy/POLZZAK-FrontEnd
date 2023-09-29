@@ -23,6 +23,7 @@ interface SwiperContentVAProps {
     title2?: string;
     description: string;
     description2?: string;
+    icon: string;
   }[];
   buttonMsg: string;
 }
@@ -57,16 +58,19 @@ const SwiperContentView = ({
       onSlideChange={handleChangeSlide}
       cssMode
     >
-      {slideContents.map(({ title, title2, description, description2 }) => (
-        <SwiperSlide key={title}>
-          <Frame
-            title={title}
-            title2={title2}
-            description={description}
-            description2={description2}
-          />
-        </SwiperSlide>
-      ))}
+      {slideContents.map(
+        ({ title, title2, description, description2, icon }) => (
+          <SwiperSlide key={title}>
+            <Frame
+              title={title}
+              title2={title2}
+              description={description}
+              description2={description2}
+              icon={icon}
+            />
+          </SwiperSlide>
+        )
+      )}
     </CustomSwiper>
     <ProgressBar
       currentPage={currentPage + 1}
