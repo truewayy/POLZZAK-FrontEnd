@@ -1,4 +1,4 @@
-import { Button, Image, Square, Text, VStack } from '@chakra-ui/react';
+import { Button, Image, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';

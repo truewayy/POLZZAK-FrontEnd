@@ -54,11 +54,11 @@ const Card = ({
   };
 
   const statusIcon = isStampBoardComplete ? (
-    <CompleteIcon w={76} h={70} />
+    <CompleteIcon w="86px" h="86px" />
   ) : isRequest ? (
-    <HandIcon w={76} h={67} />
+    <HandIcon w="86px" h="86px" />
   ) : (
-    <NoRequestIcon w={76} h={67} />
+    <NoRequestIcon w="86px" h="86px" />
   );
 
   const handleClickCard = () => {

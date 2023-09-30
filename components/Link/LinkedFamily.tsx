@@ -1,4 +1,11 @@
-import { Circle, Flex, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import {
+  Circle,
+  Flex,
+  Image,
+  Text,
+  useDisclosure,
+  VStack,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
@@ -64,13 +71,17 @@ const LinkedFamily = () => {
 
   const isNoFamilies = !families || families.length === 0;
 
+  const searchIcon =
+    userType === 'KID' ? '/kidSearch.png' : '/guardianSearch.png';
+
   useEffect(() => {
     setUserType(name === 'KID' ? '보호자' : '아이');
   }, [name]);
 
   return isNoFamilies ? (
-    <VStack w="100%" h="300px" justify="center">
-      <Text layerStyle="body15Md" color="gray.500">
+    <VStack w="100%" h="300px" justify="center" spacing="12px">
+      <Image src={searchIcon} w="70px" />
+      <Text layerStyle="body15Md" color="gray.700">
         연동된 {userType}가 없어요
       </Text>
     </VStack>

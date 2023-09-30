@@ -2,6 +2,7 @@ import { Text, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
+import { NoLinkedFamilyIcon } from '@/public/icon';
 import { userInfoAtom } from '@/store/userInfo';
 
 const ProgressingStampsNoFamiles = () => {
@@ -27,7 +28,9 @@ const ProgressingStampsNoFamiles = () => {
       border="1px dashed #DADAE7"
       borderRadius="8px"
       justifyContent="center"
+      spacing="24px"
     >
+      <NoLinkedFamilyIcon w="157px" h="96px" />
       <Text layerStyle="body14Md" textAlign="center">
         {title}와 연동되면 <br />
         도장판을 {description} 수 있어요!

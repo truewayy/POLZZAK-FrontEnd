@@ -2,6 +2,7 @@ import {
   Button,
   Circle,
   Flex,
+  Image,
   Text,
   useDisclosure,
   VStack,
@@ -96,8 +97,9 @@ const ReceivedRequest = () => {
     !receivedRequests || receivedRequests.length === 0;
 
   return isNoReceivedRequests ? (
-    <VStack w="100%" h="300px" justify="center">
-      <Text layerStyle="body15Md" color="gray.500">
+    <VStack w="100%" h="300px" justify="center" spacing="12px">
+      <Image src="/noSearchResult.png" w="84px" />
+      <Text layerStyle="body15Md" color="gray.700">
         받은 요청이 없어요
       </Text>
     </VStack>

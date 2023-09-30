@@ -4,6 +4,7 @@ import { Text, VStack } from '@chakra-ui/react';
 
 import { StampboardListData } from '@/apis/stamp';
 import PullToRefresh from '@/components/Common/PullToRefresh/PullToRefresh';
+import { NoStampboardIcon } from '@/public/icon';
 
 import Card from './Card/Card';
 import StampSwiper from './StampSwiper/StampSwiper';
@@ -32,7 +33,9 @@ const ProgressingStampsView = ({
             border="1px dashed #DADAE7"
             borderRadius="8px"
             justifyContent="center"
+            spacing="13px"
           >
+            <NoStampboardIcon w="98px" h="92px" />
             <Text layerStyle="body14Md" textAlign="center" color="gray.700">
               <Text as="span" layerStyle="body14Bd">
                 {filter}

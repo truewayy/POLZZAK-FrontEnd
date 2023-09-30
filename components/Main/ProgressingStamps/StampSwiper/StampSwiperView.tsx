@@ -3,6 +3,7 @@ import Swiper from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 import { StampBoard } from '@/apis/stamp';
+import { NoStampboardIcon } from '@/public/icon';
 
 import Card from '../Card/Card';
 
@@ -111,7 +112,9 @@ const StampSwiperView = ({
         border="1px dashed #DADAE7"
         borderRadius="8px"
         justifyContent="center"
+        spacing="13px"
       >
+        <NoStampboardIcon w="98px" h="92px" />
         <Text layerStyle="body14Md" textAlign="center" color="gray.700">
           <Text as="span" layerStyle="body14Bd">
             {nickname}
