@@ -62,7 +62,11 @@ const Link = () => {
   const { push, query } = useRouter();
   const [tabIndex, setTabIndex] = useState(0);
 
-  const { data } = useQuery(['newRequest'], newRequest);
+  const { data } = useQuery(['newRequest'], newRequest, {
+    cacheTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: true,
+  });
   const isFamilyReceived = data?.data?.isFamilyReceived;
   const isFamilySent = data?.data?.isFamilySent;
 

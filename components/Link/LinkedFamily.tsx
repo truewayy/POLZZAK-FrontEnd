@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { clearRequest, familiesInfo } from '@/apis/family';
 import { userInfo } from '@/apis/user';
@@ -19,6 +19,7 @@ import { getLocalStorage } from '@/utils/storage';
 import ConfirmModal from './ConfirmModal';
 
 const LinkedFamily = () => {
+  const queryClient = useQueryClient();
   const clearModal = useDisclosure();
   const [userType, setUserType] = useState('');
   const [selected, setSelected] = useState({
@@ -40,6 +41,9 @@ const LinkedFamily = () => {
     familiesInfo,
     {
       enabled: enableFetch,
+      onSuccess: () => {
+        queryClient.invalidateQueries(['newRequest']);
+      },
     }
   );
 

@@ -8,7 +8,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { cancelRequest, sentRequest } from '@/apis/family';
 import { TOKEN_KEY } from '@/constants/auth';
@@ -16,6 +16,7 @@ import { getLocalStorage } from '@/utils/storage';
 
 const SentRequest = () => {
   const toast = useToast();
+  const queryClient = useQueryClient();
   const { query } = useRouter();
 
   const tab = query.tab as string;
@@ -28,11 +29,15 @@ const SentRequest = () => {
     sentRequest,
     {
       enabled: enableFetch,
+      onSuccess: () => {
+        queryClient.invalidateQueries(['newRequest']);
+      },
     }
   );
 
   const cancel = useMutation((targetId: number) => cancelRequest(targetId), {
     onSuccess: () => {
+      queryClient.invalidateQueries(['newRequest']);
       sentRefetch();
       toast({
         title: '연동 요청이 취소되었습니다.',

@@ -43,6 +43,9 @@ const ReceivedRequest = () => {
     receivedRequest,
     {
       enabled: enableFetch,
+      onSuccess: () => {
+        queryClient.invalidateQueries(['newRequest']);
+      },
     }
   );
 
