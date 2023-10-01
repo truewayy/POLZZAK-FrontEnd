@@ -30,6 +30,8 @@ const ProgressingStamps = () => {
       }),
     {
       enabled: !isNoFamily,
+      cacheTime: 0,
+      staleTime: 0,
     }
   );
 

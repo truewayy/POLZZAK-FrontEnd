@@ -58,7 +58,7 @@ const Card = ({
   ) : isRequest ? (
     <HandIcon w="86px" h="86px" />
   ) : (
-    <NoRequestIcon w="86px" h="86px" />
+    <NoRequestIcon w="86px" h="87px" />
   );
 
   const handleClickCard = () => {
