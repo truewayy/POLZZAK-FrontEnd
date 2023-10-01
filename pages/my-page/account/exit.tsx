@@ -8,14 +8,16 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
+import { userInfo } from '@/apis/user';
 import ConfirmModal from '@/components/Link/ConfirmModal';
 import { CheckCircle, ExitIcon, LeftNavigation } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 const Exit = () => {
-  const { nickname } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const nickname = user?.data?.nickname;
+
   const [userNickname, setUserNickname] = useState(''); // [TODO
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -30,7 +32,7 @@ const Exit = () => {
   };
 
   useEffect(() => {
-    setUserNickname(nickname);
+    setUserNickname(nickname || '');
   }, [nickname]);
 
   return (

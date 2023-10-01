@@ -2,16 +2,17 @@ import { Box, Button, Flex, Input, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
 import { searchFamilies } from '@/apis/family';
+import { userInfo } from '@/apis/user';
 import SearchResult from '@/components/Link/SearchInput/SearchResult';
 import { InputDeleteIcon } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 const FamilySearch = () => {
   const { query, push } = useRouter();
-  const { memberType } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+
   const [type] = useState(memberType);
 
   const [search, setSearch] = useState('');
@@ -27,7 +28,7 @@ const FamilySearch = () => {
   );
 
   const showClearButton = search.length > 0 && isInputFocused;
-  const title = type.name === 'KID' ? '보호자 찾기' : '아이 찾기';
+  const title = type?.name === 'KID' ? '보호자 찾기' : '아이 찾기';
 
   const handleClickDelete = () => {
     setSearch('');

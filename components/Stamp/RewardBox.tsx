@@ -11,12 +11,11 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Sheet from 'react-modal-sheet';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
 import { issueCoupon, receiveCoupon } from '@/apis/coupon';
 import { deleteStampboard, stampboardDetail } from '@/apis/stamp';
+import { userInfo } from '@/apis/user';
 import { Calendar, Coupon } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 import Loading from '../Common/Loading';
 import ConfirmModal from '../Link/ConfirmModal';
@@ -76,9 +75,9 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
   const couponIssueModal = useDisclosure();
   const { back } = useRouter();
 
-  const {
-    memberType: { name },
-  } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const name = user?.data?.memberType.name;
+
   const { data } = useQuery(['stampboard', stampboardId], () =>
     stampboardDetail(stampboardId)
   );

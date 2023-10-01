@@ -8,24 +8,28 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
+import { familiesInfo } from '@/apis/family';
+import { userInfo } from '@/apis/user';
 import SEO from '@/components/Common/SEO';
 import BottomSheetModal from '@/components/Coupons/BottomSheetModal/BottomSheetModal';
 import CompletedCoupons from '@/components/Coupons/CompletedCoupons/CompletedCoupons';
 import Header from '@/components/Coupons/Header/Header';
 import LinkedFilter from '@/components/Coupons/LinkedFilter/LinkedFilter';
 import ProgressingCoupons from '@/components/Coupons/ProgressingCoupons/ProgressingCoupons';
-import { userInfoAtom } from '@/store/userInfo';
 
 const Coupons = () => {
-  const { families, memberType } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+  const { data: my } = useQuery(['families'], familiesInfo);
+  const families = my?.data?.families;
   const [isNoFamily, setIsNoFamily] = useState(true);
   const [isTypeParent, setIsTypeParent] = useState(true);
 
   useEffect(() => {
-    const noKid = memberType.name !== 'KID';
-    const noFamily = families.length === 0;
+    const noKid = memberType?.name !== 'KID';
+    const noFamily = families?.length === 0;
 
     setIsNoFamily(noFamily);
     setIsTypeParent(noKid);

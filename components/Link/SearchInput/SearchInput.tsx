@@ -1,17 +1,17 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
-import { userInfoAtom } from '@/store/userInfo';
+import { userInfo } from '@/apis/user';
 
 import SearchInputView from './SearchInputView';
 
 const SearchInput = () => {
   const { pathname } = useRouter();
   const [userType, setUserType] = useState('');
-  const {
-    memberType: { name },
-  } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const name = user?.data?.memberType.name;
+
   const { push } = useRouter();
 
   const isPathOnboarding = pathname === '/find/family';

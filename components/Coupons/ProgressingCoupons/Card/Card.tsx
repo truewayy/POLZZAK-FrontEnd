@@ -2,11 +2,10 @@
 import { useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import { useRecoilValue } from 'recoil';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { Coupon, receiveGift, requestGift } from '@/apis/coupon';
-import { userInfoAtom } from '@/store/userInfo';
+import { userInfo } from '@/apis/user';
 
 import CardView from './CardView';
 
@@ -15,8 +14,10 @@ const Card = ({ reward, rewardDate, couponId, rewardRequestDate }: Coupon) => {
   const [remainRequestTime, setRemainingTime] = useState('00:00');
   const queryClient = useQueryClient();
   const { push } = useRouter();
-  const { memberType } = useRecoilValue(userInfoAtom);
-  const isKid = memberType.name === 'KID';
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+
+  const isKid = memberType?.name === 'KID';
 
   useEffect(() => {
     if (!rewardRequestDate) return;

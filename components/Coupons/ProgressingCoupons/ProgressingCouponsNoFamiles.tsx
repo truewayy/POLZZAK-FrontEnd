@@ -1,14 +1,14 @@
 import { Text, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
+import { userInfo } from '@/apis/user';
 import { NoLinkedFamilyIcon } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 const ProgressingCouponsNoFamiles = () => {
-  const {
-    memberType: { name },
-  } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const name = user?.data?.memberType.name;
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 

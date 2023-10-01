@@ -11,16 +11,16 @@ import {
 import { useState } from 'react';
 import Sheet from 'react-modal-sheet';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
+import { familiesInfo } from '@/apis/family';
 import {
   createStamp,
   stampboardDetail,
   stampMissionRequest,
 } from '@/apis/stamp';
+import { userInfo } from '@/apis/user';
 import { stampsExample } from '@/constants/defaultValue';
 import { ChevronDown, ChevronUp } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 import Loading from '../Common/Loading';
 import ChooseMission from './ChooseMission';
@@ -85,10 +85,10 @@ const board = {
 };
 
 const StampBoard = ({ stampboardId }: BoardProps) => {
-  const {
-    memberType: { name },
-    families,
-  } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const name = user?.data?.memberType.name;
+  const { data: my } = useQuery(['families'], familiesInfo);
+  const families = my?.data?.families;
   const queryClient = useQueryClient();
   const stampCompleteModal = useDisclosure();
 
@@ -105,8 +105,8 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
   const count = stampboard?.goalStampCount || 10;
 
   const isKid = name === 'KID';
-  const guardianId = isKid ? families[0].memberId : 0;
-  const guardianType = isKid ? families[0].memberType.detail : '';
+  const guardianId = isKid ? families?.[0].memberId : 0;
+  const guardianType = isKid ? families?.[0].memberType.detail : '';
 
   const stamps = () => {
     const extendedMissions = Array(count).fill(null);
@@ -151,7 +151,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
   );
 
   const request = useMutation(
-    () => stampMissionRequest(Number(stampboardId), missionId, guardianId),
+    () => stampMissionRequest(Number(stampboardId), missionId, guardianId || 0),
     {
       onSuccess: () => {
         stampCompleteModal.onOpen();
@@ -335,7 +335,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
         stampType={
           stampsExample.find(({ id }) => id === stampDesignId)?.content || ''
         }
-        guardianType={guardianType}
+        guardianType={guardianType || ''}
         isOpen={stampCompleteModal.isOpen}
         onClose={stampCompleteModal.onClose}
       />

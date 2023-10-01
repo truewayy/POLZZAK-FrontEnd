@@ -18,13 +18,12 @@ import html2canvas from 'html2canvas';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
 import { couponDetail, receiveGift } from '@/apis/coupon';
+import { userInfo } from '@/apis/user';
 import Loading from '@/components/Common/Loading';
 import ConfirmModal from '@/components/Link/ConfirmModal';
 import { Dash, LeftArrow, Picture, RightNavigation } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 import sleep from '@/utils/sleep';
 
 const Coupon = () => {
@@ -43,7 +42,9 @@ const Coupon = () => {
       enabled: !!couponId,
     }
   );
-  const { memberType } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+
   const [isKid, setIsKid] = useState<boolean>(false);
 
   const dateCal = Math.floor(
@@ -102,7 +103,7 @@ const Coupon = () => {
   };
 
   useEffect(() => {
-    if (memberType.name === 'KID') {
+    if (memberType?.name === 'KID') {
       setIsKid(true);
     }
   }, [memberType]);

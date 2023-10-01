@@ -1,12 +1,12 @@
 import { useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useFormContext } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
+import { familiesInfo } from '@/apis/family';
 import { createStampboard } from '@/apis/stamp';
 import { MainfilterAtom } from '@/store/filter';
-import { userInfoAtom } from '@/store/userInfo';
 
 import HeaderView from './HeaderView';
 
@@ -21,9 +21,9 @@ interface StampboardCreateInfo {
 const Header = () => {
   const confirm = useDisclosure();
   const filter = useRecoilValue(MainfilterAtom);
-  const userInfo = useRecoilValue(userInfoAtom);
-  const families = userInfo?.families;
-  const familyId = families.find(
+  const { data: my } = useQuery(['families'], familiesInfo);
+  const families = my?.data?.families;
+  const familyId = families?.find(
     (family) => family.nickname === filter
   )?.memberId;
 

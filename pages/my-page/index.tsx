@@ -2,10 +2,10 @@
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
+import { userInfo } from '@/apis/user';
 import ROUTES from '@/constants/routes';
-import { userInfoAtom } from '@/store/userInfo';
 
 const BasicInfo = dynamic(() => import('@/components/Profile/BasicInfo'), {
   ssr: false,
@@ -16,10 +16,12 @@ const MyPoint = dynamic(() => import('@/components/Profile/MyPoint'), {
 });
 
 const Profile = () => {
-  const { memberType } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+
   const { push } = useRouter();
 
-  const isKid = memberType.name === 'KID';
+  const isKid = memberType?.name === 'KID';
 
   const handleClickCallCenter = () => {
     if (isKid) {

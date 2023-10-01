@@ -8,9 +8,9 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
-import { userInfoAtom } from '@/store/userInfo';
+import { userInfo } from '@/apis/user';
 
 interface CouponIssuedModalProps {
   reward: string;
@@ -23,9 +23,9 @@ const CouponIssuedModal = ({
   isOpen,
   onClose,
 }: CouponIssuedModalProps) => {
-  const {
-    memberType: { name },
-  } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const name = user?.data?.memberType.name;
+
   const isKid = name === 'KID';
 
   return (

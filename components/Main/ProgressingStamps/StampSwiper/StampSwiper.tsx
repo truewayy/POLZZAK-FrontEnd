@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 import Swiper from 'swiper';
 
+import { familiesInfo } from '@/apis/family';
 import { StampboardListData } from '@/apis/stamp';
-import { userInfoAtom } from '@/store/userInfo';
+import { userInfo } from '@/apis/user';
 
 import StampSwiperView from './StampSwiperView';
 
@@ -11,15 +12,19 @@ const StampSwiper = ({
   partner: { nickname },
   stampBoardSummaries,
 }: StampboardListData) => {
-  const { families, memberType } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+  const { data: my } = useQuery(['families'], familiesInfo);
+  const families = my?.data?.families;
+
   const [currentBoard, setCurrentBoard] = useState<number>(1);
   const totalBoard = stampBoardSummaries.length;
   const progressingBoard = stampBoardSummaries;
 
-  const isKid = memberType.name === 'KID';
+  const isKid = memberType?.name === 'KID';
 
   const currentFilterMemberType =
-    families.find((family) => family.nickname === nickname)?.memberType
+    families?.find((family) => family.nickname === nickname)?.memberType
       .detail || '';
 
   const handleChangeSwiper: (swiper: Swiper) => void = (swiper) => {

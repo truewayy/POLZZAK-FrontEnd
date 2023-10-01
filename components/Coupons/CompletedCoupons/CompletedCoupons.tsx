@@ -3,18 +3,19 @@ import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 import { couponList } from '@/apis/coupon';
+import { familiesInfo } from '@/apis/family';
 import { CouponfilterAtom } from '@/store/filter';
-import { userInfoAtom } from '@/store/userInfo';
 
 import CompletedStampsSkeleton from './CompletedCouponsSkeleton';
 import CompletedStampsView from './CompletedCouponsView';
 
 const CompletedCoupons = () => {
-  const { families } = useRecoilValue(userInfoAtom);
+  const { data: familyInfo } = useQuery(['families'], familiesInfo);
+  const families = familyInfo?.data?.families;
   const [isNoFamily, setIsNoFamily] = useState(true);
 
   const filter = useRecoilValue(CouponfilterAtom);
-  const currentFilterId = families.find(
+  const currentFilterId = families?.find(
     (family) => family.nickname === filter
   )?.memberId;
 
@@ -34,7 +35,7 @@ const CompletedCoupons = () => {
   };
 
   useEffect(() => {
-    const noFamily = families.length === 0;
+    const noFamily = families?.length === 0;
 
     setIsNoFamily(noFamily);
   }, [families]);

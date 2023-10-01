@@ -1,10 +1,10 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable no-nested-ternary */
 import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
+import { userInfo } from '@/apis/user';
 import { CheckIcon } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 interface ChooseMissionProps {
   isRequest?: boolean;
@@ -39,9 +39,8 @@ const ChooseMission = ({
   handleClickClose,
   handleClickNextButton,
 }: ChooseMissionProps) => {
-  const {
-    memberType: { name },
-  } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const name = user?.data?.memberType.name;
 
   const isKid = name === 'KID';
 
