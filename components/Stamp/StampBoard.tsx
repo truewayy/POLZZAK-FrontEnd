@@ -8,7 +8,8 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import Sheet from 'react-modal-sheet';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
@@ -26,6 +27,7 @@ import Loading from '../Common/Loading';
 import ChooseMission from './ChooseMission';
 import ChooseStamp from './ChooseStamp';
 import StampCompleteModal from './StampCompleteModal';
+import StampModal from './StampModal';
 
 interface BoardProps {
   stampboardId: string;
@@ -91,12 +93,14 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
   const families = my?.data?.families;
   const queryClient = useQueryClient();
   const stampCompleteModal = useDisclosure();
+  const stampModal = useDisclosure();
 
   const [modalOn, setModalOn] = useState(false);
   const [moreStamp, setMoreStamp] = useState(false);
   const [snapPoint, setSnapPoint] = useState(0);
-  const [stampDesignId, setStampDesignId] = useState<number>(1);
+  const [stampDesignId, setStampDesignId] = useState<number>(5);
   const [missionId, setMissionId] = useState<number>(0);
+  const [selectedStampId, setSelectedStampId] = useState<number>();
 
   const { data } = useQuery(['stampboard', stampboardId], () =>
     stampboardDetail(stampboardId)
@@ -104,6 +108,9 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
   const stampboard = data?.data;
   const count = stampboard?.goalStampCount || 10;
 
+  const currentStamp = stampboard?.stamps.find(
+    ({ id }) => id === selectedStampId
+  );
   const isKid = name === 'KID';
   const guardianId = isKid ? families?.[0].memberId : 0;
   const guardianType = isKid ? families?.[0].memberType.detail : '';
@@ -128,7 +135,9 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
       createdDate: string;
     } | null
   ) => {
+    setSelectedStampId(stamp?.id);
     if (!stamp) setModalOn(true);
+    else stampModal.onOpen();
   };
 
   const handleClickMoreButton = () => {
@@ -181,6 +190,10 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
     setStampDesignId(id);
   };
 
+  useEffect(() => {
+    if (snapPoint === 1) setStampDesignId(5);
+  }, [snapPoint]);
+
   return (
     <>
       {(request.isLoading || create.isLoading) && <Loading />}
@@ -218,7 +231,15 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
                   color="gray.400"
                   cursor="pointer"
                   _hover={{ bg: 'blue.100', color: 'polzzak.highlighted' }}
-                  _active={{ bg: 'blue.100', color: 'polzzak.highlighted' }}
+                  _active={
+                    stamp && {
+                      bgImage: stampsExample.find(
+                        ({ id }) => id === stamp.stampDesignId
+                      )?.icon,
+                      bgSize: '100%',
+                      bgRepeat: 'no-repeat',
+                    }
+                  }
                   isActive={stamp}
                   onClick={() => handleClickStamp(stamp)}
                 >
@@ -229,7 +250,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
                     left="50%"
                     transform="translate(-50%, -50%)"
                   >
-                    {i + 1}
+                    {!stamp && i + 1}
                   </Text>
                 </Button>
               ))
@@ -249,8 +270,15 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
                     bg="gray.200"
                     color="gray.400"
                     cursor="pointer"
-                    _hover={{ bg: 'blue.100', color: 'polzzak.highlighted' }}
-                    _active={{ bg: 'blue.100', color: 'polzzak.highlighted' }}
+                    _active={
+                      stamp && {
+                        bgImage: stampsExample.find(
+                          ({ id }) => id === stamp.stampDesignId
+                        )?.icon,
+                        bgSize: '100%',
+                        bgRepeat: 'no-repeat',
+                      }
+                    }
                     isActive={stamp}
                     onClick={() => handleClickStamp(stamp)}
                   >
@@ -261,7 +289,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
                       left="50%"
                       transform="translate(-50%, -50%)"
                     >
-                      {i + 1}
+                      {!stamp && i + 1}
                     </Text>
                   </Button>
                 ))}
@@ -332,12 +360,24 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
       </VStack>
       <StampCompleteModal
         isKid={isKid}
-        stampType={
-          stampsExample.find(({ id }) => id === stampDesignId)?.content || ''
-        }
+        stampType={stampsExample.find(({ id }) => id === stampDesignId)}
         guardianType={guardianType || ''}
         isOpen={stampCompleteModal.isOpen}
         onClose={stampCompleteModal.onClose}
+      />
+      <StampModal
+        mission={currentStamp?.missionContent || ''}
+        missionCompleteTime={
+          // 시간에 9시간 더해줘야함
+          dayjs(
+            new Date(currentStamp?.createdDate || '').getTime() + 32400000
+          ).format('YYYY년 MM월 DD일 HH시 mm분') || ''
+        }
+        stampType={stampsExample.find(
+          ({ id }) => id === currentStamp?.stampDesignId
+        )}
+        isOpen={stampModal.isOpen}
+        onClose={stampModal.onClose}
       />
     </>
   );

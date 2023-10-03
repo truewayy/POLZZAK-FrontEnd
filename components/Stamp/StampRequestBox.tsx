@@ -151,9 +151,7 @@ const StampRequestBox = ({
         <StampCompleteModal
           isKid={false}
           guardianType={null}
-          stampType={
-            stampsExample.find(({ id }) => id === stampDesignId)?.content || ''
-          }
+          stampType={stampsExample.find(({ id }) => id === stampDesignId)}
           isOpen={stampCompleteModal.isOpen}
           onClose={stampCompleteModal.onClose}
         />

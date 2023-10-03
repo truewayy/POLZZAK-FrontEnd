@@ -308,30 +308,47 @@ export const totalCompletedStampData = [
 export const stampsExample = [
   {
     id: 1,
-    content: '참 잘했어요1',
+    content: 'LEVEL UP',
+    icon: '/levelup.png',
   },
   {
     id: 2,
-    content: '참 잘했어요2',
+    content: 'Good Job',
+    icon: '/goodjob.png',
   },
   {
     id: 3,
-    content: '참 잘했어요3',
+    content: '짱 잘했어요',
+    icon: '/zzang.png',
   },
   {
     id: 4,
-    content: '참 잘했어요4',
+    content: '100점',
+    icon: '/score100.png',
   },
   {
     id: 5,
-    content: '참 잘했어요5',
+    content: '힘 내!',
+    icon: '/cheerup.png',
   },
   {
     id: 6,
-    content: '참 잘했어요6',
+    content: '사랑해',
+    icon: '/loveyou.png',
   },
   {
     id: 7,
-    content: '참 잘했어요7',
+    content: '으라차차',
+    icon: '/urachacha.png',
+  },
+  {
+    id: 8,
+    content: '쓱쓱싹싹',
+    icon: '/ssg.png',
+  },
+  {
+    id: 9,
+    content: '쓰담쓰담',
+    icon: '/ssdam.png',
   },
 ];

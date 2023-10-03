@@ -39,7 +39,14 @@ const CouponIssuedModal = ({
               {isKid ? '쿠폰 받기 완료!' : '쿠폰 발급 완료!'}
             </Text>
           </Text>
-          <Box w="200px" h="200px" bg="gray.100" />
+          <Box
+            w="200px"
+            h="200px"
+            bgImg="/createCoupon.png"
+            bgSize="contain"
+            bgRepeat="no-repeat"
+            bgPosition="center"
+          />
           <Flex w="100%" pt="30px">
             <Button
               w="100%"

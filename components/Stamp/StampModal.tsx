@@ -10,29 +10,26 @@ import {
 } from '@chakra-ui/react';
 
 interface CouponIssuedModalProps {
-  isKid: boolean;
+  mission: string;
+  missionCompleteTime: string;
   stampType: { id: number; content: string; icon: string } | undefined;
-  guardianType: string | null;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const StampCompleteModal = ({
-  isKid,
+const StampModal = ({
+  mission,
+  missionCompleteTime,
   stampType,
-  guardianType,
   isOpen,
   onClose,
 }: CouponIssuedModalProps) => (
   <Modal isOpen={isOpen} onClose={onClose} isCentered>
     <ModalOverlay />
     <ModalContent w="90%" h="460px" borderRadius="12px" bg="white">
-      <VStack w="100%" h="100%" p="48px 5% 16px 5%" spacing="35px">
-        <Text layerStyle="subtitle18Sbd" color="blue.600" textAlign="center">
-          {isKid ? `${guardianType}에게` : stampType?.content}
-          <Text layerStyle="subtitle16Sbd" color="gray.800">
-            {isKid ? '도장을 요청했어요!' : '도장이 찍혔어요!'}
-          </Text>
+      <VStack w="100%" h="100%" p="48px 5% 16px 5%" spacing="30px">
+        <Text layerStyle="subtitle20Sbd" textAlign="center">
+          미션 완료
         </Text>
         <Box
           w="200px"
@@ -42,6 +39,12 @@ const StampCompleteModal = ({
           bgRepeat="no-repeat"
           bgPosition="center"
         />
+        <VStack w="100%" pt="10px" spacing="6px">
+          <Text layerStyle="body18Md">{mission}</Text>
+          <Text layerStyle="subtitle16Md" color="gray.500">
+            {missionCompleteTime}
+          </Text>
+        </VStack>
         <Flex w="100%" pt="30px">
           <Button
             w="100%"
@@ -61,4 +64,4 @@ const StampCompleteModal = ({
   </Modal>
 );
 
-export default StampCompleteModal;
+export default StampModal;
