@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Circle,
   Flex,
   Text,
@@ -24,6 +25,7 @@ const BasicInfo = () => {
 
   const isKid = user?.data?.memberType.name === 'KID';
   const linkedFamily = families?.length;
+  const noFamily = linkedFamily === 0;
 
   const handleClickSetting = () => {
     push(ROUTES.PROFILE.SETTING);
@@ -32,7 +34,12 @@ const BasicInfo = () => {
   return (
     <VStack w="100%" spacing="0px">
       <Flex w="100%" h="44px" p="0 5%" align="center" justify="flex-end">
-        <Setting w="24px" h="24px" onClick={handleClickSetting} />
+        <Setting
+          w="24px"
+          h="24px"
+          cursor="pointer"
+          onClick={handleClickSetting}
+        />
       </Flex>
       <Flex
         w="100%"
@@ -87,7 +94,7 @@ const BasicInfo = () => {
       <Sheet
         isOpen={isOpen}
         onClose={onClose}
-        snapPoints={[500, 320, 200, 0]}
+        snapPoints={[600, 320, 200, 0]}
         initialSnap={0}
         style={{
           maxWidth: '560px',
@@ -98,11 +105,10 @@ const BasicInfo = () => {
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>
-            <VStack w="100%" h={500} bg="white" p="20px" spacing="24px">
+            <VStack w="100%" h={600} bg="white" p="0 20px" spacing="24px">
               <VStack
                 w="100%"
-                p="20px"
-                pt="0"
+                p="0 20px"
                 spacing="6px"
                 pos="sticky"
                 top="0"
@@ -119,24 +125,65 @@ const BasicInfo = () => {
                 </Text>
               </VStack>
               <VStack w="100%" spacing="8px">
-                {families?.map((family) => (
-                  <Flex
-                    key={family.memberId}
+                {!noFamily ? (
+                  families?.map((family) => (
+                    <Flex
+                      key={family.memberId}
+                      w="100%"
+                      p="12px 16px"
+                      align="center"
+                      gap="16px"
+                    >
+                      <Circle
+                        size="60px"
+                        bg={`url(${family.profileUrl})`}
+                        bgSize="cover"
+                        bgPos="center"
+                      />
+                      <Flex gap="6px" align="center">
+                        {isKid && (
+                          <Box
+                            p="4px 8px"
+                            bg="gray.200"
+                            border="1px solid rgba(0, 0, 0, 0.12)"
+                            borderRadius="8px"
+                            layerStyle="body14Sbd"
+                            color="gray.700"
+                            mr="2px"
+                          >
+                            {family.memberType.detail}
+                          </Box>
+                        )}
+                        <Text layerStyle="body14Md">{family.nickname}</Text>
+                      </Flex>
+                    </Flex>
+                  ))
+                ) : (
+                  <VStack
                     w="100%"
-                    p="12px 16px"
-                    align="center"
-                    gap="16px"
+                    h="410px"
+                    justify="center"
+                    border="1px solid"
+                    borderColor="gray.200"
                   >
-                    <Circle
-                      size="60px"
-                      bg={`url(${family.profileUrl})`}
-                      bgSize="cover"
-                      bgPos="center"
-                    />
-                    <Text layerStyle="body14Md">{family.nickname}</Text>
-                  </Flex>
-                ))}
+                    <Text layerStyle="body14Md" color="gray.400">
+                      연동된 {isKid ? '보호자' : '아이'}가 없어요
+                    </Text>
+                  </VStack>
+                )}
               </VStack>
+              <Button
+                w="100%"
+                h="auto"
+                p="12px 24px"
+                borderRadius="8px"
+                bg="polzzak.default"
+                layerStyle="subtitle16Sbd"
+                color="white"
+                onClick={onClose}
+              >
+                닫기
+              </Button>
             </VStack>
           </Sheet.Content>
         </Sheet.Container>

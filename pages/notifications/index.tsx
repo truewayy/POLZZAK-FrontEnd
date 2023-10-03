@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { Flex, Skeleton, Text, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
@@ -41,6 +42,8 @@ const Notifications = () => {
     }
   );
 
+  const noNotifications = !data?.pages[0]?.response?.notificationDtoList.length;
+
   useEffect(() => {
     setStartId(data?.pages[0]?.response.startId);
   }, [data]);
@@ -50,16 +53,18 @@ const Notifications = () => {
       <Flex w="100%" p="27px 0" bg="white" justify="center" pos="relative">
         <Text layerStyle="title22Sbd">알림</Text>
         {!deleteModeOn ? (
-          <Trash
-            pos="absolute"
-            w="22px"
-            h="22px"
-            right="5%"
-            top="50%"
-            transform="translateY(-50%)"
-            cursor="pointer"
-            onClick={handleClickTrash}
-          />
+          !noNotifications && (
+            <Trash
+              pos="absolute"
+              w="22px"
+              h="22px"
+              right="5%"
+              top="50%"
+              transform="translateY(-50%)"
+              cursor="pointer"
+              onClick={handleClickTrash}
+            />
+          )
         ) : (
           <>
             <Text
@@ -97,6 +102,12 @@ const Notifications = () => {
             <Skeleton h="180px" w="100%" borderRadius="8px" />
             <Skeleton h="180px" w="100%" borderRadius="8px" />
           </>
+        ) : noNotifications ? (
+          <VStack w="100%" h="550px" justify="center" align="center">
+            <Text layerStyle="subtitle20Rg" color="gray.400">
+              알림이 없어요
+            </Text>
+          </VStack>
         ) : (
           data?.pages.map((notification) =>
             notification?.response.notificationDtoList.map((item) => (

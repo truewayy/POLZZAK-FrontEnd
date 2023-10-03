@@ -57,7 +57,7 @@ const Stampboard = () => {
   return (
     <VStack w="100%" h="100%" spacing="0">
       <VStack w="100%" p="20px 5%" bg="#F8F8FC">
-        <Nav />
+        <Nav isCompleted={isCompleted} />
         <Header
           stampboardName={stampboard?.name ?? ''}
           isCompleted={isCompleted}

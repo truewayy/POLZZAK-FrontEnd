@@ -25,7 +25,7 @@ import {
 import imgToBase64 from '@/utils/imgToBase64';
 
 const Setting = () => {
-  const methods = useForm();
+  const methods = useForm({ mode: 'onChange' });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data } = useQuery(['userInfo'], userInfo);
   const { back } = useRouter();

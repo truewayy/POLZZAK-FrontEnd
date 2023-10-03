@@ -37,7 +37,7 @@ const StampCompleteModal = ({
         <Box
           w="200px"
           h="200px"
-          bgImg={stampType?.icon}
+          bgImg={isKid ? '/request.png' : stampType?.icon}
           bgSize="contain"
           bgRepeat="no-repeat"
           bgPosition="center"

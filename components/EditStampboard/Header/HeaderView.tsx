@@ -52,6 +52,7 @@ const HeaderView = ({
       <Text
         layerStyle="subtitle16Sbd"
         color="polzzak.default"
+        cursor="pointer"
         onClick={handleSubmit(handleClickRegister)}
       >
         등록

@@ -1,19 +1,12 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
 import { userInfo } from '@/apis/user';
+import BasicInfo from '@/components/Profile/BasicInfo';
+import MyPoint from '@/components/Profile/MyPoint';
 import ROUTES from '@/constants/routes';
-
-const BasicInfo = dynamic(() => import('@/components/Profile/BasicInfo'), {
-  ssr: false,
-});
-
-const MyPoint = dynamic(() => import('@/components/Profile/MyPoint'), {
-  ssr: false,
-});
 
 const Profile = () => {
   const { data: user } = useQuery(['userInfo'], userInfo);
@@ -58,6 +51,7 @@ const Profile = () => {
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            cursor="pointer"
             onClick={handleClickCallCenter}
           >
             고객센터
@@ -67,6 +61,7 @@ const Profile = () => {
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            cursor="pointer"
             onClick={handleClickNotice}
           >
             공지사항
@@ -76,6 +71,7 @@ const Profile = () => {
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            cursor="pointer"
             onClick={handleClickAccountManage}
           >
             계정관리
@@ -85,6 +81,7 @@ const Profile = () => {
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            cursor="pointer"
           >
             버전정보
           </Box>

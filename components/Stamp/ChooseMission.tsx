@@ -76,6 +76,7 @@ const ChooseMission = ({
                 <Flex
                   key={requestId}
                   justify="space-between"
+                  align="center"
                   w="100%"
                   p="12px 16px"
                   pos="relative"
@@ -107,6 +108,7 @@ const ChooseMission = ({
                       border="1px solid rgba(255, 111, 80, 0.16)"
                       borderRadius="6px"
                       bg="error.100"
+                      cursor="pointer"
                       _active={{ bg: 'error.500', color: 'white' }}
                       _disabled={{
                         bg: 'rgba(255, 111, 80, 0.16)',

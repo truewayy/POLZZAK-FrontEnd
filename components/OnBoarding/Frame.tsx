@@ -17,7 +17,13 @@ const Frame = ({
   icon,
 }: FrameProps) => (
   <VStack w="100%" h="87vh" spacing="48px" p="15% 5%">
-    <Image src={icon} w={256} />
+    <Image
+      src={icon}
+      w="256px"
+      h="256px"
+      objectFit="contain"
+      objectPosition="center"
+    />
     <Box w="100%">
       <Text layerStyle="title22Bd" alignSelf="flex-start" lineHeight="40px">
         {title}

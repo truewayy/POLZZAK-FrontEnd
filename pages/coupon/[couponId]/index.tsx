@@ -184,12 +184,13 @@ const Coupon = () => {
                   <Flex
                     align="center"
                     cursor="pointer"
+                    pos="relative"
                     onClick={handleClickCompletedMissions}
                   >
                     <Text layerStyle="body13Md" color="gray.500">
                       완료 미션
                     </Text>
-                    <RightNavigation w="12px" h="12px" />
+                    <RightNavigation w="12px" h="12px" fill="gray.400" />
                   </Flex>
                   <Text layerStyle="subtitle18Sbd" color="blue.600">
                     {coupon?.missionContents.length}{' '}

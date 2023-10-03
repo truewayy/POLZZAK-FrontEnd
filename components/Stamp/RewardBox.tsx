@@ -198,6 +198,15 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
                     stampboard?.status ?? 'progress'
                   ]
             }
+            _disabled={{
+              bg: 'polzzak.default',
+              opacity: 0.3,
+              cursor: 'not-allowed',
+              _hover: {
+                bg: 'polzzak.default',
+                opacity: 0.3,
+              },
+            }}
             onClick={openBottomSheet}
           >
             <Text layerStyle="subtitle16Sbd" color="white">

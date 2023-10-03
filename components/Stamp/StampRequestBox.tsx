@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { createStamp, refuseMission } from '@/apis/stamp';
 import { stampsExample } from '@/constants/defaultValue';
-import { Notifications } from '@/public/icon';
+import { Notifications, RightNavigation } from '@/public/icon';
 
 import Loading from '../Common/Loading';
 import ChooseMission from './ChooseMission';
@@ -102,8 +102,16 @@ const StampRequestBox = ({
           border="1px solid rgba(13, 122, 211, 0.16)"
           borderRadius="8px"
           gap="8px"
+          pos="relative"
         >
           <Notifications w="20px" h="20px" /> 도장 요청이 있어요!
+          <RightNavigation
+            w="16px"
+            h="16px"
+            fill="blue.500"
+            pos="absolute"
+            right="16px"
+          />
         </Flex>
         <Sheet
           isOpen={modalOn}
