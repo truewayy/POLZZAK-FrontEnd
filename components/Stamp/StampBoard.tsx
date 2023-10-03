@@ -194,6 +194,10 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
     if (snapPoint === 1) setStampDesignId(5);
   }, [snapPoint]);
 
+  useEffect(() => {
+    if (snapPoint === 0) setMissionId(0);
+  }, [snapPoint]);
+
   return (
     <>
       {(request.isLoading || create.isLoading) && <Loading />}

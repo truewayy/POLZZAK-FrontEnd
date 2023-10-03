@@ -45,7 +45,7 @@ const CustomInput = ({
   };
 
   return (
-    <VStack w={w} spacing="4px">
+    <VStack w={w} spacing={focusOn ? '4px' : '0px'}>
       <Box
         w="100%"
         pos="relative"

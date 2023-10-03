@@ -47,7 +47,6 @@ const CouponSwiperView = ({
     </Flex>
     {progressingCoupons.length > 0 ? (
       <SwiperComponent
-        grabCursor
         slidesPerView={1.15}
         height={200}
         centeredSlides

@@ -332,7 +332,7 @@ const RewardBox = ({ stampboardId }: RewardBoxProps) => {
                       <Text layerStyle="body14Md" color="gray.800">
                         {rewardDate()}
                       </Text>
-                      <Calendar w="20px" h="20px" />
+                      {!isKid && <Calendar w="20px" h="20px" />}
                     </Flex>
                   </Flex>
                 </VStack>

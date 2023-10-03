@@ -64,7 +64,7 @@ const Stampboard = () => {
           completingDate={completingDate}
           progressingDate={progressingDate}
         />
-        {!isMemberTypeKid && isMissionRequest && (
+        {!isMemberTypeKid && isMissionRequest && !isCompleted && (
           <StampRequestBox
             stampboardId={stampboardId}
             missionRequestList={stampboard.missionRequestList || []}

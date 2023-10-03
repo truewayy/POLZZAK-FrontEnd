@@ -41,16 +41,19 @@ const CardView = ({
       justify="space-between"
       bg="white"
       borderRadius="8px 0 0 8px"
+      cursor="pointer"
     >
       <VStack spacing="8px" align="flex-start">
         <Box
           p="4px 8px"
-          bg="blue.150"
-          color="polzzak.default"
+          bg={Number(dateDiff) >= -1 ? 'error.100' : 'blue.150'}
+          color={Number(dateDiff) >= -1 ? 'error.500' : 'blue.600'}
           layerStyle="caption12Bd"
           borderRadius="4px"
         >
-          ⏰&nbsp;&nbsp;D{dateDiff}
+          {Number(dateDiff) > 0
+            ? '🚨 약속한 날짜가 지났어요'
+            : `⏰ D${Number(dateDiff) === 0 ? '-day' : dateDiff}`}
         </Box>
         <Text layerStyle="subtitle16Sbd" color="#000">
           {reward}
@@ -106,7 +109,6 @@ const CardView = ({
           <Button
             variant="unstyled"
             w="100%"
-            h="auto"
             p="8.5px"
             borderRadius="5px"
             border="1px solid"

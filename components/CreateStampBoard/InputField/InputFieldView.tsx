@@ -105,7 +105,7 @@ const InputFieldView = ({
               w={7}
               h={5}
               pos="absolute"
-              top="10px"
+              top="12px"
               right="0"
               stroke={missionValue(id)?.length > 0 ? 'gray.400' : 'gray.300'}
               onClick={() => handleClickDeleteButton(id)}

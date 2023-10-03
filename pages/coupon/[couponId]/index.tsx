@@ -19,7 +19,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { couponDetail, receiveGift } from '@/apis/coupon';
+import { couponDetail, receiveGift, requestGift } from '@/apis/coupon';
 import { userInfo } from '@/apis/user';
 import Loading from '@/components/Common/Loading';
 import ConfirmModal from '@/components/Link/ConfirmModal';
@@ -29,10 +29,12 @@ import sleep from '@/utils/sleep';
 const Coupon = () => {
   const captureRef = useRef<HTMLDivElement>(null);
   const [captureLoading, setCaptureLoading] = useState<boolean>(false);
+  const [remainRequestTime, setRemainingTime] = useState('00:00');
 
   const queryClient = useQueryClient();
   const receiveModal = useDisclosure();
   const missionsModal = useDisclosure();
+
   const { query, back } = useRouter();
   const { couponId } = query;
   const { data: coupon } = useQuery(
@@ -68,6 +70,16 @@ const Coupon = () => {
     }
   );
 
+  const { mutate: request } = useMutation(
+    () => requestGift(couponId as string),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('couponList');
+        queryClient.invalidateQueries(['coupon', couponId]);
+      },
+    }
+  );
+
   const handleClickReceiveButton = () => {
     receiveModal.onOpen();
   };
@@ -80,9 +92,34 @@ const Coupon = () => {
     receive();
   };
 
+  const handleClickReqeustButton = () => {
+    request();
+  };
+
+  useEffect(() => {
+    if (!coupon?.rewardRequestDate) return;
+    const rewardRequestTime = Math.floor(
+      (new Date(coupon?.rewardRequestDate).getTime() - new Date().getTime()) /
+        1000
+    );
+    if (rewardRequestTime < -36000) return setRemainingTime('00:00');
+    const interval = setInterval(() => {
+      // MM:SS
+      const rewardRequestMinute = Math.floor(rewardRequestTime / 60) + 600;
+      const rewardRequestSecond = (rewardRequestTime % 60) + 60;
+      const rewardRequestTimeFormat = `${String(rewardRequestMinute).padStart(
+        2,
+        '0'
+      )}:${String(rewardRequestSecond).padStart(2, '0')}`;
+      setRemainingTime(rewardRequestTimeFormat);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [coupon?.rewardRequestDate, remainRequestTime]);
+
   const handleDownload = async () => {
-    if (!captureRef.current) return;
     setCaptureLoading(true);
+    if (!captureRef.current) return;
 
     try {
       await sleep(1000);
@@ -111,7 +148,13 @@ const Coupon = () => {
   return (
     <>
       {captureLoading && <Loading />}
-      <VStack ref={captureRef} bg="polzzak.default" minH="100vh" spacing="30px">
+      <VStack
+        ref={captureRef}
+        bg="polzzak.default"
+        minH="100vh"
+        spacing="30px"
+        pos="relative"
+      >
         <Flex w="100%" p="10px 16px" justify="space-between">
           <LeftArrow w="24px" h="24px" fill="white" onClick={back} />
           <Picture w="30px" h="30px" onClick={handleDownload} />
@@ -231,7 +274,7 @@ const Coupon = () => {
             bg="white"
             borderRadius="12px"
             gap="30px"
-            justify="center"
+            justify="space-around"
             pos="relative"
             overflow="hidden"
           >
@@ -251,11 +294,23 @@ const Coupon = () => {
                 {dayjs(coupon?.endDate).format('YYYY. MM. DD')}
               </Text>
             </VStack>
-            <Box w="100%" h="6px" pos="absolute" bg="blue.200" bottom="0" />
+            <Box
+              w="100%"
+              h="6px"
+              pos="absolute"
+              bg="blue.200"
+              bottom="0"
+              left="0"
+            />
           </Flex>
         </VStack>
         {coupon?.state === 'ISSUED' && (
-          <Text layerStyle="body14Sbd" textAlign="center" color="gray.700">
+          <Text
+            layerStyle="body14Sbd"
+            textAlign="center"
+            color="gray.700"
+            pb="130px"
+          >
             <Text color="#fff" as="span">
               {dayjs(coupon?.rewardDate).format('YYYY. MM. DD')}
             </Text>{' '}
@@ -263,45 +318,48 @@ const Coupon = () => {
             선물을 전달하기로 약속했어요!
           </Text>
         )}
-        {coupon?.state === 'REWARDED' && isKid && !captureLoading && (
-          <Box
-            p="6px 12px"
-            borderRadius="100px"
-            bg="blue.600"
-            layerStyle="body14Sbd"
-            color="white"
-          >
-            선물 받기 완료
-          </Box>
-        )}
-        {coupon?.state === 'REWARDED' && !isKid && !captureLoading && (
-          <Box
-            p="6px 12px"
-            borderRadius="100px"
-            bg="blue.600"
-            layerStyle="body14Sbd"
-            color="white"
-          >
-            선물 전달 완료
-          </Box>
-        )}
         {captureLoading && (
           <Text layerStyle="title20Xbd" color="white" opacity="0.5">
             PolZZak!
           </Text>
         )}
-        {coupon?.state === 'ISSUED' && isKid && (
-          <Flex w="100%" gap="7px" p="0 5%" pb="30px">
-            <Button
-              w="100%"
-              h="auto"
-              p="14px"
-              bg="blue.600"
-              layerStyle="subtitle16Sbd"
-              color="white"
-            >
-              선물 조르기
-            </Button>
+        {coupon?.state === 'ISSUED' && isKid && !captureLoading && (
+          <Flex w="100%" gap="7px" p="0 5%" pb="30px" pos="absolute" bottom="0">
+            {remainRequestTime === '00:00' ? (
+              <Button
+                variant="unstyled"
+                w="100%"
+                h="auto"
+                p="14px"
+                bg="blue.600"
+                layerStyle="subtitle16Sbd"
+                color="white"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClickReqeustButton();
+                }}
+              >
+                선물 조르기
+              </Button>
+            ) : (
+              <Button
+                variant="unstyled"
+                w="100%"
+                h="auto"
+                p="8.5px"
+                border="1px solid"
+                borderColor="white"
+                borderRadius="5px"
+                bg="blue.500"
+                color="white"
+                cursor="default"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                {remainRequestTime}
+              </Button>
+            )}
             <Button
               w="100%"
               h="auto"

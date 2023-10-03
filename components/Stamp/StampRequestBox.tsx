@@ -1,5 +1,5 @@
 import { Flex, useDisclosure, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sheet from 'react-modal-sheet';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -87,6 +87,14 @@ const StampRequestBox = ({
   const handleClickNextButton = () => {
     setSnapPoint(1);
   };
+
+  useEffect(() => {
+    if (snapPoint === 1) setStampDesignId(5);
+  }, [snapPoint]);
+
+  useEffect(() => {
+    if (snapPoint === 0) setMissionId(0);
+  }, [snapPoint]);
 
   return (
     <>

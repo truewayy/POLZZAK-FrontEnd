@@ -51,7 +51,6 @@ const StampSwiperView = ({
     </Flex>
     {completedBoard.length > 0 ? (
       <SwiperComponent
-        grabCursor
         slidesPerView={1.15}
         centeredSlides
         spaceBetween={10}
@@ -66,7 +65,7 @@ const StampSwiperView = ({
         onSlideChange={handleChangeSwiper}
       >
         {completedBoard.map(({ stampBoardId, name, reward }) => (
-          <SwiperSlide key={stampBoardId}>
+          <SwiperSlide key={stampBoardId} style={{ cursor: 'pointer' }}>
             <Card name={name} reward={reward} />
           </SwiperSlide>
         ))}
