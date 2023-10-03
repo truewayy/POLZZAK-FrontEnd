@@ -105,7 +105,14 @@ const BasicInfo = () => {
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>
-            <VStack w="100%" h={600} bg="white" p="0 20px" spacing="24px">
+            <VStack
+              w="100%"
+              h={600}
+              bg="white"
+              p="0 20px"
+              spacing="24px"
+              pos="relative"
+            >
               <VStack
                 w="100%"
                 p="0 20px"
@@ -173,7 +180,7 @@ const BasicInfo = () => {
                 )}
               </VStack>
               <Button
-                w="100%"
+                w="90%"
                 h="auto"
                 p="12px 24px"
                 borderRadius="8px"
@@ -181,6 +188,8 @@ const BasicInfo = () => {
                 layerStyle="subtitle16Sbd"
                 color="white"
                 onClick={onClose}
+                pos="absolute"
+                bottom="60px"
               >
                 닫기
               </Button>
