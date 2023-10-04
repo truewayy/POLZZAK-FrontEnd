@@ -326,7 +326,7 @@ const Coupon = () => {
             선물 전달 완료
           </Box>
         )}
-        {coupon?.state === 'ISSUED' && (
+        {coupon?.state === 'ISSUED' && !captureLoading && (
           <Text
             layerStyle="body14Sbd"
             textAlign="center"

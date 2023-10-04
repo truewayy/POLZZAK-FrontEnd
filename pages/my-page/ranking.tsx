@@ -65,78 +65,90 @@ const Ranking = () => {
           </Text>
         </Flex>
       </VStack>
-      <VStack w="100%" p="16px 8px" bg="white" pos="sticky" top="0" zIndex="1">
-        <Flex
+      {ranking?.data?.rankingSummaries.filter(
+        ({ nickname }) =>
+          nickname === ranking.data.memberSimpleResponse.nickname
+      ).length === 0 && (
+        <VStack
           w="100%"
-          p="16px"
-          justify="space-between"
-          align="center"
-          borderRadius="8px"
-          bg="blue.150"
+          p="16px 8px"
+          bg="white"
+          pos="sticky"
+          top="0"
+          zIndex="1"
         >
-          <Flex gap="8px" align="center">
-            <Text
-              w="24px"
-              textAlign="center"
-              layerStyle="body14Sbd"
-              color="gray.800"
-              pr="3px"
+          <Flex
+            w="100%"
+            p="16px"
+            justify="space-between"
+            align="center"
+            borderRadius="8px"
+            bg="blue.150"
+          >
+            <Flex gap="8px" align="center">
+              <Text
+                w="24px"
+                textAlign="center"
+                layerStyle="body14Sbd"
+                color="gray.800"
+                pr="3px"
+              >
+                {ranking?.data?.memberSimpleResponse.myRanking}
+              </Text>
+              <Circle
+                size="40px"
+                bg={
+                  `url(${ranking?.data?.memberSimpleResponse.profileUrl})` ??
+                  'gray.100'
+                }
+                bgSize="cover"
+                bgRepeat="no-repeat"
+              />
+              <VStack spacing="3.5px" align="flex-start">
+                {isGuardianpage && (
+                  <Box
+                    p="3px 6px"
+                    bg="gray.200"
+                    border="1px solid rgba(0, 0, 0, 0.12)"
+                    borderRadius="8px"
+                    layerStyle="caption12Md"
+                    color="gray.700"
+                  >
+                    {ranking?.data?.memberSimpleResponse.memberType.detail} 회원
+                  </Box>
+                )}
+                <Flex gap="8px" align="center">
+                  <Text layerStyle="caption13Sbd" color="gray.700">
+                    {ranking?.data?.memberSimpleResponse.nickname}
+                  </Text>
+                  <Circle
+                    size="21px"
+                    bg="polzzak.default"
+                    layerStyle="caption12Md"
+                    color="white"
+                  >
+                    나
+                  </Circle>
+                </Flex>
+              </VStack>
+            </Flex>
+            <VStack
+              w="64px"
+              p="4px 0"
+              borderRadius="8px"
+              bg="blue.100"
+              spacing="2px"
             >
-              {ranking?.data?.memberSimpleResponse.myRanking}
-            </Text>
-            <Circle
-              size="40px"
-              bg={
-                `url(${ranking?.data?.memberSimpleResponse.profileUrl})` ??
-                'gray.100'
-              }
-              bgSize="cover"
-              bgRepeat="no-repeat"
-            />
-            <VStack spacing="3.5px" align="flex-start">
-              {isGuardianpage && (
-                <Box
-                  p="3px 6px"
-                  bg="gray.200"
-                  border="1px solid rgba(0, 0, 0, 0.12)"
-                  borderRadius="8px"
-                  layerStyle="caption12Md"
-                  color="gray.700"
-                >
-                  {ranking?.data?.memberSimpleResponse.memberType.detail} 회원
-                </Box>
-              )}
-              <Flex gap="8px" align="center">
-                <Text layerStyle="caption13Sbd" color="gray.700">
-                  {ranking?.data?.memberSimpleResponse.nickname}
-                </Text>
-                <Circle
-                  size="21px"
-                  bg="polzzak.default"
-                  layerStyle="caption12Md"
-                  color="white"
-                >
-                  나
-                </Circle>
-              </Flex>
+              <Text fontSize="10px" fontWeight="500" color="blue.400">
+                {ranking?.data?.memberSimpleResponse.memberPoint.point}P
+              </Text>
+              <Text layerStyle="caption12Sbd" color="polzzak.default">
+                {ranking?.data?.memberSimpleResponse.memberPoint.level} 계단
+              </Text>
             </VStack>
           </Flex>
-          <VStack
-            w="64px"
-            p="4px 0"
-            borderRadius="8px"
-            bg="blue.100"
-            spacing="2px"
-          >
-            <Text fontSize="10px" fontWeight="500" color="blue.400">
-              {ranking?.data?.memberSimpleResponse.memberPoint.point}P
-            </Text>
-            <Text layerStyle="caption12Sbd" color="polzzak.default">
-              {ranking?.data?.memberSimpleResponse.memberPoint.level} 계단
-            </Text>
-          </VStack>
-        </Flex>
-      </VStack>
+        </VStack>
+      )}
       <VStack w="100%" p="16px" spacing="16px">
         <Text w="100%" layerStyle="subtitle18Sbd">
           TOP 30
@@ -184,9 +196,30 @@ const Ranking = () => {
                       {rank.memberTypeDetail} 회원
                     </Box>
                   )}
-                  <Text layerStyle="caption13Sbd" color="gray.700">
-                    {rank.nickname}
-                  </Text>
+                  <Flex align="center" gap="8px">
+                    <Text
+                      layerStyle="caption13Sbd"
+                      color="gray.700"
+                      {...(rank.nickname ===
+                        ranking.data.memberSimpleResponse.nickname && {
+                        color: 'polzzak.default',
+                      })}
+                    >
+                      {rank.nickname}
+                    </Text>
+
+                    {rank.nickname ===
+                      ranking.data.memberSimpleResponse.nickname && (
+                      <Circle
+                        size="21px"
+                        bg="polzzak.default"
+                        layerStyle="caption12Md"
+                        color="white"
+                      >
+                        나
+                      </Circle>
+                    )}
+                  </Flex>
                 </VStack>
               </Flex>
               <VStack

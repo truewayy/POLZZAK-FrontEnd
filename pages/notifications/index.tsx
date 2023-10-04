@@ -2,10 +2,14 @@
 import { Flex, Skeleton, Text, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { useInfiniteQuery } from 'react-query';
+import { InfiniteData, useInfiniteQuery, useMutation } from 'react-query';
 import { useRecoilState } from 'recoil';
 
-import { notificationList } from '@/apis/notifications';
+import {
+  deleteNotification,
+  Notification as NotifiType,
+  notificationList,
+} from '@/apis/notifications';
 import { Trash } from '@/public/icon';
 import { notiDeleteOnAtom, notificationsAtom } from '@/store/notifications';
 
@@ -19,7 +23,20 @@ const Notification = dynamic(
 const Notifications = () => {
   const [startId, setStartId] = useState<number | null | undefined>(null);
   const [deleteModeOn, setDeleteModeOn] = useRecoilState(notiDeleteOnAtom);
-  const [, setDeleteArr] = useRecoilState(notificationsAtom);
+  const [notificationArr, setNotificationArr] = useState<
+    InfiniteData<
+      | {
+          response: {
+            startId: number;
+            notificationDtoList: NotifiType[];
+          };
+          nextPage: number;
+        }
+      | undefined
+    >
+  >();
+
+  const [deleteArr, setDeleteArr] = useRecoilState(notificationsAtom);
   const handleClickTrash = () => {
     setDeleteModeOn(!deleteModeOn);
     if (deleteModeOn) {
@@ -27,10 +44,13 @@ const Notifications = () => {
     }
   };
 
-  const { data, isLoading } = useInfiniteQuery(
+  const { data, isLoading, refetch } = useInfiniteQuery(
     ['notifications'],
     ({ pageParam = 0 }) => notificationList(pageParam, startId),
     {
+      onSuccess: (res) => {
+        setNotificationArr(res);
+      },
       getNextPageParam: (lastPage) => {
         if (lastPage?.response.notificationDtoList.length === 10) {
           return {
@@ -38,6 +58,18 @@ const Notifications = () => {
           };
         }
         return undefined;
+      },
+    }
+  );
+
+  const { mutate: deleteNotifications } = useMutation(
+    (notifications: string) => deleteNotification(notifications),
+    {
+      onSuccess: () => {
+        setDeleteModeOn(false);
+        setDeleteArr([]);
+        setStartId(null);
+        refetch();
       },
     }
   );
@@ -87,6 +119,7 @@ const Notifications = () => {
               layerStyle="body15Md"
               cursor="pointer"
               color="error.500"
+              onClick={() => deleteNotifications(deleteArr.join(','))}
             >
               삭제
             </Text>
@@ -109,7 +142,7 @@ const Notifications = () => {
             </Text>
           </VStack>
         ) : (
-          data?.pages.map((notification) =>
+          notificationArr?.pages.map((notification) =>
             notification?.response.notificationDtoList.map((item) => (
               <Notification key={item.id} notification={item} />
             ))

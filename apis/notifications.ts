@@ -71,4 +71,18 @@ export const notificationList = async (
   }
 };
 
-export const notoficationDetail = '';
+export const deleteNotification = async (notificationIds: string) => {
+  try {
+    const data: NotificationListResponse = await http.delete(
+      API_URLS.NOTIFICATION_LIST,
+      {
+        params: {
+          notificationIds,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
