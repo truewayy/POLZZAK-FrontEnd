@@ -124,6 +124,7 @@ const Setting = () => {
           bg="white"
           pos="fixed"
           top="0"
+          zIndex="999"
         >
           <LeftArrow w="10px" h="18px" mr="auto" onClick={back} />
           <Text layerStyle="subtitle18Sbd" color="#1C1C1C">
