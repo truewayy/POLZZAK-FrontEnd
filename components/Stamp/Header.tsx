@@ -13,7 +13,7 @@ const Header = ({
   completingDate,
   progressingDate,
 }: HeaderProps) => (
-  <Flex w="100%" pb="10px" justify="space-between" align="center">
+  <Flex w="100%" pb="10px" justify="space-between" align="flex-start">
     <Text w="80%" layerStyle="title24Sbd" color="rgba(46, 48, 56, 1)">
       {stampboardName}
     </Text>
