@@ -304,6 +304,28 @@ const Coupon = () => {
             />
           </Flex>
         </VStack>
+        {coupon?.state === 'REWARDED' && isKid && !captureLoading && (
+          <Box
+            p="6px 12px"
+            borderRadius="100px"
+            bg="blue.600"
+            layerStyle="body14Sbd"
+            color="white"
+          >
+            선물 받기 완료
+          </Box>
+        )}
+        {coupon?.state === 'REWARDED' && !isKid && !captureLoading && (
+          <Box
+            p="6px 12px"
+            borderRadius="100px"
+            bg="blue.600"
+            layerStyle="body14Sbd"
+            color="white"
+          >
+            선물 전달 완료
+          </Box>
+        )}
         {coupon?.state === 'ISSUED' && (
           <Text
             layerStyle="body14Sbd"
