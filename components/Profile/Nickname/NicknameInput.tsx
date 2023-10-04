@@ -50,10 +50,6 @@ const NicknameInput = ({
     setIsInputFocused(true);
   };
 
-  const handleInputBlur = () => {
-    setIsInputFocused(false);
-  };
-
   const handleClickDuplicateButton = async () => {
     const status = await duplicateCheck(nickname);
     if (status === 400) {
@@ -74,7 +70,6 @@ const NicknameInput = ({
     register,
     handleClickDuplicateButton,
     handleInputFocus,
-    handleInputBlur,
     defaultValue,
     validateNickname,
     inputLength,

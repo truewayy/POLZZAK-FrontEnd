@@ -13,7 +13,6 @@ interface NicknameInputVAProps {
   register: UseFormRegister<FieldValues>;
   handleClickDuplicateButton: () => void;
   handleInputFocus: () => void;
-  handleInputBlur: () => void;
   defaultValue: string | undefined;
   validateNickname: {
     required: string;
@@ -47,7 +46,6 @@ const NicknameInputView = ({
   register,
   handleClickDuplicateButton,
   handleInputFocus,
-  handleInputBlur,
   defaultValue,
   validateNickname,
   inputLength,
@@ -81,7 +79,9 @@ const NicknameInputView = ({
           {...register('nickname', validateNickname)}
           defaultValue={defaultValue}
           onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
+          {...(!isInputFocused && {
+            color: 'gray.400',
+          })}
         />
         {!isInputFocused && (
           <EditFilledIcon
@@ -108,7 +108,7 @@ const NicknameInputView = ({
         )}
       </Box>
 
-      {(isInputFocused || inputLength !== 0) && (
+      {isInputFocused && (
         <Button
           bg="polzzak.default"
           h="100%"
