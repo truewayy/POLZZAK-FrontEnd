@@ -54,3 +54,12 @@ export const changeNickname = async (nickname: string) => {
     console.error(error);
   }
 };
+
+export const withDrawal = async () => {
+  try {
+    const data = await http.delete(API_URLS.WITH_DRAWAL);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

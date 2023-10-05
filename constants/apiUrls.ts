@@ -40,6 +40,7 @@ const API_URLS = {
   POINT_LOG: '/api/v1/member-points/earning-histories/me',
   MY_POINT: '/api/v1/member-points/me',
   NOTIFICATION_LIST: '/api/v1/notifications',
+  WITH_DRAWAL: '/api/v1/users',
 };
 
 export default API_URLS;
