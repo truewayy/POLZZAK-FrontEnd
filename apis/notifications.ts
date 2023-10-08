@@ -1,6 +1,6 @@
 import API_URLS from '@/constants/apiUrls';
 
-import http from './http';
+import { http } from './http';
 
 export interface Notification {
   id: number;

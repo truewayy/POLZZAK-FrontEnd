@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import API_URLS from '@/constants/apiUrls';
 
-import http from './http';
+import { http } from './http';
 
 interface StampboardListProps {
   partnerMemberId?: number;

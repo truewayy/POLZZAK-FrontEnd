@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 
+import { Interceptor } from '@/components/Interceptor';
 import Layout from '@/components/Layout/layout';
 import polzzakTheme from '@/public/theme/theme';
 
@@ -23,16 +24,18 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <Hydrate state={pageProps.dehydratedState}>
-          <ChakraProvider theme={polzzakTheme}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ChakraProvider>
-        </Hydrate>
-      </RecoilRoot>
-    </QueryClientProvider>
+    <Interceptor>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <Hydrate state={pageProps.dehydratedState}>
+            <ChakraProvider theme={polzzakTheme}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ChakraProvider>
+          </Hydrate>
+        </RecoilRoot>
+      </QueryClientProvider>
+    </Interceptor>
   );
 }

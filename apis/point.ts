@@ -2,7 +2,7 @@ import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 
 import API_URLS from '@/constants/apiUrls';
 
-import http from './http';
+import { http } from './http';
 
 export interface PointLogResponse {
   data: {

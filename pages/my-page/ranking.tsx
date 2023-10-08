@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
 import { inquireRanking } from '@/apis/ranking';
-import { Clock, DownTriangle, UpTriangle } from '@/public/icon';
+import { Clock, DownTriangle, LeftNavigation, UpTriangle } from '@/public/icon';
 
 const Ranking = () => {
-  const { query } = useRouter();
+  const { query, back } = useRouter();
   const memberType = query.memberType as string;
   const isGuardianpage = memberType === 'guardians';
   const { data: ranking } = useQuery(
@@ -28,6 +28,15 @@ const Ranking = () => {
 
   return (
     <VStack w="100%" spacing="0" pos="relative">
+      <Flex w="100%" p="10px" justify="flex-start" bg="polzzak.default">
+        <LeftNavigation
+          fill="white"
+          w="24px"
+          h="24px"
+          cursor="pointer"
+          onClick={back}
+        />
+      </Flex>
       <VStack
         w="100%"
         h="180px"
