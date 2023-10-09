@@ -18,6 +18,14 @@ const Ranking = () => {
     }
   );
 
+  // 20시가 지났다면 오늘 20시 기준, 안지났다면 어제 20시 기준
+  const updateTime = () => {
+    if (new Date().getHours() < 20) {
+      return new Date().getTime() - 1000 * 60 * 60 * 24;
+    }
+    return new Date().getTime();
+  };
+
   const rankingStatus = {
     UP: <UpTriangle w="9px" h="9px" />,
     DOWN: <DownTriangle w="9px" h="9px" />,
@@ -67,10 +75,7 @@ const Ranking = () => {
         <Flex gap="5px" align="center">
           <Clock w="10px" h="10px" />
           <Text layerStyle="caption12Md" color="blue.200">
-            {dayjs(new Date().getTime() - 1000 * 60 * 60 * 24).format(
-              'M월 DD일'
-            )}{' '}
-            20:00 기준
+            {dayjs(updateTime()).format('M월 DD일')} 20:00 기준
           </Text>
         </Flex>
       </VStack>
