@@ -105,7 +105,10 @@ const Coupon = () => {
     if (rewardRequestTime < -36000) return setRemainingTime('00:00');
     const interval = setInterval(() => {
       // MM:SS
-      const rewardRequestMinute = Math.floor(rewardRequestTime / 60) + 600;
+      const rewardRequestMinute =
+        Math.floor(rewardRequestTime / 60) + 600 === 60
+          ? 59
+          : Math.floor(rewardRequestTime / 60) + 600;
       const rewardRequestSecond = (rewardRequestTime % 60) + 60;
       const rewardRequestTimeFormat = `${String(rewardRequestMinute).padStart(
         2,

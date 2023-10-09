@@ -18,16 +18,19 @@ const Card = ({ reward, rewardDate, couponId, rewardRequestDate }: Coupon) => {
   const memberType = user?.data?.memberType;
 
   const isKid = memberType?.name === 'KID';
-
   useEffect(() => {
     if (!rewardRequestDate) return;
     const rewardRequestTime = Math.floor(
       (new Date(rewardRequestDate).getTime() - new Date().getTime()) / 1000
     );
+
     if (rewardRequestTime < -36000) return setRemainingTime('00:00');
     const interval = setInterval(() => {
       // MM:SS
-      const rewardRequestMinute = Math.floor(rewardRequestTime / 60) + 600;
+      const rewardRequestMinute =
+        Math.floor(rewardRequestTime / 60) + 600 === 60
+          ? 59
+          : Math.floor(rewardRequestTime / 60) + 600;
       const rewardRequestSecond = (rewardRequestTime % 60) + 60;
       const rewardRequestTimeFormat = `${String(rewardRequestMinute).padStart(
         2,
