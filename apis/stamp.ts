@@ -109,6 +109,10 @@ export interface StampboardDetailData {
   completedDate: string | null;
   rewardDate: Date;
   createdDate: string;
+  guardianMemberType: {
+    memberTypeDetailId: number;
+    detail: string;
+  };
 }
 
 interface StampboardDetailResponse {

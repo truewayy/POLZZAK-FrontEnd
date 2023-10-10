@@ -13,7 +13,6 @@ import { useEffect, useState } from 'react';
 import Sheet from 'react-modal-sheet';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { familiesInfo } from '@/apis/family';
 import {
   createStamp,
   stampboardDetail,
@@ -89,8 +88,6 @@ const board = {
 const StampBoard = ({ stampboardId }: BoardProps) => {
   const { data: user } = useQuery(['userInfo'], userInfo);
   const name = user?.data?.memberType.name;
-  const { data: my } = useQuery(['families'], familiesInfo);
-  const families = my?.data?.families;
   const queryClient = useQueryClient();
   const stampCompleteModal = useDisclosure();
   const stampModal = useDisclosure();
@@ -112,8 +109,10 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
     ({ id }) => id === selectedStampId
   );
   const isKid = name === 'KID';
-  const guardianId = isKid ? families?.[0].memberId : 0;
-  const guardianType = isKid ? families?.[0].memberType.detail : '';
+  const guardianId = isKid
+    ? stampboard?.guardianMemberType.memberTypeDetailId
+    : 0;
+  const guardianType = isKid ? stampboard?.guardianMemberType.detail : '';
 
   const stamps = () => {
     const extendedMissions = Array(count).fill(null);
@@ -160,7 +159,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
   );
 
   const request = useMutation(
-    () => stampMissionRequest(Number(stampboardId), missionId, guardianId || 0),
+    () => stampMissionRequest(Number(stampboardId), missionId, guardianId ?? 0),
     {
       onSuccess: () => {
         stampCompleteModal.onOpen();

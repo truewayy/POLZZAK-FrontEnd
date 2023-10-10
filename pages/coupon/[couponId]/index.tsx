@@ -158,9 +158,13 @@ const Coupon = () => {
         spacing="30px"
         pos="relative"
       >
-        <Flex w="100%" p="10px 16px" justify="space-between">
-          <LeftArrow w="24px" h="24px" fill="white" onClick={back} />
-          <Picture w="30px" h="30px" onClick={handleDownload} />
+        <Flex w="100%" h="50px" p="10px 16px" justify="space-between">
+          {!captureLoading && (
+            <LeftArrow w="24px" h="24px" fill="white" onClick={back} />
+          )}
+          {!captureLoading && (
+            <Picture w="30px" h="30px" onClick={handleDownload} />
+          )}
         </Flex>
         <VStack w="100%" spacing="0px" p="0 5%">
           <VStack
