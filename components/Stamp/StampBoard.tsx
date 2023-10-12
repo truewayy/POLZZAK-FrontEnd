@@ -109,9 +109,7 @@ const StampBoard = ({ stampboardId }: BoardProps) => {
     ({ id }) => id === selectedStampId
   );
   const isKid = name === 'KID';
-  const guardianId = isKid
-    ? stampboard?.guardianMemberType.memberTypeDetailId
-    : 0;
+  const guardianId = isKid ? stampboard?.guardian.id : 0;
   const guardianType = isKid ? stampboard?.guardianMemberType.detail : '';
 
   const stamps = () => {

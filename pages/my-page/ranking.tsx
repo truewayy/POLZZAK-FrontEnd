@@ -163,17 +163,24 @@ const Ranking = () => {
           </Flex>
         </VStack>
       )}
-      <VStack w="100%" p="16px" spacing="16px">
+      <VStack w="100%" p="16px" spacing="0">
         <Text w="100%" layerStyle="subtitle18Sbd">
           TOP 30
         </Text>
-        <VStack w="100%" spacing="32px">
+        <VStack w="100%" spacing="0">
           {ranking?.data?.rankingSummaries.map((rank) => (
             <Flex
               w="100%"
+              p="16px 0"
               justify="space-between"
               align="center"
               borderRadius="8px"
+              bg="white"
+              {...(rank.nickname ===
+                ranking.data.memberSimpleResponse.nickname && {
+                pos: 'sticky',
+                top: '0',
+              })}
             >
               <Flex gap="8px" align="center">
                 <VStack

@@ -113,6 +113,11 @@ export interface StampboardDetailData {
     memberTypeDetailId: number;
     detail: string;
   };
+  guardian: {
+    id: number;
+    nickname: string;
+    profileUrl: string;
+  };
 }
 
 interface StampboardDetailResponse {
