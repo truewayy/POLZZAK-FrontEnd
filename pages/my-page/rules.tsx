@@ -1,10 +1,16 @@
 import { Flex, Grid, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 
+import { userInfo } from '@/apis/user';
 import { LeftArrow, MinusCircle, NoticeIcon, PlusCircle } from '@/public/icon';
 
 const Rules = () => {
   const { back } = useRouter();
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+  const isKid = memberType?.name === 'KID';
+
   return (
     <VStack
       w="100%"
@@ -49,7 +55,7 @@ const Rules = () => {
         <Flex w="100%" gap="8px" align="center">
           <PlusCircle w="16px" h="16px" />
           <Text fontSize="14px" fontWeight="400">
-            아이 1명과 연동한 경우{' '}
+            {isKid ? '보호자' : '아이'} 1명과 연동한 경우{' '}
             <Text as="span" fontWeight="700">
               20P
             </Text>
@@ -58,27 +64,29 @@ const Rules = () => {
         <Flex w="100%" gap="8px" align="center">
           <PlusCircle w="16px" h="16px" />
           <Text fontSize="14px" fontWeight="400">
-            도장판 1개 생성{' '}
+            도장판 1개 {isKid ? '받기' : '생성'}{' '}
             <Text as="span" fontWeight="700">
-              5P
+              {isKid ? '10P' : '5P'}
             </Text>
           </Text>
         </Flex>
         <Flex w="100%" gap="8px" align="center">
           <PlusCircle w="16px" h="16px" />
           <Text fontSize="14px" fontWeight="400">
-            도장판 1개 찍어주기{' '}
+            {isKid ? '선물 쿠폰 받은 경우' : '도장판 1개 찍어주기'}{' '}
             <Text as="span" fontWeight="700">
-              10P
+              {isKid ? '30P' : '10P'}
             </Text>
           </Text>
         </Flex>
         <Flex w="100%" gap="8px" align="center">
           <PlusCircle w="16px" h="16px" />
           <Text fontSize="14px" fontWeight="400">
-            쿠폰에 대한 선물을 완료한 경우{' '}
+            {isKid
+              ? '‘선물 받기 완료’ 버튼을 눌러준 경우'
+              : '쿠폰에 대한 선물을 완료한 경우'}{' '}
             <Text as="span" fontWeight="700">
-              30P
+              {isKid ? '10P' : '30P'}
             </Text>
           </Text>
         </Flex>
@@ -87,43 +95,45 @@ const Rules = () => {
           <Text fontSize="14px" fontWeight="400">
             회원가입{' '}
             <Text as="span" fontWeight="700">
-              50P
+              {isKid ? '90P' : '50P'}
             </Text>
           </Text>
         </Flex>
       </VStack>
-      <VStack
-        w="100%"
-        p="16px"
-        align="flex-start"
-        spacing="16px"
-        bg="white"
-        border="1px solid"
-        borderColor="gray.300"
-        borderRadius="8px"
-      >
-        <Text layerStyle="subtitle16Sbd" color="#000">
-          포인트 차감
-        </Text>
-        <Flex w="100%" gap="8px" align="center">
-          <MinusCircle w="16px" h="16px" />
-          <Text fontSize="14px" fontWeight="400">
-            도장판을 삭제한 경우{' '}
-            <Text as="span" fontWeight="700">
-              -20P
-            </Text>
+      {!isKid && (
+        <VStack
+          w="100%"
+          p="16px"
+          align="flex-start"
+          spacing="16px"
+          bg="white"
+          border="1px solid"
+          borderColor="gray.300"
+          borderRadius="8px"
+        >
+          <Text layerStyle="subtitle16Sbd" color="#000">
+            포인트 차감
           </Text>
-        </Flex>
-        <Flex w="100%" gap="8px" align="center">
-          <MinusCircle w="16px" h="16px" />
-          <Text fontSize="14px" fontWeight="400">
-            선물 약속 날짜 안에 선물을 지급하지 않은 경우{' '}
-            <Text as="span" fontWeight="700">
-              -100P
+          <Flex w="100%" gap="8px" align="center">
+            <MinusCircle w="16px" h="16px" />
+            <Text fontSize="14px" fontWeight="400">
+              도장판을 삭제한 경우{' '}
+              <Text as="span" fontWeight="700">
+                -20P
+              </Text>
             </Text>
-          </Text>
-        </Flex>
-      </VStack>
+          </Flex>
+          <Flex w="100%" gap="8px" align="center">
+            <MinusCircle w="16px" h="16px" />
+            <Text fontSize="14px" fontWeight="400">
+              선물 약속 날짜 안에 선물을 지급하지 않은 경우{' '}
+              <Text as="span" fontWeight="700">
+                -100P
+              </Text>
+            </Text>
+          </Flex>
+        </VStack>
+      )}
     </VStack>
   );
 };
