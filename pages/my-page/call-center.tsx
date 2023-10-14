@@ -12,12 +12,7 @@ import { useState } from 'react';
 
 import QABox from '@/components/CallCenter/QABox';
 import QuestionList from '@/components/CallCenter/QuestionList';
-import {
-  CallCenterIcon,
-  InputDeleteIcon,
-  LeftNavigation,
-  SearchIcon,
-} from '@/public/icon';
+import { InputDeleteIcon, LeftNavigation, SearchIcon } from '@/public/icon';
 
 const guardianQuestions = [
   {
