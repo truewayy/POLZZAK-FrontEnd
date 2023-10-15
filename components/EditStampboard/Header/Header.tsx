@@ -29,6 +29,7 @@ interface StampboardEditInfo {
 
 const Header = () => {
   const confirm = useDisclosure();
+  const cancel = useDisclosure();
 
   const { handleSubmit, watch } = useFormContext();
   const { replace, back } = useRouter();
@@ -95,6 +96,7 @@ const Header = () => {
     handleClickRegister,
     handleClickConfirmApproveButton,
     confirm,
+    cancel,
     isLoading: edit.isLoading,
   };
 
