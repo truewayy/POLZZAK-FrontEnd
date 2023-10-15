@@ -24,18 +24,18 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 
   return (
-    <Interceptor>
-      <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          <Hydrate state={pageProps.dehydratedState}>
-            <ChakraProvider theme={polzzakTheme}>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ChakraProvider theme={polzzakTheme}>
+            <Interceptor>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
-            </ChakraProvider>
-          </Hydrate>
-        </RecoilRoot>
-      </QueryClientProvider>
-    </Interceptor>
+            </Interceptor>
+          </ChakraProvider>
+        </Hydrate>
+      </RecoilRoot>
+    </QueryClientProvider>
   );
 }
