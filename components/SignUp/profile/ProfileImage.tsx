@@ -18,6 +18,7 @@ const ProfileImage = () => {
     useRecoilValue(signUpInfoAtom);
   const [userType, setUserType] = useState<string>('');
   const profileRef = useRef<HTMLInputElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [profileFile, setProfileFile] = useState<FileList | null>();
   const [profileImage, setProfileImage] = useState<{
     image: File;
@@ -56,7 +57,7 @@ const ProfileImage = () => {
     if (profileImage) {
       submitData.append('profile', profileImage.image);
     }
-
+    setIsLoading(true);
     const { code, data } = await register(submitData);
     if (code === 200 && 'accessToken' in data) {
       setLocalStorage(TOKEN_KEY, data.accessToken);
@@ -66,6 +67,7 @@ const ProfileImage = () => {
     } else {
       alert('회원가입에 실패하였습니다.');
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -88,6 +90,7 @@ const ProfileImage = () => {
     profileRef,
     profileImage,
     basicProfileIcon,
+    isLoading,
   };
 
   return <ProfileImageView {...ProfileImageVAProps} />;

@@ -23,6 +23,7 @@ interface ProfileImageVAProps {
       }
     | undefined;
   basicProfileIcon: ComponentWithAs<'svg', IconProps>;
+  isLoading: boolean;
 }
 
 const ProfileImageView = ({
@@ -32,6 +33,7 @@ const ProfileImageView = ({
   profileRef,
   profileImage,
   basicProfileIcon,
+  isLoading,
 }: ProfileImageVAProps) => (
   <VStack spacing="40px">
     <Box pos="relative">
@@ -62,7 +64,7 @@ const ProfileImageView = ({
       ref={profileRef}
       hidden
     />
-    <NextStepButton disabled={false} onClick={handleClickButton}>
+    <NextStepButton disabled={isLoading} onClick={handleClickButton}>
       회원가입 완료
     </NextStepButton>
   </VStack>
