@@ -1,6 +1,5 @@
 import { Button, Image, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { userInfo } from '@/apis/user';
@@ -12,18 +11,18 @@ const Find = () => {
   const { data: user } = useQuery(['userInfo'], userInfo);
   const memberType = user?.data?.memberType;
 
-  const [type] = useState(memberType);
-
   const description1 =
-    type?.name === 'KID' ? '칭찬 도장판을 받으려면' : '칭찬 도장판을 만들려면';
+    memberType?.name === 'KID'
+      ? '칭찬 도장판을 받으려면'
+      : '칭찬 도장판을 만들려면';
   const description2 =
-    type?.name === 'KID'
+    memberType?.name === 'KID'
       ? '보호자와 연동이 필요해요'
       : '아이와 연동이 필요해요';
-  const buttonMsg = type?.name === 'KID' ? '보호자 찾기' : '아이 찾기';
+  const buttonMsg = memberType?.name === 'KID' ? '보호자 찾기' : '아이 찾기';
 
   const searchIcon =
-    type?.name === 'KID' ? '/kidSearch.png' : 'guardianSearch.png';
+    memberType?.name === 'KID' ? '/kidSearch.png' : 'guardianSearch.png';
 
   const handleClickFindButton = () => {
     push(ROUTES.FIND_FAMILY);
