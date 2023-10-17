@@ -53,7 +53,12 @@ export const Interceptor = ({ children }: UseInterceptorProps) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        closeOnOverlayClick={false}
+      >
         <ModalOverlay />
         <ModalContent w="90%" borderRadius="12px" bg="white">
           <VStack w="100%" h="100%" p="40px 16px 16px 16px" spacing="40px">

@@ -85,8 +85,8 @@ const Profile = () => {
           >
             <Flex justify="space-between" align="center" gap="12px">
               버전정보
-              <Text color="polzzak.default">v1.0</Text>
             </Flex>
+            <Text color="polzzak.default">v1.0</Text>
           </Flex>
         </VStack>
         <Flex gap="20px" align="center">
