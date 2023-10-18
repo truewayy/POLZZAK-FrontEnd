@@ -1,10 +1,10 @@
 /* eslint-disable no-nested-ternary */
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
 import { StampBoard } from '@/apis/stamp';
+import { userInfo } from '@/apis/user';
 import { CompleteIcon, HandIcon, NoRequestIcon } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 import CardView from './CardView';
 
@@ -18,8 +18,10 @@ const Card = ({
   status,
 }: StampBoard) => {
   const { push } = useRouter();
-  const { memberType } = useRecoilValue(userInfoAtom);
-  const isKid = memberType.name === 'KID';
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+
+  const isKid = memberType?.name === 'KID';
 
   const percentage = (currentStampCount / goalStampCount) * 100;
   const isStampBoardComplete = currentStampCount === goalStampCount;
@@ -54,11 +56,11 @@ const Card = ({
   };
 
   const statusIcon = isStampBoardComplete ? (
-    <CompleteIcon w={76} h={70} />
+    <CompleteIcon w="86px" h="86px" />
   ) : isRequest ? (
-    <HandIcon w={76} h={67} />
+    <HandIcon w="86px" h="86px" />
   ) : (
-    <NoRequestIcon w={76} h={67} />
+    <NoRequestIcon w="86px" h="87px" />
   );
 
   const handleClickCard = () => {

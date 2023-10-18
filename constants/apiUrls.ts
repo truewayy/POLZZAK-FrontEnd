@@ -12,6 +12,8 @@ const API_URLS = {
   DUPLICATE_CHECK: (nickname: string) =>
     `/api/v1/auth/validate/nickname?value=${nickname}`,
   USER_INFO: '/api/v1/users/me',
+  PROFILE_CHANGE: '/api/v1/users/profile',
+  NICKNAME_CHANGE: '/api/v1/users/nickname',
   FAMILIES: '/api/v1/families',
   FAMILY_CANCEL: (memberId: number) => `/api/v1/families/cancel/${memberId}`,
   FAMILY_CLEAR: (memberId: number) => `/api/v1/families/${memberId}`,
@@ -31,10 +33,14 @@ const API_URLS = {
     `/api/v1/stamps/stamp-boards/${stampboardId}/stamp`,
   RECEIVE_GIFT: (couponId: number | string) =>
     `/api/v1/coupons/${couponId}/receive`,
+  REQUEST_GIFT: (couponId: number | string) =>
+    `/api/v1/coupons/${couponId}/request`,
+  NEW_REQUEST: '/api/v1/families/new-request-mark',
   RANKING: '/api/v1/rankings',
   POINT_LOG: '/api/v1/member-points/earning-histories/me',
   MY_POINT: '/api/v1/member-points/me',
   NOTIFICATION_LIST: '/api/v1/notifications',
+  WITH_DRAWAL: '/api/v1/users',
 };
 
 export default API_URLS;

@@ -1,20 +1,20 @@
 /* eslint-disable no-nested-ternary */
 import { useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useMutation, useQueryClient } from 'react-query';
-import { useRecoilValue } from 'recoil';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { Coupon, receiveGift } from '@/apis/coupon';
-import { userInfoAtom } from '@/store/userInfo';
+import { userInfo } from '@/apis/user';
 
 import CardView from './CardView';
 
 const Card = ({ reward, rewardDate, couponId }: Coupon) => {
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
   const { isOpen, onClose, onOpen } = useDisclosure();
   const queryClient = useQueryClient();
   const { push } = useRouter();
-  const { memberType } = useRecoilValue(userInfoAtom);
-  const isKid = memberType.name === 'KID';
+  const isKid = memberType?.name === 'KID';
 
   const formatDate = (timestamp: Date) => {
     const date = new Date(timestamp);

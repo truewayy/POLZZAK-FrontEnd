@@ -29,9 +29,10 @@ interface StampboardEditInfo {
 
 const Header = () => {
   const confirm = useDisclosure();
+  const cancel = useDisclosure();
 
   const { handleSubmit, watch } = useFormContext();
-  const { push, back } = useRouter();
+  const { replace, back } = useRouter();
 
   const { query } = useRouter();
   const stampboardId = query.stampboardId as string;
@@ -48,7 +49,7 @@ const Header = () => {
       onSuccess: () => {
         confirm.onClose();
         refetch();
-        push('/main');
+        replace(`/stamp-board/${stampboardId}`);
       },
     }
   );
@@ -95,6 +96,7 @@ const Header = () => {
     handleClickRegister,
     handleClickConfirmApproveButton,
     confirm,
+    cancel,
     isLoading: edit.isLoading,
   };
 

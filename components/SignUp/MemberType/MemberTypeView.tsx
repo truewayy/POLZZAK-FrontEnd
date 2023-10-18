@@ -44,11 +44,10 @@ const MemberTypeView = ({
           fontWeight={memberType === 'PARENT' ? '600' : '500'}
           textAlign="center"
         >
-          “도장판을 만들어서
-          <br />
-          칭찬 도장을 찍어주고 싶어요”
+          칭찬 도장을
+          <br /> <b>찍어주고</b> 싶어요
         </Text>
-        <RedCharacter alignSelf="center" w="120px" h="100px" />
+        <RedCharacter alignSelf="center" w="94px" h="94px" />
       </VStack>
 
       <VStack
@@ -75,11 +74,10 @@ const MemberTypeView = ({
           fontWeight={memberType === 'KID' ? '600' : '500'}
           textAlign="center"
         >
-          “칭찬 도장을 모아서
-          <br />
-          선물을 받고 싶어요”
+          칭찬 도장을
+          <br /> <b>받고</b> 싶어요
         </Text>
-        <YellowCharacter alignSelf="center" w="90px" h="100px" />
+        <YellowCharacter alignSelf="center" w="84px" h="88px" />
       </VStack>
     </Grid>
     <NextStepButton onClick={handleClickButton} disabled={buttonDisabled}>

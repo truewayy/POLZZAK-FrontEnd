@@ -1,22 +1,28 @@
-import { Button, Square, Text, VStack } from '@chakra-ui/react';
+import { Button, Image, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
+import { userInfo } from '@/apis/user';
 import ROUTES from '@/constants/routes';
-import { userInfoAtom } from '@/store/userInfo';
 
 const Find = () => {
   const { push } = useRouter();
-  const { memberType } = useRecoilValue(userInfoAtom);
 
-  const [type] = useState(memberType);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
 
   const description1 =
-    type.name === 'KID' ? '칭찬 도장판을 받으려면' : '칭찬 도장판을 만들려면';
+    memberType?.name === 'KID'
+      ? '칭찬 도장판을 받으려면'
+      : '칭찬 도장판을 만들려면';
   const description2 =
-    type.name === 'KID' ? '보호자와 연동이 필요해요' : '아이와 연동이 필요해요';
-  const buttonMsg = type.name === 'KID' ? '보호자 찾기' : '아이 찾기';
+    memberType?.name === 'KID'
+      ? '보호자와 연동이 필요해요'
+      : '아이와 연동이 필요해요';
+  const buttonMsg = memberType?.name === 'KID' ? '보호자 찾기' : '아이 찾기';
+
+  const searchIcon =
+    memberType?.name === 'KID' ? '/kidSearch.png' : 'guardianSearch.png';
 
   const handleClickFindButton = () => {
     push(ROUTES.FIND_FAMILY);
@@ -29,7 +35,7 @@ const Find = () => {
   return (
     <VStack w="100%" minH="100vh" bg="white" p="0 5% 26px 5%" pos="relative">
       <VStack w="100%" spacing="42px" pt="80px">
-        <Square size="256px" bg="gray.200" />
+        <Image src={searchIcon} w="180px" />
         <Text w="100%" layerStyle="body18Md" textAlign="center">
           {description1}
           <br />

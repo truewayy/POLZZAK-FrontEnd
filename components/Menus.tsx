@@ -6,7 +6,7 @@ import { AlertIcon, CouponIcon, MainIcon, ProfileIcon } from '@/public/icon';
 export const menus = [
   {
     name: '메인',
-    path: '/main',
+    path: '/home',
     icon: <MainIcon w="23px" h="23px" />,
   },
   {

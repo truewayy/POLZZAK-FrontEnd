@@ -4,13 +4,13 @@ import { Circle, Flex } from '@chakra-ui/react';
 import { LeftArrow } from '@/public/icon';
 
 interface HeaderViewProps {
-  isSelectTypePage: boolean;
+  isTermsAgreePage: boolean;
   progress: boolean[];
   goBack: () => void;
 }
 
 const HeaderView = ({
-  isSelectTypePage,
+  isTermsAgreePage,
   progress,
   goBack,
 }: HeaderViewProps) => (
@@ -22,7 +22,7 @@ const HeaderView = ({
     alignItems="center"
   >
     <LeftArrow w={11} h={19} onClick={goBack} />
-    {!isSelectTypePage && (
+    {!isTermsAgreePage && (
       <Flex gap="8px">
         {progress?.map((value, i) => (
           <Circle

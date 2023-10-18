@@ -11,7 +11,7 @@ import {
 
 interface CouponIssuedModalProps {
   isKid: boolean;
-  stampType: string;
+  stampType: { id: number; content: string; icon: string } | undefined;
   guardianType: string | null;
   isOpen: boolean;
   onClose: () => void;
@@ -29,12 +29,19 @@ const StampCompleteModal = ({
     <ModalContent w="90%" h="460px" borderRadius="12px" bg="white">
       <VStack w="100%" h="100%" p="48px 5% 16px 5%" spacing="35px">
         <Text layerStyle="subtitle18Sbd" color="blue.600" textAlign="center">
-          {isKid ? `${guardianType}에게` : stampType}
+          {isKid ? `${guardianType}에게` : stampType?.content}
           <Text layerStyle="subtitle16Sbd" color="gray.800">
             {isKid ? '도장을 요청했어요!' : '도장이 찍혔어요!'}
           </Text>
         </Text>
-        <Box w="200px" h="200px" bg="gray.100" />
+        <Box
+          w="200px"
+          h="200px"
+          bgImg={isKid ? '/request.png' : stampType?.icon}
+          bgSize="contain"
+          bgRepeat="no-repeat"
+          bgPosition="center"
+        />
         <Flex w="100%" pt="30px">
           <Button
             w="100%"

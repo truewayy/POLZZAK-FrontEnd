@@ -14,6 +14,15 @@ interface HeaderVAProps {
     getButtonProps: (props?: any) => any;
     getDisclosureProps: (props?: any) => any;
   };
+  cancel: {
+    isOpen: boolean;
+    onOpen: () => void;
+    onClose: () => void;
+    onToggle: () => void;
+    isControlled: boolean;
+    getButtonProps: (props?: any) => any;
+    getDisclosureProps: (props?: any) => any;
+  };
   isLoading: boolean;
   handleClickBack: () => void;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
@@ -23,6 +32,7 @@ interface HeaderVAProps {
 
 const HeaderView = ({
   confirm,
+  cancel,
   isLoading,
   handleClickBack,
   handleSubmit,
@@ -39,7 +49,7 @@ const HeaderView = ({
       alignItems="center"
       pos="relative"
     >
-      <BackIcon w={4} h={5} onClick={handleClickBack} />
+      <BackIcon w={4} h={5} onClick={cancel.onOpen} />
       <Text
         layerStyle="subtitle18Sbd"
         pos="absolute"
@@ -52,6 +62,7 @@ const HeaderView = ({
       <Text
         layerStyle="subtitle16Sbd"
         color="polzzak.default"
+        cursor="pointer"
         onClick={handleSubmit(handleClickRegister)}
       >
         등록
@@ -67,6 +78,18 @@ const HeaderView = ({
     >
       <Text layerStyle="subtitle18Sbd" textAlign="center">
         {isLoading ? '도장판이 곧 완성돼요' : '도장판을 수정하시겠어요?'}
+      </Text>
+    </ConfirmModal>
+    <ConfirmModal
+      isOpen={cancel.isOpen}
+      onClose={cancel.onClose}
+      handleClickCancelButton={cancel.onClose}
+      handleClickConfirmButton={handleClickBack}
+      isLoading={isLoading}
+      confirmMessage="네, 취소할래요"
+    >
+      <Text layerStyle="subtitle18Sbd" textAlign="center">
+        도장판 수정을 취소하시겠어요?
       </Text>
     </ConfirmModal>
   </Box>

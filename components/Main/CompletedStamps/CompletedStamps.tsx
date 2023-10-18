@@ -2,19 +2,20 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
+import { familiesInfo } from '@/apis/family';
 import { stampboardList } from '@/apis/stamp';
 import { MainfilterAtom } from '@/store/filter';
-import { userInfoAtom } from '@/store/userInfo';
 
 import CompletedStampsSkeleton from './CompletedStampsSkeleton';
 import CompletedStampsView from './CompletedStampsView';
 
 const CompletedStamps = () => {
-  const { families } = useRecoilValue(userInfoAtom);
+  const { data: familyInfo } = useQuery(['families'], familiesInfo);
+  const families = familyInfo?.data?.families;
   const [isNoFamily, setIsNoFamily] = useState(true);
 
   const filter = useRecoilValue(MainfilterAtom);
-  const currentFilterId = families.find(
+  const currentFilterId = families?.find(
     (family) => family.nickname === filter
   )?.memberId;
 
@@ -27,6 +28,8 @@ const CompletedStamps = () => {
       }),
     {
       enabled: !isNoFamily,
+      cacheTime: 0,
+      staleTime: 0,
     }
   );
 
@@ -37,7 +40,7 @@ const CompletedStamps = () => {
   };
 
   useEffect(() => {
-    const noFamily = families.length === 0;
+    const noFamily = families?.length === 0;
 
     setIsNoFamily(noFamily);
   }, [families]);

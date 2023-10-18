@@ -1,6 +1,6 @@
 import API_URLS from '@/constants/apiUrls';
 
-import http from './http';
+import { http } from './http';
 
 export interface FamiliesResponse {
   data: {
@@ -33,6 +33,17 @@ export interface FamilyResponse {
       };
       profileUrl: string;
       familyStatus: 'NONE' | 'RECEIVED' | 'APPROVE' | 'SENT';
+    };
+  };
+}
+
+export interface NewRequestResponse {
+  data: {
+    code: number;
+    messages: string;
+    data: {
+      isFamilyReceived: boolean;
+      isFamilySent: boolean;
     };
   };
 }
@@ -142,6 +153,16 @@ export const clearRequest = async (targetId: number) => {
     const { data }: FamilyResponse = await http.delete(
       API_URLS.FAMILY_CLEAR(targetId)
     );
+    return data;
+  } catch (error) {
+    const err = error as FamiliesError;
+    return err.response.data;
+  }
+};
+
+export const newRequest = async () => {
+  try {
+    const { data }: NewRequestResponse = await http.get(API_URLS.NEW_REQUEST);
     return data;
   } catch (error) {
     const err = error as FamiliesError;

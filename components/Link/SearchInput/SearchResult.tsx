@@ -10,11 +10,10 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
 import { cancelRequest, searchFamilies, sendRequest } from '@/apis/family';
+import { userInfo } from '@/apis/user';
 import { BigSearchIcon } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 import ConfirmModal from '../ConfirmModal';
 
@@ -30,7 +29,9 @@ const SearchResult = () => {
     color: 'white',
   });
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { memberType } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+
   const { query } = useRouter();
   const currentSearch = query.value as string;
   const { data, isLoading, refetch } = useQuery(
@@ -82,7 +83,7 @@ const SearchResult = () => {
   };
 
   useEffect(() => {
-    const isKid = memberType.name === 'KID';
+    const isKid = memberType?.name === 'KID';
     const text = isKid ? '연동된 보호자에게' : '연동된 아이에게';
     const text2 = isKid
       ? '칭찬 도장판을 받을 수 있어요'
@@ -203,10 +204,15 @@ const SearchResult = () => {
           p="0 24px"
           h="32px"
           border="1px solid"
-          {...buttonColor}
+          borderColor={buttonColor.borderColor}
+          bg={buttonColor.bgColor}
           onClick={handleClickButton}
         >
-          <Text layerStyle="caption12Bd" textAlign="center">
+          <Text
+            layerStyle="caption12Bd"
+            textAlign="center"
+            color={buttonColor.color}
+          >
             {buttonMsg}
           </Text>
         </Button>

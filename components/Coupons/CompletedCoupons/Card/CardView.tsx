@@ -9,7 +9,13 @@ interface CardVAProps {
 }
 
 const CardView = ({ reward, handleClickCard }: CardVAProps) => (
-  <Flex w="100%" minH="180px" pos="relative" onClick={handleClickCard}>
+  <Flex
+    w="100%"
+    minH="180px"
+    pos="relative"
+    cursor="pointer"
+    onClick={handleClickCard}
+  >
     <Box
       pos="absolute"
       top="0px"

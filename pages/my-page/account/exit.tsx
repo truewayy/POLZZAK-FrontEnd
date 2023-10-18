@@ -8,18 +8,23 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useMutation, useQuery } from 'react-query';
 
+import { userInfo, withDrawal } from '@/apis/user';
 import ConfirmModal from '@/components/Link/ConfirmModal';
+import { POLZZAK_LOCAL, TOKEN_KEY } from '@/constants/auth';
+import ROUTES from '@/constants/routes';
 import { CheckCircle, ExitIcon, LeftNavigation } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
+import { removeLocalStorage } from '@/utils/storage';
 
 const Exit = () => {
-  const { nickname } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const nickname = user?.data?.nickname;
+
   const [userNickname, setUserNickname] = useState(''); // [TODO
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const { back } = useRouter();
+  const { back, replace } = useRouter();
 
   const [agreeList, setAgreeList] = useState([false, false, false, false]);
 
@@ -29,8 +34,21 @@ const Exit = () => {
     setAgreeList(newArr);
   };
 
+  const { mutate: withdrawal } = useMutation(withDrawal, {
+    onSuccess: (res) => {
+      if (res?.status === 204) {
+        onClose();
+        removeLocalStorage(TOKEN_KEY);
+        removeLocalStorage(POLZZAK_LOCAL);
+        replace(ROUTES.LOGIN);
+      } else {
+        alert('회원탈퇴에 실패했습니다.');
+      }
+    },
+  });
+
   useEffect(() => {
-    setUserNickname(nickname);
+    setUserNickname(nickname || '');
   }, [nickname]);
 
   return (
@@ -169,7 +187,7 @@ const Exit = () => {
         confirmMessage="네, 탈퇴할래요"
         cancelMessage="아니요"
         handleClickCancelButton={onClose}
-        handleClickConfirmButton={onClose}
+        handleClickConfirmButton={() => withdrawal()}
       >
         <VStack spacing="8px">
           <Text layerStyle="subtitle18Sbd">정말로 탈퇴하시겠어요?</Text>

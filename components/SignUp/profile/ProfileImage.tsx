@@ -1,13 +1,12 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { register } from '@/apis/auth';
-import { familiesInfo } from '@/apis/family';
-import userInfo from '@/apis/user';
 import { TOKEN_KEY } from '@/constants/auth';
 import ROUTES from '@/constants/routes';
-import { signUpInfoAtom, userInfoAtom } from '@/store/userInfo';
+import { GuardianBasicProfile, KidBasicProfile } from '@/public/icon';
+import { signUpInfoAtom } from '@/store/userInfo';
 import imgToBase64 from '@/utils/imgToBase64';
 import { setLocalStorage } from '@/utils/storage';
 
@@ -15,15 +14,23 @@ import ProfileImageView from './ProfileImageView';
 
 const ProfileImage = () => {
   const { push } = useRouter();
-  const setUserInfo = useSetRecoilState(userInfoAtom);
   const { username, socialType, nickname, memberType, memberTypeDetailId } =
     useRecoilValue(signUpInfoAtom);
+  const [userType, setUserType] = useState<string>('');
   const profileRef = useRef<HTMLInputElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [profileFile, setProfileFile] = useState<FileList | null>();
   const [profileImage, setProfileImage] = useState<{
     image: File;
     url: string;
   }>();
+
+  useEffect(() => {
+    setUserType(memberType);
+  }, [memberType]);
+
+  const basicProfileIcon =
+    userType === 'KID' ? KidBasicProfile : GuardianBasicProfile;
 
   const handleClickProfile = () => {
     if (profileRef.current) {
@@ -33,25 +40,6 @@ const ProfileImage = () => {
 
   const handleChangeProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfileFile(e.target.files);
-  };
-
-  const getUserInfo = async () => {
-    const { data: userData } = await userInfo();
-    const { data: familyData } = await familiesInfo();
-    if (userData && familyData) {
-      return {
-        ...userData,
-        ...familyData,
-      };
-    }
-    return null;
-  };
-
-  const setUserInfoAndPush = async () => {
-    const userDetail = await getUserInfo();
-    if (userDetail) {
-      setUserInfo(userDetail);
-    }
   };
 
   const handleClickButton = async () => {
@@ -69,17 +57,17 @@ const ProfileImage = () => {
     if (profileImage) {
       submitData.append('profile', profileImage.image);
     }
-
+    setIsLoading(true);
     const { code, data } = await register(submitData);
     if (code === 200 && 'accessToken' in data) {
       setLocalStorage(TOKEN_KEY, data.accessToken);
-      await setUserInfoAndPush();
       if (memberType === 'KID' || memberType === 'PARENT') {
         push(ROUTES.ON_BOARDING[memberType]);
       }
     } else {
       alert('회원가입에 실패하였습니다.');
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -101,6 +89,8 @@ const ProfileImage = () => {
     handleChangeProfile,
     profileRef,
     profileImage,
+    basicProfileIcon,
+    isLoading,
   };
 
   return <ProfileImageView {...ProfileImageVAProps} />;

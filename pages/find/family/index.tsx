@@ -10,17 +10,18 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
 import { cancelRequest, sentRequest } from '@/apis/family';
+import { userInfo } from '@/apis/user';
 import SearchInput from '@/components/Link/SearchInput/SearchInput';
 import NextStepButton from '@/components/SignUp/Button';
 import ROUTES from '@/constants/routes';
-import { userInfoAtom } from '@/store/userInfo';
 
 const FindFamily = () => {
   const { push } = useRouter();
-  const { memberType } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+
   const toast = useToast();
 
   const [type] = useState(memberType);
@@ -49,7 +50,7 @@ const FindFamily = () => {
   const sentRequests = sent?.data?.families;
   const isNoSentRequests = !sentRequests || sentRequests.length === 0;
 
-  const title = type.name === 'KID' ? '보호자 찾기' : '아이 찾기';
+  const title = type?.name === 'KID' ? '보호자 찾기' : '아이 찾기';
   const buttonMsg = isNoSentRequests ? '나중에 할게요' : '아이 찾기 완료';
   const buttonStyle = isNoSentRequests
     ? {

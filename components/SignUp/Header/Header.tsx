@@ -17,7 +17,7 @@ const Header = () => {
   const [signUpInfo, setSignuUpInfo] = useRecoilState(signUpInfoAtom);
   const { push, back } = useRouter();
 
-  const isSelectTypePage = pathname === '/oauth/signup/type';
+  const isTermsAgreePage = pathname === '/oauth/signup/terms';
 
   const parentProgress: ProgressDots = {
     parent: [true, false, false],
@@ -38,7 +38,7 @@ const Header = () => {
   };
 
   const goBack = () => {
-    if (isSelectTypePage) {
+    if (isTermsAgreePage) {
       setSignuUpInfo(signUpInfoDefaultValue);
       push('/');
     } else {
@@ -53,7 +53,7 @@ const Header = () => {
   }, [isTypeKid, signUpInfo.memberType]);
 
   const HeaderVAProps = {
-    isSelectTypePage,
+    isTermsAgreePage,
     progress: progress(),
     goBack,
   };

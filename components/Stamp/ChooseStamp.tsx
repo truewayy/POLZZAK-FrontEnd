@@ -2,7 +2,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { Button, Circle, Flex, Text, VStack } from '@chakra-ui/react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Swiper from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
@@ -26,15 +26,23 @@ const ChooseStamp = ({
 
   const handleClickPrevArr = () => {
     swiperRef.current?.slidePrev();
+    if (stampDesignId === 1) return;
+    handleClickStampType(stampDesignId - 1);
   };
 
   const handleClickNextArr = () => {
     swiperRef.current?.slideNext();
+    if (stampDesignId === stampsExample.length) return;
+    handleClickStampType(stampDesignId + 1);
   };
 
   const handleSlideRef = (swiper: Swiper) => {
     swiperRef.current = swiper;
   };
+
+  useEffect(() => {
+    swiperRef.current?.slideTo(stampDesignId - 1);
+  }, [stampDesignId]);
 
   return (
     <VStack w="100%" spacing="14px">
@@ -47,7 +55,12 @@ const ChooseStamp = ({
         </Text>
       </VStack>
       <VStack w="100%" spacing="10px" pb="10px">
-        <Circle size="121px" bg="gray.200" />
+        <Circle
+          size="121px"
+          bgImage={stampsExample.find(({ id }) => id === stampDesignId)?.icon}
+          bgSize="contain"
+          bgRepeat="no-repeat"
+        />
         <Text layerStyle="subtitle16Sbd" color="gray.800">
           {stampsExample.find(({ id }) => id === stampDesignId)?.content}
         </Text>
@@ -74,25 +87,30 @@ const ChooseStamp = ({
           onClick={handleClickNextArr}
         />
         <SwiperComponent
-          grabCursor
           slidesPerView={5}
           style={{ width: '90%' }}
           onSwiper={handleSlideRef}
+          initialSlide={stampDesignId - 1}
+          centeredSlides
+          slideToClickedSlide
+          allowTouchMove={false}
         >
-          {stampsExample.map(({ id }) => (
+          {stampsExample.map(({ id, icon }) => (
             <SwiperSlide key={id}>
               <Flex w="100%" h="100%" justify="center" align="center">
                 <Circle
+                  boxSizing="content-box"
                   size="50px"
-                  bg="gray.200"
+                  bg={`url(${icon})`}
+                  bgSize="contain"
+                  bgRepeat="no-repeat"
                   onClick={() => handleClickStampType(id)}
                   {...(stampDesignId === id && {
-                    bg: 'polzzak.default',
-                    color: 'white',
+                    size: '60px',
+                    border: '2px solid',
+                    borderColor: 'polzzak.default',
                   })}
-                >
-                  {id}
-                </Circle>
+                />
               </Flex>
             </SwiperSlide>
           ))}

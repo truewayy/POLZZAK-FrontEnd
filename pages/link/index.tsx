@@ -1,4 +1,5 @@
 import {
+  Circle,
   Flex,
   Grid,
   Tab,
@@ -11,7 +12,9 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useQuery } from 'react-query';
 
+import { newRequest } from '@/apis/family';
 import LinkedFamily from '@/components/Link/LinkedFamily';
 import ReceivedRequest from '@/components/Link/ReceivedRequest';
 import SearchInput from '@/components/Link/SearchInput/SearchInput';
@@ -58,6 +61,14 @@ const defaultTabIndex = {
 const Link = () => {
   const { push, query } = useRouter();
   const [tabIndex, setTabIndex] = useState(0);
+
+  const { data } = useQuery(['newRequest'], newRequest, {
+    cacheTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: true,
+  });
+  const isFamilyReceived = data?.data?.isFamilyReceived;
+  const isFamilySent = data?.data?.isFamilySent;
 
   const tab = query.tab as keyof typeof defaultTabIndex;
 
@@ -108,8 +119,34 @@ const Link = () => {
       >
         <TabList>
           <Tab {...tabStyle}>연동목록</Tab>
-          <Tab {...tabStyle}>받은 요청</Tab>
-          <Tab {...tabStyle}>보낸 요청</Tab>
+          <Tab {...tabStyle}>
+            <Flex pos="relative">
+              받은 요청
+              {isFamilyReceived && (
+                <Circle
+                  size="5px"
+                  bg="error.500"
+                  pos="absolute"
+                  top="0px"
+                  right="-6px"
+                />
+              )}
+            </Flex>
+          </Tab>
+          <Tab {...tabStyle}>
+            <Flex pos="relative">
+              보낸 요청
+              {isFamilySent && (
+                <Circle
+                  size="5px"
+                  bg="error.500"
+                  pos="absolute"
+                  top="0px"
+                  right="-6px"
+                />
+              )}
+            </Flex>
+          </Tab>
         </TabList>
         <TabPanels p="12px 0">
           <TabPanel>

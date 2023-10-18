@@ -1,28 +1,34 @@
-import { Circle, Flex, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import {
+  Circle,
+  Flex,
+  Image,
+  Text,
+  useDisclosure,
+  VStack,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { clearRequest, familiesInfo } from '@/apis/family';
+import { userInfo } from '@/apis/user';
 import { TOKEN_KEY } from '@/constants/auth';
 import { XIcon } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 import { getLocalStorage } from '@/utils/storage';
 
 import ConfirmModal from './ConfirmModal';
 
 const LinkedFamily = () => {
+  const queryClient = useQueryClient();
   const clearModal = useDisclosure();
   const [userType, setUserType] = useState('');
   const [selected, setSelected] = useState({
     memberId: 0,
     nickname: '',
   });
-  const {
-    memberType: { name },
-  } = useRecoilValue(userInfoAtom);
-  const setFamilyInfo = useSetRecoilState(userInfoAtom);
+  const { data: user, refetch: userRefetch } = useQuery(['userInfo'], userInfo);
+  const name = user?.data?.memberType.name;
+
   const { query } = useRouter();
 
   const tab = query.tab as string;
@@ -35,17 +41,16 @@ const LinkedFamily = () => {
     familiesInfo,
     {
       enabled: enableFetch,
+      onSuccess: () => {
+        queryClient.invalidateQueries(['newRequest']);
+      },
     }
   );
 
   const clear = useMutation((targetId: number) => clearRequest(targetId), {
     onSuccess: () => {
-      familyRefetch().then((data) => {
-        setFamilyInfo((prev) => ({
-          ...prev,
-          families: data.data?.data?.families || [],
-        }));
-      });
+      familyRefetch();
+      userRefetch();
       clearModal.onClose();
     },
   });
@@ -64,13 +69,17 @@ const LinkedFamily = () => {
 
   const isNoFamilies = !families || families.length === 0;
 
+  const searchIcon =
+    userType === 'KID' ? '/kidSearch.png' : '/guardianSearch.png';
+
   useEffect(() => {
     setUserType(name === 'KID' ? '보호자' : '아이');
   }, [name]);
 
   return isNoFamilies ? (
-    <VStack w="100%" h="300px" justify="center">
-      <Text layerStyle="body15Md" color="gray.500">
+    <VStack w="100%" h="300px" justify="center" spacing="12px">
+      <Image src={searchIcon} w="70px" />
+      <Text layerStyle="body15Md" color="gray.700">
         연동된 {userType}가 없어요
       </Text>
     </VStack>

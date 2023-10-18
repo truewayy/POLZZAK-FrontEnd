@@ -2,7 +2,7 @@
 
 import API_URLS from '@/constants/apiUrls';
 
-import http from './http';
+import { http } from './http';
 
 export interface Family {
   memberId: number;
@@ -18,6 +18,7 @@ export interface Coupon {
   couponId: number;
   reward: string;
   rewardDate: Date;
+  rewardRequestDate: Date;
 }
 
 interface CouponListResponse {
@@ -147,6 +148,19 @@ export const receiveGift = async (couponId: number | string) => {
   try {
     const { data }: IssueCouponResponse = await http.post(
       API_URLS.RECEIVE_GIFT(couponId)
+    );
+
+    return data;
+  } catch (error) {
+    const err = error as CouponListError;
+    return err.response.data;
+  }
+};
+
+export const requestGift = async (couponId: number | string) => {
+  try {
+    const { data }: IssueCouponResponse = await http.post(
+      API_URLS.REQUEST_GIFT(couponId)
     );
 
     return data;

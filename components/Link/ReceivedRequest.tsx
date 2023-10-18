@@ -2,14 +2,14 @@ import {
   Button,
   Circle,
   Flex,
+  Image,
   Text,
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
-import { useSetRecoilState } from 'recoil';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import {
   approveRequest,
@@ -18,18 +18,17 @@ import {
   rejectRequest,
 } from '@/apis/family';
 import { TOKEN_KEY } from '@/constants/auth';
-import { userInfoAtom } from '@/store/userInfo';
 import { getLocalStorage } from '@/utils/storage';
 
 import ConfirmModal from './ConfirmModal';
 
 const ReceivedRequest = () => {
+  const queryClient = useQueryClient();
   const [selected, setSelected] = useState({
     memberId: 0,
     nickname: '',
   });
   const { query } = useRouter();
-  const setFamilyInfo = useSetRecoilState(userInfoAtom);
 
   const tab = query.tab as string;
   const token = getLocalStorage(TOKEN_KEY);
@@ -44,18 +43,17 @@ const ReceivedRequest = () => {
     receivedRequest,
     {
       enabled: enableFetch,
+      onSuccess: () => {
+        queryClient.invalidateQueries(['newRequest']);
+      },
     }
   );
 
   const approve = useMutation((targetId: number) => approveRequest(targetId), {
     onSuccess: async () => {
       receivedRefetch();
-      await familiesInfo().then((data) => {
-        setFamilyInfo((prev) => ({
-          ...prev,
-          families: data.data?.families || [],
-        }));
-      });
+      await familiesInfo();
+      queryClient.invalidateQueries(['newRequest']);
       approveModal.onClose();
     },
   });
@@ -63,6 +61,7 @@ const ReceivedRequest = () => {
   const reject = useMutation((targetId: number) => rejectRequest(targetId), {
     onSuccess: () => {
       receivedRefetch();
+      queryClient.invalidateQueries(['newRequest']);
       //   familyRefetch();
       rejectModal.onClose();
     },
@@ -93,8 +92,9 @@ const ReceivedRequest = () => {
     !receivedRequests || receivedRequests.length === 0;
 
   return isNoReceivedRequests ? (
-    <VStack w="100%" h="300px" justify="center">
-      <Text layerStyle="body15Md" color="gray.500">
+    <VStack w="100%" h="300px" justify="center" spacing="12px">
+      <Image src="/noSearchResult.png" w="84px" />
+      <Text layerStyle="body15Md" color="gray.700">
         받은 요청이 없어요
       </Text>
     </VStack>

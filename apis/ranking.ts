@@ -2,13 +2,27 @@
 
 import API_URLS from '@/constants/apiUrls';
 
-import http from './http';
+import { http } from './http';
 
 export interface RankingResponse {
   data: {
     code: 200;
     messages: null;
     data: {
+      memberSimpleResponse: {
+        memberId: number;
+        nickname: string;
+        memberPoint: {
+          point: number;
+          level: number;
+        };
+        memberType: {
+          name: string;
+          detail: string;
+        };
+        profileUrl: string;
+        myRanking: number;
+      };
       rankingSummaries: {
         ranking: number;
         rankingStatus: 'UP' | 'DOWN' | 'HOLD';

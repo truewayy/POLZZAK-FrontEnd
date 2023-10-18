@@ -47,7 +47,6 @@ const CouponSwiperView = ({
     </Flex>
     {progressingCoupons.length > 0 ? (
       <SwiperComponent
-        grabCursor
         slidesPerView={1.15}
         height={200}
         centeredSlides
@@ -62,11 +61,18 @@ const CouponSwiperView = ({
         style={{ marginBottom: '38px' }}
         onSlideChange={handleChangeSwiper}
       >
-        {progressingCoupons.map(({ reward, rewardDate, couponId }) => (
-          <SwiperSlide key={reward}>
-            <Card reward={reward} rewardDate={rewardDate} couponId={couponId} />
-          </SwiperSlide>
-        ))}
+        {progressingCoupons.map(
+          ({ reward, rewardDate, couponId, rewardRequestDate }) => (
+            <SwiperSlide key={couponId} style={{ cursor: 'pointer' }}>
+              <Card
+                reward={reward}
+                rewardDate={rewardDate}
+                couponId={couponId}
+                rewardRequestDate={rewardRequestDate}
+              />
+            </SwiperSlide>
+          )
+        )}
         {progressingCoupons.length > 0 && (
           <Text
             pt="8px"

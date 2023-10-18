@@ -1,15 +1,18 @@
-import { Box, Button, Flex, Input, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Input,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import QABox from '@/components/CallCenter/QABox';
 import QuestionList from '@/components/CallCenter/QuestionList';
-import {
-  CallCenterIcon,
-  InputDeleteIcon,
-  LeftNavigation,
-  SearchIcon,
-} from '@/public/icon';
+import { InputDeleteIcon, LeftNavigation, SearchIcon } from '@/public/icon';
 
 const guardianQuestions = [
   {
@@ -434,6 +437,7 @@ const CallCenter = () => {
       {!isSearchResultMode && (
         <Flex
           w="100%"
+          maxW="560px"
           h="86px"
           p="0 24px"
           justify="space-between"
@@ -447,7 +451,7 @@ const CallCenter = () => {
             <br />
             1:1 문의가 필요해요!
           </Text>
-          <CallCenterIcon w="148px" h="80px" />
+          <Image w="108px" h="66px" src="/qaPudding.png" />
         </Flex>
       )}
     </VStack>

@@ -1,25 +1,20 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
+import { userInfo } from '@/apis/user';
+import BasicInfo from '@/components/Profile/BasicInfo';
+import MyPoint from '@/components/Profile/MyPoint';
 import ROUTES from '@/constants/routes';
-import { userInfoAtom } from '@/store/userInfo';
-
-const BasicInfo = dynamic(() => import('@/components/Profile/BasicInfo'), {
-  ssr: false,
-});
-
-const MyPoint = dynamic(() => import('@/components/Profile/MyPoint'), {
-  ssr: false,
-});
 
 const Profile = () => {
-  const { memberType } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
+
   const { push } = useRouter();
 
-  const isKid = memberType.name === 'KID';
+  const isKid = memberType?.name === 'KID';
 
   const handleClickCallCenter = () => {
     if (isKid) {
@@ -34,11 +29,15 @@ const Profile = () => {
   };
 
   const handleClickTerms = () => {
-    push(ROUTES.TERMS);
+    push(`${ROUTES.PROFILE.ROOT}${ROUTES.TERMS}`);
   };
 
   const handleClickPrivacy = () => {
-    push(ROUTES.PRIVACY);
+    push(`${ROUTES.PROFILE.ROOT}${ROUTES.PRIVACY}`);
+  };
+
+  const handleClickNotice = () => {
+    push(`${ROUTES.PROFILE.ROOT}${ROUTES.NOTICE}`);
   };
 
   return (
@@ -52,6 +51,7 @@ const Profile = () => {
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            cursor="pointer"
             onClick={handleClickCallCenter}
           >
             고객센터
@@ -61,6 +61,8 @@ const Profile = () => {
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            cursor="pointer"
+            onClick={handleClickNotice}
           >
             공지사항
           </Box>
@@ -69,24 +71,30 @@ const Profile = () => {
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            cursor="pointer"
             onClick={handleClickAccountManage}
           >
             계정관리
           </Box>
-          <Box
+          <Flex
             w="100%"
             p="20px 0"
             borderBottom="1px solid"
             borderColor="gray.200"
+            justify="space-between"
           >
-            버전정보
-          </Box>
+            <Flex justify="space-between" align="center" gap="12px">
+              버전정보
+            </Flex>
+            <Text color="polzzak.default">v1.0</Text>
+          </Flex>
         </VStack>
         <Flex gap="20px" align="center">
           <Text
             layerStyle="caption13Sbd"
             color="gray.400"
             textDecor="underline"
+            cursor="pointer"
             onClick={handleClickTerms}
           >
             이용약관
@@ -95,6 +103,7 @@ const Profile = () => {
             layerStyle="caption13Sbd"
             color="gray.400"
             textDecor="underline"
+            cursor="pointer"
             onClick={handleClickPrivacy}
           >
             개인정보처리방침

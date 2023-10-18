@@ -6,7 +6,7 @@ import { StampboardListData } from '@/apis/stamp';
 import StampSwiperView from './StampSwiperView';
 
 const StampSwiper = ({
-  partner: { nickname },
+  partner: { nickname, memberType },
   stampBoardSummaries,
 }: StampboardListData) => {
   const [currentBoard, setCurrentBoard] = useState<number>(1);
@@ -20,6 +20,7 @@ const StampSwiper = ({
   const StampSwiperVAProps = {
     handleChangeSwiper,
     nickname,
+    memberType,
     currentBoard,
     totalBoard,
     completedBoard,

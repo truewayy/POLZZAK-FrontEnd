@@ -2,14 +2,13 @@ import { Box, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
 import { stampboardDetail } from '@/apis/stamp';
+import { userInfo } from '@/apis/user';
 import Header from '@/components/Stamp/Header';
 import MissionList from '@/components/Stamp/MissionList';
 import Nav from '@/components/Stamp/Nav';
 import StampBoard from '@/components/Stamp/StampBoard';
-import { userInfoAtom } from '@/store/userInfo';
 
 const StampRequestBox = dynamic(
   () => import('@/components/Stamp/StampRequestBox'),
@@ -25,9 +24,9 @@ const RewardBox = dynamic(() => import('@/components/Stamp/RewardBox'), {
 const Stampboard = () => {
   const { query } = useRouter();
   const stampboardId = query.stampboardId as string;
-  const {
-    memberType: { name },
-  } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const name = user?.data?.memberType.name;
+
   const { data } = useQuery(
     ['stampboard', stampboardId],
     () => stampboardDetail(stampboardId),
@@ -58,14 +57,14 @@ const Stampboard = () => {
   return (
     <VStack w="100%" h="100%" spacing="0">
       <VStack w="100%" p="20px 5%" bg="#F8F8FC">
-        <Nav />
+        <Nav isCompleted={isCompleted} />
         <Header
           stampboardName={stampboard?.name ?? ''}
           isCompleted={isCompleted}
           completingDate={completingDate}
           progressingDate={progressingDate}
         />
-        {!isMemberTypeKid && isMissionRequest && (
+        {!isMemberTypeKid && isMissionRequest && !isCompleted && (
           <StampRequestBox
             stampboardId={stampboardId}
             missionRequestList={stampboard.missionRequestList || []}

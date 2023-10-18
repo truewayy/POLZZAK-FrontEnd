@@ -44,6 +44,7 @@ const CardView = ({
     borderRadius="8px"
     pos="relative"
     justify="space-between"
+    cursor="pointer"
     onClick={handleClickCard}
   >
     <VStack w="100%" spacing="0px">

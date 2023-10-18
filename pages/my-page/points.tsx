@@ -1,14 +1,16 @@
-import { Box, Circle, Flex, Icon, Text, VStack } from '@chakra-ui/react';
+import { Box, Circle, Flex, Grid, Icon, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery } from 'react-query';
 
 import { pointLog } from '@/apis/point';
-import { PointMinus, PointPlus } from '@/public/icon';
+import { LeftArrow, PointMinus, PointPlus } from '@/public/icon';
 import { formatDateDifference } from '@/utils/dateConvert';
 
 const Points = () => {
   const [startId, setStartId] = useState<number>();
+  const { back } = useRouter();
   const { ref, inView } = useInView();
   const { data: points, fetchNextPage } = useInfiniteQuery(
     ['points'],
@@ -38,7 +40,23 @@ const Points = () => {
   }, [inView, fetchNextPage]);
 
   return (
-    <VStack w="100%" p="16px" minH="100vh" bg="gray.100">
+    <VStack w="100%" p="16px" pt="50px" minH="100vh" bg="gray.100">
+      <Grid
+        w="100%"
+        maxW="560px"
+        templateColumns="repeat(3, 1fr)"
+        placeItems="center"
+        p="10px 16px"
+        bg="white"
+        pos="fixed"
+        top="0"
+        zIndex="3"
+      >
+        <LeftArrow w="10px" h="18px" mr="auto" onClick={back} />
+        <Text layerStyle="subtitle18Sbd" color="#1C1C1C">
+          포인트 적립내역
+        </Text>
+      </Grid>
       <VStack w="100%" spacing="8px">
         {points?.pages.map((point) =>
           point?.response.content.map((item) => (

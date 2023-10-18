@@ -1,6 +1,14 @@
-import { Button, Circle, Flex, Text, useToast, VStack } from '@chakra-ui/react';
+import {
+  Button,
+  Circle,
+  Flex,
+  Image,
+  Text,
+  useToast,
+  VStack,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { cancelRequest, sentRequest } from '@/apis/family';
 import { TOKEN_KEY } from '@/constants/auth';
@@ -8,6 +16,7 @@ import { getLocalStorage } from '@/utils/storage';
 
 const SentRequest = () => {
   const toast = useToast();
+  const queryClient = useQueryClient();
   const { query } = useRouter();
 
   const tab = query.tab as string;
@@ -20,11 +29,15 @@ const SentRequest = () => {
     sentRequest,
     {
       enabled: enableFetch,
+      onSuccess: () => {
+        queryClient.invalidateQueries(['newRequest']);
+      },
     }
   );
 
   const cancel = useMutation((targetId: number) => cancelRequest(targetId), {
     onSuccess: () => {
+      queryClient.invalidateQueries(['newRequest']);
       sentRefetch();
       toast({
         title: '연동 요청이 취소되었습니다.',
@@ -44,8 +57,9 @@ const SentRequest = () => {
   const isNoSentRequests = !sentRequests || sentRequests.length === 0;
 
   return isNoSentRequests ? (
-    <VStack w="100%" h="300px" justify="center">
-      <Text layerStyle="body15Md" color="gray.500">
+    <VStack w="100%" h="300px" justify="center" spacing="12px">
+      <Image src="/noSearchResult.png" w="84px" />
+      <Text layerStyle="body15Md" color="gray.700">
         보낸 요청이 없어요
       </Text>
     </VStack>

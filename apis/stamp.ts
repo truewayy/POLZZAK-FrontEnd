@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import API_URLS from '@/constants/apiUrls';
 
-import http from './http';
+import { http } from './http';
 
 interface StampboardListProps {
   partnerMemberId?: number;
@@ -109,6 +109,15 @@ export interface StampboardDetailData {
   completedDate: string | null;
   rewardDate: Date;
   createdDate: string;
+  guardianMemberType: {
+    memberTypeDetailId: number;
+    detail: string;
+  };
+  guardian: {
+    id: number;
+    nickname: string;
+    profileUrl: string;
+  };
 }
 
 interface StampboardDetailResponse {

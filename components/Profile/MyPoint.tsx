@@ -1,15 +1,15 @@
 import { Box, Circle, Flex, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
 import { myPoint } from '@/apis/point';
+import { userInfo } from '@/apis/user';
 import ROUTES from '@/constants/routes';
 import { Medal, Point, Rule, StepPudding } from '@/public/icon';
-import { userInfoAtom } from '@/store/userInfo';
 
 const MyPoint = () => {
-  const { memberType } = useRecoilValue(userInfoAtom);
+  const { data: user } = useQuery(['userInfo'], userInfo);
+  const memberType = user?.data?.memberType;
 
   const { push } = useRouter();
   const { data: my } = useQuery(['myPoint'], myPoint);
@@ -17,7 +17,7 @@ const MyPoint = () => {
   const handleClickRanking = () => {
     push({
       pathname: ROUTES.PROFILE.RANKING,
-      query: { memberType: memberType.name === 'KID' ? 'kids' : 'guardians' },
+      query: { memberType: memberType?.name === 'KID' ? 'kids' : 'guardians' },
     });
   };
 
